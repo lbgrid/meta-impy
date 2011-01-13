@@ -16,7 +16,7 @@ HippoLimits *gHippoLimits = 0;
 HippoLimits::HippoLimits() 
 :
 	mMaxAgentGroups(100),
-	mMaxHeight(10000.0f),
+	mMaxHeight(16383.0f),
 	mMinHoleSize(0.05f),
 	mMaxHollow(0.95f),
 	mMinPrimScale(0.001f),
@@ -56,7 +56,7 @@ void HippoLimits::setOpenSimLimits()
 	mMaxPrimXPos = F32_MAX;
 	mMaxPrimYPos = F32_MAX;
 	mMaxPrimZPos = F32_MAX;
-	mMaxHeight = 10000.0f;
+	mMaxHeight = 16383.0f;
 	mMaxLinkedPrims = -1;
 	mMaxPhysLinkedPrims = -1;
 	mAllowParcelWindLight = TRUE;
