@@ -752,6 +752,8 @@ void HippoGridManager::deleteGrid(const std::string& grid)
 
 void HippoGridManager::setDefaultGrid(const std::string& grid)
 {
+	return;
+	/*
 	GridIterator it = mGridInfo.find(grid);
 	if (it != mGridInfo.end()) 
 	{
@@ -769,6 +771,7 @@ void HippoGridManager::setDefaultGrid(const std::string& grid)
 	{
 		mDefaultGrid = "";
 	}
+	*/
 }
 
 
