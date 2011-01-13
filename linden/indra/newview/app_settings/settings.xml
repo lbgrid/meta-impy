@@ -342,6 +342,17 @@
     <key>Value</key>
     <real>45.0</real>
   </map>
+  <key>ShowGridManager</key>
+  <map>
+    <key>Comment</key>
+    <string>(meta7 setting) Do we want to show the grid manager on startup?</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>Boolean</string>
+    <key>Value</key>
+    <real>0</real>
+  </map>
   <key>CmdLineCacheLocation</key>
   <map>
     <key>Comment</key>
