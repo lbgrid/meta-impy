@@ -383,7 +383,7 @@ class LinuxSetup(UnixSetup):
             if hosts == 1 and socket.gethostname().startswith('station'):
                 hosts, job_count = mk_distcc_hosts()
                 os.putenv('DISTCC_HOSTS', hosts)
-            opts.extend(['-j', str(job_count)])
+            opts.extend(['-j', str(2)])
 
         if targets:
             targets = ' '.join(targets)
