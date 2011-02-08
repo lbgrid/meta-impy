@@ -36,7 +36,6 @@ include(GooglePerfTools)
 include(TemplateCheck)
 include(UI)
 include(UnixInstall)
-include(ViewerArtwork)
 include(ViewerMiscLibs)
 
 if (WINDOWS)
