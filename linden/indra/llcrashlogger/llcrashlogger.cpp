@@ -203,7 +203,7 @@ void LLCrashLogger::gatherFiles()
 	{
 		// Figure out the filename of the second life log
 		LLCurl::setCAFile(gDirUtilp->getCAFile());
-		mFileMap["SecondLifeLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Imprudence.log");
+		mFileMap["SecondLifeLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"meta-impy.log");
 		mFileMap["SettingsXml"] = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,"settings.xml");
 	}
 
@@ -335,7 +335,7 @@ bool LLCrashLogger::sendCrashLogs()
 	updateApplication("Sending reports...");
 
 	std::string dump_path = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-															   "ImprudenceCrashReport");
+															   "meta-impyCrashReport");
 	std::string report_file = dump_path + ".log";
 
 	std::ofstream out_file(report_file.c_str());
@@ -369,10 +369,10 @@ void LLCrashLogger::updateApplication(const std::string& message)
 bool LLCrashLogger::init()
 {
 	// We assume that all the logs we're looking for reside on the current drive
-	gDirUtilp->initAppDirs("Imprudence");
+	gDirUtilp->initAppDirs("meta-impy");
 
-	// Default to the product name "Imprudence" (this is overridden by the -name argument)
-	mProductName = "Imprudence";
+	// Default to the product name "meta-impy" (this is overridden by the -name argument)
+	mProductName = "meta-impy";
 	
 	mCrashSettings.declareS32(CRASH_BEHAVIOR_SETTING, CRASH_BEHAVIOR_ASK, "Controls behavior when viewer crashes "
 		"(0 = ask before sending crash report, 1 = always send crash report, 2 = never send crash report)");
@@ -394,7 +394,7 @@ bool LLCrashLogger::init()
 	//If we've opened the crash logger, assume we can delete the marker file if it exists	
 	if( gDirUtilp )
 	{
-		std::string marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"Imprudence.exec_marker");
+		std::string marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"meta-impy.exec_marker");
 		LLAPRFile::remove( marker_file );
 	}
 	

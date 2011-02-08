@@ -7,21 +7,21 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 
 ; These will change
-AppId={{1B3E68BC-13EB-4277-9439-CB5FF9259460}
-AppName=Imprudence Viewer Experimental Release
-AppVerName=Imprudence Viewer 1.4.0 Experimental 2010.09.04
-DefaultDirName={pf}\ImprudenceExperimental
-DefaultGroupName=Imprudence Viewer Experimental Release
-VersionInfoProductName=Imprudence Viewer Experimental Release
-OutputBaseFilename=Imprudence-1.4.0-experimental-2010.09.04-Setup
-VersionInfoVersion=1.4.0
-VersionInfoTextVersion=1.4.0
-VersionInfoProductVersion=1.4.0
+AppId={{D7736EE8-AFCE-4735-BBE3-652CDFBBFCA8}
+AppName=meta-impy
+AppVerName=meta-impy Viewer 1.3.0 RC2 (SSE2 optimized)
+DefaultDirName={pf}\meta-impy
+DefaultGroupName=meta-impy Viewer
+VersionInfoProductName=meta-impy Viewer
+OutputBaseFilename=meta-impy-1.3.0-RC2-(SSE2-optimized)-Setup
+VersionInfoVersion=1.3.0
+VersionInfoTextVersion=1.3.0
+VersionInfoProductVersion=1.3.0
 VersionInfoCopyright=2010
 AppCopyright=2010
 
 ; These won't change
-VersionInfoCompany=Imprudence
+VersionInfoCompany=meta-impy
 AppPublisher=The Imprudence Project
 AppPublisherURL=http://www.imprudenceviewer.org
 AppSupportURL=http://www.imprudenceviewer.org
@@ -35,8 +35,8 @@ InternalCompressLevel=ultra64
 SolidCompression=true
 PrivilegesRequired=poweruser
 AllowRootDirectory=true
-WizardImageFile=..\windows\imprudence_installer_icon_left.bmp
-WizardSmallImageFile=..\windows\imprudence_installer_icon_right.bmp
+WizardImageFile=..\windows\meta-impy_installer_icon_left.bmp
+WizardSmallImageFile=..\windows\meta-impy_installer_icon_right.bmp
 SetupLogging=true
 
 [Languages]
@@ -45,12 +45,12 @@ Name: english; MessagesFile: compiler:Default.isl
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checkedonce
 Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checkedonce
-Name: slurlassociate; Description: Associate Imprudence with SLURLs; GroupDescription: Associations:; Languages: ; Flags: checkedonce
+Name: slurlassociate; Description: Associate meta-impy with SLURLs; GroupDescription: Associations:; Languages: ; Flags: checkedonce
 ; TODO: use scripting for something like this on uninstall:
 ; Name: uninstallsettings; Description: Remove user settings; Flags: checkablealone; Languages: ; GroupDescription: Uninstall:
 
 [Files]
-Source: C:\imp_1.3\imprudence.exe; DestDir: {app}; Flags: ignoreversion
+Source: C:\imp_1.3\meta-impy.exe; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\character\*; DestDir: {app}\character; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: C:\imp_1.3\fonts\*; DestDir: {app}\fonts; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: C:\imp_1.3\app_settings\*; DestDir: {app}\app_settings; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -66,8 +66,8 @@ Source: C:\imp_1.3\freebl3.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\glew32.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\gpu_table.txt; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\iconv.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\imprudence.exe.config; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\imprudence.url; DestDir: {app}; Flags: ignoreversion
+Source: C:\imp_1.3\meta-impy.exe.config; DestDir: {app}; Flags: ignoreversion
+Source: C:\imp_1.3\meta-impy.url; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\intl.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\js3250.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\libcairo-2.dll; DestDir: {app}; Flags: ignoreversion
@@ -100,7 +100,6 @@ Source: C:\imp_1.3\libgstsdp.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\libgsttag.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\libgstvideo.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\libgthread-2.0-0.dll; DestDir: {app}; Flags: ignoreversion
-Source: C:\imp_1.3\libhunspell.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\libjpeg.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\libmp3lame-0.dll; DestDir: {app}; Flags: ignoreversion
 Source: C:\imp_1.3\libneon-27.dll; DestDir: {app}; Flags: ignoreversion
@@ -155,31 +154,31 @@ Source: C:\imp_1.3\wrap_oal.dll; DestDir: {app}; Flags: ignoreversion
 [Registry]
 Root: HKCR; Subkey: secondlife; ValueType: string; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueName: (default); ValueData: URL:Second Life
 Root: HKCR; Subkey: secondlife; ValueType: string; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueName: URL Protocol
-Root: HKCR; Subkey: secondlife\DefaultIcon; Flags: uninsdeletekey deletekey; ValueType: string; Tasks: slurlassociate; ValueData: {app}\imprudence.exe
-Root: HKCR; Subkey: secondlife\shell\open\command; ValueType: expandsz; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueData: "{app}\imprudence.exe --settings settings_imprudence.xml -url ""%1"""; Languages: 
+Root: HKCR; Subkey: secondlife\DefaultIcon; Flags: uninsdeletekey deletekey; ValueType: string; Tasks: slurlassociate; ValueData: {app}\meta-impy.exe
+Root: HKCR; Subkey: secondlife\shell\open\command; ValueType: expandsz; Flags: uninsdeletekey deletekey; Tasks: slurlassociate; ValueData: "{app}\meta-impy.exe --settings settings_meta-impy.xml -url ""%1"""; Languages: 
 ; Root: HKCU; Subkey: Environment; ValueType: string; ValueName: GST_PLUGIN_PATH; Flags: deletevalue uninsdeletevalue; ValueData: {app}\lib
 ; Root: HKCU; Subkey: Environment; ValueType: expandsz; ValueName: PATH; ValueData: {app}
 
 [Icons]
-Name: {group}\{cm:UninstallProgram,Imprudence Experimental}; Filename: {uninstallexe}
-Name: {commondesktop}\Imprudence Experimental; Filename: {app}\imprudence.exe; Tasks: desktopicon; Parameters: --settings settings_imprudence.xml; WorkingDir: {app}; IconIndex: 0
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Imprudence Experimental; Filename: {app}\imprudence.exe; Tasks: quicklaunchicon; Parameters: --settings settings_imprudence.xml; WorkingDir: {app}
-Name: {group}\Imprudence Experimental; Filename: {app}\imprudence.exe; WorkingDir: {app}; Comment: imprudence; IconIndex: 0; Parameters: --settings settings_imprudence.xml
+Name: {group}\{cm:UninstallProgram,meta-impy}; Filename: {uninstallexe}
+Name: {commondesktop}\meta-impy; Filename: {app}\meta-impy.exe; Tasks: desktopicon; Parameters: --settings settings_meta-impy.xml; WorkingDir: {app}; IconIndex: 0
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\meta-impy; Filename: {app}\meta-impy.exe; Tasks: quicklaunchicon; Parameters: --settings settings_meta-impy.xml; WorkingDir: {app}
+Name: {group}\meta-impy; Filename: {app}\meta-impy.exe; WorkingDir: {app}; Comment: meta-impy; IconIndex: 0; Parameters: --settings settings_meta-impy.xml
 
 [Run]
-Filename: {app}\imprudence.exe; WorkingDir: {app}; Flags: nowait postinstall
-Filename: {app}\imprudence.url; WorkingDir: {app}; Flags: nowait postinstall shellexec; Description: See what makes Imprudence different
+Filename: {app}\meta-impy.exe; WorkingDir: {app}; Flags: nowait postinstall
+Filename: {app}\meta-impy.url; WorkingDir: {app}; Flags: nowait postinstall shellexec; Description: See what makes Imprudence different
 
 [UninstallDelete]
-Name: {userappdata}\Imprudence\user_settings\password.dat; Type: files; Languages: 
-Name: {userappdata}\Imprudence\user_settings\settings.xml; Type: files; Languages: 
-Name: {userappdata}\Imprudence\user_settings\settings_imprudence.xml; Type: files; Languages: 
+Name: {userappdata}\meta-impy\user_settings\password.dat; Type: files; Languages: 
+Name: {userappdata}\meta-impy\user_settings\settings.xml; Type: files; Languages: 
+Name: {userappdata}\meta-impy\user_settings\settings_meta-impy.xml; Type: files; Languages: 
 ; 1.2 and lower cache location:
-Name: {userappdata}\Imprudence\cache; Type: filesandordirs
+Name: {userappdata}\meta-impy\cache; Type: filesandordirs
 ; 1.3 and higher cache location:
-Name: {localappdata}\Imprudence\cache; Type: filesandordirs
-Name: {userappdata}\Imprudence\logs; Type: filesandordirs
-Name: {userappdata}\Imprudence\browser_profile; Type: filesandordirs
+Name: {localappdata}\meta-impy\cache; Type: filesandordirs
+Name: {userappdata}\meta-impy\logs; Type: filesandordirs
+Name: {userappdata}\meta-impy\browser_profile; Type: filesandordirs
 Name: C:\Users\{username}\.gstreamer-0.10; Type: filesandordirs
 Name: C:\Documents and Settings\{username}\.gstreamer-0.10; Type: filesandordirs
 

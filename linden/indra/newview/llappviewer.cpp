@@ -309,15 +309,15 @@ BOOL gLogoutInProgress = FALSE;
 // Internal globals... that should be removed.
 static std::string gArgs;
 
-const std::string MARKER_FILE_NAME("Imprudence.exec_marker");
-const std::string ERROR_MARKER_FILE_NAME("Imprudence.error_marker");
-const std::string LLERROR_MARKER_FILE_NAME("Imprudence.llerror_marker");
-const std::string LOGOUT_MARKER_FILE_NAME("Imprudence.logout_marker");
+const std::string MARKER_FILE_NAME("meta-impy.exec_marker");
+const std::string ERROR_MARKER_FILE_NAME("meta-impy.error_marker");
+const std::string LLERROR_MARKER_FILE_NAME("meta-impy.llerror_marker");
+const std::string LOGOUT_MARKER_FILE_NAME("meta-impy.logout_marker");
 static BOOL gDoDisconnect = FALSE;
 static std::string gLaunchFileOnQuit;
 
 // Used on Win32 for other apps to identify our window (eg, win_setup)
-const char* const VIEWER_WINDOW_CLASSNAME = "Imprudence";
+const char* const VIEWER_WINDOW_CLASSNAME = "meta-impy";
 
 //----------------------------------------------------------------------------
 // File scope definitons
@@ -1645,12 +1645,12 @@ bool LLAppViewer::initLogging()
 	
 	// Remove the last ".old" log file.
 	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Imprudence.old");
+							     "meta-impy.old");
 	LLFile::remove(old_log_file);
 
 	// Rename current log file to ".old"
 	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
-							     "Imprudence.log");
+							     "meta-impy.log");
 	LLFile::rename(log_file, old_log_file);
 
 	// Set the log file to Imprudence.log
@@ -1817,7 +1817,7 @@ bool LLAppViewer::initConfiguration()
 	// - set procedural settings 
 	gSavedSettings.setString("ClientSettingsFile", 
         // gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFilename("Default", "Global")));
-        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence_experimental.xml"));
+        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_meta-impy_experimental.xml"));
 
 	gSavedSettings.setString("VersionChannelName", ViewerVersion::getImpViewerName());
 

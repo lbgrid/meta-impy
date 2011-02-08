@@ -287,7 +287,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function CloseSecondLife
   Push $0
-  FindWindow $0 "Imprudence" ""
+  FindWindow $0 "meta-impy" ""
   IntCmp $0 0 DONE
   MessageBox MB_OKCANCEL $(CloseSecondLifeInstMB) IDOK CLOSE IDCANCEL CANCEL_INSTALL
 
@@ -299,7 +299,7 @@ Function CloseSecondLife
     SendMessage $0 16 0 0
 
   LOOP:
-	  FindWindow $0 "Imprudence" ""
+	  FindWindow $0 "meta-impy" ""
 	  IntCmp $0 0 DONE
 	  Sleep 500
 	  Goto LOOP
@@ -344,12 +344,12 @@ FunctionEnd
 ; FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Delete files in Documents and Settings\<user>\Imprudence\cache
-; Delete files in Documents and Settings\All Users\Imprudence\cache
+; Delete files in Documents and Settings\<user>\meta-impy\cache
+; Delete files in Documents and Settings\All Users\meta-impy\cache
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Function RemoveCacheFiles
 ;
-;; Delete files in Documents and Settings\<user>\Imprudence
+;; Delete files in Documents and Settings\<user>\meta-impy
 ;Push $0
 ;Push $1
 ;Push $2
@@ -368,7 +368,7 @@ FunctionEnd
 ;    ExpandEnvStrings $2 $2
 ;
 ;	; When explicitly uninstalling, everything goes away
-;    RMDir /r "$2\Application Data\Imprudence\cache"
+;    RMDir /r "$2\Application Data\meta-impy\cache"
 ;
 ;  CONTINUE:
 ;    IntOp $0 $0 + 1
@@ -378,17 +378,17 @@ FunctionEnd
 ;Pop $1
 ;Pop $0
 ;
-;; Delete files in Documents and Settings\All Users\Imprudence
+;; Delete files in Documents and Settings\All Users\meta-impy
 ;Push $0
 ;  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
 ;  StrCmp $0 "" +2
-;  RMDir /r "$0\Imprudence\cache"
+;  RMDir /r "$0\meta-impy\cache"
 ;Pop $0
 ;
-;; Delete filse in C:\Windows\Application Data\Imprudence
+;; Delete filse in C:\Windows\Application Data\meta-impy
 ;; If the user is running on a pre-NT system, Application Data lives here instead of
 ;; in Documents and Settings.
-;RMDir /r "$WINDIR\Application Data\Imprudence\cache"
+;RMDir /r "$WINDIR\Application Data\meta-impy\cache"
 ;
 ;FunctionEnd
 
@@ -438,12 +438,12 @@ FunctionEnd
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Delete files in Documents and Settings\<user>\Imprudence
-; Delete files in Documents and Settings\All Users\Imprudence
+; Delete files in Documents and Settings\<user>\meta-impy
+; Delete files in Documents and Settings\All Users\meta-impy
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.DocumentsAndSettingsFolder
 
-; Delete files in Documents and Settings\<user>\Imprudence
+; Delete files in Documents and Settings\<user>\meta-impy
 Push $0
 Push $1
 Push $2
@@ -466,13 +466,13 @@ Push $2
 	; Otherwise (preview/dmz etc) just remove cache
     StrCmp $INSTFLAGS "" RM_ALL RM_CACHE
       RM_ALL:
-        RMDir /r "$2\Application Data\Imprudence"
+        RMDir /r "$2\Application Data\meta-impy"
       RM_CACHE:
         # Local Settings directory is the cache, there is no "cache" subdir
-        RMDir /r "$2\Local Settings\Application Data\Imprudence"
+        RMDir /r "$2\Local Settings\Application Data\meta-impy"
         # Vista version of the same
-        RMDir /r "$2\AppData\Local\Imprudence"
-        Delete "$2\Application Data\Imprudence\user_settings\settings_windlight.xml"
+        RMDir /r "$2\AppData\Local\meta-impy"
+        Delete "$2\Application Data\meta-impy\user_settings\settings_windlight.xml"
 
   CONTINUE:
     IntOp $0 $0 + 1
@@ -483,17 +483,17 @@ Pop $2
 Pop $1
 Pop $0
 
-; Delete files in Documents and Settings\All Users\Imprudence
+; Delete files in Documents and Settings\All Users\meta-impy
 Push $0
   ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
   StrCmp $0 "" +2
-  RMDir /r "$0\Imprudence"
+  RMDir /r "$0\meta-impy"
 Pop $0
 
-; Delete filse in C:\Windows\Application Data\Imprudence
+; Delete filse in C:\Windows\Application Data\meta-impy
 ; If the user is running on a pre-NT system, Application Data lives here instead of
 ; in Documents and Settings.
-RMDir /r "$WINDIR\Application Data\Imprudence"
+RMDir /r "$WINDIR\Application Data\meta-impy"
 
 FunctionEnd
 
@@ -503,7 +503,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.CloseSecondLife
   Push $0
-  FindWindow $0 "Imprudence" ""
+  FindWindow $0 "meta-impy" ""
   IntCmp $0 0 DONE
   MessageBox MB_OKCANCEL $(CloseSecondLifeUnInstMB) IDOK CLOSE IDCANCEL CANCEL_UNINSTALL
 
@@ -515,7 +515,7 @@ Function un.CloseSecondLife
     SendMessage $0 16 0 0
 
   LOOP:
-	  FindWindow $0 "Imprudence" ""
+	  FindWindow $0 "meta-impy" ""
 	  IntCmp $0 0 DONE
 	  Sleep 500
 	  Goto LOOP
@@ -536,7 +536,7 @@ Function un.RemovePassword
 DetailPrint "Removing Second Life password"
 
 SetShellVarContext current
-Delete "$APPDATA\Imprudence\user_settings\password.dat"
+Delete "$APPDATA\meta-impy\user_settings\password.dat"
 SetShellVarContext all
 
 FunctionEnd
@@ -758,11 +758,11 @@ SectionEnd 				; end of uninstall section
 !macroend
 
 Function GetProgramName
-  !insertmacro GetParameterValue "/P=" "Imprudence"
+  !insertmacro GetParameterValue "/P=" "meta-impy"
 FunctionEnd
 
 Function un.GetProgramName
-  !insertmacro GetParameterValue "/P=" "Imprudence"
+  !insertmacro GetParameterValue "/P=" "meta-impy"
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

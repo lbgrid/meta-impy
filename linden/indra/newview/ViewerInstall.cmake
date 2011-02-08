@@ -1,4 +1,4 @@
-install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/imprudence-bin
+install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/meta-impy-bin
         DESTINATION ${APP_BINARY_DIR}
         )
 

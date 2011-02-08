@@ -945,7 +945,7 @@ void MediaPluginGStreamer010::set_gst_plugin_path()
 		return;
 	}
 
-	DEBUGMSG("Imprudence is installed at %s", imp_dir);
+	DEBUGMSG("meta-impy is installed at %s", imp_dir);
 
 	// ":" on Mac and 'Nix, ";" on Windows
 	std::string separator = G_SEARCHPATH_SEPARATOR_S;
@@ -963,7 +963,7 @@ void MediaPluginGStreamer010::set_gst_plugin_path()
 	}
 
 
-	// Search both Imprudence and Imprudence\lib\gstreamer-plugins.
+	// Search both meta-impy and meta-impy\lib\gstreamer-plugins.
 	// But we also want to search the path the user has set, if any.
 	std::string plugin_path =	
 		"GST_PLUGIN_PATH=" +

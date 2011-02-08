@@ -870,8 +870,8 @@ void LLWinDebug::generateCrashStacks(struct _EXCEPTION_POINTERS *exception_infop
 			ExInfo.ExceptionPointers = exception_infop;
 			ExInfo.ClientPointers = NULL;
 
-			writeDumpToFile(MiniDumpNormal, &ExInfo, "Imprudence.dmp");
-			writeDumpToFile((MINIDUMP_TYPE)(MiniDumpWithDataSegs | MiniDumpWithIndirectlyReferencedMemory), &ExInfo, "ImprudencePlus.dmp");
+			writeDumpToFile(MiniDumpNormal, &ExInfo, "meta-impy.dmp");
+			writeDumpToFile((MINIDUMP_TYPE)(MiniDumpWithDataSegs | MiniDumpWithIndirectlyReferencedMemory), &ExInfo, "meta-impyPlus.dmp");
 		}
 
 		info = Get_Exception_Info(exception_infop);

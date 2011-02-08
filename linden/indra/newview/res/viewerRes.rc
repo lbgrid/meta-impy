@@ -74,7 +74,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE
 FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDI_LL_ICON,IDC_STATIC,7,7,20,20
-    LTEXT           "Loading Imprudence...",666,36,13,91,8
+    LTEXT           "Loading meta-impy...",666,36,13,91,8
 END
 
 
@@ -154,12 +154,12 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "Imprudence Viewer Project"
-            VALUE "FileDescription", "Imprudence Experimental"
+            VALUE "CompanyName", "meta-impy Viewer Project"
+            VALUE "FileDescription", "meta-impy Experimental"
             VALUE "FileVersion", "2010.09.04"
-            VALUE "InternalName", "Imprudence Experimental"
-            VALUE "OriginalFilename", "Imprudence.exe"
-            VALUE "ProductName", "Imprudence Weekly"
+            VALUE "InternalName", "meta-impy Experimental"
+            VALUE "OriginalFilename", "meta-impy.exe"
+            VALUE "ProductName", "meta-impy Weekly"
             VALUE "ProductVersion", "2010.09.04"
         END
     END

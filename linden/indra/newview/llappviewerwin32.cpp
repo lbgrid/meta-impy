@@ -103,7 +103,7 @@ extern "C" {
 #endif
 #endif
 
-const std::string LLAppViewerWin32::sWindowClass = "Imprudence";
+const std::string LLAppViewerWin32::sWindowClass = "meta-impy";
 
 LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop)
 {

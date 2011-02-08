@@ -129,7 +129,7 @@ class ViewerManifest(LLManifest):
 
     # Gather up the README file, etc.
     def gather_documents(self):
-        # From the top level directory (imprudence)
+        # From the top level directory (meta-impy)
         if self.prefix("../../..", dst=""):
             self.path("README.txt")
             self.path("MANIFESTO.txt")
@@ -169,7 +169,7 @@ class ViewerManifest(LLManifest):
     def channel(self):
         return self.args['channel']
     def channel_unique(self):
-        return self.channel().replace("Imprudence", "").strip()
+        return self.channel().replace("meta-impy", "").strip()
     def channel_oneword(self):
         return "".join(self.channel_unique().split())
     def channel_lowerword(self):
@@ -211,9 +211,9 @@ class WindowsManifest(ViewerManifest):
     def final_exe(self):
         if self.default_channel():
             if self.default_grid():
-                return "imprudence.exe"
+                return "meta-impy.exe"
             else:
-                return "imprudencepreview.exe"
+                return "meta-impypreview.exe"
         else:
             return ''.join(self.channel().split()) + '.exe'
 
@@ -222,7 +222,7 @@ class WindowsManifest(ViewerManifest):
         super(WindowsManifest, self).construct()
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
-        self.path(self.find_existing_file('debug/imprudence-bin.exe', 'release/imprudence-bin.exe', 'relwithdebinfo/imprudence-bin.exe'), dst=self.final_exe())
+        self.path(self.find_existing_file('debug/meta-impy-bin.exe', 'release/meta-impy-bin.exe', 'relwithdebinfo/meta-impy-bin.exe'), dst=self.final_exe())
 
         self.gather_documents()
 
@@ -231,7 +231,7 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix("../..")
 
 
-        self.path("imprudence.url")
+        self.path("meta-impy.url")
 
         # Plugin host application
         self.path(os.path.join(os.pardir,
@@ -320,17 +320,17 @@ class WindowsManifest(ViewerManifest):
             self.end_prefix()
 
         # The config file name needs to match the exe's name.
-        self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
+        self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
 
         # We need this one too, so that llkdu loads at runtime - DEV-41194
-        #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
+        #self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
         self.path("llkdu.dll.2.config")
 
         # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
-        #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
+        #self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
 
         # same thing for auto-updater.
-        #self.path(src="%s/imprudence-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
+        #self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
 
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
@@ -491,36 +491,36 @@ class WindowsManifest(ViewerManifest):
         if self.default_channel():
             if self.default_grid():
                 # release viewer
-                installer_file = "Imprudence_%(version_dashes)s_Setup.exe"
+                installer_file = "meta-impy_%(version_dashes)s_Setup.exe"
                 grid_vars_template = """
                 OutFile "%(installer_file)s"
                 !define INSTFLAGS "%(flags)s"
-                !define INSTNAME   "Imprudence"
-                !define SHORTCUT   "Imprudence"
-                !define URLNAME   "imprudence"
-                Caption "Imprudence ${VERSION}"
+                !define INSTNAME   "meta-impy"
+                !define SHORTCUT   "meta-impy"
+                !define URLNAME   "meta-impy"
+                Caption "meta-impy ${VERSION}"
                 """
             else:
                 # beta grid viewer
-                installer_file = "Imprudence_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
+                installer_file = "meta-impy_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
                 grid_vars_template = """
                 OutFile "%(installer_file)s"
                 !define INSTFLAGS "%(flags)s"
-                !define INSTNAME   "Imprudence%(grid_caps)s"
-                !define SHORTCUT   "Imprudence (%(grid_caps)s)"
-                !define URLNAME   "imprudence%(grid)s"
+                !define INSTNAME   "meta-impy%(grid_caps)s"
+                !define SHORTCUT   "meta-impy (%(grid_caps)s)"
+                !define URLNAME   "meta-impy%(grid)s"
                 !define UNINSTALL_SETTINGS 1
-                Caption "Imprudence %(grid)s ${VERSION}"
+                Caption "meta-impy %(grid)s ${VERSION}"
                 """
         else:
             # some other channel on some grid
-            installer_file = "Imprudence_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
+            installer_file = "meta-impy_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
             grid_vars_template = """
             OutFile "%(installer_file)s"
             !define INSTFLAGS "%(flags)s"
-            !define INSTNAME   "Imprudence%(channel_oneword)s"
+            !define INSTNAME   "meta-impy%(channel_oneword)s"
             !define SHORTCUT   "%(channel)s"
-            !define URLNAME   "imprudence"
+            !define URLNAME   "meta-impy"
             !define UNINSTALL_SETTINGS 1
             Caption "%(channel)s ${VERSION}"
             """
@@ -530,7 +530,7 @@ class WindowsManifest(ViewerManifest):
             installer_file = installer_file % substitution_strings
         substitution_strings['installer_file'] = installer_file
 
-        tempfile = "imprudence_setup_tmp.nsi"
+        tempfile = "meta-impy_setup_tmp.nsi"
         # the following replaces strings in the nsi template
         # it also does python-style % substitution
         self.replace_in("installers/windows/installer_template.nsi", tempfile, {
@@ -562,11 +562,11 @@ class WindowsManifest(ViewerManifest):
 class DarwinManifest(ViewerManifest):
     def construct(self):
         # copy over the build result (this is a no-op if run within the xcode script)
-        self.path(self.args['configuration'] + "/Imprudence.app", dst="")
+        self.path(self.args['configuration'] + "/meta-impy.app", dst="")
 
         if self.prefix(src="", dst="Contents"):  # everything goes in Contents
             
-            self.path("Info-Imprudence.plist", dst="Info.plist")
+            self.path("Info-meta-impy.plist", dst="Info.plist")
 
             # copy additional libs in <bundle>/Contents/MacOS/
             if (not self.standalone()) and self.prefix(src="../../libraries/universal-darwin/lib_release", dst="MacOS/"):
@@ -802,16 +802,16 @@ class DarwinManifest(ViewerManifest):
 
 
     def package_finish(self):
-        channel_standin = 'Imprudence'  # hah, our default channel is not usable on its own
+        channel_standin = 'meta-impy'  # hah, our default channel is not usable on its own
         if not self.default_channel():
             channel_standin = self.channel()
 
-        imagename="Imprudence_" + '_'.join(self.args['version'])
+        imagename="meta-impy_" + '_'.join(self.args['version'])
 
         # MBW -- If the mounted volume name changes, it breaks the .DS_Store's background image and icon positioning.
         #  If we really need differently named volumes, we'll need to create multiple DS_Store file images, or use some other trick.
 
-        volname="Imprudence Installer"  # DO NOT CHANGE without understanding comment above
+        volname="meta-impy Installer"  # DO NOT CHANGE without understanding comment above
 
         if self.default_channel():
             if not self.default_grid():
@@ -838,7 +838,7 @@ class DarwinManifest(ViewerManifest):
         # Copy everything in to the mounted .dmg
 
         if self.default_channel() and not self.default_grid():
-            app_name = "Imprudence " + self.args['grid']
+            app_name = "meta-impy " + self.args['grid']
         else:
             app_name = channel_standin.strip()
 
@@ -891,12 +891,12 @@ class LinuxManifest(ViewerManifest):
     def construct(self):
         super(LinuxManifest, self).construct()
 
-        self.path("res/imprudence_icon.png","imprudence_icon.png")
+        self.path("res/meta-impy_icon.png","meta-impy_icon.png")
         if self.prefix("linux_tools", dst=""):
             #self.path("client-readme.txt","README-linux.txt")
             self.path("client-readme-voice.txt","README-linux-voice.txt")
             #self.path("client-readme-joystick.txt","README-linux-joystick.txt")
-            self.path("wrapper.sh","imprudence")
+            self.path("wrapper.sh","meta-impy")
             self.path("handle_secondlifeprotocol.sh")
             self.path("register_secondlifeprotocol.sh")
             self.end_prefix("linux_tools")
@@ -933,7 +933,7 @@ class LinuxManifest(ViewerManifest):
         if 'installer_name' in self.args:
             installer_name = self.args['installer_name']
         else:
-            installer_name_components = ['Imprudence_', self.args.get('arch')]
+            installer_name_components = ['meta-impy_', self.args.get('arch')]
             installer_name_components.extend(self.args['version'])
             installer_name = "_".join(installer_name_components)
             if self.default_channel():
@@ -980,9 +980,9 @@ class Linux_i686Manifest(LinuxManifest):
     def construct(self):
         super(Linux_i686Manifest, self).construct()
         if self.debug():
-            self.path("imprudence-bin","bin/do-not-directly-run-imprudence-bin")
+            self.path("meta-impy-bin","bin/do-not-directly-run-meta-impy-bin")
         else:
-            self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
+            self.path("meta-impy-stripped","bin/do-not-directly-run-meta-impy-bin")
 
         self.path("../llcommon/libllcommon.so", "lib/libllcommon.so")
 
@@ -1101,9 +1101,9 @@ class Linux_x86_64Manifest(LinuxManifest):
     def construct(self):
         super(Linux_x86_64Manifest, self).construct()
         if self.debug():
-            self.path("imprudence-bin","bin/do-not-directly-run-imprudence-bin")
+            self.path("meta-impy-bin","bin/do-not-directly-run-meta-impy-bin")
         else:
-            self.path("imprudence-stripped","bin/do-not-directly-run-imprudence-bin")
+            self.path("meta-impy-stripped","bin/do-not-directly-run-meta-impy-bin")
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
 
         self.path("../llcommon/libllcommon.so", "lib64/libllcommon.so")

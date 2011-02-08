@@ -1,6 +1,6 @@
 <?xml version="1.0" ?><notifications>
 
-<global name="VIEWER_NAME">Imprudence</global>
+<global name="VIEWER_NAME">meta-impy</global>
 <global name="VIEWER_SITE">imprudenceviewer.org</global>
 <global name="SECOND_LIFE">Second Life</global>
 <global name="SECOND_LIFE_SITE">secondlife.com</global>

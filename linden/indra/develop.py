@@ -77,7 +77,7 @@ class PlatformSetup(object):
     standalone = 'OFF'
     unattended = 'OFF'
     universal = 'OFF'
-    project_name = 'Imprudence'
+    project_name = 'meta-impy'
     distcc = True
     cmake_opts = []
 
@@ -632,9 +632,9 @@ class WindowsSetup(PlatformSetup):
                 continue
             vstool_cmd = (os.path.join('tools','vstool','VSTool.exe') +
                           ' --solution ' +
-                          os.path.join(build_dir,'Imprudence.sln') +
+                          os.path.join(build_dir,'meta-impy.sln') +
                           ' --config ' + self.build_type +
-                          ' --startup imprudence-bin')
+                          ' --startup meta-impy-bin')
             print 'Running %r in %r' % (vstool_cmd, getcwd())
             self.run(vstool_cmd)        
             print >> open(stamp, 'w'), self.build_type

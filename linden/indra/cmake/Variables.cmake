@@ -74,10 +74,10 @@ endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 set(GRID agni CACHE STRING "Target Grid")
 
 set(VIEWER ON CACHE BOOL "Build Second Life viewer.")
-set(VIEWER_CHANNEL "Imprudence" CACHE STRING "Viewer Channel Name")
+set(VIEWER_CHANNEL "meta-impy" CACHE STRING "Viewer Channel Name")
 set(VIEWER_LOGIN_CHANNEL ${VIEWER_CHANNEL} CACHE STRING "Fake login channel for A/B Testing")
 
-set(STANDALONE OFF CACHE BOOL "Do not use Imprudence-supplied prebuilt libraries.")
+set(STANDALONE OFF CACHE BOOL "Do not use meta-impy-supplied prebuilt libraries.")
 
 if (NOT STANDALONE AND EXISTS ${CMAKE_SOURCE_DIR}/llphysics)
     set(SERVER ON CACHE BOOL "Build Second Life server software.")

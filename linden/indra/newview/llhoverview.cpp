@@ -286,7 +286,7 @@ void LLHoverView::updateText()
 				LLVOAvatar* avatar = (LLVOAvatar*)hit_object;
 				if (avatar->isSelf())
 				{
-					client="Client: Imprudence";
+					client="Client: meta-impy";
 				}
 				else
 				{

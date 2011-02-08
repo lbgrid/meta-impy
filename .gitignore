@@ -14,7 +14,7 @@ linden/indra/newview/lib/
 linden/indra/newview/dbghelp.dll
 linden/indra/newview/linux_tools/client-readme-voice.txt
 linden/indra/newview/vivox-runtime/
-linden/indra/newview/*.lproj/
+# linden/indra/newview/*.lproj/
 linden/indra/newview/mozilla-theme/
 linden/indra/test_apps/
 

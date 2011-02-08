@@ -2989,7 +2989,7 @@ std::string LLStartUp::loadPasswordFromDisk()
 #if LL_DARWIN
 		UInt32 passwordLength;
 		char *passwordData;
-		OSStatus stat = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, &passwordLength, (void**)&passwordData, NULL);
+		OSStatus stat = SecKeychainFindGenericPassword(NULL, 10, "meta-impy", 0, NULL, &passwordLength, (void**)&passwordData, NULL);
 		if (stat == noErr)
 		{
 			if (passwordLength == HASHED_LENGTH)
@@ -3037,7 +3037,7 @@ void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
 {
 #if LL_DARWIN
 	SecKeychainItemRef keychainItem;
-	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, NULL, NULL, &keychainItem);
+	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "meta-impy", 0, NULL, NULL, NULL, &keychainItem);
 	if (status == noErr)
 	{
 		SecKeychainItemModifyAttributesAndData(keychainItem, NULL, hashed_password.length(), hashed_password.c_str());
@@ -3045,7 +3045,7 @@ void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
 	}
 	else
 	{
-		SecKeychainAddGenericPassword(NULL, 10, "Imprudence", 0, NULL, hashed_password.length(), hashed_password.c_str(), NULL);
+		SecKeychainAddGenericPassword(NULL, 10, "meta-impy", 0, NULL, hashed_password.length(), hashed_password.c_str(), NULL);
 	}
 #else
 	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
@@ -3080,7 +3080,7 @@ void LLStartUp::deletePasswordFromDisk()
 {
 #if LL_DARWIN
 	SecKeychainItemRef keychainItem;
-	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, NULL, NULL, &keychainItem);
+	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "meta-impy", 0, NULL, NULL, NULL, &keychainItem);
 	if (status == noErr)
 	{
 		SecKeychainItemDelete(keychainItem);

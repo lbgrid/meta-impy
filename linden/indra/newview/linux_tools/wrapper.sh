@@ -107,7 +107,7 @@ if [ -n "$LL_TCMALLOC" ]; then
     fi
 fi
 
-export VIEWER_BINARY='do-not-directly-run-imprudence-bin'
+export VIEWER_BINARY='do-not-directly-run-meta-impy-bin'
 BINARY_TYPE=$(expr match "$(file -b bin/$VIEWER_BINARY)" '\(.*executable\)')
 if [ "${BINARY_TYPE}" == "ELF 64-bit LSB executable" ]; then
 	export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib64:"`pwd`"/lib32:"${LD_LIBRARY_PATH}"'
