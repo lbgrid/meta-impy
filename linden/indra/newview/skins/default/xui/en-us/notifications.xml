@@ -5638,9 +5638,9 @@ If you want to view streaming media on parcels that support it you should go to 
 No Media Plugin was found to handle the "[MIME_TYPE]" mime type.  Media of this type will be unavailable.
 </notification>
 <notification
- icon="alertmodal.tga"
+ icon="alert.tga"
  name="MediaPluginFailed"
- type="alertmodal">
+ type="alert">
 The following Media Plugin has failed:
 [PLUGIN]
 
