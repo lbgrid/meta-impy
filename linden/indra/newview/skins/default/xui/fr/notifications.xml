@@ -1425,21 +1425,6 @@ Pour quitter un groupe, sélectionnez l&apos;option Groupe dans le menu Éditer.
 			<button name="Cancel" text="Annuler"/>
 		</form>
 	</notification>
-	<notification label="Modifier un domaine Linden" name="ChangeLindenEstate">
-		Vous vous apprêtez à modifier un domaine appartenant aux Lindens (continent, zone réservée aux ados, orientation etc.).
-
-Cela est extrêmement délicat car l&apos;expérience des résidents est en jeu. Sur le continent, cela modifiera des milliers de régions et sera difficile à digérer pour le serveur.
-
-Continuer ?
-		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
-	</notification>
-	<notification label="Modifier l&apos;accès à un domaine Linden" name="ChangeLindenAccess">
-		Vous vous apprêtez à modifier la liste d&apos;accès à un domaine appartenant aux Linden (continent, zone réservée aux ados, orientation etc.).
-
-Cette action est délicate et ne doit être effectuée que pour appeler le hack autorisant des objets/L$ à être transférés à l&apos;intérieur/extérieur de la grille.
-Cette action modifiera des milliers de régions et sera difficile à digérer pour le serveur.
-		<usetemplate name="okcancelbuttons" notext="Annuler" yestext="OK"/>
-	</notification>
 	<notification label="Choisir le domaine" name="EstateAllowedAgentAdd">
 		Ajouter à la liste des résidents autorisés uniquement pour ce domaine ou pour [ALL_ESTATES] ?
 		<usetemplate canceltext="Annuler" name="yesnocancelbuttons" notext="Tous les domaines" yestext="Ce domaine"/>

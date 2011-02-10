@@ -1454,21 +1454,6 @@ Se ocultará el chat y los mensajes instantáneos. Los mensajes instantáneos re
 			<button name="Cancel" text="Cancelar"/>
 		</form>
 	</notification>
-	<notification label="Cambiar un estado Linden" name="ChangeLindenEstate">
-		Va a hacer cambios en un estado propiedad de Linden (mainland, grid teen, orientación, etc.).
-
-Esto es EXTREMADAMENTE PELIGROSO, porque puede afectar radicalmente al funcionamiento de los usuarios. En mainland, se cambiarán miles de regiones, y se provocará un colapso en el espacio del servidor.
-
-¿Proceder?
-		<usetemplate name="okcancelbuttons" notext="Cancelar" yestext="OK"/>
-	</notification>
-	<notification label="Cambiar el acceso a un estado Linden" name="ChangeLindenAccess">
-		Va a cambiar la lista de acceso de un estado propiedad de Linden (mainland, grid teen, orientación, etc.).
-
-Esto es PELIGROSO, y sólo debe hacerse para deshacerse de ataques que permitan sacar o meter en el grid objetos o L$.
-Se cambiarán miles de regiones, y se provocará un colapso en el espacio del servidor.
-		<usetemplate name="okcancelbuttons" notext="Cancelar" yestext="OK"/>
-	</notification>
 	<notification label="Seleccionar el estado" name="EstateAllowedAgentAdd">
 		¿Añadir a la lista de permitidos sólo para este estado o para [ALL_ESTATES]?
 		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todos los estados" yestext="Este estado"/>

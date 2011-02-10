@@ -1436,21 +1436,6 @@ www.secondlife.com/support
 			<button name="Cancel" text="Відміна"/>
 		</form>
 	</notification>
-	<notification label="Змінити ділянку Лінденів" name="ChangeLindenEstate">
-		Ви хочете змінити маєтки, що належать Лінденам (материк, дитячий Grid, остров орієнтації і т.д.).
-
-Це НАДЗВИЧАЙНО НЕБЕЗПЕЧНО, тому що це може суттєво вплинути на стан речей. На материку це може змінити тисячі регіонів, і зіпсувати роботу серверів.
-
-Продовжити?
-		<usetemplate name="okcancelbuttons" notext="Відміна" yestext="OK"/>
-	</notification>
-	<notification label="Змінити доступ до ділянки Лінденів" name="ChangeLindenAccess">
-		Ви хочете змінити маєтки, що належать Лінденам (материк, дитячий Grid, остров орієнтації і т.д.).
-
-Це НАДЗВИЧАЙНО НЕБЕЗПЕЧНО і може використовуватися тільки для того, щоб викликати методи, що дозволять переміщати об&apos;єкти/L$ в/з Grid.
-Це може змінити тисячі регіонів, і зіпсувати роботу серверів.
-		<usetemplate name="okcancelbuttons" notext="Відміна" yestext="OK"/>
-	</notification>
 	<notification label="Обрати маєток" name="EstateAllowedAgentAdd">
 		Додати в список дозволених цього маєтку або [ALL_ESTATES]?
 		<usetemplate canceltext="Відміна" name="yesnocancelbuttons" notext="Всі маєтки" yestext="Цей маєток"/>

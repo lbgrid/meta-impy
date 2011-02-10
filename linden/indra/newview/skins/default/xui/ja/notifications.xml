@@ -1526,21 +1526,6 @@ F1キーを押してください。
 			<button name="Cancel" text="取り消し"/>
 		</form>
 	</notification>
-	<notification label="Lindenの不動産を変更" name="ChangeLindenEstate">
-		あなたはLinden所有の不動産（メインランド、ティーングリッド、オリエンテーションなど）を変更しようとしています。
-
-これはユーザーの経験を根本から揺るがしかねない「非常に危険な行為」です。これにより、メインランドで多数の地域が変更され、スペースサーバーに悪影響が生じます。
-
-操作を続行しますか？
-		<usetemplate name="okcancelbuttons" notext="取り消し" yestext="OK"/>
-	</notification>
-	<notification label="Lindenの不動産へのアクセスを変更" name="ChangeLindenAccess">
-		あなたはLinden所有の不動産（メインランド、ティーングリッド、オリエンテーションなど）へのアクセスリストを変更しようとしています。
-
-この行為は「危険」であり、グリッドからオブジェクトやお金の転送をもたらすハッキングを引き起こす可能性があるため、完全にそれを意図した場合のみ行うべきものです。
-これにより多数の地域が変更され、スペースサーバーに悪影響が生じます。
-		<usetemplate name="okcancelbuttons" notext="取り消し" yestext="OK"/>
-	</notification>
 	<notification label="不動産を選択" name="EstateAllowedAgentAdd">
 		この不動産の許可リストだけに追加しますか？ それとも[ALL_ESTATES]のすべての許可リストに追加しますか？
 		<usetemplate canceltext="取り消し" name="yesnocancelbuttons" notext="すべての不動産" yestext="この不動産"/>

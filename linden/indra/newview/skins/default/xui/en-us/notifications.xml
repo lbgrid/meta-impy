@@ -3194,30 +3194,11 @@ Type a short announcement which will be sent to everyone currently in your estat
 
 <notification
  icon="alert.tga"
- label="Change Linden Estate"
- name="ChangeLindenEstate"
+ label="Pfft some old linden crap"
+ name="PfftLindenCrap"
  type="alert">
-You are about to change a Linden owned estate (mainland, teen grid, orientation, etc.).
-
-This is EXTREMELY DANGEROUS because it can fundamentally affect the user experience.  On the mainland, it will change thousands of regions and make the spaceserver hiccup.
-
-Proceed?
-  <usetemplate
-   name="okcancelbuttons"
-   notext="Cancel"
-   yestext="OK"/>
-</notification>
-
-<notification
- icon="alert.tga"
- label="Change Linden Estate Access"
- name="ChangeLindenAccess"
- type="alert">
-You are about to change the access list for a Linden owned estate (mainland, teen grid, orientation, etc.).
-
-This is DANGEROUS and should only be done to invoke the hack allowing objects/[CURRENCY] to be transfered in/out of a grid.
-
-It will change thousands of regions and make the spaceserver hiccup.
+This used to be some Linden inspired crap, but should never be seen now.
+Still unravelling the code before I make this go away.
   <usetemplate
    name="okcancelbuttons"
    notext="Cancel"

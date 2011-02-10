@@ -1434,23 +1434,6 @@ Musisz opuścić przynajmniej jedną grupę żeby przyjąć członkostwo w tej g
 			<button name="Cancel" text="Anuluj"/>
 		</form>
 	</notification>
-	<notification label="Zmiana Majątku Lindenów" name="ChangeLindenEstate">
-		Dokonujesz zmiany w Regionie Głównym należącym do Lindenów (Regiony Główne, Teen Grid, Orientacja).
-		
-Żądana operacja jest wyjątkowo niebezpieczna dla wszystkich Rezydentów przebywających w regionie. Dodatkowo, zmiany dokonane w Regionie Głównym mogą spowodować problemy przestrzeni serwerowej innych regionów.
-
-Kontynuować?
-		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
-	</notification>
-	<notification label="Zmiana Dostępu do Majątku Lindenów" name="ChangeLindenAccess">
-		Dokonujesz zmiany w liście dostępu Regionu Głównego należącego do Lindenów (Regiony Główne, Teen Grid, Orientacja).
-
-Żądana operacja jest wyjątkowo niebezpieczna dla wszystkich Rezydentów przebywających w regionie i powinna być używana wyłącznie w celu zablokowania opcji pozwalającej na przeniesienie obiektów/L$ do/z sieci.
-Dodatkowo, zmiany dokonane w Regionie Głównym mogą spowodować problemy przestrzeni serwerowej innych regionów.
-
-Kontynuować?
-		<usetemplate name="okcancelbuttons" notext="Anuluj" yestext="OK"/>
-	</notification>
 	<notification label="Wybierz Majątek" name="EstateAllowedAgentAdd">
 		Dodać do listy dostępu do tego majątku czy do [ALL_ESTATES]?
 		<usetemplate canceltext="Anuluj" name="yesnocancelbuttons" notext="Wszystkie majątki" yestext="Ten majątek"/>

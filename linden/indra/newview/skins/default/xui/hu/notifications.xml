@@ -1317,19 +1317,6 @@ A csoportból való kilépéshez válaszd a &apos;Csoportok...&apos; részt a &a
 	<notification label="Üzenetküldés mindenki számára a telkeden" name="MessageEstate">
 		Rövid bejelentés írása, amely elküldésre mindenki részére, aki az ingatlanodon tartózkodik.
 	</notification>
-	<notification label="Linden telek változtatása" name="ChangeLindenEstate">
-		Linden tulajdonú telek változtatása folyamatban (mainland, teen grid, orientation, stb.).
-
-Ez NAGYON VESZÉLYES, mivel kihatással van a felhasználók megszokásaira. A mainland-en ez régiók ezreit befolyásolja, amely a &apos;spaceserver&apos; működésében akadályokat okoz.
-
-Folytatod?
-	</notification>
-	<notification label="Linden telek belépésének változtatása" name="ChangeLindenAccess">
-		Linden tulajdonú telek változtatása folyamatban (mainland, teen grid, orientation, stb.).
-
-This is DANGEROUS and should only be done to invoke the hack allowing objects/L$ to be transfered in/out of a grid.
-A mainland-en ez régiók ezreit befolyásolja, amely a &apos;spaceserver&apos; működésében akadályokat okoz.
-	</notification>
 	<notification label="Ingatlan kiválasztása" name="EstateAllowedAgentAdd">
 		Engedélyezettek listájához való hozzáadása csak ennek az ingatlan vagy [ALL_ESTATES] esetén?
 	</notification>

@@ -1452,21 +1452,6 @@ www.secondlife.com/support
 			<button name="Cancel" text="Отмена"/>
 		</form>
 	</notification>
-	<notification label="Изменить участок Линденов" name="ChangeLindenEstate">
-		Вы хотите сменить поместья, принадлежащие Линденам (материк, детский Grid, остров ориентации и т.д.).
-
-Это ЧРЕЗВЫЧАЙНО ОПАСНО, потому что это может существенно повлиять на положение вещей. На материке это может изменить тысячи регионов, и испортить работу серверов.
-
-Продолжить?
-		<usetemplate name="okcancelbuttons" notext="Отмена" yestext="OK"/>
-	</notification>
-	<notification label="Изменить доступ к участку Линденов" name="ChangeLindenAccess">
-		Вы хотите сменить поместья, принадлежащие Линденам (материк, детский Grid, остров ориентации и т.д.).
-
-Это ЧРЕЗВЫЧАЙНО ОПАСНО и может использоватся только для того, чтобы вызвать методы, позволяющие перемещать объекты/L$ в/из Grid.
-Это может изменить тысячи регионов, и испортить работу серверов.
-		<usetemplate name="okcancelbuttons" notext="Отмена" yestext="OK"/>
-	</notification>
 	<notification label="Выбрать поместье" name="EstateAllowedAgentAdd">
 		Добавить в список разрешенных этого поместья или [ALL_ESTATES]?
 		<usetemplate canceltext="Отмена" name="yesnocancelbuttons" notext="Все поместья" yestext="Это поместье"/>

@@ -1442,21 +1442,6 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter „Bearbeiten“ &gt; 
 			<button name="Cancel" text="Abbrechen"/>
 		</form>
 	</notification>
-	<notification label="Linden-Grundstück ändern" name="ChangeLindenEstate">
-		Sie sind im Begriff, ein Grundstück in Linden-Besitz (Mainland, Teen-Raster, Orientierung usw.) zu verändern.
-
-Dies ist ÄUSSERST GEFÄHRLICH, da es grundlegende Auswirkungen auf das Benutzererlebnis hat.  Auf dem Mainland werden tausende Regionen geändert, was den Spaceserver stark belastet.
-
-Fortfahren?
-		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
-	</notification>
-	<notification label="Zugang zu Linden-Grundstück ändern" name="ChangeLindenAccess">
-		Sie sind im Begriff, die Zugangsliste für ein Grundstück in Linden-Besitz (Mainland, Teen-Raster, Orientierung usw.) zu verändern.
-
-Dies ist GEFÄHRLICH und sollte nur erfolgen, um Objekte/L$ per Hack in und aus dem Raster zu entfernen.
-Tausende Regionen werden verändert und der Spaceserver wird dadurch stark belastet.
-		<usetemplate name="okcancelbuttons" notext="Abbrechen" yestext="OK"/>
-	</notification>
 	<notification label="Grundstück wählen" name="EstateAllowedAgentAdd">
 		Nur für dieses Grundstück oder für alle [ALL_ESTATES] zur Erlaubnisliste hinzufügen?
 		<usetemplate canceltext="Abbrechen" name="yesnocancelbuttons" notext="Alle Grundstücke" yestext="Dieses Grundstück"/>
