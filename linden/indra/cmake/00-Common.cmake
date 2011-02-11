@@ -169,7 +169,8 @@ if (LINUX)
   endif (SERVER)
 
   if (VIEWER)
-    add_definitions(-DAPPID=meta-impy)
+    # Hmm, APPID does not seem to be used anywhere, but might be used implicitly somewhere.  It also does not like being "meta-impy", so changing this to stop it bitching.
+    add_definitions(-DAPPID=metaImpy)
     add_definitions(-fvisibility=hidden)
     # don't catch SIGCHLD in our base application class for the viewer - some of our 3rd party libs may need their *own* SIGCHLD handler to work.  Sigh!  The viewer doesn't need to catch SIGCHLD anyway.
     add_definitions(-DLL_IGNORE_SIGCHLD)
