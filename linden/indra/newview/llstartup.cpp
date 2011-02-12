@@ -1739,9 +1739,8 @@ bool idle_startup()
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setRegisterUrl(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("password");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setPasswordUrl(tmp);
-// meta7 TODO - comment this out for now, the server is sending spurious data.
-//			tmp = LLUserAuth::getInstance()->getResponse("search");
-//			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
+			tmp = LLUserAuth::getInstance()->getResponse("search");
+			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setSearchUrl(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("currency");
 			if (!tmp.empty()) gHippoGridManager->getConnectedGrid()->setCurrencySymbol(tmp);
 			tmp = LLUserAuth::getInstance()->getResponse("real_currency");
