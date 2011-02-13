@@ -32,7 +32,7 @@
 	<LastName value="Tester"/>
 	<!--Version number of last instance of the viewer that you ran-->
 	<LastRunVersion value="1.7.0"/>
-	<!--Number of successful logins to Second Life-->
+	<!--Number of successful logins to grids-->
 	<NumSessions value="27"/>
 	<!--Query current hardware configuration on application startup-->
 	<ProbeHardwareOnStartup value="FALSE"/>

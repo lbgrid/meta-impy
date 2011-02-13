@@ -201,7 +201,7 @@ void LLCrashLogger::gatherFiles()
 	}
 	else
 	{
-		// Figure out the filename of the second life log
+		// Figure out the filename of the viewer log
 		LLCurl::setCAFile(gDirUtilp->getCAFile());
 		mFileMap["SecondLifeLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"meta-impy.log");
 		mFileMap["SettingsXml"] = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,"settings.xml");

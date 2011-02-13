@@ -418,7 +418,7 @@ protected:
 	LLRect			mPickScreenRegion; // area of frame buffer for rendering pick frames (generally follows mouse to avoid going offscreen)
 	LLTimer         mPickTimer;        // timer for scheduling n picks per second
 
-	std::string		mOverlayTitle;		// Used for special titles such as "Second Life - Special E3 2003 Beta"
+	std::string		mOverlayTitle;		// Used for special titles such as "MyViewer - Special E3 2003 Beta"
 
 	BOOL			mIgnoreActivate;
 

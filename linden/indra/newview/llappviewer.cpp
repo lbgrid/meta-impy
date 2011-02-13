@@ -1803,7 +1803,7 @@ bool LLAppViewer::initConfiguration()
 	if(!loadSettingsFromDirectory("Default", set_defaults))
 	{
 		std::ostringstream msg;
-		msg << "Second Life could not load its default settings file. \n" 
+		msg << "This viewer could not load its default settings file. \n" 
 		    << "The installation may be corrupted. \n";
 
 		OSMessageBox(

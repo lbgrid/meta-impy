@@ -315,25 +315,7 @@ namespace tut
 		checkRoundTrip(msg + " non-empty string", v);
 		
 		v =
-"Second Life is a 3-D virtual world entirely built and owned by its residents. "
-"Since opening to the public in 2003, it has grown explosively and today is "
-"inhabited by nearly 100,000 people from around the globe.\n"
-"\n"
-"From the moment you enter the World you'll discover a vast digital continent, "
-"teeming with people, entertainment, experiences and opportunity. Once you've "
-"explored a bit, perhaps you'll find a perfect parcel of land to build your "
-"house or business.\n"
-"\n"
-"You'll also be surrounded by the Creations of your fellow residents. Because "
-"residents retain the rights to their digital creations, they can buy, sell "
-"and trade with other residents.\n"
-"\n"
-"The Marketplace currently supports millions of US dollars in monthly "
-"transactions. This commerce is handled with the in-world currency, the Linden "
-"dollar, which can be converted to US dollars at several thriving online "
-"currency exchanges.\n"
-"\n"
-"Welcome to Second Life. We look forward to seeing you in-world!\n"
+"Welcome to this grid. We look forward to seeing you in-world!\n"
 		;
 		checkRoundTrip(msg + " long string", v);
 

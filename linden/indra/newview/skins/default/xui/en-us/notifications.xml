@@ -3686,7 +3686,7 @@ Default: off
  label="Max Inventory Items To Transfer"
  name="HelpMaxInventoryItemsTransfer"
  type="alertmodal">
-This box controls how many objects can be transfered between clients at a time. -1 sets no limit on the amount of objects. Default Second Life setting is 42.
+This box controls how many objects can be transfered between clients at a time. -1 sets no limit on the amount of objects. Default setting is 42.
 
 Default: -1
 </notification>

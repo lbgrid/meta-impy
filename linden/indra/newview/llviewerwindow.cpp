@@ -2172,7 +2172,7 @@ void LLViewerWindow::draw()
 
 		if( gShowOverlayTitle && !mOverlayTitle.empty() )
 		{
-			// Used for special titles such as "Second Life - Special E3 2003 Beta"
+			// Used for special titles such as "MyViewer - Special E3 2003 Beta"
 			const S32 DIST_FROM_TOP = 20;
 			LLFontGL::getFontSansSerifBig()->renderUTF8(
 				mOverlayTitle, 0,

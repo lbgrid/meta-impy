@@ -1,6 +1,6 @@
 # -*- cmake -*-
 #
-# Definitions of variables used throughout the Second Life build
+# Definitions of variables used throughout the build
 # process.
 #
 # Platform variables:
@@ -73,14 +73,14 @@ endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 # Default deploy grid
 set(GRID agni CACHE STRING "Target Grid")
 
-set(VIEWER ON CACHE BOOL "Build Second Life viewer.")
+set(VIEWER ON CACHE BOOL "Build the viewer.")
 set(VIEWER_CHANNEL "meta-impy" CACHE STRING "Viewer Channel Name")
 set(VIEWER_LOGIN_CHANNEL ${VIEWER_CHANNEL} CACHE STRING "Fake login channel for A/B Testing")
 
 set(STANDALONE OFF CACHE BOOL "Do not use meta-impy-supplied prebuilt libraries.")
 
 if (NOT STANDALONE AND EXISTS ${CMAKE_SOURCE_DIR}/llphysics)
-    set(SERVER ON CACHE BOOL "Build Second Life server software.")
+    set(SERVER ON CACHE BOOL "Build the server software.")
 endif (NOT STANDALONE AND EXISTS ${CMAKE_SOURCE_DIR}/llphysics)
 
 if (LINUX AND SERVER AND VIEWER)

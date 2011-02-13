@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Send a URL of the form secondlife://... to Second Life.
+# Send a URL of the form secondlife://... to the grid.
 #
 
 URL="$1"

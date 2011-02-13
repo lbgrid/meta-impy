@@ -980,7 +980,7 @@
   <key>SearchURLDefault</key>
   <map>
     <key>Comment</key>
-    <string>URL to load for empty Second Life searches</string>
+    <string>URL to load for empty searches</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>HideFromEditor</key>
@@ -1006,7 +1006,7 @@
   <key>SearchURLQuery</key>
   <map>
     <key>Comment</key>
-    <string>URL to use for Second Life searches</string>
+    <string>URL to use for searches</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>HideFromEditor</key>
@@ -1032,7 +1032,7 @@
   <key>SearchURLSuffix2</key>
   <map>
     <key>Comment</key>
-    <string>Parameters added to end of Second Life search queries</string>
+    <string>Parameters added to end of search queries</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>HideFromEditor</key>
@@ -1080,7 +1080,7 @@
   <key>ShowcaseURLDefault</key>
   <map>
     <key>Comment</key>
-    <string>URL to load for the Showcase tab in Second Life</string>
+    <string>URL to load for the Showcase tab</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -8347,7 +8347,7 @@
     <key>NumSessions</key>
     <map>
       <key>Comment</key>
-      <string>Number of successful logins to Second Life</string>
+      <string>Number of successful logins to grids</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
@@ -11170,7 +11170,7 @@
     <key>SkyUseClassicClouds</key>
     <map>
       <key>Comment</key>
-      <string>Whether to use the old Second Life particle clouds or not</string>
+      <string>Whether to use the old particle clouds or not</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

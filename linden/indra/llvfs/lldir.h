@@ -101,9 +101,9 @@ class LLDir
 	const std::string &getCAFile() const;			// File containing TLS certificate authorities
 	const std::string &getDirDelimiter() const;	// directory separator for platform (ie. '\' or '/' or ':')
 	const std::string &getSkinDir() const;		// User-specified skin folder.
-	const std::string &getUserSkinDir() const;		// User-specified skin folder with user modifications. e.g. c:\documents and settings\username\application data\second life\skins\curskin
-	const std::string &getDefaultSkinDir() const;	// folder for default skin. e.g. c:\program files\second life\skins\default
-	const std::string getSkinBaseDir() const;		// folder that contains all installed skins (not user modifications). e.g. c:\program files\second life\skins
+	const std::string &getUserSkinDir() const;		// User-specified skin folder with user modifications.
+	const std::string &getDefaultSkinDir() const;	// folder for default skin.
+	const std::string getSkinBaseDir() const;		// folder that contains all installed skins (not user modifications).
 	const std::string &getLLPluginDir() const;		// Directory containing plugins and plugin shell
 
 	// Expanded filename

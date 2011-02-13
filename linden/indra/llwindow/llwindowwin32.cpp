@@ -1052,10 +1052,10 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	{
 		close();
 		OSMessageBox(
-			"Second Life requires True Color (32-bit) to run in a window.\n"
+			"This viewer requires True Color (32-bit) to run in a window.\n"
 			"Please go to Control Panels -> Display -> Settings and\n"
 			"set the screen to 32-bit color.\n"
-			"Alternately, if you choose to run fullscreen, Second Life\n"
+			"Alternately, if you choose to run fullscreen, this viewer\n"
 			"will automatically adjust the screen each time it runs.",
 			"Error",
 			OSMB_OK);
@@ -1066,7 +1066,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	{
 		close();
 		OSMessageBox(
-			"Second Life is unable to run because it can't get an 8 bit alpha\n"
+			"This viewer is unable to run because it can't get an 8 bit alpha\n"
 			"channel.  Usually this is due to video card driver issues.\n"
 			"Please make sure you have the latest video card drivers installed.\n"
 			"Also be sure your monitor is set to True Color (32-bit) in\n"
@@ -1314,10 +1314,10 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	{
 		close();
 		OSMessageBox(
-			"Second Life requires True Color (32-bit) to run in a window.\n"
+			"This viewer requires True Color (32-bit) to run in a window.\n"
 			"Please go to Control Panels -> Display -> Settings and\n"
 			"set the screen to 32-bit color.\n"
-			"Alternately, if you choose to run fullscreen, Second Life\n"
+			"Alternately, if you choose to run fullscreen, this viewer\n"
 			"will automatically adjust the screen each time it runs.",
 			"Error",
 			OSMB_OK);
@@ -1328,7 +1328,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	{
 		close();
 		OSMessageBox(
-			"Second Life is unable to run because it can't get an 8 bit alpha\n"
+			"This viewer is unable to run because it can't get an 8 bit alpha\n"
 			"channel.  Usually this is due to video card driver issues.\n"
 			"Please make sure you have the latest video card drivers installed.\n"
 			"Also be sure your monitor is set to True Color (32-bit) in\n"
@@ -1357,7 +1357,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	{
 		close();
 		OSMessageBox(
-					 "Second Life is unable to run because your video card drivers\n"
+					 "This viewer is unable to run because your video card drivers\n"
 					 "did not install properly, are out of date, or are for unsupported\n" 
 					 "hardware. Please make sure you have the latest video card drivers\n"
 					 "and even if you do have the latest, try reinstalling them.\n\n"

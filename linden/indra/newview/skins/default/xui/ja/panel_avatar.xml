@@ -138,7 +138,7 @@
 		</panel>
 		<panel label="ピック" name="Picks">
 			<tab_container name="picks tab" />
-			<text name="Tell everyone about your favorite places in Second Life.">
+			<text name="Tell everyone about your favorite places in world.">
 				Second Lifeのお気入りの場所を皆に教えてください
 			</text>
 			<button label="新規..." label_selected="新規..." name="New..."/>
@@ -149,7 +149,7 @@
 		</panel>
 		<panel label="広告" name="Classified">
 			<tab_container name="classified tab" />
-			<text name="Place an ad in Second Life&apos;s classified listings.">
+			<text name="Place an ad in the classified listings.">
 				SecondLifeのクラシファイドリストに広告を載せます。
 			</text>
 			<button label="新規..." label_selected="新規..." name="New..."/>

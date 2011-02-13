@@ -669,7 +669,7 @@ static bool isFSRefViewerBundle(FSRef *targetRef)
 	return result;
 }
 
-// Search through the directory specified by 'parent' for an item that appears to be a Second Life viewer.
+// Search through the directory specified by 'parent' for an item that appears to be a viewer.
 static OSErr findAppBundleOnDiskImage(FSRef *parent, FSRef *app)
 {
 	FSIterator		iterator;
@@ -756,7 +756,7 @@ void *updatethreadproc(void*)
 	
 	try
 	{
-		// Attempt to get a reference to the Second Life application bundle containing this updater.
+		// Attempt to get a reference to the viewer application bundle containing this updater.
 		// Any failures during this process will cause us to default to updating /Applications/Second Life.app
 		{
 			FSRef myBundle;

@@ -69,7 +69,7 @@ LLStreamingAudio_FMOD::LLStreamingAudio_FMOD() :
 	mGain(1.0f)
 {
 	// Number of milliseconds of audio to buffer for the audio card.
-	// Must be larger than the usual Second Life frame stutter time.
+	// Must be larger than the usual frame stutter time.
 	FSOUND_Stream_SetBufferSize(200);
 
 	// Here's where we set the size of the network buffer and some buffering 

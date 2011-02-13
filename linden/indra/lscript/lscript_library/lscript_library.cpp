@@ -156,7 +156,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetVel", "v", NULL, "vector llGetVel()\ngets the velocity"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetAccel", "v", NULL, "vector llGetAccel()\ngets the acceleration"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetOmega", "v", NULL, "vector llGetOmega()\ngets the omega"));
-	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetTimeOfDay", "f", "", "float llGetTimeOfDay()\ngets the time in seconds since Second Life server midnight (or since server up-time; whichever is smaller)"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetTimeOfDay", "f", "", "float llGetTimeOfDay()\ngets the time in seconds since server midnight (or since server up-time; whichever is smaller)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetWallclock", "f", "", "float llGetWallclock()\ngets the time in seconds since midnight"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetTime", "f", NULL, "float llGetTime()\ngets the time in seconds since creation"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llResetTime", NULL, NULL, "llResetTime()\nsets the time to zero"));

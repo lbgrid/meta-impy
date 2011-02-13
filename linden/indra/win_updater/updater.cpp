@@ -482,7 +482,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	//char params[256];		/* Flawfinder: ignore */
 	//sprintf(params, "/S");	/* Flawfinder: ignore */
 	//MessageBox(gWindow, 
-	//	L"Updating Second Life.\n\nSecond Life will automatically start once the update is complete.  This may take a minute...",
+	//	L"Updating grid viewer.\n\n The grid viewer will automatically start once the update is complete.  This may take a minute...",
 	//	L"Download Complete",
 	//	MB_OK);
 		
