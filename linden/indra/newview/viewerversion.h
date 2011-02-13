@@ -52,15 +52,15 @@ public:
 	// Returns the name of the viewer. Currently always "Imprudence"
 	static std::string	getImpViewerName() { return sViewerName; }
 
-	// Returns the major version of Second Life
+	// Returns the major version of the viewer
 	static S32			getLLMajorVersion() { return LL_VERSION_MAJOR; }
-	// Returns the minor version of Second Life
+	// Returns the minor version of the viewer
 	static S32			getLLMinorVersion() { return LL_VERSION_MINOR; }
-	// Returns the patch version of Second Life
+	// Returns the patch version of the viewer
 	static S32			getLLPatchVersion() { return LL_VERSION_PATCH; }
-	// Returns the build version of Second Life
+	// Returns the build version of the viewer
 	static S32		    getLLBuildVersion() { return LL_VERSION_BUILD; }
-	// Returns the name of the LL viewer ("Second Life")
+	// Returns the name of the viewer ("meta-impy")
 	static std::string	getLLViewerName() { return LL_VIEWER_NAME; }
 
 	// Note that the viewer channel is set in settings.xml

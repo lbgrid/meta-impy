@@ -40,7 +40,7 @@ const S32 LL_VERSION_MINOR = 23;
 const S32 LL_VERSION_PATCH = 5;
 const S32 LL_VERSION_BUILD = 136262;
 
-const char * const LL_VIEWER_NAME = "Second Life";
+const char * const LL_VIEWER_NAME = "meta-impy";
 
 // These aren't used anymore. 
 // The channel is ViewerChannelName in settings.xml
