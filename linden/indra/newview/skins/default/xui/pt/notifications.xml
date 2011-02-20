@@ -1434,21 +1434,6 @@ Bate-papo e mensagens instantâneas serão escondidas. Mensagens instantâneas i
 			<button name="Cancel" text="Cancelar"/>
 		</form>
 	</notification>
-	<notification label="Mudar propriedade Linden" name="ChangeLindenEstate">
-		Você está prestes a mudar uma propriedade pertencente a Linden (continente, teen grid, orientação, etc.)
-
-Isto é EXTREMAMENTE PERIGOSO porque pode fundamentalmente afetar a experiência do usuário. No continente, vai mudar milhares de regiões e fazer o spaceserver soluçar.
-
-Proceder?
-		<usetemplate name="okcancelbuttons" notext="Cancelar" yestext="Mudar Propriedade"/>
-	</notification>
-	<notification label="Mudar o acesso à propriedade Linden" name="ChangeLindenAccess">
-		Você está prestes a mudar a lista de acessos de uma propriedade pertencente a Linden (continente, teen grid, orientação, etc.).
-
-Isto é PERIGOSO e deveria ser feito apenas para utilizar uma brecha que permita que objetos/L$ sejam transferidos para dentro/fora da grade.
-Isto mudará milhares de regiões e fará o spaceserver soluçar.
-		<usetemplate name="okcancelbuttons" notext="Cancelar" yestext="OK"/>
-	</notification>
 	<notification label="Selecione a propriedade" name="EstateAllowedAgentAdd">
 		Adicionar à lista de permitidos somente para esta propriedade ou para [ALL_ESTATES]?
 		<usetemplate canceltext="Cancelar" name="yesnocancelbuttons" notext="Todas as Propriedades" yestext="Esta Propriedade"/>

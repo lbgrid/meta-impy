@@ -362,13 +362,7 @@ void LLFloaterRegionInfo::processRegionInfo(LLMessageSystem* msg)
 	panel->childSetValue("object_bonus_spin", LLSD(object_bonus_factor) );
 	panel->childSetValue("access_combo", LLSD(sim_access) );
 
-
- 	// detect teen grid for maturity
-
-	U32 parent_estate_id;
-	msg->getU32("RegionInfo", "ParentEstateID", parent_estate_id);
-	BOOL teen_grid = (parent_estate_id == 5);  // *TODO add field to estate table and test that
-	panel->childSetEnabled("access_combo", gAgent.isGodlike() || (region && region->canManageEstate() && !teen_grid));
+	panel->childSetEnabled("access_combo", gAgent.isGodlike() || (region && region->canManageEstate() ));
 	panel->setCtrlsEnabled(allow_modify);
 	
 	// RegionSettings PANEL
@@ -1650,16 +1644,9 @@ void LLPanelEstateInfo::onClickAddAllowedGroup(void* user_data)
 		return;
 	}
 
-	LLNotification::Params params("ChangeLindenAccess");
+	LLNotification::Params params("PfftLindenCrap");
 	params.functor(boost::bind(&LLPanelEstateInfo::addAllowedGroup, self, _1, _2));
-	if (isLindenEstate())
-	{
-		LLNotifications::instance().add(params);
-	}
-	else
-	{
-		LLNotifications::instance().forceResponse(params, 0);
-	}
+	LLNotifications::instance().forceResponse(params, 0);
 }
 
 bool LLPanelEstateInfo::addAllowedGroup(const LLSD& notification, const LLSD& response)
@@ -1837,16 +1824,6 @@ std::string all_estates_text()
 	}
 }
 
-// static
-bool LLPanelEstateInfo::isLindenEstate()
-{
-	LLPanelEstateInfo* panel = LLFloaterRegionInfo::getPanelEstate();
-	if (!panel) return false;
-
-	U32 estate_id = panel->getEstateID();
-	return (estate_id <= ESTATE_LAST_LINDEN);
-}
-
 typedef std::vector<LLUUID> AgentOrGroupIDsVector;
 struct LLEstateAccessChangeInfo
 {
@@ -1898,14 +1875,7 @@ void LLPanelEstateInfo::addAllowedGroup2(LLUUID id, void* user_data)
 	params.payload(payload)
 		.substitutions(args)
 		.functor(accessCoreConfirm);
-	if (isLindenEstate())
-	{
-		LLNotifications::instance().forceResponse(params, 0);
-	}
-	else
-	{
-		LLNotifications::instance().add(params);
-	}
+	LLNotifications::instance().add(params);
 }
 
 // static
@@ -1916,19 +1886,12 @@ void LLPanelEstateInfo::accessAddCore(U32 operation_flag, const std::string& dia
 	payload["dialog_name"] = dialog_name;
 	// agent id filled in after avatar picker
 
-	LLNotification::Params params("ChangeLindenAccess");
+	LLNotification::Params params("PfftLindenCrap");
 	params.payload(payload)
 		.functor(accessAddCore2);
 
-	if (isLindenEstate())
-	{
-		LLNotifications::instance().add(params);
-	}
-	else
-	{
-		// same as clicking "OK"
-		LLNotifications::instance().forceResponse(params, 0);
-	}
+	// same as clicking "OK"
+	LLNotifications::instance().forceResponse(params, 0);
 }
 
 // static
@@ -2008,16 +1971,8 @@ void LLPanelEstateInfo::accessAddCore3(const std::vector<std::string>& names, co
 		.payload(change_info->asLLSD())
 		.functor(accessCoreConfirm);
 
-	if (isLindenEstate())
-	{
-		// just apply to this estate
-		LLNotifications::instance().forceResponse(params, 0);
-	}
-	else
-	{
-		// ask if this estate or all estates with this owner
-		LLNotifications::instance().add(params);
-	}
+	// ask if this estate or all estates with this owner
+	LLNotifications::instance().add(params);
 }
 
 // static
@@ -2044,20 +1999,12 @@ void LLPanelEstateInfo::accessRemoveCore(U32 operation_flag, const std::string& 
 		payload["allowed_ids"].append(item->getUUID());
 	}
 	
-	LLNotification::Params params("ChangeLindenAccess");
+	LLNotification::Params params("PfftLindenCrap");
 	params.payload(payload)
 		.functor(accessRemoveCore2);
 
-	if (isLindenEstate())
-	{
-		// warn on change linden estate
-		LLNotifications::instance().add(params);
-	}
-	else
-	{
-		// just proceed, as if clicking OK
-		LLNotifications::instance().forceResponse(params, 0);
-	}
+	// just proceed, as if clicking OK
+	LLNotifications::instance().forceResponse(params, 0);
 }
 
 // static
@@ -2070,21 +2017,12 @@ bool LLPanelEstateInfo::accessRemoveCore2(const LLSD& notification, const LLSD& 
 		return false;
 	}
 
-	// If Linden estate, can only apply to "this" estate, not all estates
-	// owned by NULL.
-	if (isLindenEstate())
-	{
-		accessCoreConfirm(notification, response);
-	}
-	else
-	{
-		LLSD args;
-		args["ALL_ESTATES"] = all_estates_text();
-		LLNotifications::instance().add(notification["payload"]["dialog_name"], 
-										args,
-										notification["payload"],
-										accessCoreConfirm);
-	}
+	LLSD args;
+	args["ALL_ESTATES"] = all_estates_text();
+	LLNotifications::instance().add(notification["payload"]["dialog_name"], 
+									args,
+									notification["payload"],
+									accessCoreConfirm);
 	return false;
 }
 
@@ -2366,51 +2304,22 @@ BOOL LLPanelEstateInfo::sendUpdate()
 {
 	llinfos << "LLPanelEsateInfo::sendUpdate()" << llendl;
 
-	LLNotification::Params params("ChangeLindenEstate");
-	params.functor(boost::bind(&LLPanelEstateInfo::callbackChangeLindenEstate, this, _1, _2));
-
-	if (getEstateID() <= ESTATE_LAST_LINDEN)
+	// send the update
+	if (!commitEstateInfoCaps())
 	{
-		// trying to change reserved estate, warn
-		LLNotifications::instance().add(params);
+		// the caps method failed, try the old way
+		LLFloaterRegionInfo::nextInvoice();
+		commitEstateInfoDataserver();
 	}
-	else
-	{
-		// for normal estates, just make the change
-		LLNotifications::instance().forceResponse(params, 0);
-	}
+	// we don't want to do this because we'll get it automatically from the sim
+	// after the spaceserver processes it
+//	else
+//	{
+//		// caps method does not automatically send this info
+//		LLFloaterRegionInfo::requestRegionInfo();
+//	}
 	return TRUE;
 }
-
-bool LLPanelEstateInfo::callbackChangeLindenEstate(const LLSD& notification, const LLSD& response)
-{
-	S32 option = LLNotification::getSelectedOption(notification, response);
-	switch(option)
-	{
-	case 0:
-		// send the update
-		if (!commitEstateInfoCaps())
-		{
-			// the caps method failed, try the old way
-			LLFloaterRegionInfo::nextInvoice();
-			commitEstateInfoDataserver();
-		}
-		// we don't want to do this because we'll get it automatically from the sim
-		// after the spaceserver processes it
-//		else
-//		{
-//			// caps method does not automatically send this info
-//			LLFloaterRegionInfo::requestRegionInfo();
-//		}
-		break;
-	case 1:
-	default:
-		// do nothing
-		break;
-	}
-	return false;
-}
-
 
 /*
 // Request = "getowner"
@@ -2662,47 +2571,6 @@ const std::string LLPanelEstateInfo::getAbuseEmailAddress() const
 void LLPanelEstateInfo::setAbuseEmailAddress(const std::string& address)
 {
 	childSetValue("abuse_email_address", LLSD(address));
-}
-
-void LLPanelEstateInfo::setAccessAllowedEnabled(bool enable_agent,
-												bool enable_group,
-												bool enable_ban)
-{
-	childSetEnabled("allow_resident_label", enable_agent);
-	childSetEnabled("allowed_avatar_name_list", enable_agent);
-	childSetVisible("allowed_avatar_name_list", enable_agent);
-	childSetEnabled("add_allowed_avatar_btn", enable_agent);
-	childSetEnabled("remove_allowed_avatar_btn", enable_agent);
-
-	// Groups
-	childSetEnabled("allow_group_label", enable_group);
-	childSetEnabled("allowed_group_name_list", enable_group);
-	childSetVisible("allowed_group_name_list", enable_group);
-	childSetEnabled("add_allowed_group_btn", enable_group);
-	childSetEnabled("remove_allowed_group_btn", enable_group);
-
-	// Ban
-	childSetEnabled("ban_resident_label", enable_ban);
-	childSetEnabled("banned_avatar_name_list", enable_ban);
-	childSetVisible("banned_avatar_name_list", enable_ban);
-	childSetEnabled("add_banned_avatar_btn", enable_ban);
-	childSetEnabled("remove_banned_avatar_btn", enable_ban);
-
-	// Update removal buttons if needed
-	if (enable_agent)
-	{
-		checkRemovalButton("allowed_avatar_name_list");
-	}
-
-	if (enable_group)
-	{
-		checkRemovalButton("allowed_group_name_list");
-	}
-
-	if (enable_ban)
-	{
-		checkRemovalButton("banned_avatar_name_list");
-	}
 }
 
 // static
@@ -3240,20 +3108,6 @@ bool LLDispatchEstateUpdateInfo::operator()(
 		panel->setGlobalTime(FALSE);
 		panel->setSunHour(sun_hour);
 	}
-
-	bool visible_from_mainland = (bool)(flags & REGION_FLAGS_EXTERNALLY_VISIBLE);
-	bool god = gAgent.isGodlike();
-	bool linden_estate = (estate_id <= ESTATE_LAST_LINDEN);
-
-	// If visible from mainland, disable the access allowed
-	// UI, as anyone can teleport there.
-	// However, gods need to be able to edit the access list for
-	// linden estates, regardless of visibility, to allow object
-	// and L$ transfers.
-	bool enable_agent = (!visible_from_mainland || (god && linden_estate));
-	bool enable_group = enable_agent;
-	bool enable_ban = !linden_estate;
-	panel->setAccessAllowedEnabled(enable_agent, enable_group, enable_ban);
 
 	return true;
 }

@@ -1452,21 +1452,6 @@ Per abbandonare un gruppo seleziona l&apos;opzione &apos;Gruppi..&apos; dal menu
 			<button name="Cancel" text="Annulla"/>
 		</form>
 	</notification>
-	<notification label="Cambia la tipologia della proprietà Linden" name="ChangeLindenEstate">
-		Stai per cambiare la tipologia della proprietà Linden (mainland, griglia minorenni, orientamento, ecc.).
-
-Questo è ESTREMAMENTE PERICOLOSO perchè può cambiare radicalmente l&apos;esperienza degli utenti.  Sulla mainland cambierà migliaia di regioni e produrrà seri problemi ai vari server.
-
-Confermi?
-		<usetemplate name="okcancelbuttons" notext="Annulla" yestext="OK"/>
-	</notification>
-	<notification label="Cambia la tipologia Linden di accesso alla proprietà" name="ChangeLindenAccess">
-		Stai per cambiare la lista di accesso per una proprietà Linden (mainland, griglia minorenni, orientamento, ecc.).
-
-Questo è PERICOLOSO e dovrebbe essere fatto soltanto per poter lanciare il programma che consente agli oggetti/L$ di essere trasferiti fra griglie diverse.
-Cambierà migliaia di regioni e produrrà seri problemi ai vari server.
-		<usetemplate name="okcancelbuttons" notext="Annulla" yestext="OK"/>
-	</notification>
 	<notification label="Seleziona la proprietà" name="EstateAllowedAgentAdd">
 		Aggiungi alla lista di accesso solo per questa proprietà oppure per [ALL_ESTATES]?
 		<usetemplate canceltext="Annulla" name="yesnocancelbuttons" notext="Tutte le proprietà" yestext="Questa proprietà"/>

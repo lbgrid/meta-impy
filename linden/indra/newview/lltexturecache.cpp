@@ -736,9 +736,6 @@ void LLTextureCacheWorker::endWork(S32 param, bool aborted)
 
 LLTextureCache::LLTextureCache(bool threaded)
 	: LLWorkerThread("TextureCache", threaded),
-	  mWorkersMutex(NULL),
-	  mHeaderMutex(NULL),
-	  mListMutex(NULL),
 	  mHeaderAPRFile(NULL),
 	  mReadOnly(FALSE),
 	  mTexturesSizeTotal(0),
@@ -1543,7 +1540,7 @@ bool LLTextureCache::readComplete(handle_t handle, bool abort)
 		}
 	}
 
-      	unlockWorkers();
+	unlockWorkers();
 
 	if (delete_worker) worker->scheduleDelete();
 

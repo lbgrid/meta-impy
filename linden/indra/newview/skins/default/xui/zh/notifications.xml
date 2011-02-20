@@ -1538,29 +1538,6 @@ www.secondlife.com/support
 			<button name="OK" text="确定"/>
 		</form>
 	</notification>
-	<notification label="更改林登地产" name="ChangeLindenEstate">
-		你将要更改林登所有的地产(大陆、
-少年网格、方位岛，等等)。
-
- 这个动作极度危险，因为它可能会在基础的层次上
-影响到用户体验。在大陆上, 它将改变
-上千的区域，并会使空间服务器噎着。
-
-是否继续？
-		<usetemplate name="okcancelbuttons" notext="取消" yestext="更改不动产"/>
-	</notification>
-	<notification label="更改林登地产准入列表" name="ChangeLindenAccess">
-		你将要更改林登所有的地产的准入列表(大陆、
-少年网格、方位岛，等等)。
-
-该操作非常危险， 应该仅在利用把物体/金钱
-转移进或出某个网格的对付活儿 (hack) 时候
-才应该被执行。 它将改变上千的区域，并会
-使空间服务器噎着。
-
-是否继续？
-		<usetemplate name="okcancelbuttons" notext="取消" yestext="更改不动产"/>
-	</notification>
 	<notification label="选择地产" name="EstateAllowedAgentAdd">
 		仅列入此地产还是[ALL_ESTATES]的允许名单？
 		<usetemplate canceltext="取消" name="yesnocancelbuttons" notext="所有地产" yestext="该地产"/>

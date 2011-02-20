@@ -137,15 +137,6 @@ inline U32 unset_prelude_flags(U32 flags)
 			& ~(REGION_FLAGS_PRELUDE_SET | REGION_FLAGS_SUN_FIXED));
 }
 
-// estate constants. Need to match first few etries in indra.estate table.
-const U32 ESTATE_ALL = 0; // will not match in db, reserved key for logic
-const U32 ESTATE_MAINLAND = 1;
-const U32 ESTATE_ORIENTATION = 2;
-const U32 ESTATE_INTERNAL = 3;
-const U32 ESTATE_SHOWCASE = 4;
-const U32 ESTATE_TEEN = 5;
-const U32 ESTATE_LAST_LINDEN = 5; // last linden owned/managed estate
-
 // for EstateOwnerRequest, setaccess message
 const U32 ESTATE_ACCESS_ALLOWED_AGENTS	= 1 << 0;
 const U32 ESTATE_ACCESS_ALLOWED_GROUPS	= 1 << 1;

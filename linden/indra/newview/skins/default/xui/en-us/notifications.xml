@@ -3194,30 +3194,11 @@ Type a short announcement which will be sent to everyone currently in your estat
 
 <notification
  icon="alert.tga"
- label="Change Linden Estate"
- name="ChangeLindenEstate"
+ label="Pfft some old linden crap"
+ name="PfftLindenCrap"
  type="alert">
-You are about to change a Linden owned estate (mainland, teen grid, orientation, etc.).
-
-This is EXTREMELY DANGEROUS because it can fundamentally affect the user experience.  On the mainland, it will change thousands of regions and make the spaceserver hiccup.
-
-Proceed?
-  <usetemplate
-   name="okcancelbuttons"
-   notext="Cancel"
-   yestext="OK"/>
-</notification>
-
-<notification
- icon="alert.tga"
- label="Change Linden Estate Access"
- name="ChangeLindenAccess"
- type="alert">
-You are about to change the access list for a Linden owned estate (mainland, teen grid, orientation, etc.).
-
-This is DANGEROUS and should only be done to invoke the hack allowing objects/[CURRENCY] to be transfered in/out of a grid.
-
-It will change thousands of regions and make the spaceserver hiccup.
+This used to be some Linden inspired crap, but should never be seen now.
+Still unravelling the code before I make this go away.
   <usetemplate
    name="okcancelbuttons"
    notext="Cancel"
@@ -5237,6 +5218,88 @@ The string [STRING_NAME] is missing from strings.xml
 </notification>
 
 <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameSuccess"
+   type="alert">
+Hi [DISPLAY_NAME]!
+
+Just like in real life, it takes a while for everyone to learn about a new name.  Please allow several days for your name to update in objects, scripts, search, etc.
+  </notification>
+
+  <notification
+ icon="alertmodal.tga"
+ name="SetDisplayNameBlocked"
+ type="alert">
+Sorry, you cannot change your display name. If you feel this is in error, please contact support.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameFailedLength"
+   type="alertmodal">
+Sorry, that name is too long.  Display names can have a maximum of [LENGTH] characters.
+
+Please try a shorter name.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameFailedGeneric"
+   type="alertmodal">
+    Sorry, we could not set your display name.  Please try again later.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SetDisplayNameMismatch"
+   type="alertmodal">
+    The display names you entered do not match. Please re-enter.
+  </notification>
+
+  <!-- *NOTE: This should never happen -->
+  <notification
+   icon="alertmodal.tga"
+   name="AgentDisplayNameUpdateThresholdExceeded"
+   type="alertmodal">
+Sorry, you have to wait longer before you can change your display name.
+
+See http://wiki.secondlife.com/wiki/Setting_your_display_name
+
+Please try again later.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="AgentDisplayNameSetBlocked"
+   type="alertmodal">
+ Sorry, we could not set your requested name because it contains a banned word.
+ 
+ Please try a different name.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+ name="AgentDisplayNameSetInvalidUnicode"
+ type="alertmodal">
+    The display name you wish to set contains invalid characters.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+ name="AgentDisplayNameSetOnlyPunctuation"
+ type="alertmodal">
+    Your display name must contain letters other than punctuation.
+  </notification>
+
+
+  <notification
+   icon="notifytip.tga"
+   name="DisplayNameUpdate"
+   type="notifytip">
+    [OLD_NAME] ([SLID]) is now known as [NEW_NAME].
+  </notification>
+
+<notification
  icon="notifytip.tga"
  name="Cancelled"
  type="notifytip">
@@ -5657,9 +5720,9 @@ If you want to view streaming media on parcels that support it you should go to 
 No Media Plugin was found to handle the "[MIME_TYPE]" mime type.  Media of this type will be unavailable.
 </notification>
 <notification
- icon="alertmodal.tga"
+ icon="alert.tga"
  name="MediaPluginFailed"
- type="alertmodal">
+ type="alert">
 The following Media Plugin has failed:
 [PLUGIN]
 
@@ -6874,7 +6937,7 @@ GRAVITY  --  -9.8
 
 *  --  Multiplication
 \  --  Division
-+  --  Addition
+  --  Addition
 -  --  Subtraction
 
 For information about this feature, click "More Info".
@@ -6903,7 +6966,7 @@ GLOW --  Glow
 
 *  --  Multiplication
 \  --  Division
-+  --  Addition
+  --  Addition
 -  --  Subtraction
 
 For information about this feature, click "More Info".
@@ -7221,6 +7284,24 @@ Apply this region's settings? (&quot;Ignore&quot; will ignore all region setting
 The new font will appear after you restart [VIEWER_NAME].
 </notification>
 
+<notification
+ icon="alertmodal.tga"
+ name="FirstPrivacy"
+ type="alertmodal">
+Terms of service of the grid you are connecting to require sending a "statistics packet" every 5 minutes.
+That is for example: Data about your hardware (CPU, RAM), number of avatars around, number of sims visited.
+Please check *the grids* privacy policy about usage of that data.
+  <form name="form">
+	  <button
+		 index="0"
+		 name="ok"
+		 text="Login anyway"/>
+	  <button
+		 index="1"
+		 name="notok"
+		 text="Do not log in"/>
+  </form>
+</notification>
 
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->

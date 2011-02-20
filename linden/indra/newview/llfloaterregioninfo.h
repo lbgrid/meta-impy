@@ -344,17 +344,12 @@ public:
 
 	U32 getEstateID() const { return mEstateID; }
 	void setEstateID(U32 estate_id) { mEstateID = estate_id; }
-	static bool isLindenEstate();
 	
 	const std::string getOwnerName() const;
 	void setOwnerName(const std::string& name);
 
 	const std::string getAbuseEmailAddress() const;
 	void setAbuseEmailAddress(const std::string& address);
-
-	// If visible from mainland, allowed agent and allowed groups
-	// are ignored, so must disable UI.
-	void setAccessAllowedEnabled(bool enable_agent, bool enable_group, bool enable_ban);
 
 	// this must have the same function signature as
 	// llmessage/llcachename.h:LLCacheNameCallback
@@ -367,8 +362,6 @@ public:
 
 protected:
 	virtual BOOL sendUpdate();
-	// confirmation dialog callback
-	bool callbackChangeLindenEstate(const LLSD& notification, const LLSD& response);
 
 	void commitEstateInfoDataserver();
 	bool commitEstateInfoCaps();

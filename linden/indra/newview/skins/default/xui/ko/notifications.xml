@@ -2941,43 +2941,7 @@ Applications 폴더에 다운로드하시겠습니까?
     </form>
   </notification>
 
-  <notification
-   
-   label="린든 사유지 변경"
-   name="ChangeLindenEstate"
-   >
-귀하께서는 린든 소유의 사유지(메인랜드, 틴 그리드, 오리엔테이션 등)를
-변경하려고 합니다.
 
-이렇게 하면 기본적으로 사용자가 게임을 즐기는 데 영향을
-줄 수 있으므로 매우 위험합니다.  또한 메인랜드에서 수천가지의 지역이 변경되고
-공간 서버가 일시적으로 중단될 수도 있습니다.
-
-계속하시겠습니까?
-    <usetemplate
-     name="okcancelbuttons"
-     notext="취소"
-     yestext="사유지 변경"/>
-  </notification>
-
-  <notification
-   
-   label="린든 사유지 액세스 변경"
-   name="ChangeLindenAccess"
-   >
-귀하께서는 린든 소유의 사유지(메인랜드, 틴 그리드, 오리엔테이션 등)에 대한
-접근 목록을 변경하려고 합니다.
-
-이는 위험한 작업이며 오브젝트/금액을 그리드에서 송수신할 수 있도록
-핵을 불러내는 경우에만 수행할 수
-있습니다.
-이렇게 하면 수천가지의 지역이 변경되고
-공간 서버가 일시적으로 중단될 수도 있습니다.
-    <usetemplate
-     name="okcancelbuttons"
-     notext="취소"
-     yestext="사유지 변경"/>
-  </notification>
 
   <notification
    
