@@ -10,7 +10,7 @@
 [AGEVERIFICATION]
       </string>
       <string name="AcctTypeResident">
-        Resident
+        Metazen
       </string>
       <string name="AcctTypeTrial">
         Trial
@@ -19,7 +19,7 @@
         Charter Member
       </string>
       <string name="AcctTypeEmployee">
-        Linden Lab Employee
+        Meta7 Employee
       </string>
       <string name="PaymentInfoUsed">
         Payment Info Used
@@ -31,10 +31,10 @@
         No Payment Info On File
       </string>
       <string name="AgeVerified">
-        Age-verified
+        Adult
       </string>
       <string name="NotAgeVerified">
-        Not Age-verified
+        Mature
       </string>
       <string name="copy_key_info">
         Copied key for [AVATAR] to clipboard: [KEY]

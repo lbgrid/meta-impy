@@ -294,7 +294,7 @@ BOOL LLMuteList::isGod(const std::string& name) const
 	if (token_iter == tokens.end()) return FALSE;
 	
 	std::string last_name = *token_iter;
-	return last_name == "Linden";
+	return last_name == "Meta";
 }
 
 
