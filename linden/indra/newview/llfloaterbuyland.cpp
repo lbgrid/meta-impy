@@ -825,7 +825,7 @@ void LLFloaterBuyLandUI::updateNames()
 	
 	if (mIsClaim)
 	{
-		mParcelSellerName = "Linden Lab";
+		mParcelSellerName = "grid owners";
 	}
 	else if (parcelp->getIsGroupOwned())
 	{

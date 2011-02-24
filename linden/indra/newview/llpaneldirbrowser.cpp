@@ -38,7 +38,7 @@
 
 #include "llpaneldirbrowser.h"
 
-// linden library includes
+// viewer library includes
 #include "lldir.h"
 #include "lleventflags.h"
 #include "llfontgl.h"

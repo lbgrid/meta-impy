@@ -34,7 +34,7 @@
 
 #include "llpanelLCD.h"
 
-// linden library includes
+// viewer library includes
 #include "llerror.h"
 #include "llrect.h"
 #include "llfontgl.h"

@@ -34,7 +34,7 @@
 
 #include "llcachename.h"
 
-// linden library includes
+// viewer library includes
 #include "lldbstrings.h"
 #include "llframetimer.h"
 #include "llhost.h"

@@ -57,7 +57,7 @@
 		<combo_item name="MissingContent">
 			遗失内容
 		</combo_item>
-		<combo_item name="LindenDollars(L$)">
+		<combo_item name="GridCurrency">
 			林登币 (L$)
 		</combo_item>
 		<combo_item name="Permissions">

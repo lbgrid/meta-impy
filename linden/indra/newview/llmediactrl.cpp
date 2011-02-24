@@ -50,7 +50,7 @@
 #include "llrender.h"
 #include "llpluginclassmedia.h"
 
-// linden library includes
+// viewer library includes
 #include "llfocusmgr.h"
 
 extern BOOL gRestoreGL;

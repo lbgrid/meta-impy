@@ -53,7 +53,7 @@
 // TODO: Many of these includes are unnecessary.  Remove them.
 //
 
-// linden library includes
+// viewer library includes
 #include "llaudioengine.h"		// mute on minimize
 #include "indra_constants.h"
 #include "llassetstorage.h"
@@ -1706,7 +1706,7 @@ void LLViewerWindow::initWorldUI()
 	}
 }
 
-// initWorldUI that wasn't before logging in. Some of this may require the access the 'LindenUserDir'.
+// initWorldUI that wasn't before logging in. Some of this may require the access the 'ViewerUserDir'.
 void LLViewerWindow::initWorldUI_postLogin()
 {
 	S32 height = mRootView->getRect().getHeight();

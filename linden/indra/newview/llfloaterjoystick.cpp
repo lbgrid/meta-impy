@@ -35,7 +35,7 @@
 // file include
 #include "llfloaterjoystick.h"
 
-// linden library includes
+// viewer library includes
 #include "llerror.h"
 #include "llrect.h"
 #include "llstring.h"

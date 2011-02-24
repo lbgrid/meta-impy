@@ -34,7 +34,7 @@
 
 #include "llconsole.h"
 
-// linden library includes
+// viewer library includes
 #include "llviewercontrol.h"
 #include "llcriticaldamp.h"
 #include "llfontgl.h"

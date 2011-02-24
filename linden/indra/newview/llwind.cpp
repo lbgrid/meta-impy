@@ -41,7 +41,7 @@
 
 #include "llwind.h"
 
-// linden libraries
+// viewer libraries
 #include "llgl.h"
 #include "patch_dct.h"
 #include "patch_code.h"

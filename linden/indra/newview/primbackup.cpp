@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-// linden library includes
+// viewer library includes
 #include "llfilepicker.h"
 #include "indra_constants.h"
 #include "llsdserialize.h"

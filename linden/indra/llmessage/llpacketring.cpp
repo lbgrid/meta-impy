@@ -34,7 +34,7 @@
 
 #include "llpacketring.h"
 
-// linden library includes
+// viewer library includes
 #include "llerror.h"
 #include "lltimer.h"
 #include "timing.h"

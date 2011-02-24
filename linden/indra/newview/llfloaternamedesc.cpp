@@ -51,7 +51,7 @@
 #include "llstring.h"
 #include "lleconomy.h"
 
-// linden includes
+// viewer includes
 #include "llassetstorage.h"
 #include "llinventorytype.h"
 

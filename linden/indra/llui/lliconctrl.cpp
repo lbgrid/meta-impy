@@ -34,7 +34,7 @@
 
 #include "lliconctrl.h"
 
-// Linden library includes 
+// viewer library includes 
 
 // Project includes
 #include "llcontrol.h"

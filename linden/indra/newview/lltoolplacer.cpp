@@ -35,7 +35,7 @@
 // self header
 #include "lltoolplacer.h"
 
-// linden library headers
+// viewer library headers
 #include "llprimitive.h"
 
 // viewer headers

@@ -198,7 +198,7 @@ private:
 
 	// This simple method just iterates through all of the ids, and
 	// prints a simple message if they are not online. Used to help
-	// reduce 'hello' messages to the linden employees unlucky enough
+	// reduce 'hello' messages to the grid employees unlucky enough
 	// to have their calling card in the default inventory.
 	void noteOfflineUsers(LLFloaterIMPanel* panel, const LLDynamicArray<LLUUID>& ids);
 	void noteMutedUsers(LLFloaterIMPanel* panel, const LLDynamicArray<LLUUID>& ids);

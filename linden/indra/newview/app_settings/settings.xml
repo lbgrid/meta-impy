@@ -7697,7 +7697,7 @@
     <key>LoginAsGod</key>
     <map>
       <key>Comment</key>
-      <string>Attempt to login with god powers (Linden accounts only)</string>
+      <string>Attempt to login with god powers (grid staff accounts only)</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>

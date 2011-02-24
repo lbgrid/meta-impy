@@ -6030,7 +6030,7 @@ void LLAgent::setHomePosRegion( const U64& region_handle, const LLVector3& pos_r
 
 void LLAgent::takeHomeScreenshot()
 {
-	std::string snap_filename = gDirUtilp->getLindenUserDir();
+	std::string snap_filename = gDirUtilp->getViewerUserDir();
 	snap_filename += gDirUtilp->getDirDelimiter();
 	snap_filename += SCREEN_HOME_FILENAME;
 	gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight(), FALSE, FALSE);

@@ -694,7 +694,7 @@ Usage:   develop.py [options] [command [command-options]]
 
 Options:
   -h | --help           print this help message
-       --standalone     build standalone, without Linden prebuild libraries
+       --standalone     build standalone, without prebuild libraries
        --unattended     build unattended, do not invoke any tools requiring
                         a human response
        --universal      build a universal binary on Mac OS X (unsupported)

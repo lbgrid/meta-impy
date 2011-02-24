@@ -35,7 +35,7 @@
 // file include
 #include "llpaneldisplay.h"
 
-// linden library includes
+// viewer library includes
 #include "llerror.h"
 #include "llfontgl.h"
 #include "llrect.h"

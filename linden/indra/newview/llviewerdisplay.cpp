@@ -1345,7 +1345,7 @@ void render_disconnected_background()
 		llinfos << "Loading last bitmap..." << llendl;
 
 		std::string temp_str;
-		temp_str = gDirUtilp->getLindenUserDir() + gDirUtilp->getDirDelimiter() + SCREEN_LAST_FILENAME;
+		temp_str = gDirUtilp->getViewerUserDir() + gDirUtilp->getDirDelimiter() + SCREEN_LAST_FILENAME;
 
 		LLPointer<LLImageBMP> image_bmp = new LLImageBMP;
 		if( !image_bmp->load(temp_str) )

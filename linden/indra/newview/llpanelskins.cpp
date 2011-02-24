@@ -34,7 +34,7 @@
 
 #include "llpanelskins.h"
 
-// linden library includes
+// viewer library includes
 #include "llradiogroup.h"
 #include "llbutton.h"
 #include "lluictrlfactory.h"

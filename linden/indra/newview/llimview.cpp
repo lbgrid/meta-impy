@@ -580,7 +580,7 @@ void LLIMMgr::addMessage(
 	// don't process muted IMs
 	if (LLMuteList::getInstance()->isMuted(
 			other_participant_id,
-			LLMute::flagTextChat) && !LLMuteList::getInstance()->isLinden(from))
+			LLMute::flagTextChat) && !LLMuteList::getInstance()->isGod(from))
 	{
 		return;
 	}
@@ -1363,7 +1363,7 @@ void LLIMMgr::saveIgnoreGroup()
 {
 	// llinfos << "saving ignore_groups.xml" << llendl;
 
-	std::string user_dir = gDirUtilp->getLindenUserDir(true);
+	std::string user_dir = gDirUtilp->getViewerUserDir(true);
 	if (!user_dir.empty())
 	{
 		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "ignore_groups.xml");
@@ -1655,7 +1655,7 @@ public:
 				name,
 				LLMute::flagTextChat);
 
-			BOOL is_linden = LLMuteList::getInstance()->isLinden(name);
+			BOOL is_god = LLMuteList::getInstance()->isGod(name);
 			std::string separator_string(": ");
 			int message_offset=0;
 
@@ -1667,11 +1667,11 @@ public:
 				message_offset = 3;
 			}
 			
-			chat.mMuted = is_muted && !is_linden;
+			chat.mMuted = is_muted && !is_god;
 			chat.mFromID = from_id;
 			chat.mFromName = name;
 
-			if (!is_linden && (is_busy || is_muted))
+			if (!is_god && (is_busy || is_muted))
 			{
 				return;
 			}

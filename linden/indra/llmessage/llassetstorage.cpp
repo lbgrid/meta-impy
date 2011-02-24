@@ -38,7 +38,7 @@
 
 #include "llassetstorage.h"
 
-// linden library includes
+// viewer library includes
 #include "llmath.h"
 #include "llstring.h"
 #include "lldir.h"

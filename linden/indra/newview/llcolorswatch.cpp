@@ -35,7 +35,7 @@
 // File include
 #include "llcolorswatch.h"
 
-// Linden library includes
+// viewer library includes
 #include "v4color.h"
 
 // Project includes

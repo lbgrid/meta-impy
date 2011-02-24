@@ -58,7 +58,7 @@
 #include "lluploaddialog.h"
 
 
-// linden libraries
+// viewer libraries
 #include "llassetuploadresponders.h"
 #include "lleconomy.h"
 #include "llhttpclient.h"
@@ -762,7 +762,7 @@ void upload_new_resource(const std::string& src_filename, std::string name,
                          else	 	
                          {	 	
                                  fclose(in);	 	
-                                 error_message = llformat("unknown linden resource file version in file: %s", src_filename.c_str());
+                                 error_message = llformat("unknown resource file version in file: %s", src_filename.c_str());
 								 args["FILE"] = src_filename;
 								 upload_error(error_message, "UnknownResourceFileVersion", filename, args);
                                  return;

@@ -69,7 +69,7 @@ LLDir::LLDir()
 	mAppRODataDir(""),
 	mOSUserDir(""),
 	mOSUserAppDir(""),
-	mLindenUserDir(""),
+	mViewerUserDir(""),
 	mOSCacheDir(""),
 	mCAFile(""),
 	mTempDir(""),
@@ -193,10 +193,10 @@ const std::string &LLDir::getOSUserAppDir() const
 	return mOSUserAppDir;
 }
 
-const std::string &LLDir::getLindenUserDir(bool empty_ok) const
+const std::string &LLDir::getViewerUserDir(bool empty_ok) const
 {
-	llassert(empty_ok || !mLindenUserDir.empty());
-	return mLindenUserDir;
+	llassert(empty_ok || !mViewerUserDir.empty());
+	return mViewerUserDir;
 }
 
 const std::string &LLDir::getChatLogsDir() const
@@ -353,7 +353,7 @@ std::string LLDir::getExpandedFilename(ELLPath location, const std::string& subd
 		break;
 
 	case LL_PATH_PER_SL_ACCOUNT:
-		prefix = getLindenUserDir();
+		prefix = getViewerUserDir();
 		break;
 		
 	case LL_PATH_CHAT_LOGS:
@@ -543,7 +543,7 @@ std::string LLDir::getForbiddenFileChars()
 	return "\\/:*?\"<>|";
 }
 
-void LLDir::setLindenUserDir(const std::string &grid, const std::string &first, const std::string &last)
+void LLDir::setViewerUserDir(const std::string &grid, const std::string &first, const std::string &last)
 {
 	// if both first and last aren't set, assume we're grabbing the cached dir
 	if (!first.empty() && !last.empty())
@@ -554,23 +554,23 @@ void LLDir::setLindenUserDir(const std::string &grid, const std::string &first, 
 		LLStringUtil::toLower(firstlower);
 		std::string lastlower(last);
 		LLStringUtil::toLower(lastlower);
-		mLindenUserDir = getOSUserAppDir();
-		mLindenUserDir += mDirDelimiter;
-		mLindenUserDir += firstlower;
-		mLindenUserDir += "_";
-		mLindenUserDir += lastlower;
+		mViewerUserDir = getOSUserAppDir();
+		mViewerUserDir += mDirDelimiter;
+		mViewerUserDir += firstlower;
+		mViewerUserDir += "_";
+		mViewerUserDir += lastlower;
 
 		if (!grid.empty())
 		{
 			std::string gridlower(grid);
 			LLStringUtil::toLower(gridlower);
-			mLindenUserDir += "@";
-			mLindenUserDir += gridlower;
+			mViewerUserDir += "@";
+			mViewerUserDir += gridlower;
 		}
 	}
 	else
 	{
-		llerrs << "Invalid name for LLDir::setLindenUserDir" << llendl;
+		llerrs << "Invalid name for LLDir::setViewerUserDir" << llendl;
 	}
 
 	dumpCurrentDirectories();	
@@ -679,7 +679,7 @@ void LLDir::dumpCurrentDirectories()
 	LL_DEBUGS2("AppInit","Directories") << "  AppRODataDir:          " << getAppRODataDir() << LL_ENDL;
 	LL_DEBUGS2("AppInit","Directories") << "  OSUserDir:             " << getOSUserDir() << LL_ENDL;
 	LL_DEBUGS2("AppInit","Directories") << "  OSUserAppDir:          " << getOSUserAppDir() << LL_ENDL;
-	LL_DEBUGS2("AppInit","Directories") << "  LindenUserDir:         " << getLindenUserDir() << LL_ENDL;
+	LL_DEBUGS2("AppInit","Directories") << "  ViewerUserDir:         " << getViewerUserDir() << LL_ENDL;
 	LL_DEBUGS2("AppInit","Directories") << "  TempDir:               " << getTempDir() << LL_ENDL;
 	LL_DEBUGS2("AppInit","Directories") << "  CAFile:				 " << getCAFile() << LL_ENDL;
 	LL_DEBUGS2("AppInit","Directories") << "  SkinDir:               " << getSkinDir() << LL_ENDL;

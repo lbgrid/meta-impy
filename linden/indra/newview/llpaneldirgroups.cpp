@@ -34,7 +34,7 @@
 
 #include "llpaneldirgroups.h"
 
-// linden library includes
+// viewer library includes
 #include "llagent.h"
 //#include "llfontgl.h"
 #include "message.h"

@@ -39,7 +39,7 @@
 #include "llcommandhandler.h"
 #include "llpanelclassified.h"
 
-// linden library includes
+// viewer library includes
 #include "lluuid.h"
 #include "lluictrlfactory.h"
 

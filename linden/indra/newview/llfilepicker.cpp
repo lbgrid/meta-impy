@@ -1305,7 +1305,7 @@ BOOL LLFilePicker::getSaveFile( ESaveFilter filter, const std::string& filename 
 		<< "]" << llendl;
 	if (!filename.empty())
 	{
-		mFiles.push_back(gDirUtilp->getLindenUserDir() + gDirUtilp->getDirDelimiter() + filename);
+		mFiles.push_back(gDirUtilp->getViewerUserDir() + gDirUtilp->getDirDelimiter() + filename);
 		return TRUE;
 	}
 	return FALSE;
@@ -1316,7 +1316,7 @@ BOOL LLFilePicker::getOpenFile( ELoadFilter filter )
 	reset();
 	
 	// HACK: Static filenames for 'open' until we implement filepicker
-	std::string filename = gDirUtilp->getLindenUserDir() + gDirUtilp->getDirDelimiter() + "upload";
+	std::string filename = gDirUtilp->getViewerUserDir() + gDirUtilp->getDirDelimiter() + "upload";
 	switch (filter)
 	{
 	case FFLOAD_WAV: filename += ".wav"; break;

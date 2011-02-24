@@ -42,7 +42,7 @@
 
 #include "llsky.h"
 
-// linden library includes
+// viewer library includes
 #include "llerror.h"
 #include "llmath.h"
 #include "math.h"

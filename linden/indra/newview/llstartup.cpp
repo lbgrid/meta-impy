@@ -959,8 +959,8 @@ bool idle_startup()
 
 		// create necessary directories
 		// *FIX: these mkdir's should error check
-		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
-		LLFile::mkdir(gDirUtilp->getLindenUserDir());
+		gDirUtilp->setViewerUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
+		LLFile::mkdir(gDirUtilp->getViewerUserDir());
 
 		// Set PerAccountSettingsFile to the default value.
 		gSavedSettings.setString("PerAccountSettingsFile",
@@ -2417,7 +2417,7 @@ bool idle_startup()
 			}
 		}
 		// Either we want to show tutorial because this is the first login
-		// to a Linden Help Island or the user quit with the tutorial
+		// to a grid Help Island or the user quit with the tutorial
 		// visible.  JC
 		if (show_hud
 			|| gSavedSettings.getBOOL("ShowTutorial"))
@@ -3747,7 +3747,7 @@ void init_start_screen(S32 location_id)
 
 	LL_DEBUGS("AppInit") << "Loading startup bitmap..." << LL_ENDL;
 
-	std::string temp_str = gDirUtilp->getLindenUserDir() + gDirUtilp->getDirDelimiter();
+	std::string temp_str = gDirUtilp->getViewerUserDir() + gDirUtilp->getDirDelimiter();
 
 	if ((S32)START_LOCATION_ID_LAST == location_id)
 	{

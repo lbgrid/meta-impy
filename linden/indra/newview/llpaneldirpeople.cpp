@@ -35,7 +35,7 @@
 #include "llpaneldirpeople.h"
 #include "llviewerwindow.h"
 
-// linden library includes
+// viewer library includes
 #include "message.h"
 
 // viewer project includes

@@ -42,7 +42,7 @@
 #include "llpanelavatar.h"
 #include "lluictrlfactory.h"
 
-// linden library includes
+// viewer library includes
 #include "llinventory.h"
 #include "lluuid.h"
 #include "message.h"

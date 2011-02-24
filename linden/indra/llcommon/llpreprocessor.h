@@ -1,6 +1,6 @@
 /** 
  * @file llpreprocessor.h
- * @brief This file should be included in all Linden Lab files and
+ * @brief This file should be included in all viewer files and
  * should only contain special preprocessor directives
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$

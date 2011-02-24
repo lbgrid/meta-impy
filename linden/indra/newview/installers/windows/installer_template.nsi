@@ -62,7 +62,7 @@ SetOverwrite on							; stomp files by default
 AutoCloseWindow true					; after all files install, close window
 
 InstallDir "$PROGRAMFILES\${INSTNAME}"
-InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" ""
+InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" ""
 !ifdef UPDATE
 DirText $(DirectoryChooseTitle) $(DirectoryChooseUpdate)
 !else
@@ -88,7 +88,7 @@ Var INSTSHORTCUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function PostInstallExe
 push $0
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "PostInstallExe"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "PostInstallExe"
   ;MessageBox MB_OK '$0'
   ExecWait '$0'
 pop $0
@@ -108,19 +108,19 @@ push $R0
   StrCpy $INSTPROG "$R0"
   StrCpy $INSTEXE "$R0.exe"
 
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" ""
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" ""
   ; If key doesn't exist, skip install
   IfErrors ABORT
   StrCpy $INSTDIR "$0"
 
   ; We now have a directory to install to.  Get the startup parameters and shortcut as well.
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Flags"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Flags"
   IfErrors +2
   StrCpy $INSTFLAGS "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Shortcut"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Shortcut"
   IfErrors +2
   StrCpy $INSTSHORTCUT "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Exe"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Exe"
   IfErrors +2
   StrCpy $INSTEXE "$0"
   Goto FINISHED
@@ -148,19 +148,19 @@ push $R0
   StrCpy $INSTPROG "$R0"
   StrCpy $INSTEXE "$R0.exe"
 
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" ""
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" ""
   ; If key doesn't exist, skip install
   IfErrors ABORT
   StrCpy $INSTDIR "$0"
 
   ; We now have a directory to install to.  Get the startup parameters and shortcut as well.
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Flags"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Flags"
   IfErrors +2
   StrCpy $INSTFLAGS "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Shortcut"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Shortcut"
   IfErrors +2
   StrCpy $INSTSHORTCUT "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Exe"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Exe"
   IfErrors +2
   StrCpy $INSTEXE "$0"
   Goto FINISHED
@@ -195,7 +195,7 @@ Function RemoveNSIS
   Push $0
   ; Grab the installation directory of the old version
   DetailPrint $(RemoveOldNSISVersion)
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" ""
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" ""
 
   ; If key doesn't exist, skip uninstall
   IfErrors NO_NSIS
@@ -271,7 +271,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function CheckIfAlreadyCurrent
   Push $0
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Version"
+	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Version"
     StrCmp $0 ${VERSION_LONG} 0 DONE
 	MessageBox MB_OKCANCEL $(CheckIfCurrentMB) /SD IDOK IDOK DONE
     Quit
@@ -621,9 +621,9 @@ SetShellVarContext all
 Call un.CloseSecondLife
 
 ; Clean up registry keys (these should all be !defines somewhere)
-DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG"
+DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG"
 DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG"
-DeleteRegKey HKEY_LOCAL_MACHINE "Software\Linden Research, Inc.\Installer Language" 
+DeleteRegKey HKEY_LOCAL_MACHINE "Software\meta-impy\Installer Language" 
 
 ; Clean up shortcuts
 Delete "$SMPROGRAMS\$INSTSHORTCUT\*.*"
@@ -863,7 +863,7 @@ FunctionEnd
 Function .onInit
 
 	; read the language from registry (ok if not there) and set langauge menu
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" "InstallerLanguage"
+	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" "InstallerLanguage"
 	StrCpy $LANGUAGE $0
 
 	Push ""
@@ -882,14 +882,14 @@ Function .onInit
 		Abort
 
 	; save language in registry		
-	WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" "InstallerLanguage" $LANGUAGE
+	WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" "InstallerLanguage" $LANGUAGE
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.onInit
 
 	; read language from registry and set for ininstaller
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" "InstallerLanguage"
+	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" "InstallerLanguage"
 	StrCpy $LANGUAGE $0
 
 FunctionEnd
@@ -992,11 +992,11 @@ CreateShortCut "$INSTDIR\$INSTSHORTCUT Museum Spanish.lnk" "$INSTDIR\$INSTEXE" "
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Write registry
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "" "$INSTDIR"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Version" "${VERSION_LONG}"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Flags" "$INSTFLAGS"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Shortcut" "$INSTSHORTCUT"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Exe" "$INSTEXE"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "" "$INSTDIR"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Version" "${VERSION_LONG}"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Flags" "$INSTFLAGS"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Shortcut" "$INSTSHORTCUT"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Exe" "$INSTEXE"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "DisplayName" "$INSTPROG (remove only)"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "UninstallString" '"$INSTDIR\uninst.exe" /P="$INSTPROG"'
 

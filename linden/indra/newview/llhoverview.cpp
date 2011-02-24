@@ -354,7 +354,7 @@ void LLHoverView::updateText()
 					mText.push_back( nodep->mDescription );
 				}
 
-				// Line: "Owner: James Linden"
+				// Line: "Owner: James Green"
 				line.clear();
 				line.append(LLTrans::getString("TooltipOwner") + " ");
 
@@ -569,7 +569,7 @@ void LLHoverView::updateText()
 		}
 		mText.push_back(line);
 
-		// Line: "Owner: James Linden"
+		// Line: "Owner: James Green"
 		line.clear();
 		line.append(LLTrans::getString("TooltipOwner") + " ");
 

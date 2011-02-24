@@ -39,7 +39,7 @@
 #include "llmediactrl.h"
 #include "llalertdialog.h"
 
-// Linden libs
+// other viewer libs
 #include "lluictrlfactory.h"
 
 // statics 

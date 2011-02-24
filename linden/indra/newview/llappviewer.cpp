@@ -3305,7 +3305,7 @@ void LLAppViewer::saveFinalSnapshot()
 		gSavedSettings.setBOOL("ShowParcelOwners", FALSE);
 		idle();
 
-		std::string snap_filename = gDirUtilp->getLindenUserDir(true);
+		std::string snap_filename = gDirUtilp->getViewerUserDir(true);
 		if (!snap_filename.empty())
 		{
 			snap_filename += gDirUtilp->getDirDelimiter();

@@ -632,7 +632,7 @@ protected:
 	F32					mDiscountRate;			// 0.0-1.0
 	F32					mDrawDistance;
 	U32					mParcelFlags;
-	S32					mSalePrice;				// linden dollars
+	S32					mSalePrice;				// in world currency
 	std::string			mName;
 	std::string			mDesc;
 	std::string			mMusicURL;

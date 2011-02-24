@@ -597,7 +597,7 @@ LLIOPipe::EStatus LLIOServerSocket::process_impl(
 	else
 	{
 		char buf[256];
-		llwarns << "Unable to accept linden socket: " << apr_strerror(status, buf, sizeof(buf)) << llendl;
+		llwarns << "Unable to accept server socket: " << apr_strerror(status, buf, sizeof(buf)) << llendl;
 	}
 
 	PUMP_DEBUG;

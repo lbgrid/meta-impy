@@ -61,7 +61,7 @@ bool LLNotecard::importEmbeddedItemsStream(std::istream& str)
 	str >> std::ws >> "LLEmbeddedItems version" >> mEmbeddedVersion >> "\n";
 	if (str.fail())
 	{
-		llwarns << "Invalid Linden text file header" << llendl;
+		llwarns << "Invalid notecard text file header" << llendl;
 		goto import_file_failed;
 	}
 
@@ -74,7 +74,7 @@ bool LLNotecard::importEmbeddedItemsStream(std::istream& str)
 	str >> std::ws >> "{\n";
 	if(str.fail())
 	{
-		llwarns << "Invalid Linden text file format: missing {" << llendl;
+		llwarns << "Invalid notecard text file format: missing {" << llendl;
 		goto import_file_failed;
 	}
 
@@ -165,20 +165,20 @@ bool LLNotecard::importStream(std::istream& str)
 	str >> std::ws >> "Linden text version " >> mVersion >> "\n";
 	if(str.fail())
 	{
-		llwarns << "Invalid Linden text file header " << llendl;
+		llwarns << "Invalid notecard text file header " << llendl;
 		return FALSE;
 	}
 
 	if( 1 != mVersion && 2 != mVersion)
 	{
-		llwarns << "Invalid Linden text file version: " << mVersion << llendl;
+		llwarns << "Invalid notecard text file version: " << mVersion << llendl;
 		return FALSE;
 	}
 
 	str >> std::ws >> "{\n";
 	if(str.fail())
 	{
-		llwarns << "Invalid Linden text file format" << llendl;
+		llwarns << "Invalid notecard text file format" << llendl;
 		return FALSE;
 	}
 
@@ -191,7 +191,7 @@ bool LLNotecard::importStream(std::istream& str)
 	str.getline(line_buf, STD_STRING_BUF_SIZE);
 	if(str.fail())
 	{
-		llwarns << "Invalid Linden text length field" << llendl;
+		llwarns << "Invalid notecard text length field" << llendl;
 		return FALSE;
 	}
 	line_buf[STD_STRING_STR_LEN] = '\0';
@@ -199,13 +199,13 @@ bool LLNotecard::importStream(std::istream& str)
 	S32 text_len = 0;
 	if( 1 != sscanf(line_buf, "Text length %d", &text_len) )
 	{
-		llwarns << "Invalid Linden text length field" << llendl;
+		llwarns << "Invalid notecard text length field" << llendl;
 		return FALSE;
 	}
 
 	if(text_len > mMaxText)
 	{
-		llwarns << "Invalid Linden text length: " << text_len << llendl;
+		llwarns << "Invalid notecard text length: " << text_len << llendl;
 		return FALSE;
 	}
 
@@ -215,7 +215,7 @@ bool LLNotecard::importStream(std::istream& str)
 	fullread(str, text, text_len);
 	if(str.fail())
 	{
-		llwarns << "Invalid Linden text: text shorter than text length: " << text_len << llendl;
+		llwarns << "Invalid notecard text: text shorter than text length: " << text_len << llendl;
 		success = FALSE;
 	}
 	text[text_len] = '\0';

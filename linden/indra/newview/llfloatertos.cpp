@@ -42,7 +42,7 @@
 #include "llviewertexteditor.h"
 #include "llviewerwindow.h"
 
-// linden library includes
+// viewer library includes
 #include "llbutton.h"
 #include "llhttpclient.h"
 #include "llhttpstatuscodes.h"	// for HTTP_FOUND

@@ -1278,7 +1278,7 @@ bool LLOfferInfo::inventory_offer_callback(const LLSD& notification, const LLSD&
 
 		log_message = "You decline " + mDesc + " from " + mFromName + ".";
 		chat.mText = log_message;
-		if( LLMuteList::getInstance()->isMuted(mFromID ) && ! LLMuteList::getInstance()->isLinden(mFromName) )  // muting for SL-42269
+		if( LLMuteList::getInstance()->isMuted(mFromID ) && ! LLMuteList::getInstance()->isGod(mFromName) )  // muting for SL-42269
 		{
 			chat.mMuted = TRUE;
 		}
@@ -1566,12 +1566,12 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 
 	BOOL is_busy = gAgent.getBusy();
 	BOOL is_muted = LLMuteList::getInstance()->isMuted(from_id, name, LLMute::flagTextChat);
-	BOOL is_linden = LLMuteList::getInstance()->isLinden(name);
+	BOOL is_god = LLMuteList::getInstance()->isGod(name);
 	BOOL is_owned_by_me = FALSE;
 
 	LLUUID computed_session_id = LLIMMgr::computeSessionID(dialog,from_id);
 	
-	chat.mMuted = is_muted && !is_linden;
+	chat.mMuted = is_muted && !is_god;
 	chat.mFromID = from_id;
 	chat.mFromName = name;
 	chat.mSourceType = (from_id.isNull() || (name == std::string(SYSTEM_FROM))) ? CHAT_SOURCE_SYSTEM : CHAT_SOURCE_AGENT;
@@ -1877,7 +1877,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 // [/RLVa:KB]
 //		else if (offline == IM_ONLINE && !is_linden && is_busy && name != SYSTEM_FROM)
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
-		else if ( (offline == IM_ONLINE && !is_linden && is_busy && name != SYSTEM_FROM) && 
+		else if ( (offline == IM_ONLINE && !is_god && is_busy && name != SYSTEM_FROM) && 
 			      ( (!gRlvHandler.hasBehaviour(RLV_BHVR_RECVIM)) || (gRlvHandler.isException(RLV_BHVR_RECVIM, from_id))) )
 // [/RLVa:KB]
 		{
@@ -1937,9 +1937,9 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 		else if (to_id.isNull())
 		{
 // [RLVa:KB] - Version: 1.23.4 | Checked: 2009-07-08 (RLVa-1.0.0e)
-			// Filter region messages that weren't sent by a Linden
+			// Filter region messages that weren't sent by a god
 			if ( (rlv_handler_t::isEnabled()) && (LLMuteList::getInstance()) && 
-				(!LLMuteList::getInstance()->isLinden(name)) && (from_id != gAgent.getID()) )
+				(!LLMuteList::getInstance()->isGod(name)) && (from_id != gAgent.getID()) )
 			{
 				if (gRlvHandler.hasBehaviour(RLV_BHVR_SHOWLOC))
 					gRlvHandler.filterLocation(message);
@@ -1984,7 +1984,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 
 			LL_INFOS("Messaging") << "process_improved_im: session_id( " << session_id << " ), from_id( " << from_id << " )" << LL_ENDL;
 
-			if (!is_muted || is_linden)
+			if (!is_muted || is_god)
 			{
 				gIMMgr->addMessage(
 					session_id,
@@ -2297,7 +2297,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 	
 	case IM_SESSION_SEND:
 	{
-		if (!is_linden && is_busy)
+		if (!is_god && is_busy)
 		{
 			return;
 		}
@@ -2929,7 +2929,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		LLMute::flagTextChat) 
 		|| LLMuteList::getInstance()->isMuted(owner_id, LLMute::flagTextChat);
 	is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
-		LLMuteList::getInstance()->isLinden(from_name);
+		LLMuteList::getInstance()->isGod(from_name);
 
 	BOOL is_audible = (CHAT_AUDIBLE_FULLY == chat.mAudible);
 	chatter = gObjectList.findObject(from_id);
@@ -3286,7 +3286,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		}
 
 		// truth table:
-		// LINDEN	BUSY	MUTED	OWNED_BY_YOU	TASK		DISPLAY		STORE IN HISTORY
+		// GOD		BUSY	MUTED	OWNED_BY_YOU	TASK		DISPLAY		STORE IN HISTORY
 		// F		F		F		F				*			Yes			Yes
 		// F		F		F		T				*			Yes			Yes
 		// F		F		T		F				*			No			No
@@ -5272,7 +5272,7 @@ void process_alert_core(const std::string& message, BOOL modal)
 	else if( message == "Home position set." )
 	{
 		// save the home location image to disk
-		std::string snap_filename = gDirUtilp->getLindenUserDir();
+		std::string snap_filename = gDirUtilp->getViewerUserDir();
 		snap_filename += gDirUtilp->getDirDelimiter();
 		snap_filename += SCREEN_HOME_FILENAME;
 		gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight(), FALSE, FALSE);
@@ -6627,7 +6627,7 @@ void process_covenant_reply(LLMessageSystem* msg, void**)
 		}
 		else
 		{
-			covenant_text = "There is no Covenant provided for this Estate. The land on this estate is being sold by the Estate owner, not Linden Lab.  Please contact the Estate Owner for sales details.";
+			covenant_text = "There is no Covenant provided for this Estate. The land on this estate is being sold by the Estate owner, not the grid owners.  Please contact the Estate Owner for sales details.";
 		}
 		LLPanelEstateCovenant::updateCovenantText(covenant_text, covenant_id);
 		LLPanelLandCovenant::updateCovenantText(covenant_text);

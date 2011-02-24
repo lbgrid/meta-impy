@@ -4206,10 +4206,10 @@ void LLTextEditor::appendColoredText(const std::string &new_text,
 									 const std::string& font_name)
 {
 	LLColor4 lcolor=color;
-	// If LindenUserDir is empty then we didn't login yet.
+	// If ViewerUserDir is empty then we didn't login yet.
 	// In that case we can't instantiate LLTextParser, which
 	// is initialized per user.
-	if (mParseHighlights && !gDirUtilp->getLindenUserDir(true).empty())
+	if (mParseHighlights && !gDirUtilp->getViewerUserDir(true).empty())
 	{
 		LLTextParser* highlight = LLTextParser::getInstance();
 		highlight->parseFullLineHighlights(new_text, &lcolor);
@@ -4289,10 +4289,10 @@ void LLTextEditor::appendHighlightedText(const std::string &new_text,
 										 S32  highlight_part,
 										 LLStyleSP stylep)
 {
-	// If LindenUserDir is empty then we didn't login yet.
+	// If ViewerUserDir is empty then we didn't login yet.
 	// In that case we can't instantiate LLTextParser, which
 	// is initialized per user.
-	if (mParseHighlights && !gDirUtilp->getLindenUserDir(true).empty())
+	if (mParseHighlights && !gDirUtilp->getViewerUserDir(true).empty())
 	{
 		LLTextParser* highlight = LLTextParser::getInstance();
 		
@@ -4760,20 +4760,20 @@ BOOL LLTextEditor::importBuffer(const char* buffer, S32 length )
 	instream.getline(tbuf, MAX_STRING);
 	if( 1 != sscanf(tbuf, "Linden text version %d", &version) )
 	{
-		llwarns << "Invalid Linden text file header " << llendl;
+		llwarns << "Invalid Notecard text file header " << llendl;
 		return FALSE;
 	}
 
 	if( 1 != version )
 	{
-		llwarns << "Invalid Linden text file version: " << version << llendl;
+		llwarns << "Invalid Notecard text file version: " << version << llendl;
 		return FALSE;
 	}
 
 	instream.getline(tbuf, MAX_STRING);
 	if( 0 != sscanf(tbuf, "{") )
 	{
-		llwarns << "Invalid Linden text file format" << llendl;
+		llwarns << "Invalid Notecard text file format" << llendl;
 		return FALSE;
 	}
 
@@ -4781,13 +4781,13 @@ BOOL LLTextEditor::importBuffer(const char* buffer, S32 length )
 	instream.getline(tbuf, MAX_STRING);
 	if( 1 != sscanf(tbuf, "Text length %d", &text_len) )
 	{
-		llwarns << "Invalid Linden text length field" << llendl;
+		llwarns << "Invalid Notecard text length field" << llendl;
 		return FALSE;
 	}
 
 	if( text_len > mMaxTextByteLength )
 	{
-		llwarns << "Invalid Linden text length: " << text_len << llendl;
+		llwarns << "Invalid Notecard text length: " << text_len << llendl;
 		return FALSE;
 	}
 
@@ -4810,7 +4810,7 @@ BOOL LLTextEditor::importBuffer(const char* buffer, S32 length )
 	instream.getline(tbuf, MAX_STRING);
 	if( success && (0 != sscanf(tbuf, "}")) )
 	{
-		llwarns << "Invalid Linden text file format: missing terminal }" << llendl;
+		llwarns << "Invalid Notecard text file format: missing terminal }" << llendl;
 		success = FALSE;
 	}
 

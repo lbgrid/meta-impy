@@ -39,7 +39,7 @@
 #include <fstream>
 #include <sstream>
 
-// linden library includes
+// viewer library includes
 #include "llaudioengine.h"
 #include "llavatarnamecache.h"
 #include "indra_constants.h"
@@ -1543,7 +1543,7 @@ void init_server_menu(LLMenuGL* menu)
 		sub->append(new LLMenuItemCallGL("Owner To Me",
 										 &handle_force_parcel_owner_to_me,
 										 &enable_god_customer_service, NULL));
-		sub->append(new LLMenuItemCallGL("Set to Linden Content",
+		sub->append(new LLMenuItemCallGL("Set to grid Content",
 										 &handle_force_parcel_to_content,
 										 &enable_god_customer_service, NULL,
 										 'C', MASK_SHIFT | MASK_ALT | MASK_CONTROL));
@@ -2359,9 +2359,9 @@ class LLObjectEnableMute : public view_listener_t
 			{
 				// It's an avatar
 				LLNameValue *lastname = avatar->getNVPair("LastName");
-				BOOL is_linden = lastname && !LLStringUtil::compareStrings(lastname->getString(), "Linden");
+				BOOL is_god = lastname && !LLStringUtil::compareStrings(lastname->getString(), "Meta");
 				BOOL is_self = avatar->isSelf();
-				new_value = !is_linden && !is_self;
+				new_value = !is_god && !is_self;
 // [RLVa:KB] - Checked: 2009-07-08 (RLVa-1.0.0e)
 				new_value &= (!gRlvHandler.hasBehaviour(RLV_BHVR_SHOWNAMES));
 // [/RLVa:KB]

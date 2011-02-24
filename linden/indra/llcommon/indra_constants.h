@@ -267,12 +267,8 @@ const U8 GOD_NOT = 0;
 LL_COMMON_API extern const LLUUID LL_UUID_ALL_AGENTS;
 
 // inventory library owner
+// FIXME for meta-impy: Gotta get rid of this.
 LL_COMMON_API extern const LLUUID ALEXANDRIA_LINDEN_ID;
-
-LL_COMMON_API extern const LLUUID GOVERNOR_LINDEN_ID;
-LL_COMMON_API extern const LLUUID REALESTATE_LINDEN_ID;
-// Maintenance's group id.
-LL_COMMON_API extern const LLUUID MAINTENANCE_GROUP_ID;
 
 // Flags for kick message
 const U32 KICK_FLAGS_DEFAULT	= 0x0;

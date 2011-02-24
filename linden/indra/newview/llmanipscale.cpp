@@ -641,7 +641,7 @@ void LLManipScale::renderFaces( const LLBBox& bbox )
 		(orientWRTHead.mV[1] < 0.0f ? 2 : 0) + 
 		(orientWRTHead.mV[2] < 0.0f ? 4 : 0);
 
-	// opposite faces on Linden cubes:
+	// opposite faces on cubes:
 	// 0 & 5
 	// 1 & 3
 	// 2 & 4

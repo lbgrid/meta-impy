@@ -39,7 +39,7 @@
  * These functions are broken out into a separate file because the
  * objective-C typedef for 'BOOL' conflicts with the one in
  * llcommon/stdtypes.h.  This makes it impossible to use the standard
- * linden headers with any objective-C++ source.
+ * viewer headers with any objective-C++ source.
  */
 
 #include "llwindowmacosx-objc.h"
