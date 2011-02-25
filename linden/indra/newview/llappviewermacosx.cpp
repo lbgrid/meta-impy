@@ -300,7 +300,7 @@ static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef,
 void LLAppViewerMacOSX::handleCrashReporting(bool reportFreeze)
 {
 	// This used to use fork&exec, but is switched to LSOpenApplication to 
-	// Make sure the crash reporter launches in front of the SL window.
+	// Make sure the crash reporter launches in front of the viewer window.
 	
 	std::string command_str;
 	//command_str = "open Second Life.app/Contents/Resources/mac-crash-logger.app";

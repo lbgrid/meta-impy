@@ -888,7 +888,7 @@ void LLMediaCtrl::onClickLinkHref( LLPluginClassMedia* self )
 //				const bool open_links_externally = false;
 //				LLFloaterHtml::getInstance()->show( 
 //					event_in.mStringPayload, 
-//						"Second Life Browser",
+//						"Viewer Browser",
 //							open_links_externally,
 //								mTrusted);
 			}

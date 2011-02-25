@@ -85,7 +85,7 @@ public:
 	void setEmbeddedText(const std::string& instr);
 	std::string getEmbeddedText();
 	
-	// Appends Second Life time, small font, grey.
+	// Appends grid time, small font, grey.
 	// If this starts a line, you need to prepend a newline.
 	std::string appendTime(bool prepend_newline);
 

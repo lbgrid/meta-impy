@@ -45,14 +45,14 @@
 //  the correct result
 
 // Example Usage:
-// LLUIString mMessage("Welcome [USERNAME] to [SECONDLIFE]!");
+// LLUIString mMessage("Welcome [USERNAME] to [GRIDNAME]!");
 // mMessage.setArg("[USERNAME]", "Steve");
-// mMessage.setArg("[SECONDLIFE]", "Second Life");
-// llinfos << mMessage.getString() << llendl; // outputs "Welcome Steve to Second Life"
+// mMessage.setArg("[GRIDNAME]", "This Grid");
+// llinfos << mMessage.getString() << llendl; // outputs "Welcome Steve to This Grid"
 // mMessage.setArg("[USERNAME]", "Joe");
-// llinfos << mMessage.getString() << llendl; // outputs "Welcome Joe to Second Life"
-// mMessage = "Recepci￳n a la [SECONDLIFE] [USERNAME]"
-// mMessage.setArg("[SECONDLIFE]", "Segunda Vida");
+// llinfos << mMessage.getString() << llendl; // outputs "Welcome Joe to This Grid"
+// mMessage = "Recepci￳n a la [GRIDNAME] [USERNAME]"
+// mMessage.setArg("[GRIDNAME]", "Segunda Vida");
 // llinfos << mMessage.getString() << llendl; // outputs "Recepci￳n a la Segunda Vida Joe"
 
 // Implementation Notes:
