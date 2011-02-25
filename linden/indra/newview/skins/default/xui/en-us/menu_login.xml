@@ -28,7 +28,7 @@
                 userdata="WebLaunchImprudenceForums,http://imprudenceviewer.org/forums/" />
     </menu_item_call>
     <menu_item_separator />
-		<menu_item_call label="About Imprudence" name="About Imprudence">
+		<menu_item_call label="About meta-impy" name="About meta-impy">
 			<on_click function="ShowFloater" userdata="about" />
 		</menu_item_call>
 	</menu>
