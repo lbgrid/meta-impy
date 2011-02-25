@@ -201,9 +201,9 @@ Function RemoveNSIS
   IfErrors NO_NSIS
 
   ; Clean up legacy beta shortcuts
-  Delete "$SMPROGRAMS\Second Life Beta.lnk"
-  Delete "$DESKTOP\Second Life Beta.lnk"
-  Delete "$SMPROGRAMS\Second Life.lnk"
+  Delete "$SMPROGRAMS\meta-impy Beta.lnk"
+  Delete "$DESKTOP\meta-impy Beta.lnk"
+  Delete "$SMPROGRAMS\meta-impy.lnk"
   
   ; Clean up old newview.exe file
   Delete "$INSTDIR\newview.exe"
@@ -533,7 +533,7 @@ FunctionEnd
 ;
 Function un.RemovePassword
 
-DetailPrint "Removing Second Life password"
+DetailPrint "Removing meta-impy password"
 
 SetShellVarContext current
 Delete "$APPDATA\meta-impy\user_settings\password.dat"
