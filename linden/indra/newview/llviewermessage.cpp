@@ -1875,7 +1875,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 			gIMMgr->processIMTypingStop(im_info);
 		}
 // [/RLVa:KB]
-//		else if (offline == IM_ONLINE && !is_linden && is_busy && name != SYSTEM_FROM)
+//		else if (offline == IM_ONLINE && !is_god && is_busy && name != SYSTEM_FROM)
 // [RLVa:KB] - Checked: 2009-07-10 (RLVa-1.0.0g)
 		else if ( (offline == IM_ONLINE && !is_god && is_busy && name != SYSTEM_FROM) && 
 			      ( (!gRlvHandler.hasBehaviour(RLV_BHVR_RECVIM)) || (gRlvHandler.isException(RLV_BHVR_RECVIM, from_id))) )
@@ -2130,7 +2130,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 		break;
 	case IM_GROUP_INVITATION:
 		{
-			//if (!is_linden && (is_busy || is_muted))
+			//if (!is_god && (is_busy || is_muted))
 			if ((is_busy || is_muted))
 			{
 				LLMessageSystem *msg = gMessageSystem;
@@ -2922,13 +2922,13 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 	BOOL is_busy = gAgent.getBusy();
 
 	BOOL is_muted = FALSE;
-	BOOL is_linden = FALSE;
+	BOOL is_god = FALSE;
 	is_muted = LLMuteList::getInstance()->isMuted(
 		from_id,
 		from_name,
 		LLMute::flagTextChat) 
 		|| LLMuteList::getInstance()->isMuted(owner_id, LLMute::flagTextChat);
-	is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
+	is_god = chat.mSourceType != CHAT_SOURCE_OBJECT &&
 		LLMuteList::getInstance()->isGod(from_name);
 
 	BOOL is_audible = (CHAT_AUDIBLE_FULLY == chat.mAudible);
@@ -2958,7 +2958,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 
 		// record last audible utterance
 		if (is_audible
-			&& (is_linden || (!is_muted && !is_busy)))
+			&& (is_god || (!is_muted && !is_busy)))
 		{
 			if (chat.mChatType != CHAT_TYPE_START 
 				&& chat.mChatType != CHAT_TYPE_STOP)
@@ -3297,11 +3297,11 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		// F		T		T		T				*			No			No
 		// T		*		*		*				F			Yes			Yes
 
-		chat.mMuted = is_muted && !is_linden;
+		chat.mMuted = is_muted && !is_god;
 		
 		
 		if (!visible_in_chat_bubble 
-			&& (is_linden || !is_busy || is_owned_by_me))
+			&& (is_god || !is_busy || is_owned_by_me))
 		{
 			// show on screen and add to history
 			check_translate_chat(mesg, chat, FALSE);
