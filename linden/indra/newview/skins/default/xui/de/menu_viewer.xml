@@ -214,6 +214,19 @@
 			<menu_item_separator label="-----------" name="separator9"/>
 			<menu_item_call label="Fehler melden..." name="Report Bug..."/>
 		</menu>
-		<menu_item_call label="Über Second Life..." name="About Second Life..."/>
+		<menu label="Meta 7 web site" name="Meta 7 web site">
+		     <menu_item_call label="Meta 7 Homepage..." name="Meta 7 home page..."/>
+		     <menu_item_call label="M$ Kaufen..." name="Buy M$..."/>
+		     <menu_item_call label="Downloads..." name="Downloads..."/>
+		     <menu_item_call label="Meta 7 wiki..." name="Meta 7 wiki..."/>
+		     <menu_item_call label="Offizielle Foren..." name="Official forums..."/>
+		     <menu_item_call label="Nutzungsbedingungen..." name="Terms of service..."/>
+		     <menu_item_call label="Community-Standards..." name="Community standards..."/>
+		     <menu_item_call label="Inhaltseinstufung..." name="Maturity ratings..."/>
+		     <menu_item_call label="Datenschutz..." name="Privacy policy..."/>
+		     <menu_item_call label="Fehlermeldung senden..." name="Submit a bug report..."/>
+		     <menu_item_call label="Support-Anfrage senden..." name="Submit a support ticket..."/>
+		</menu>
+		<menu_item_call label="Über meta-impy..." name="About meta-impy..."/>
 	</menu>
 </menu_bar>
