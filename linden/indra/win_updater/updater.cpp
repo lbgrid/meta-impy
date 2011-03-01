@@ -393,7 +393,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	//EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode);
 	
 	gWindow = CreateWindowEx(NULL, win_class_name, 
-		L"Second Life Updater",
+		L"meta-impy Updater",
 		WS_OVERLAPPEDWINDOW, 
 		CW_USEDEFAULT, 
 		CW_USEDEFAULT, 
@@ -456,11 +456,11 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	if (gTotalBytesRead < (1024 * 1024) && ! cancelled)
 	{
 		MessageBox(gWindow,
-			L"The Imprudence auto-update has failed.\n"
+			L"The meta-impy auto-update has failed.\n"
 			L"The problem may be caused by other software installed \n"
 			L"on your computer, such as a firewall.\n"
-			L"Please visit http://wiki.kokuaviewer.org/wiki/Imprudence:Downloads \n"
-			L"to download the latest version of Imprudence.\n",
+			L"Please visit http://www.meta7.com/download.php \n"
+			L"to download the latest version of meta-impy.\n",
 			NULL, MB_OK);
 		return 1;
 	}
@@ -474,7 +474,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	if (!success)
 	{
 		MessageBox(gWindow, 
-			L"Imprudence download failed.\n"
+			L"meta-impy download failed.\n"
 			L"Please try again later.", 
 			NULL, MB_OK);
 		return 1;
@@ -484,7 +484,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	//char params[256];		/* Flawfinder: ignore */
 	//sprintf(params, "/S");	/* Flawfinder: ignore */
 	//MessageBox(gWindow, 
-	//	L"Updating Second Life.\n\nSecond Life will automatically start once the update is complete.  This may take a minute...",
+	//	L"Updating grid viewer.\n\n The grid viewer will automatically start once the update is complete.  This may take a minute...",
 	//	L"Download Complete",
 	//	MB_OK);
 		

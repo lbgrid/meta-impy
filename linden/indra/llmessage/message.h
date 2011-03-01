@@ -304,8 +304,7 @@ public:
 	S32 getErrorCode() const { return mErrorCode; }
 
 	// Read file and build message templates filename must point to a
-	// valid string which specifies the path of a valid linden
-	// template.
+	// valid string which specifies the path of a valid template.
 	void loadTemplateFile(const std::string& filename, bool failure_is_fatal);
 
 

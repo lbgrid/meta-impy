@@ -51,7 +51,7 @@
 #include "apr_network_io.h"
 #include "apr_poll.h"
 
-// linden library headers
+// viewer library headers
 #include "indra_constants.h"
 #include "lldarray.h"
 #include "lldir.h"

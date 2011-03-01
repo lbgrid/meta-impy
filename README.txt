@@ -35,14 +35,14 @@
     streak ahead of them.
 
     Since this is being done for meta7, and meta7 does not care about LL
-    TPV, somethings are just going to be changed specifically to suit
+    TPVP, somethings are just going to be changed specifically to suit
     the meta7 grid.  On the other hand, there are some things we might
     implement that are of general usefulness, or already on the Impy
     wish list.  I will try to write them such that Impy developers can
     cherry pick those things, then let the Impy developers know.
 
-    Note, since we don't care about LL TPV, it's likely that meta7
-    viewers will not be TPV compliant.  Meta7 viewers are made for use
+    Note, since we don't care about LL TPVP, it's likely that meta7
+    viewers will not be TPVP compliant.  Meta7 viewers are made for use
     on the meta7 grid.  They will probably work on the SL grid, but that
     is not important to us, and not recommended by us.  Use at your own
     risk on the SL grid.

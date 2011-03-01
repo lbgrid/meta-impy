@@ -194,7 +194,7 @@ void LLFloaterChat::setMinimized(BOOL minimized)
 	updateConsoleVisibility();
 }
 
-// linden library includes
+// viewer library includes
 #include "llaudioengine.h"
 #include "llchat.h"
 #include "llfontgl.h"

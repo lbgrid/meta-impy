@@ -43,10 +43,10 @@ def build(name, context={}, **kwargs):
     """ Convenience method for using a global, singleton, service builder.  Pass arguments either via a dict or via python keyword arguments, or both!
 
     Example use:
-     > context = {'channel':'Second Life Release', 'version':'1.18.2.0'}
+     > context = {'channel':'Grid Viewer Release', 'version':'1.18.2.0'}
      > servicebuilder.build('version-manager-version', context)
        'http://int.util.vaak.lindenlab.com/channel/Second%20Life%20Release/1.18.2.0'
-     > servicebuilder.build('version-manager-version', channel='Second Life Release', version='1.18.2.0')
+     > servicebuilder.build('version-manager-version', channel='Grid Viewer Release', version='1.18.2.0')
        'http://int.util.vaak.lindenlab.com/channel/Second%20Life%20Release/1.18.2.0'
      > servicebuilder.build('version-manager-version', context, version='1.18.1.2')
        'http://int.util.vaak.lindenlab.com/channel/Second%20Life%20Release/1.18.1.2'

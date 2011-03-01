@@ -1,7 +1,7 @@
 /** 
  * @file llavatarname.cpp
  * @brief Represents name-related data for an avatar, such as the
- * username/SLID ("bobsmith123" or "james.linden") and the display
+ * username/SLID ("bobsmith123" or "james.green") and the display
  * name ("James Cook")
  *
  * $LicenseInfo:firstyear=2010&license=viewerlgpl$

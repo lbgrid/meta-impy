@@ -92,7 +92,7 @@ class LLDir
 	const std::string &getAppRODataDir() const;	// Location of read-only data files
 	const std::string &getOSUserDir() const;		// Location of the os-specific user dir
 	const std::string &getOSUserAppDir() const;	// Location of the os-specific user app dir
-	const std::string &getLindenUserDir(bool empty_ok = false) const;	// Location of the Linden user dir.
+	const std::string &getViewerUserDir(bool empty_ok = false) const;	// Location of the viewer user dir.
 	const std::string &getChatLogsDir() const;	// Location of the chat logs dir.
 	const std::string &getPerAccountChatLogsDir() const;	// Location of the per account chat logs dir.
 	const std::string &getTempDir() const;			// Common temporary directory
@@ -101,9 +101,9 @@ class LLDir
 	const std::string &getCAFile() const;			// File containing TLS certificate authorities
 	const std::string &getDirDelimiter() const;	// directory separator for platform (ie. '\' or '/' or ':')
 	const std::string &getSkinDir() const;		// User-specified skin folder.
-	const std::string &getUserSkinDir() const;		// User-specified skin folder with user modifications. e.g. c:\documents and settings\username\application data\second life\skins\curskin
-	const std::string &getDefaultSkinDir() const;	// folder for default skin. e.g. c:\program files\second life\skins\default
-	const std::string getSkinBaseDir() const;		// folder that contains all installed skins (not user modifications). e.g. c:\program files\second life\skins
+	const std::string &getUserSkinDir() const;		// User-specified skin folder with user modifications.
+	const std::string &getDefaultSkinDir() const;	// folder for default skin.
+	const std::string getSkinBaseDir() const;		// folder that contains all installed skins (not user modifications).
 	const std::string &getLLPluginDir() const;		// Directory containing plugins and plugin shell
 
 	// Expanded filename
@@ -131,7 +131,7 @@ class LLDir
 
 	virtual void setChatLogsDir(const std::string &path);		// Set the chat logs dir to this user's dir
 	virtual void setPerAccountChatLogsDir(const std::string &grid, const std::string &first, const std::string &last);		// Set the per user chat log directory.
-	virtual void setLindenUserDir(const std::string &grid, const std::string &first, const std::string &last);		// Set the linden user dir to this user's dir
+	virtual void setViewerUserDir(const std::string &grid, const std::string &first, const std::string &last);		// Set the viewer user dir to this user's dir
 	virtual void setSkinFolder(const std::string &skin_folder);
 	virtual bool setCacheDir(const std::string &path);
 
@@ -149,7 +149,7 @@ protected:
 	std::string mAppRODataDir;			 // Location for static app data
 	std::string mOSUserDir;			 // OS Specific user directory
 	std::string mOSUserAppDir;			 // OS Specific user app directory
-	std::string mLindenUserDir;		 // Location for Linden user-specific data
+	std::string mViewerUserDir;		 // Location for Viewer user-specific data
 	std::string mPerAccountChatLogsDir;		 // Location for chat logs.
 	std::string mChatLogsDir;		 // Location for chat logs.
 	std::string mCAFile;				 // Location of the TLS certificate authority PEM file.

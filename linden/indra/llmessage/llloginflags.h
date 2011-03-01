@@ -33,7 +33,7 @@
 #ifndef LL_LLLOGINFLAGS_H
 #define LL_LLLOGINFLAGS_H
 
-// Is this your first login to Second Life?
+// Is this your first login to the grid?
 const U32	LOGIN_FLAG_FIRST_LOGIN			= (1 << 0);
 
 // Is this a trial account?

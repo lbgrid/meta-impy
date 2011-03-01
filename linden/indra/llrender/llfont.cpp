@@ -49,7 +49,7 @@
 #include "llerror.h"
 #include "llimage.h"
 //#include "llimagej2c.h"
-#include "llmath.h"	// Linden math
+#include "llmath.h"
 #include "llstring.h"
 //#include "imdebug.h"
 #include "llfontbitmapcache.h"

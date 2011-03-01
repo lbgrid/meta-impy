@@ -34,7 +34,7 @@
 
 #include "llpanelskins.h"
 
-// linden library includes
+// viewer library includes
 #include "llradiogroup.h"
 #include "llbutton.h"
 #include "lluictrlfactory.h"
@@ -58,10 +58,10 @@ BOOL LLPanelSkins::postBuild()
 	skin_select->setCommitCallback(onSelectSkin);
 	skin_select->setCallbackUserData(this);
 
+	getChild<LLButton>("meta7_preview")->setClickedCallback(onClickMeta7, this);
+	getChild<LLButton>("m7white_preview")->setClickedCallback(onClickM7White, this);
+	getChild<LLButton>("pslpurple_preview")->setClickedCallback(onClickPSLPurple, this);
 	getChild<LLButton>("classic_preview")->setClickedCallback(onClickClassic, this);
-	getChild<LLButton>("silver_preview")->setClickedCallback(onClickSilver, this);
-	getChild<LLButton>("dark_preview")->setClickedCallback(onClickDark, this);
-	getChild<LLButton>("gemini_preview")->setClickedCallback(onClickGemini, this);
 
 	refresh();
 	return TRUE;
@@ -104,25 +104,25 @@ void LLPanelSkins::onClickClassic(void* data)
 }
 
 //static 
-void LLPanelSkins::onClickSilver(void* data)
+void LLPanelSkins::onClickMeta7(void* data)
 {
 	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "silver");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("silver");
+	gSavedSettings.setString("SkinCurrent", "Meta7");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("Meta7");
 }
 
 //static 
-void LLPanelSkins::onClickDark(void* data)
+void LLPanelSkins::onClickM7White(void* data)
 {
 	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "dark");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("dark");
+	gSavedSettings.setString("SkinCurrent", "white_Meta7");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("white_Meta7");
 }
 
 //static 
-void LLPanelSkins::onClickGemini(void* data)
+void LLPanelSkins::onClickPSLPurple(void* data)
 {
 	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "gemini");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("gemini");
+	gSavedSettings.setString("SkinCurrent", "pslpurple");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("pslpurple");
 }

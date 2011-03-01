@@ -853,8 +853,60 @@
       <on_click function="ShowFloater" userdata="lag meter" />
     </menu_item_call>
     <menu_item_separator />
-    <menu_item_call name="About Imprudence"
-                    label="About Imprudence">
+
+
+		<menu label="Meta 7 web site"
+		     name="Meta 7 web site" opaque="true" tear_off="true" create_jump_keys="true">
+		     <menu_item_call hidden="false" label="Meta 7 home page..."
+			     name="Meta 7 home page...">
+			<on_click function="PromptShowURL" name="Meta7homePage_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com/" />
+		     </menu_item_call>
+		     <menu_item_call label="Buy M$..." name="Buy M$...">
+			<on_click function="PromptShowURL" name="BuyCredits_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com/buycredits.php" />
+		     </menu_item_call>
+		     <menu_item_call label="Downloads..." name="Downloads...">
+			<on_click function="PromptShowURL" name="Downloads_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com/download.php" />
+		     </menu_item_call>
+		     <menu_item_call label="Meta 7 wiki..." name="Meta 7 wiki...">
+			<on_click function="PromptShowURL" name="wiki_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com//wiki.php?page=wiki" />
+		     </menu_item_call>
+		     <menu_item_call label="Official forums..." name="Official forums...">
+			<on_click function="PromptShowURL" name="Forums_url"
+			     userdata="WebLaunchExternalTarget,http://forum.meta7.com/" />
+		     </menu_item_call>
+		     <menu_item_call label="Terms of service..." name="Terms of service...">
+			<on_click function="PromptShowURL" name="TOS_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com/wiki.php?page=Terms Of Service" />
+		     </menu_item_call>
+		     <menu_item_call label="Community standards..." name="Community standards...">
+			<on_click function="PromptShowURL" name="CommunityStandards_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com/wiki.php?page=Community+Standards" />
+		     </menu_item_call>
+		     <menu_item_call label="Maturity ratings..." name="Maturity ratings...">
+			<on_click function="PromptShowURL" name="MaturityRatings_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com/wiki.php?page=maturity ratings" />
+		     </menu_item_call>
+		     <menu_item_call label="Privacy policy..." name="Privacy policy...">
+			<on_click function="PromptShowURL" name="PrivacyPolicy_url"
+			     userdata="WebLaunchExternalTarget,http://www.meta7.com/privacy.php" />
+		     </menu_item_call>
+		     <menu_item_call label="Submit a bug report..." name="Submit a bug report...">
+			<on_click function="PromptShowURL" name="SubmitBugReport_url"
+			     userdata="WebLaunchExternalTarget,http://bugs.meta7.com/" />
+		     </menu_item_call>
+		     <menu_item_call label="Submit a support ticket..." name="Submit a support ticket...">
+			<on_click function="PromptShowURL" name="SubmitTicket_url"
+			     userdata="WebLaunchPublicIssue,http://support.meta7.com/" />
+		     </menu_item_call>
+		</menu>
+
+
+    <menu_item_call name="About meta-impy"
+                    label="About meta-impy">
       <on_click function="ShowFloater" userdata="about" />
     </menu_item_call>
   </menu>

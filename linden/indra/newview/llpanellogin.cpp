@@ -297,7 +297,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	// don't make it a tab stop until SL-27594 is fixed
 	web_browser->setTabStop(FALSE);
-	// web_browser->navigateToLocalPage( "loading", "loading.html" );
+	web_browser->navigateToLocalPage( "loading", "loading.html" );
 
 	// make links open in external browser
 	web_browser->setOpenInExternalBrowser( true );

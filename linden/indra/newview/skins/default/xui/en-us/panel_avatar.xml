@@ -10,7 +10,7 @@
 [AGEVERIFICATION]
       </string>
       <string name="AcctTypeResident">
-        Resident
+        Metazen
       </string>
       <string name="AcctTypeTrial">
         Trial
@@ -19,7 +19,7 @@
         Charter Member
       </string>
       <string name="AcctTypeEmployee">
-        Linden Lab Employee
+        Meta7 staff
       </string>
       <string name="PaymentInfoUsed">
         Payment Info Used
@@ -31,10 +31,10 @@
         No Payment Info On File
       </string>
       <string name="AgeVerified">
-        Age-verified
+        Adult
       </string>
       <string name="NotAgeVerified">
-        Not Age-verified
+        Mature
       </string>
       <string name="copy_key_info">
         Copied key for [AVATAR] to clipboard: [KEY]
@@ -103,7 +103,7 @@
 			     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" right="-12"
 			     mouse_opaque="true" name="partner_label"
-			     tool_tip="Second Life partner. For more info on how to set, see www.secondlife.com/partner"
+			     tool_tip="In world partner."
 			     v_pad="0" width="145">
         Partner:
       </text>
@@ -118,7 +118,7 @@
 			     border_thickness="1" bottom_delta="-19" enabled="true" follows="left|top"
 			     font="SansSerifSmall" height="18" is_unicode="false" right="-12"
 			     max_length="254" mouse_opaque="false" name="partner_edit"
-			     tool_tip="Second Life partner. For more info on how to set, see www.secondlife.com/partner"
+			     tool_tip="In world partner."
 			     width="145">
         [FIRST] [LAST]
       </line_editor>
@@ -300,7 +300,7 @@
 			     bottom="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="114"
 			     mouse_opaque="true"
-			     name="Tell everyone about your favorite places in Second Life." v_pad="0"
+			     name="Tell everyone about your favorite places in world." v_pad="0"
 			     width="302">
         Tell everyone about your favorite places.
       </text>
@@ -326,7 +326,7 @@
 			     bottom="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="114"
 			     mouse_opaque="true"
-			     name="Place an ad in Second Life&apos;s classified listings." v_pad="0"
+			     name="Place an ad in the classified listings." v_pad="0"
 			     width="302">
         Place an ad in the current grid&apos;s classified listings.
       </text>

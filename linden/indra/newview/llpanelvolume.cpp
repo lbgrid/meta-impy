@@ -35,7 +35,7 @@
 // file include
 #include "llpanelvolume.h"
 
-// linden library includes
+// viewer library includes
 #include "llclickaction.h"
 #include "lleconomy.h"
 #include "llerror.h"

@@ -34,7 +34,7 @@
 
 #include "llpaneldirland.h"
 
-// linden library includes
+// viewer library includes
 #include "llfontgl.h"
 #include "llparcel.h"
 #include "llqueryflags.h"

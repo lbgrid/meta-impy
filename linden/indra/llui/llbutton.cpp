@@ -34,7 +34,7 @@
 
 #include "llbutton.h"
 
-// Linden library includes
+// viewer library includes
 #include "v4color.h"
 #include "llstring.h"
 

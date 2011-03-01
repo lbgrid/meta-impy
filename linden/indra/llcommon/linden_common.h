@@ -82,7 +82,7 @@
 // moved msvc warnings to llpreprocessor.h  *TODO - delete this comment after merge conflicts are unlikely -brad
 #endif	//	LL_WINDOWS
 
-// Linden only libs in alpha-order other than stdtypes.h
+// Viewer only libs in alpha-order other than stdtypes.h
 // *NOTE: Please keep includes here to a minimum, see above.
 #include "stdtypes.h"
 #include "lldefs.h"

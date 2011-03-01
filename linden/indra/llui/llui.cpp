@@ -37,7 +37,7 @@
 #include <string>
 #include <map>
 
-// Linden library includes
+// viewer library includes
 #include "v2math.h"
 #include "v4color.h"
 #include "llrender.h"

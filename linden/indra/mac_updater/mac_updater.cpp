@@ -379,7 +379,7 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			gProductName = "Imprudence";
+			gProductName = "meta-impy";
 		}
 	}
 	
@@ -472,7 +472,7 @@ int main(int argc, char **argv)
 		err = CreateStandardAlert(
 				kAlertStopAlert,
 				CFSTR("Error"),
-				CFSTR("An error occurred while updating Imprudence.  Please download the latest version from http://wiki.kokuaviewer.org/wiki/Imprudence:Downloads"),
+				CFSTR("An error occurred while updating meta-impy.  Please download the latest version from http://www.meta7.com/download.php"),
 				&params,
 				&alert);
 		
@@ -669,7 +669,7 @@ static bool isFSRefViewerBundle(FSRef *targetRef)
 	return result;
 }
 
-// Search through the directory specified by 'parent' for an item that appears to be a Second Life viewer.
+// Search through the directory specified by 'parent' for an item that appears to be a viewer.
 static OSErr findAppBundleOnDiskImage(FSRef *parent, FSRef *app)
 {
 	FSIterator		iterator;
@@ -756,7 +756,7 @@ void *updatethreadproc(void*)
 	
 	try
 	{
-		// Attempt to get a reference to the Second Life application bundle containing this updater.
+		// Attempt to get a reference to the viewer application bundle containing this updater.
 		// Any failures during this process will cause us to default to updating /Applications/Second Life.app
 		{
 			FSRef myBundle;
@@ -935,7 +935,7 @@ void *updatethreadproc(void*)
 
 #endif // 0 *HACK for DEV-11935
 		
-		strncat(temp, "/ImprudenceUpdate_XXXXXX", (sizeof(temp) - strlen(temp)) - 1);
+		strncat(temp, "/meta-impyUpdate_XXXXXX", (sizeof(temp) - strlen(temp)) - 1);
 		if(mkdtemp(temp) == NULL)
 		{
 			throw 0;
@@ -953,7 +953,7 @@ void *updatethreadproc(void*)
 				
 		chdir(tempDir);
 		
-		snprintf(temp, sizeof(temp), "Imprudence.dmg");		
+		snprintf(temp, sizeof(temp), "meta-impy.dmg");		
 		
 		downloadFile = LLFile::fopen(temp, "wb");		/* Flawfinder: ignore */
 		if(downloadFile == NULL)
@@ -1000,7 +1000,7 @@ void *updatethreadproc(void*)
 		// NOTE: we could add -private at the end of this command line to keep the image from showing up in the Finder,
 		//		but if our cleanup fails, this makes it much harder for the user to unmount the image.
 		std::string mountOutput;
-		FILE* mounter = popen("hdiutil attach Imprudence.dmg -mountpoint mnt", "r");		/* Flawfinder: ignore */
+		FILE* mounter = popen("hdiutil attach meta-impy.dmg -mountpoint mnt", "r");		/* Flawfinder: ignore */
 		
 		if(mounter == NULL)
 		{

@@ -34,7 +34,7 @@
 
 #include "llpaneldirfind.h"
 
-// linden library includes
+// viewer library includes
 #include "llclassifiedflags.h"
 #include "llfontgl.h"
 #include "llparcel.h"

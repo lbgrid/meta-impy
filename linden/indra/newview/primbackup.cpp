@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-// linden library includes
+// viewer library includes
 #include "llfilepicker.h"
 #include "indra_constants.h"
 #include "llsdserialize.h"
@@ -423,11 +423,18 @@ void primbackup::exportworker(void *userdata)
 			// Exporting object textures (or other content) from Second Life
 			// without checking creator is a violation of the Second Life
 			// Policy on Third-Party Viewers and Terms of Service.
-			if(gHippoGridManager->getConnectedGrid()->isSecondLife())
-			{
-				primbackup::getInstance()->export_state=EXPORT_DONE;
-				return;
-			}
+			// Coz LL are paranoid about other grids getting useful content.
+			// This is probably illegal with respect to open source content, 
+			// it usually has licenses designed to prevent third parties (LL)
+			// from restricting copying.
+			// This is the meta-impy viewer, we don't care about LL's broken policies
+			// and we really don't care for LL imposing their own restrictions
+			// on content that the content author did not want.
+//			if(gHippoGridManager->getConnectedGrid()->isSecondLife())
+//			{
+//				primbackup::getInstance()->export_state=EXPORT_DONE;
+//				return;
+//			}
 
 			if(primbackup::getInstance()->m_nexttextureready==false)
 				return;

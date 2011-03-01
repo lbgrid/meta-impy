@@ -99,7 +99,7 @@ def get_channel(srctree):
     
 
 DEFAULT_SRCTREE = os.path.dirname(sys.argv[0])
-DEFAULT_CHANNEL = 'Imprudence'
+DEFAULT_CHANNEL = 'meta-impy'
 
 ARGUMENTS=[
     dict(name='actions',
@@ -163,7 +163,7 @@ ARGUMENTS=[
         for use by a .bat file.""",
          default=None),
     dict(name='version',
-         description="""This specifies the version of Imprudence that is
+         description="""This specifies the version of meta-impy that is
         being packaged up.""",
          default=get_default_version)
     ]

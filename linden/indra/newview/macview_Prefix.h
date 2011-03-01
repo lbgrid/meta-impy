@@ -30,7 +30,7 @@
  * $/LicenseInfo$
  */
 
-// MBW -- This doesn't work.  There are some conflicts between things in Carbon.h and some of the linden source.
+// MBW -- This doesn't work.  There are some conflicts between things in Carbon.h and some of the viewer source.
 //#include <Carbon/Carbon.h>
 
 ////////////////// From llagent.cpp

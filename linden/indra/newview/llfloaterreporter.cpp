@@ -37,7 +37,7 @@
 // self include
 #include "llfloaterreporter.h"
 
-// linden library includes
+// viewer library includes
 #include "llassetstorage.h"
 #include "llcachename.h"
 #include "llfontgl.h"

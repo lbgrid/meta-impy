@@ -569,7 +569,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 								&& selected_id != gAgent.getID() 
 								&& selected_speakerp.notNull() 
 								&& selected_speakerp->mType != LLSpeaker::SPEAKER_EXTERNAL
-								&& !LLMuteList::getInstance()->isLinden(selected_speakerp->mDisplayName));
+								&& !LLMuteList::getInstance()->isGod(selected_speakerp->mDisplayName));
 	}
 	childSetValue("speaker_volume", gVoiceClient->getUserVolume(selected_id));
 	childSetEnabled("speaker_volume", LLVoiceClient::voiceEnabled()

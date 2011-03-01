@@ -50,7 +50,7 @@
 	#include <errno.h>
 #endif
 
-// linden library includes
+// viewer library includes
 #include "llerror.h"
 #include "llhost.h"
 #include "lltimer.h"

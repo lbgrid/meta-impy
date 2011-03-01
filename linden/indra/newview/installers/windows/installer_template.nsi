@@ -62,7 +62,7 @@ SetOverwrite on							; stomp files by default
 AutoCloseWindow true					; after all files install, close window
 
 InstallDir "$PROGRAMFILES\${INSTNAME}"
-InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" ""
+InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" ""
 !ifdef UPDATE
 DirText $(DirectoryChooseTitle) $(DirectoryChooseUpdate)
 !else
@@ -88,7 +88,7 @@ Var INSTSHORTCUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function PostInstallExe
 push $0
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "PostInstallExe"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "PostInstallExe"
   ;MessageBox MB_OK '$0'
   ExecWait '$0'
 pop $0
@@ -108,19 +108,19 @@ push $R0
   StrCpy $INSTPROG "$R0"
   StrCpy $INSTEXE "$R0.exe"
 
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" ""
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" ""
   ; If key doesn't exist, skip install
   IfErrors ABORT
   StrCpy $INSTDIR "$0"
 
   ; We now have a directory to install to.  Get the startup parameters and shortcut as well.
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Flags"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Flags"
   IfErrors +2
   StrCpy $INSTFLAGS "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Shortcut"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Shortcut"
   IfErrors +2
   StrCpy $INSTSHORTCUT "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Exe"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Exe"
   IfErrors +2
   StrCpy $INSTEXE "$0"
   Goto FINISHED
@@ -148,19 +148,19 @@ push $R0
   StrCpy $INSTPROG "$R0"
   StrCpy $INSTEXE "$R0.exe"
 
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" ""
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" ""
   ; If key doesn't exist, skip install
   IfErrors ABORT
   StrCpy $INSTDIR "$0"
 
   ; We now have a directory to install to.  Get the startup parameters and shortcut as well.
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Flags"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Flags"
   IfErrors +2
   StrCpy $INSTFLAGS "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Shortcut"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Shortcut"
   IfErrors +2
   StrCpy $INSTSHORTCUT "$0"
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Exe"
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Exe"
   IfErrors +2
   StrCpy $INSTEXE "$0"
   Goto FINISHED
@@ -195,15 +195,15 @@ Function RemoveNSIS
   Push $0
   ; Grab the installation directory of the old version
   DetailPrint $(RemoveOldNSISVersion)
-  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" ""
+  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" ""
 
   ; If key doesn't exist, skip uninstall
   IfErrors NO_NSIS
 
   ; Clean up legacy beta shortcuts
-  Delete "$SMPROGRAMS\Second Life Beta.lnk"
-  Delete "$DESKTOP\Second Life Beta.lnk"
-  Delete "$SMPROGRAMS\Second Life.lnk"
+  Delete "$SMPROGRAMS\meta-impy Beta.lnk"
+  Delete "$DESKTOP\meta-impy Beta.lnk"
+  Delete "$SMPROGRAMS\meta-impy.lnk"
   
   ; Clean up old newview.exe file
   Delete "$INSTDIR\newview.exe"
@@ -271,7 +271,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function CheckIfAlreadyCurrent
   Push $0
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Version"
+	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Version"
     StrCmp $0 ${VERSION_LONG} 0 DONE
 	MessageBox MB_OKCANCEL $(CheckIfCurrentMB) /SD IDOK IDOK DONE
     Quit
@@ -287,7 +287,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function CloseSecondLife
   Push $0
-  FindWindow $0 "Imprudence" ""
+  FindWindow $0 "meta-impy" ""
   IntCmp $0 0 DONE
   MessageBox MB_OKCANCEL $(CloseSecondLifeInstMB) IDOK CLOSE IDCANCEL CANCEL_INSTALL
 
@@ -299,7 +299,7 @@ Function CloseSecondLife
     SendMessage $0 16 0 0
 
   LOOP:
-	  FindWindow $0 "Imprudence" ""
+	  FindWindow $0 "meta-impy" ""
 	  IntCmp $0 0 DONE
 	  Sleep 500
 	  Goto LOOP
@@ -344,12 +344,12 @@ FunctionEnd
 ; FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Delete files in Documents and Settings\<user>\Imprudence\cache
-; Delete files in Documents and Settings\All Users\Imprudence\cache
+; Delete files in Documents and Settings\<user>\meta-impy\cache
+; Delete files in Documents and Settings\All Users\meta-impy\cache
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Function RemoveCacheFiles
 ;
-;; Delete files in Documents and Settings\<user>\Imprudence
+;; Delete files in Documents and Settings\<user>\meta-impy
 ;Push $0
 ;Push $1
 ;Push $2
@@ -368,7 +368,7 @@ FunctionEnd
 ;    ExpandEnvStrings $2 $2
 ;
 ;	; When explicitly uninstalling, everything goes away
-;    RMDir /r "$2\Application Data\Imprudence\cache"
+;    RMDir /r "$2\Application Data\meta-impy\cache"
 ;
 ;  CONTINUE:
 ;    IntOp $0 $0 + 1
@@ -378,17 +378,17 @@ FunctionEnd
 ;Pop $1
 ;Pop $0
 ;
-;; Delete files in Documents and Settings\All Users\Imprudence
+;; Delete files in Documents and Settings\All Users\meta-impy
 ;Push $0
 ;  ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
 ;  StrCmp $0 "" +2
-;  RMDir /r "$0\Imprudence\cache"
+;  RMDir /r "$0\meta-impy\cache"
 ;Pop $0
 ;
-;; Delete filse in C:\Windows\Application Data\Imprudence
+;; Delete filse in C:\Windows\Application Data\meta-impy
 ;; If the user is running on a pre-NT system, Application Data lives here instead of
 ;; in Documents and Settings.
-;RMDir /r "$WINDIR\Application Data\Imprudence\cache"
+;RMDir /r "$WINDIR\Application Data\meta-impy\cache"
 ;
 ;FunctionEnd
 
@@ -438,12 +438,12 @@ FunctionEnd
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Delete files in Documents and Settings\<user>\Imprudence
-; Delete files in Documents and Settings\All Users\Imprudence
+; Delete files in Documents and Settings\<user>\meta-impy
+; Delete files in Documents and Settings\All Users\meta-impy
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.DocumentsAndSettingsFolder
 
-; Delete files in Documents and Settings\<user>\Imprudence
+; Delete files in Documents and Settings\<user>\meta-impy
 Push $0
 Push $1
 Push $2
@@ -466,13 +466,13 @@ Push $2
 	; Otherwise (preview/dmz etc) just remove cache
     StrCmp $INSTFLAGS "" RM_ALL RM_CACHE
       RM_ALL:
-        RMDir /r "$2\Application Data\Imprudence"
+        RMDir /r "$2\Application Data\meta-impy"
       RM_CACHE:
         # Local Settings directory is the cache, there is no "cache" subdir
-        RMDir /r "$2\Local Settings\Application Data\Imprudence"
+        RMDir /r "$2\Local Settings\Application Data\meta-impy"
         # Vista version of the same
-        RMDir /r "$2\AppData\Local\Imprudence"
-        Delete "$2\Application Data\Imprudence\user_settings\settings_windlight.xml"
+        RMDir /r "$2\AppData\Local\meta-impy"
+        Delete "$2\Application Data\meta-impy\user_settings\settings_windlight.xml"
 
   CONTINUE:
     IntOp $0 $0 + 1
@@ -483,17 +483,17 @@ Pop $2
 Pop $1
 Pop $0
 
-; Delete files in Documents and Settings\All Users\Imprudence
+; Delete files in Documents and Settings\All Users\meta-impy
 Push $0
   ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common AppData"
   StrCmp $0 "" +2
-  RMDir /r "$0\Imprudence"
+  RMDir /r "$0\meta-impy"
 Pop $0
 
-; Delete filse in C:\Windows\Application Data\Imprudence
+; Delete filse in C:\Windows\Application Data\meta-impy
 ; If the user is running on a pre-NT system, Application Data lives here instead of
 ; in Documents and Settings.
-RMDir /r "$WINDIR\Application Data\Imprudence"
+RMDir /r "$WINDIR\Application Data\meta-impy"
 
 FunctionEnd
 
@@ -503,7 +503,7 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.CloseSecondLife
   Push $0
-  FindWindow $0 "Imprudence" ""
+  FindWindow $0 "meta-impy" ""
   IntCmp $0 0 DONE
   MessageBox MB_OKCANCEL $(CloseSecondLifeUnInstMB) IDOK CLOSE IDCANCEL CANCEL_UNINSTALL
 
@@ -515,7 +515,7 @@ Function un.CloseSecondLife
     SendMessage $0 16 0 0
 
   LOOP:
-	  FindWindow $0 "Imprudence" ""
+	  FindWindow $0 "meta-impy" ""
 	  IntCmp $0 0 DONE
 	  Sleep 500
 	  Goto LOOP
@@ -533,10 +533,10 @@ FunctionEnd
 ;
 Function un.RemovePassword
 
-DetailPrint "Removing Second Life password"
+DetailPrint "Removing meta-impy password"
 
 SetShellVarContext current
-Delete "$APPDATA\Imprudence\user_settings\password.dat"
+Delete "$APPDATA\meta-impy\user_settings\password.dat"
 SetShellVarContext all
 
 FunctionEnd
@@ -621,9 +621,9 @@ SetShellVarContext all
 Call un.CloseSecondLife
 
 ; Clean up registry keys (these should all be !defines somewhere)
-DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG"
+DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG"
 DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG"
-DeleteRegKey HKEY_LOCAL_MACHINE "Software\Linden Research, Inc.\Installer Language" 
+DeleteRegKey HKEY_LOCAL_MACHINE "Software\meta-impy\Installer Language" 
 
 ; Clean up shortcuts
 Delete "$SMPROGRAMS\$INSTSHORTCUT\*.*"
@@ -758,11 +758,11 @@ SectionEnd 				; end of uninstall section
 !macroend
 
 Function GetProgramName
-  !insertmacro GetParameterValue "/P=" "Imprudence"
+  !insertmacro GetParameterValue "/P=" "meta-impy"
 FunctionEnd
 
 Function un.GetProgramName
-  !insertmacro GetParameterValue "/P=" "Imprudence"
+  !insertmacro GetParameterValue "/P=" "meta-impy"
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -863,7 +863,7 @@ FunctionEnd
 Function .onInit
 
 	; read the language from registry (ok if not there) and set langauge menu
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" "InstallerLanguage"
+	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" "InstallerLanguage"
 	StrCpy $LANGUAGE $0
 
 	Push ""
@@ -882,14 +882,14 @@ Function .onInit
 		Abort
 
 	; save language in registry		
-	WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" "InstallerLanguage" $LANGUAGE
+	WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" "InstallerLanguage" $LANGUAGE
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Function un.onInit
 
 	; read language from registry and set for ininstaller
-	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\${INSTNAME}" "InstallerLanguage"
+	ReadRegStr $0 HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\${INSTNAME}" "InstallerLanguage"
 	StrCpy $LANGUAGE $0
 
 FunctionEnd
@@ -992,11 +992,11 @@ CreateShortCut "$INSTDIR\$INSTSHORTCUT Museum Spanish.lnk" "$INSTDIR\$INSTEXE" "
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Write registry
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "" "$INSTDIR"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Version" "${VERSION_LONG}"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Flags" "$INSTFLAGS"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Shortcut" "$INSTSHORTCUT"
-WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\Linden Research, Inc.\$INSTPROG" "Exe" "$INSTEXE"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "" "$INSTDIR"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Version" "${VERSION_LONG}"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Flags" "$INSTFLAGS"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Shortcut" "$INSTSHORTCUT"
+WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\meta-impy\$INSTPROG" "Exe" "$INSTEXE"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "DisplayName" "$INSTPROG (remove only)"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\$INSTPROG" "UninstallString" '"$INSTDIR\uninst.exe" /P="$INSTPROG"'
 

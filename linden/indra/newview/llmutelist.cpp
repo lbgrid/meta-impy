@@ -233,7 +233,7 @@ LLMuteList::LLMuteList() :
 
 void LLMuteList::loadUserVolumes()
 {
-	// call once, after LLDir::setLindenUserDir() has been called
+	// call once, after LLDir::setViewerUserDir() has been called
 	if (mUserVolumesLoaded)
 		return;
 	mUserVolumesLoaded = TRUE;
@@ -264,8 +264,8 @@ LLMuteList::~LLMuteList()
 {
 	// If we quit from the login screen we will not have an SL account
 	// name.  Don't try to save, otherwise we'll dump a file in
-	// C:\Program Files\SecondLife\  JC
-	std::string user_dir = gDirUtilp->getLindenUserDir(true);
+	// the install directory.  JC
+	std::string user_dir = gDirUtilp->getViewerUserDir(true);
 	if (!user_dir.empty())
 	{
 		std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "volume_settings.xml");
@@ -282,7 +282,7 @@ LLMuteList::~LLMuteList()
 	}
 }
 
-BOOL LLMuteList::isLinden(const std::string& name) const
+BOOL LLMuteList::isGod(const std::string& name) const
 {
 	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
 	boost::char_separator<char> sep(" ");
@@ -294,7 +294,7 @@ BOOL LLMuteList::isLinden(const std::string& name) const
 	if (token_iter == tokens.end()) return FALSE;
 	
 	std::string last_name = *token_iter;
-	return last_name == "Linden";
+	return last_name == "Meta";
 }
 
 
@@ -339,9 +339,9 @@ bool LLMuteList::addMuteCallback(const LLSD& notification, const LLSD& response,
 
 BOOL LLMuteList::add(const LLMute& mute, U32 flags)
 {
-	// Can't mute text from Lindens
+	// Can't mute text from gods
 	if ((mute.mType == LLMute::AGENT)
-		&& isLinden(mute.mName) && (flags & LLMute::flagTextChat || flags == 0))
+		&& isGod(mute.mName) && (flags & LLMute::flagTextChat || flags == 0))
 	{
 		LLNotifications::instance().add("MuteLinden");
 		return FALSE;

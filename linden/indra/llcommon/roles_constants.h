@@ -89,7 +89,7 @@ const U64 GP_GROUP_CHANGE_IDENTITY = 0x1 << 11;	// Charter, insignia, 'Show In G
 
 // Parcel Management
 const U64 GP_LAND_DEED			= 0x1 << 12;	// Deed Land and Buy Land for Group
-const U64 GP_LAND_RELEASE			= 0x1 << 13;	// Release Land (to Gov. Linden)
+const U64 GP_LAND_RELEASE			= 0x1 << 13;	// Release Land (abandon it back to the grid owners)
 const U64 GP_LAND_SET_SALE_INFO	= 0x1 << 14;	// Set for sale info (Toggle "For Sale", Set Price, Set Target, Toggle "Sell objects with the land")
 const U64 GP_LAND_DIVIDE_JOIN		= 0x1 << 15;	// Divide and Join Parcels
 
@@ -126,7 +126,7 @@ const U64 GP_LAND_RETURN		= GP_LAND_RETURN_GROUP_OWNED
 								| GP_LAND_RETURN_GROUP_SET	
 								| GP_LAND_RETURN_NON_GROUP;
 
-const U64 GP_LAND_GARDENING		= 0x1LL << 35;	// Parcel Gardening - plant and move linden trees
+const U64 GP_LAND_GARDENING		= 0x1LL << 35;	// Parcel Gardening - plant and move tree prims
 
 // Object Management
 const U64 GP_OBJECT_DEED			= 0x1LL << 36;	// Deed Object

@@ -139,7 +139,7 @@ inline F32 LLVOWLSky::calcPhi(U32 i)
 #if !DOME_SLICES
 static const F32 Q = (1.f + sqrtf(5.f))/2.f; //golden ratio
 
-//icosahedron verts (based on asset b0c7b76e-28c6-1f87-a1de-752d5e3cd264, contact Runitai Linden for a copy)
+//icosahedron verts (based on asset b0c7b76e-28c6-1f87-a1de-752d5e3cd264 in the second life grid, contact Runitai Linden for a copy)
 static const LLVector3 icosahedron_vert[] =
 {
 	LLVector3(0,1.f,Q),

@@ -54,13 +54,13 @@
 
 // These need to be localized.
 static const char dialog_text[] =
-"Imprudence appears to have crashed or frozen last time it ran.\n"
-"This crash reporter collects information about your computer's hardware, operating system, and some Imprudence logs, all of which are used for debugging purposes only.\n"
+"meta-impy appears to have crashed or frozen last time it ran.\n"
+"This crash reporter collects information about your computer's hardware, operating system, and some meta-impy logs, all of which are used for debugging purposes only.\n"
 "\n"
 "Send crash report?";
 
 static const char dialog_title[] =
-"Imprudence Crash Logger";
+"meta-impy0 Crash Logger";
 
 #if LL_GTK
 static void response_callback (GtkDialog *dialog,

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Send a URL of the form secondlife://... to Second Life.
+# Send a URL of the form secondlife://... to the grid.
 #
 
 URL="$1"
@@ -13,9 +13,9 @@ fi
 RUN_PATH=`dirname "$0" || echo .`
 cd "${RUN_PATH}"
 
-if [ `pidof do-not-directly-run-imprudence-bin` ]; then
+if [ `pidof do-not-directly-run-meta-impy-bin` ]; then
 	exec dbus-send --type=method_call --dest=com.secondlife.ViewerAppAPIService /com/secondlife/ViewerAppAPI com.secondlife.ViewerAppAPI.GoSLURL string:"$1"
 else
-	exec ./imprudence -url \'"${URL}"\'
+	exec ./meta-impy -url \'"${URL}"\'
 fi
 

@@ -469,7 +469,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 
 	// Set the application icon.
 	SDL_Surface *bmpsurface;
-	bmpsurface = Load_BMP_Resource("imprudence_icon.BMP");
+	bmpsurface = Load_BMP_Resource("meta-impy_icon.BMP");
 	if (bmpsurface)
 	{
 		// This attempts to give a black-keyed mask to the icon.
@@ -698,16 +698,14 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 		close();
 		setupFailure(
 #if LL_SOLARIS && defined(__sparc)
-			"Second Life requires at least 24-bit color on SPARC to run in a window.\n"
+			"This viewer requires at least 24-bit color on SPARC to run in a window.\n"
 			"Please use fbconfig to set your default color depth to 24 bits.\n"
 			"You may also need to adjust the X11 setting in SMF.  To do so use\n"
 			"  'svccfg -s svc:/application/x11/x11-server setprop options/default_depth=24'\n"
 #else
-			"Second Life requires True Color (32-bit) to run in a window.\n"
-			"Please go to Control Panels -> Display -> Settings and\n"
-			"set the screen to 32-bit color.\n"
+			"This viewer requires True Color (32-bit) to run in a window.\n"
 #endif
-			"Alternately, if you choose to run fullscreen, Second Life\n"
+			"Alternately, if you choose to run fullscreen, this viewer\n"
 			"will automatically adjust the screen each time it runs.",
 			"Error",
 			OSMB_OK);
@@ -719,11 +717,10 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 	{
 		close();
 		setupFailure(
-			"Second Life is unable to run because it can't get an 8 bit alpha\n"
+			"This viewer is unable to run because it can't get an 8 bit alpha\n"
 			"channel.  Usually this is due to video card driver issues.\n"
 			"Please make sure you have the latest video card drivers installed.\n"
-			"Also be sure your monitor is set to True Color (32-bit) in\n"
-			"Control Panels -> Display -> Settings.\n"
+			"Also be sure your monitor is set to True Color (32-bit)n"
 			"If you continue to receive this message, contact customer service.",
 			"Error",
 			OSMB_OK);

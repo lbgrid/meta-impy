@@ -42,7 +42,7 @@ class LLFooHandler : public LLCommandHandler
 public:
     // Inform the system you handle commands starting
 	// with "foo" and they are only allowed from
-	// "trusted" (pointed at Linden content) browsers
+	// "trusted" browsers
 	LLFooHandler() : LLCommandHandler("foo", true) { }
 
     // Your code here

@@ -60,7 +60,7 @@
 		<combo_item name="MissingContent">
 			Відсутній зміст
 		</combo_item>
-		<combo_item name="LindenDollars(L$)">
+		<combo_item name="GridCurrency">
 			Гроші (L$)
 		</combo_item>
 		<combo_item name="Permissions">

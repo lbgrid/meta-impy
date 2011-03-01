@@ -959,8 +959,8 @@ bool idle_startup()
 
 		// create necessary directories
 		// *FIX: these mkdir's should error check
-		gDirUtilp->setLindenUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
-		LLFile::mkdir(gDirUtilp->getLindenUserDir());
+		gDirUtilp->setViewerUserDir(gHippoGridManager->getCurrentGridNick(), firstname, lastname);
+		LLFile::mkdir(gDirUtilp->getViewerUserDir());
 
 		// Set PerAccountSettingsFile to the default value.
 		gSavedSettings.setString("PerAccountSettingsFile",
@@ -2424,7 +2424,7 @@ bool idle_startup()
 			}
 		}
 		// Either we want to show tutorial because this is the first login
-		// to a Linden Help Island or the user quit with the tutorial
+		// to a grid Help Island or the user quit with the tutorial
 		// visible.  JC
 		if (show_hud
 			|| gSavedSettings.getBOOL("ShowTutorial"))
@@ -3031,7 +3031,7 @@ std::string LLStartUp::loadPasswordFromDisk()
 #if LL_DARWIN
 		UInt32 passwordLength;
 		char *passwordData;
-		OSStatus stat = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, &passwordLength, (void**)&passwordData, NULL);
+		OSStatus stat = SecKeychainFindGenericPassword(NULL, 10, "meta-impy", 0, NULL, &passwordLength, (void**)&passwordData, NULL);
 		if (stat == noErr)
 		{
 			if (passwordLength == HASHED_LENGTH)
@@ -3079,7 +3079,7 @@ void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
 {
 #if LL_DARWIN
 	SecKeychainItemRef keychainItem;
-	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, NULL, NULL, &keychainItem);
+	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "meta-impy", 0, NULL, NULL, NULL, &keychainItem);
 	if (status == noErr)
 	{
 		SecKeychainItemModifyAttributesAndData(keychainItem, NULL, hashed_password.length(), hashed_password.c_str());
@@ -3087,7 +3087,7 @@ void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
 	}
 	else
 	{
-		SecKeychainAddGenericPassword(NULL, 10, "Imprudence", 0, NULL, hashed_password.length(), hashed_password.c_str(), NULL);
+		SecKeychainAddGenericPassword(NULL, 10, "meta-impy", 0, NULL, hashed_password.length(), hashed_password.c_str(), NULL);
 	}
 #else
 	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
@@ -3122,7 +3122,7 @@ void LLStartUp::deletePasswordFromDisk()
 {
 #if LL_DARWIN
 	SecKeychainItemRef keychainItem;
-	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "Imprudence", 0, NULL, NULL, NULL, &keychainItem);
+	OSStatus status = SecKeychainFindGenericPassword(NULL, 10, "meta-impy", 0, NULL, NULL, NULL, &keychainItem);
 	if (status == noErr)
 	{
 		SecKeychainItemDelete(keychainItem);
@@ -3754,7 +3754,7 @@ void init_start_screen(S32 location_id)
 
 	LL_DEBUGS("AppInit") << "Loading startup bitmap..." << LL_ENDL;
 
-	std::string temp_str = gDirUtilp->getLindenUserDir() + gDirUtilp->getDirDelimiter();
+	std::string temp_str = gDirUtilp->getViewerUserDir() + gDirUtilp->getDirDelimiter();
 
 	if ((S32)START_LOCATION_ID_LAST == location_id)
 	{

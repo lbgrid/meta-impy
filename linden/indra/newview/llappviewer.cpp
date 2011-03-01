@@ -310,15 +310,15 @@ BOOL gLogoutInProgress = FALSE;
 // Internal globals... that should be removed.
 static std::string gArgs;
 
-const std::string MARKER_FILE_NAME("Imprudence.exec_marker");
-const std::string ERROR_MARKER_FILE_NAME("Imprudence.error_marker");
-const std::string LLERROR_MARKER_FILE_NAME("Imprudence.llerror_marker");
-const std::string LOGOUT_MARKER_FILE_NAME("Imprudence.logout_marker");
+const std::string MARKER_FILE_NAME("meta-impy.exec_marker");
+const std::string ERROR_MARKER_FILE_NAME("meta-impy.error_marker");
+const std::string LLERROR_MARKER_FILE_NAME("meta-impy.llerror_marker");
+const std::string LOGOUT_MARKER_FILE_NAME("meta-impy.logout_marker");
 static BOOL gDoDisconnect = FALSE;
 static std::string gLaunchFileOnQuit;
 
 // Used on Win32 for other apps to identify our window (eg, win_setup)
-const char* const VIEWER_WINDOW_CLASSNAME = "Imprudence";
+const char* const VIEWER_WINDOW_CLASSNAME = "meta-impy";
 
 //----------------------------------------------------------------------------
 // File scope definitons
@@ -1644,8 +1644,7 @@ bool LLAppViewer::initLogging()
 	LLError::initForApplication(
 				gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, ""));
 	LLError::setFatalFunction(errorCallback);
-
-	std::string log_name = "Imprudence.log";
+	std::string log_name = "meta-impy.log";
 
 	const int MAX_ROTATION = 5;
 	for(int i = MAX_ROTATION; 0 < i; i--)
@@ -1824,7 +1823,7 @@ bool LLAppViewer::initConfiguration()
 	if(!loadSettingsFromDirectory("Default", set_defaults))
 	{
 		std::ostringstream msg;
-		msg << "Second Life could not load its default settings file. \n" 
+		msg << "This viewer could not load its default settings file. \n" 
 		    << "The installation may be corrupted. \n";
 
 		OSMessageBox(
@@ -1838,7 +1837,7 @@ bool LLAppViewer::initConfiguration()
 	// - set procedural settings 
 	gSavedSettings.setString("ClientSettingsFile", 
         // gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, getSettingsFilename("Default", "Global")));
-        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_imprudence_experimental.xml"));
+        gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, "settings_meta-impy_experimental.xml"));
 
 	gSavedSettings.setString("VersionChannelName", ViewerVersion::getImpViewerName());
 
@@ -3295,7 +3294,7 @@ void LLAppViewer::saveFinalSnapshot()
 		gSavedSettings.setBOOL("ShowParcelOwners", FALSE);
 		idle();
 
-		std::string snap_filename = gDirUtilp->getLindenUserDir(true);
+		std::string snap_filename = gDirUtilp->getViewerUserDir(true);
 		if (!snap_filename.empty())
 		{
 			snap_filename += gDirUtilp->getDirDelimiter();

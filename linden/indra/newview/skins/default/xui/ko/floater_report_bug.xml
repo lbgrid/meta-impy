@@ -64,7 +64,7 @@
 		<combo_item name="MissingContent">
 			유실 컨텐츠
 		</combo_item>
-		<combo_item name="LindenDollars(L$)">
+		<combo_item name="GridCurrency">
 			린든달러(L$)
 		</combo_item>
 		<combo_item name="Permissions">

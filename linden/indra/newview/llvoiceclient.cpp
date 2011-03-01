@@ -4668,11 +4668,11 @@ void LLVoiceClient::messageEvent(
 		{
 			bool is_busy = gAgent.getBusy();
 			bool is_muted = LLMuteList::getInstance()->isMuted(session->mCallerID, session->mName, LLMute::flagTextChat);
-			bool is_linden = LLMuteList::getInstance()->isLinden(session->mName);
+			bool is_god = LLMuteList::getInstance()->isGod(session->mName);
 			bool quiet_chat = false;
 			LLChat chat;
 
-			chat.mMuted = is_muted && !is_linden;
+			chat.mMuted = is_muted && !is_god;
 			
 			if(!chat.mMuted)
 			{
@@ -4680,7 +4680,7 @@ void LLVoiceClient::messageEvent(
 				chat.mFromName = session->mName;
 				chat.mSourceType = CHAT_SOURCE_AGENT;
 
-				if(is_busy && !is_linden)
+				if(is_busy && !is_god)
 				{
 					quiet_chat = true;
 					// TODO: Question: Return busy mode response here?  Or maybe when session is started instead?

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?><notifications>
 
-<global name="VIEWER_NAME">Imprudence</global>
-<global name="VIEWER_SITE">kokuaviewer.org</global>
+<global name="VIEWER_NAME">meta-impy</global>
+<global name="VIEWER_SITE">www.meta7.com</global>
 <global name="SECOND_LIFE">Second Life</global>
 <global name="SECOND_LIFE_SITE">secondlife.com</global>
 
@@ -1442,7 +1442,7 @@ Corrupt resource file:
  icon="alertmodal.tga"
  name="UnknownResourceFileVersion"
  type="alertmodal">
-Unknown Linden resource file version in file: 
+Unknown resource file version in file: 
 
 [FILE]
 </notification>
@@ -2877,7 +2877,7 @@ Visit the [SECOND_LIFE] Wiki for info on how to use the Public Issue Tracker.
  icon="alertmodal.tga"
  name="WebLaunchSupportWiki"
  type="alertmodal">
-Go to the Official Linden Blog, for the latest news and information.
+Go to the grids web site, for the latest news and information.
   <usetemplate
    ignoretext="When launching web browser to view the blog"
    name="okcancelignore"
@@ -3667,7 +3667,7 @@ Default: off
  label="Max Inventory Items To Transfer"
  name="HelpMaxInventoryItemsTransfer"
  type="alertmodal">
-This box controls how many objects can be transfered between clients at a time. -1 sets no limit on the amount of objects. Default Second Life setting is 42.
+This box controls how many objects can be transfered between clients at a time. -1 sets no limit on the amount of objects. Default setting is 42.
 
 Default: -1
 </notification>
@@ -4030,7 +4030,7 @@ Estate managers can only be added or removed by the owner of the estate, not by 
  label="Use Global Time"
  name="HelpEstateUseGlobalTime"
  type="alertmodal">
-This checkbox makes the sun in your estate follow the same position as on the Linden-owned &apos;mainland&apos; estates.
+This checkbox makes the sun in your estate follow the same position as on the grid owned estates.
 
 Default: on
 </notification>
@@ -4086,7 +4086,7 @@ Access to this estate will be limited to groups listed here and any Residents ab
  type="alertmodal">
 Setting this to a valid email address will cause abuse reports on this estate to be sent to that address.
 
-Setting it blank will cause abuse reports to be sent only to Linden Lab.
+Setting it blank will cause abuse reports to be sent only to the grid owners.
 </notification>
 
 <notification
@@ -4418,14 +4418,14 @@ http://secondlife.com/support/incidentreport.php
  icon="alertmodal.tga"
  name="HelpReportAbuseEmailEO"
  type="alertmodal">
-IMPORTANT: This report will go to the owner of the region you are currently in and not to Linden Lab.
+IMPORTANT: This report will go to the owner of the region you are currently in and not to the grid owners.
 
-As a service to residents and visitors, the owner of the region you are in has elected to receive and resolve all reports originating in this region. Linden Lab will not investigate reports you file from this location.
+As a service to residents and visitors, the owner of the region you are in has elected to receive and resolve all reports originating in this region. The grid owners will not investigate reports you file from this location.
 
 The region owner will resolve reports based on the local rules of this region as outlined in the estate Covenant.
 (View covenants by going to the World menu and selecting About Land.)
 
-The resolution of this report applies only to this Region; Residents access to other areas of [GRID_NAME] will not be affected by the outcome of this report. <!-- Only Linden Lab can restrict access to the entirety of [GRID_NAME]. -->
+The resolution of this report applies only to this Region; Residents access to other areas of [GRID_NAME] will not be affected by the outcome of this report. <!-- Only the grid owners can restrict access to the entirety of [GRID_NAME]. -->
 </notification>
 
 <notification
@@ -4519,15 +4519,13 @@ Dear Resident,
 
 You appear to be reporting intellectual property infringement. Please make sure you are reporting it correctly:
 
-(1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the [SECOND_LIFE] permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behavior that violates the [SECOND_LIFE] Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from the [SECOND_LIFE] world.
+(1) The Abuse Process. You may submit an abuse report if you believe a Resident is exploiting the permissions system, for example, by using CopyBot or similar copying tools, to infringe intellectual property rights. The Abuse Team investigates and issues appropriate disciplinary action for behaviour that violates this grids Community Standards or Terms of Service. However, the Abuse Team does not handle and will not respond to requests to remove content from this grid.
 
-(2) The DMCA or Content Removal Process. To request removal of content from [SECOND_LIFE], you MUST submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
+(2) The DMCA or Content Removal Process. To request removal of content from this grid, you MUST submit a valid notification of infringement as provided in our DMCA Policy at http://secondlife.com/corporate/dmca.php.
 
 If you still wish to continue with the abuse process, please close this window and finish submitting your report.  You may need to select the specific category &apos;CopyBot or Permissions Exploit&apos;.
 
-Thank you,
-
-Linden Lab
+Thank you.
 </notification>
 
 <notification

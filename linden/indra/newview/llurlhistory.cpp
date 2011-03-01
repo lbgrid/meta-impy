@@ -48,7 +48,7 @@ bool LLURLHistory::loadFile(const std::string& filename)
 {
 	LLSD data;
 	{
-		std::string temp_str = gDirUtilp->getLindenUserDir() + gDirUtilp->getDirDelimiter();
+		std::string temp_str = gDirUtilp->getViewerUserDir() + gDirUtilp->getDirDelimiter();
 
 		llifstream file((temp_str + filename));
 
@@ -74,7 +74,7 @@ bool LLURLHistory::loadFile(const std::string& filename)
 // static
 bool LLURLHistory::saveFile(const std::string& filename)
 {	
-	std::string temp_str = gDirUtilp->getLindenUserDir(true);
+	std::string temp_str = gDirUtilp->getViewerUserDir(true);
 	if( temp_str.empty() )
 	{
 		llwarns << "Can't save " << filename 

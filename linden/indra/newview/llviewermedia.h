@@ -156,7 +156,7 @@ public:
 	static LLPluginClassMedia* newSourceFromMediaType(std::string media_type, LLPluginClassMediaOwner *owner /* may be NULL */, S32 default_width, S32 default_height);
 
 	// Internally set our desired browser user agent string, including
-	// the Second Life version and skin name.  Used because we can
+	// the viewer version and skin name.  Used because we can
 	// switch skins without restarting the app.
 	static void updateBrowserUserAgent();
 

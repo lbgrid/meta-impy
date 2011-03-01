@@ -50,12 +50,12 @@ public:
 		AT_SOUND = 1, 
 
 		// Links instant message access to the user on the card. eg, a
-		// card for yourself, a card for linden support, a card for
+		// card for yourself, a card for grid support, a card for
 		// the guy you were talking to in the coliseum.
 		AT_CALLINGCARD = 2,
 
 		// Links to places in the world with location and a screen
-		// shot or image saved. eg, home, linden headquarters, the
+		// shot or image saved. eg, home, grid headquarters, the
 		// coliseum, or destinations where we want to increase
 		// traffic.
 		AT_LANDMARK = 3,

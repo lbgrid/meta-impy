@@ -44,7 +44,7 @@
 typedef enum e_lltask_name
 {
 	LLTASK_NULL				= 0, // Not a valid task
-	LLTASK_AGENT			= 1, // The player's agent in Linden World
+	LLTASK_AGENT			= 1, // The player's agent in world
 	LLTASK_CHILD_AGENT		= 2, // Child agents sent to adjacent regions
 //	LLTASK_BASIC_SHOT,		// Simple shot that moves in a straight line
 //	LLTASK_BIG_SHOT,		// Big shot that uses gravity

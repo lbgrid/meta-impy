@@ -38,7 +38,7 @@
 
 #include "llclassifiedflags.h"
 
-// linden library includes
+// viewer library includes
 #include "llfontgl.h"
 #include "message.h"
 #include "llqueryflags.h"

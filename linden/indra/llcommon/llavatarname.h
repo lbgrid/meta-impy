@@ -1,7 +1,7 @@
 /** 
  * @file llavatarname.h
  * @brief Represents name-related data for an avatar, such as the
- * username/SLID ("bobsmith123" or "james.linden") and the display
+ * username/SLID ("bobsmith123" or "james.green") and the display
  * name ("James Cook")
  *
  * $LicenseInfo:firstyear=2010&license=viewerlgpl$
@@ -43,8 +43,8 @@ public:
 
 	void fromLLSD(const LLSD& sd);
 
-	// For normal names, returns "James Linden (james.linden)"
-	// When display names are disabled returns just "James Linden"
+	// For normal names, returns "James Green (james.green)"
+	// When display names are disabled returns just "James Green"
 	std::string getCompleteName() const;
 
 	// For normal names, returns "Whatever Display Name (John Doe)" when
@@ -55,31 +55,31 @@ public:
 	// line feed.
 	std::string getNames(bool linefeed = false) const;
 
-	// Returns "James Linden" or "bobsmith123 Resident" for backwards
+	// Returns "James Green" or "bobsmith123 Resident" for backwards
 	// compatibility with systems like voice and muting
 	std::string getLegacyName() const;
 
-	// "bobsmith123" or "james.linden", US-ASCII only
+	// "bobsmith123" or "james.green", US-ASCII only
 	std::string mUsername;
 
-	// "Jose' Sanchez" or "James Linden", UTF-8 encoded Unicode
+	// "Jose' Sanchez" or "James Green", UTF-8 encoded Unicode
 	// Contains data whether or not user has explicitly set
 	// a display name; may duplicate their username.
 	std::string mDisplayName;
 
-	// For "James Linden", "James"
+	// For "James Green", "James"
 	// For "bobsmith123", "bobsmith123"
 	// Used to communicate with legacy systems like voice and muting which
 	// rely on old-style names.
 	std::string mLegacyFirstName;
 
-	// For "James Linden", "Linden"
+	// For "James Green", "Green"
 	// For "bobsmith123", "Resident"
 	// see above for rationale
 	std::string mLegacyLastName;
 
 	// If true, both display name and SLID were generated from
-	// a legacy first and last name, like "James Linden (james.linden)"
+	// a legacy first and last name, like "James Green (james.green)"
 	bool mIsDisplayNameDefault;
 
 	// Under error conditions, we may insert "dummy" records with

@@ -785,7 +785,7 @@ void LLPanelFriends::requestFriendshipDialog(const LLUUID& id,
 	LLSD payload;
 	payload["id"] = id;
 	payload["name"] = name;
-    // Look for server versions like: Second Life Server 1.24.4.95600
+    // Look for server versions like: Grid Server 1.24.4.95600
 	if (gLastVersionChannel.find(" 1.24.") != std::string::npos)
 	{
 		// Old and busted server version, doesn't support friend

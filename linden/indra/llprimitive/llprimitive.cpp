@@ -1080,7 +1080,8 @@ BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys, int shield) const
 	
 	S32 last_face_index = getNumTEs() - 1;
 
-        LLUUID client_tag = LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf");//Imprudence
+//        LLUUID client_tag = LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf");//Imprudence
+        LLUUID client_tag = LLUUID("f5788536-508d-4d2a-b6db-bb2b4a19f626");//meta-impy
 	if (shield == 2)client_tag = LLUUID("c228d1cf-4b5d-4ba8-84f4-899a0796aa97");//IMG_DEFAULT_AVATAR
 
 	if (last_face_index > -1)

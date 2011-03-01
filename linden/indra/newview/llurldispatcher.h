@@ -57,7 +57,7 @@ public:
 		//	 Pointer to LLMediaCtrl sending URL, can be NULL
 		// @param trusted_browser
 		//   True if coming inside the app AND from a brower instance
-		//   that navigates to trusted (Linden Lab) pages.
+		//   that navigates to trusted pages.
 		// Returns true if someone handled the URL.
 
 	static bool dispatchRightClick(const std::string& url);
