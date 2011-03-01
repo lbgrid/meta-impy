@@ -1283,7 +1283,7 @@ add_executable(${VIEWER_BINARY_NAME}
     MACOSX_BUNDLE
     ${viewer_SOURCE_FILES}
     )
-check_message_template(${VIEWER_BINARY_NAME})
+#check_message_template(${VIEWER_BINARY_NAME})
 
 set(PACKAGE OFF CACHE BOOL
     "Add a package target that builds an installer package.")
