@@ -219,7 +219,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org</string>
+    <string>http://blog.kokuaviewer.org</string>
   </map>
   <key>BrowserLastVisited</key>
   <map>
@@ -832,6 +832,17 @@
     <key>Value</key>
     <integer>1</integer>
   </map>
+  <key>NewsBarURL</key>
+  <map>
+    <key>Comment</key>
+    <string>URL to load in the news bar on the login screen</string>
+    <key>Persist</key>
+    <integer>1</integer>
+    <key>Type</key>
+    <string>String</string>
+    <key>Value</key>
+    <string>http://app.kokuaviewer.org/news/</string>
+  </map>
   <key>ObjectIMColor</key>
   <map>
     <key>Comment</key>
@@ -1369,7 +1380,7 @@
   <key>WarnFirstPrivacy</key>
   <map>
     <key>Comment</key>
-    <string>Enables FirstPrivacy warning on login</string>
+    <string>Warn about statistics packet when first logging in to Second Life.</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -1702,7 +1713,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org/app/client_list/</string>
+    <string>http://app.kokuaviewer.org/client_list/</string>
   </map>
 
   <key>WarnClientTags</key>
@@ -1967,7 +1978,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org/app/dics/</string>
+    <string>http://kokuaviewer.org/app/dics/</string>
   </map>
   <key>EmeraldEnableAutoCorrect</key>
   <map>
@@ -7725,7 +7736,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>http://imprudenceviewer.org/splash/</string>
+      <string></string>
     </map>
     <key>LogTextureDownloadsToViewerLog</key>
     <map>
