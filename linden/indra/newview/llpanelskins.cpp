@@ -107,16 +107,16 @@ void LLPanelSkins::onClickClassic(void* data)
 void LLPanelSkins::onClickMeta7(void* data)
 {
 	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "Meta7");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("Meta7");
+	gSavedSettings.setString("SkinCurrent", "meta7");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("meta7");
 }
 
 //static 
 void LLPanelSkins::onClickM7White(void* data)
 {
 	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "white_Meta7");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("white_Meta7");
+	gSavedSettings.setString("SkinCurrent", "white_meta7");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("white_meta7");
 }
 
 //static 

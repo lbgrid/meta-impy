@@ -206,11 +206,11 @@
 			<menu_item_separator label="-----------" name="separator9"/>
 			<menu_item_call label="Informar de un fallo..." name="Report Bug..."/>
 		</menu>
-		<menu label="Meta 7 web site" name="Meta 7 web site">
-		     <menu_item_call label="Meta 7 página principal..." name="Meta 7 home page..."/>
+		<menu label="meta 7 web site" name="meta 7 web site">
+		     <menu_item_call label="meta 7 página principal..." name="meta 7 home page..."/>
 		     <menu_item_call label="Comprar M$..." name="Buy M$..."/>
 		     <menu_item_call label="Downloads..." name="Downloads..."/>
-		     <menu_item_call label="Meta 7 wiki..." name="Meta 7 wiki..."/>
+		     <menu_item_call label="meta 7 wiki..." name="meta 7 wiki..."/>
 		     <menu_item_call label="Foros Oficiales..." name="Official forums..."/>
 		     <menu_item_call label="Condiciones del servicio..." name="Terms of service..."/>
 		     <menu_item_call label="Normas comunitarias..." name="Community standards..."/>
