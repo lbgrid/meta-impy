@@ -2,14 +2,14 @@
 
  ABOUT META7
 
-   Meta7 is a Virtual World loosely based on OpenSimulator core
+   Meta 7 is a Virtual World loosely based on OpenSimulator core
    server code.
 
-   The Meta7 Viewer is our open source client application designed
+   The meta 7 Viewer is our open source client application designed
    for the world, based on both Imprudence (an open source metaverse
    viewer project) and the Second Life viewer.
 
-   Meta7 is online at http://www.meta7.com/
+   Meta 7 is online at http://www.meta7.com/
 
 
    The latest source code for the meta-impy viewer is always
@@ -19,7 +19,7 @@
 
  ABOUT META-IMPY
 
-    The old meta7 viewer was based on an ancient version of Emerald.  We
+    The old meta 7 viewer was based on an ancient version of Emerald.  We
     need an update.  After much discussion and evaluation, and too much
     delay, I decided to fork and modify the Imprudence 1.4.0 code base
     to our requirements.  Thus the meta-impy viewer was born.  This time
@@ -42,7 +42,7 @@
     cherry pick those things, then let the Impy developers know.
 
     Note, since we don't care about LL TPVP, it's likely that meta7
-    viewers will not be TPVP compliant.  Meta7 viewers are made for use
+    viewers will not be TPVP compliant.  Meta 7 viewers are made for use
     on the meta7 grid.  They will probably work on the SL grid, but that
     is not important to us, and not recommended by us.  Use at your own
     risk on the SL grid.

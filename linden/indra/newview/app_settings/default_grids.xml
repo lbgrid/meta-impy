@@ -189,9 +189,9 @@
       <key>version</key>   <string>1</string>
     </map> 
 
-    <!-- Meta7 -->
+    <!-- meta 7 -->
     <map>
-      <key>gridname</key>  <string>Meta7</string>
+      <key>gridname</key>  <string>meta 7</string>
       <key>gridnick</key>  <string>meta7</string>
       <key>platform</key>  <string>OpenSim</string>
       <key>loginuri</key>  <string>https://login.meta7.com/</string>
@@ -205,7 +205,7 @@
       <key>version</key>   <string>0</string>
     </map>
     <map>
-      <key>gridname</key>  <string>Meta7 beta</string>
+      <key>gridname</key>  <string>meta 7 beta</string>
       <key>gridnick</key>  <string>meta7beta</string>
       <key>platform</key>  <string>OpenSim</string>
       <key>loginuri</key>  <string>https://login.meta7.com/</string>

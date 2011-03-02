@@ -3220,20 +3220,20 @@ bool LLVOAvatar::loadClientTags()
 void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client, LLVOAvatar* avatar)
 {
 	LLUUID idx = avatar->getTE(0)->getID();
-	// Meta7 gets special treatment -
+	// meta 7 gets special treatment -
 	// A) coz this is our damn viewer.
 	// 2) makes it quicker coz everyone else around you is using it.
 	// III) the client tags list out in the wild is wrong.
 	// D) Casper sucks cocks, or Casper cocks suck.  Probably both.
 	if(idx == LLUUID("b32f01bc-f9b3-4535-b1f3-99dc38f022db"))
 	{
-		avatar_name_color = LLColor4(0.8f,1.0f,0.0f,1.0f);//Meta7
-		client = "Meta7";
+		avatar_name_color = LLColor4(0.8f,1.0f,0.0f,1.0f);// meta 7
+		client = "meta 7";
 	}
-	// Imprudence is special to, coz dark purple on black is just unreadable.  Pffft.
+	// Imprudence is special to, coz dark blue on black is just unreadable.  Pffft.
 	else if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
 	{
-		avatar_name_color = LLColor4(0.79f,0.44f,0.88f);//Imprudence
+		avatar_name_color = LLColor4(0.79f,0.44f,0.88f);// Imprudence
 		client = "Imprudence";
 	}
 	// Don't think anyone allocates these tags, so grab one for us to.

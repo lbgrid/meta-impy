@@ -855,11 +855,11 @@
     <menu_item_separator />
 
 
-		<menu label="Meta 7 web site"
-		     name="Meta 7 web site" opaque="true" tear_off="true" create_jump_keys="true">
-		     <menu_item_call hidden="false" label="Meta 7 home page..."
-			     name="Meta 7 home page...">
-			<on_click function="PromptShowURL" name="Meta7homePage_url"
+		<menu label="meta 7 web site"
+		     name="meta 7 web site" opaque="true" tear_off="true" create_jump_keys="true">
+		     <menu_item_call hidden="false" label="meta 7 home page..."
+			     name="meta 7 home page...">
+			<on_click function="PromptShowURL" name="meta7homePage_url"
 			     userdata="WebLaunchExternalTarget,http://www.meta7.com/" />
 		     </menu_item_call>
 		     <menu_item_call label="Buy M$..." name="Buy M$...">
@@ -870,7 +870,7 @@
 			<on_click function="PromptShowURL" name="Downloads_url"
 			     userdata="WebLaunchExternalTarget,http://www.meta7.com/download.php" />
 		     </menu_item_call>
-		     <menu_item_call label="Meta 7 wiki..." name="Meta 7 wiki...">
+		     <menu_item_call label="meta 7 wiki..." name="meta 7 wiki...">
 			<on_click function="PromptShowURL" name="wiki_url"
 			     userdata="WebLaunchExternalTarget,http://www.meta7.com//wiki.php?page=wiki" />
 		     </menu_item_call>
