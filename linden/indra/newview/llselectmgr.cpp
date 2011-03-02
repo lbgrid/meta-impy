@@ -1134,8 +1134,12 @@ void LLSelectMgr::getGrid(LLVector3& origin, LLQuaternion &rotation, LLVector3 &
 			{
 				// this means this object *has* to be an attachment
 				LLXform* attachment_point_xform = first_object->getRootEdit()->mDrawable->mXform.getParent();
-				mGridOrigin = attachment_point_xform->getWorldPosition();
-				mGridRotation = attachment_point_xform->getWorldRotation();
+				// But it might be a hair HUD of death.  Or maybe a tree?  Yes, I know I broke the grammer rules twice in a row, this is source code, English sucks.  C++ sucks to, but at least the compiler is not expected to parse comments.
+				if (attachment_point_xform)
+				{
+				    mGridOrigin = attachment_point_xform->getWorldPosition();
+				    mGridRotation = attachment_point_xform->getWorldRotation();
+				}
 				mGridScale = LLVector3(1.f, 1.f, 1.f) * gSavedSettings.getF32("GridResolution");
 			}
 			break;
