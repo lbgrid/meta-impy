@@ -370,8 +370,8 @@ void LLFirstUse::useLoginScreen()
 	{
 		gSavedSettings.setWarning("FirstLoginScreen", FALSE);
 
-		FloaterGridDefault::getInstance()->open();
-		FloaterGridDefault::getInstance()->center();
+//		FloaterGridDefault::getInstance()->open();
+//		FloaterGridDefault::getInstance()->center();
 	}
 }
 
