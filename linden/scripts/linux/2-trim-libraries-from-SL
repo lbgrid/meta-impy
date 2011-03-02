@@ -61,9 +61,9 @@ fi
 # Let's use the system GTK+ if available:
 if check $USE_SYSTEM_GTK /usr/include/atk-1.0/atk/atk.h "GTK+" ; then
     cd $PATH_TO_SOURCES/libraries/x86_64-linux/lib_release_client
-    rm -f libgtk* libgdk* libglib* libgmodule* libgobject* libgthread* libpango* libatk*
+    rm -f libgtk* libgdk* libglib* libgmodule* libgobject* libgthread* libpango* libatk* libpixman*
     cd ../include
-    rm -rf atk-1.0/ gtk-2.0/ glib-2.0/ pango-1.0/
+    rm -rf atk-1.0/ gtk-2.0/ glib-2.0/ pango-1.0/ pixman-1/
     cp -a /usr/include/atk-1.0 .
     cp -a /usr/include/gtk-2.0 .
     cp -a /usr/lib/gtk-2.0/include/* gtk-2.0/
@@ -85,6 +85,7 @@ if check $USE_SYSTEM_GTK /usr/include/atk-1.0/atk/atk.h "GTK+" ; then
     update_manifest libgobject
     update_manifest libgthread
     update_manifest libpango
+    update_manifest libpixman
 fi
 
 # Let's use the system zlib if available:
