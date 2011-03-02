@@ -1910,7 +1910,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		{
 			LLStringUtil::format_map_t args;
 			caption_text = self->mPanelSecondLife->getString("CaptionTextAcctInfo");
-			
+
 			const char* ACCT_TYPE[] = {
 				"AcctTypeResident",
 				"AcctTypeTrial",
@@ -1921,8 +1921,8 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 			args["[ACCTTYPE]"] = self->mPanelSecondLife->getString(ACCT_TYPE[caption_index]);
 
 			std::string payment_text = " ";
-			const S32 DEFAULT_CAPTION_LINDEN_INDEX = 3;
-			if(caption_index != DEFAULT_CAPTION_LINDEN_INDEX)
+			const S32 DEFAULT_CAPTION_STAFF_INDEX = 3;
+			if(caption_index != DEFAULT_CAPTION_STAFF_INDEX)
 			{			
 				if(transacted)
 				{
@@ -1938,14 +1938,12 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 				}
 				args["[PAYMENTINFO]"] = self->mPanelSecondLife->getString(payment_text);
 				std::string age_text = age_verified ? "AgeVerified" : "NotAgeVerified";
-				// Do not display age verification status at this time
-				//args["[[AGEVERIFICATION]]"] = self->mPanelSecondLife->getString(age_text);
-				args["[AGEVERIFICATION]"] = " ";
+				args["[AGEVERIFICATION]"] = self->mPanelSecondLife->getString(age_text);
 			}
 			else
 			{
-				args["[PAYMENTINFO]"] = " ";
-				args["[AGEVERIFICATION]"] = " ";
+				args["[PAYMENTINFO]"] = "Payment info not needed";
+				args["[AGEVERIFICATION]"] = "Gods see everything";
 			}
 			LLStringUtil::format(caption_text, args);
 		}
