@@ -1243,7 +1243,7 @@
     <key>Type</key>
     <string>U32</string>
     <key>Value</key>
-    <real>0</real>
+    <real>2</real>
   </map>
   <key>Use24HourTime</key>
   <map>
@@ -1254,7 +1254,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>UseKDUIfAvailable</key>
   <map>
@@ -1298,7 +1298,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>UseWebMapTiles</key>
   <map>
