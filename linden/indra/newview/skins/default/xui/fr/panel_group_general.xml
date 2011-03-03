@@ -69,8 +69,6 @@
 		Extraction des données du résident en cours
 	</string>
 	<string name="confirm_group_create_str">
-		La création de ce groupe coûte 100 L$. 
-Êtes-vous vraiment certain de vouloir dépenser 100 L$ pour créer ce groupe ?
-Sachez que si personne ne rejoint ce groupe sous 48h, il sera démantelé et ne pourra plus être utilisé.
+Êtes-vous vraiment certain de vouloir dépenser 0 M$ pour créer ce groupe ?
 	</string>
 </panel>

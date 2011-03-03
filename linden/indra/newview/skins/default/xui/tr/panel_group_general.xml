@@ -73,8 +73,6 @@ Daha fazla yardım için farenizi seçenekler üzerinde gezdiriniz.
 		Üye bilgisine erişiliyor
 	</string>
 	<string name="confirm_group_create_str">
-		Bu grubu yaratmak 100L$ tutarındadır. 
-Siz gerçekten, gerçekten, GERÇEKTEN bu grubu yaratmak için 100L$ harcamak istediğinizden emin misiniz?
-Unutmayın eğer 48 saat içerisinde bu gruba kimse üye olmazsa, grup dağıtılacak ve grup adı gelecek kullanım için mevcut olmayacaktır.
+Siz gerçekten, gerçekten, GERÇEKTEN bu grubu yaratmak için 0M$ harcamak istediğinizden emin misiniz?
 	</string>
 </panel>

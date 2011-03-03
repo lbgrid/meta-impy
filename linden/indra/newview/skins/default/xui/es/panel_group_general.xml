@@ -73,8 +73,6 @@ Ponga su ratón sobre las opciones para más información.
 		Recuperando los datos de los miembros
 	</string>
 	<string name="confirm_group_create_str">
-		Crear este grupo cuesta 100 L$. 
-¿Está plena, absoluta, y TOTALMENTE seguro de que quiere gastarse 100 L$ para crear este grupo?
-Queda avisado de que si, en un plazo de 48 horas, no entra nadie al grupo, éste será disuelto, y el nombre no se podrá usar en el futuro.
+¿Está plena, absoluta, y TOTALMENTE seguro de que quiere gastarse 0 M$ para crear este grupo?
 	</string>
 </panel>

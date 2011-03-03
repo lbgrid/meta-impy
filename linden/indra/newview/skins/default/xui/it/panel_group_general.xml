@@ -73,8 +73,6 @@ Passa il mouse sulle opzioni per un aiuto aggiuntivo.
 		Rilevando i dati dei membri
 	</string>
 	<string name="confirm_group_create_str">
-		Creare questo gruppo ti costerà 100 L$. 
-Sei davvero, davvero, DAVVERO sicuro che vuoi spendere 100 L$ per creare questo gruppo?
-Fai attenzione che se nessun altro viene unito al gruppo entro 48 ore, questo gruppo verrà dismesso e il nome del gruppo non sarà più disponibile in futuro.
+Sei davvero, davvero, DAVVERO sicuro che vuoi spendere 0 M$ per creare questo gruppo?
 	</string>
 </panel>
