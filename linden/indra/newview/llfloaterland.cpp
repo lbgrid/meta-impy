@@ -2098,51 +2098,15 @@ void LLPanelLandOptions::refreshSearch()
 
 	std::string tooltip;
 	bool enable_show_directory = false;
-	// Parcels <= 128 square meters cannot be listed in search, in an
-	// effort to reduce search spam from small parcels.  See also
-	// the search crawler "grid-crawl.py" in secondlife.com/doc/app/search/ JC
-	const S32 MIN_PARCEL_AREA_FOR_SEARCH = 128;
-	bool large_enough = parcel->getArea() > MIN_PARCEL_AREA_FOR_SEARCH;
-	if (large_enough)
+	if (can_change)
 	{
-		if (can_change)
-		{
-			tooltip = getString("search_enabled_tooltip");
-			enable_show_directory = true;
-		}
-		else
-		{
-			tooltip = getString("search_disabled_permissions_tooltip");
-			enable_show_directory = false;
-		}
+		tooltip = getString("search_enabled_tooltip");
+		enable_show_directory = true;
 	}
 	else
 	{
-		// not large enough to include in search
-		if (can_change)
-		{
-			if (show_directory)
-			{
-				// parcels that are too small, but are still in search for
-				// legacy reasons, need to have the check box enabled so
-				// the owner can delist the parcel. JC
-				tooltip = getString("search_enabled_tooltip");
-				enable_show_directory = true;
-			}
-			else
-			{
-				tooltip = getString("search_disabled_small_tooltip");
-				enable_show_directory = false;
-			}
-		}
-		else
-		{
-			// both too small and don't have permission, so just
-			// show the permissions as the reason (which is probably
-			// the more common case) JC
-			tooltip = getString("search_disabled_permissions_tooltip");
-			enable_show_directory = false;
-		}
+		tooltip = getString("search_disabled_permissions_tooltip");
+		enable_show_directory = false;
 	}
 	mCheckShowDirectory->setToolTip(tooltip);
 	mCategoryCombo->setToolTip(tooltip);
