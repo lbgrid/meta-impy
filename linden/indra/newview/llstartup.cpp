@@ -1236,7 +1236,7 @@ bool idle_startup()
 
 		char hashed_mac_string[MD5HEX_STR_SIZE];		/* Flawfinder: ignore */
 		LLMD5 hashed_mac;
-		hashed_mac.update( gMACAddress, MAC_ADDRESS_BYTES );
+		hashed_mac.update( (const unsigned char*) "012345", MAC_ADDRESS_BYTES );  // Nope, LL ain't getting our MAC, and meta7 does not need it.
 		hashed_mac.finalize();
 		hashed_mac.hex_digest(hashed_mac_string);
 
@@ -3052,7 +3052,7 @@ std::string LLStartUp::loadPasswordFromDisk()
 	fclose(fp);
 
 	// Decipher with MAC address
-	LLXORCipher cipher(gMACAddress, 6);
+	LLXORCipher cipher(gMACAddress, 6);  // The one and only legitimate use of the users MAC.
 	cipher.decrypt(buffer, HASHED_LENGTH);
 
 	buffer[HASHED_LENGTH] = '\0';
@@ -3104,7 +3104,7 @@ void LLStartUp::savePasswordToDisk(const std::string& hashed_password)
 
 	LLStringUtil::copy((char*)buffer, hashed_password.c_str(), HASHED_LENGTH+1);
 
-	LLXORCipher cipher(gMACAddress, 6);
+	LLXORCipher cipher(gMACAddress, 6);  // The one and only legitimate use of the users MAC.
 	cipher.encrypt(buffer, HASHED_LENGTH);
 
 	if (fwrite(buffer, HASHED_LENGTH, 1, fp) != 1)

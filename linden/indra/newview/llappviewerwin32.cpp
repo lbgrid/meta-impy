@@ -600,27 +600,7 @@ std::string LLAppViewerWin32::generateSerialNumber()
 	char serial_md5[MD5HEX_STR_SIZE];		// Flawfinder: ignore
 	serial_md5[0] = 0;
 
-	DWORD serial = 0;
-	DWORD flags = 0;
-	BOOL success = GetVolumeInformation(
-			L"C:\\",
-			NULL,		// volume name buffer
-			0,			// volume name buffer size
-			&serial,	// volume serial
-			NULL,		// max component length
-			&flags,		// file system flags
-			NULL,		// file system name buffer
-			0);			// file system name buffer size
-	if (success)
-	{
-		LLMD5 md5;
-		md5.update( (unsigned char*)&serial, sizeof(DWORD));
-		md5.finalize();
-		md5.hex_digest(serial_md5);
-	}
-	else
-	{
-		llwarns << "GetVolumeInformation failed" << llendl;
-	}
+	// Don't do anything, serious privacy breach to leak internal identifying numbers out to the 'net.
+
 	return serial_md5;
 }

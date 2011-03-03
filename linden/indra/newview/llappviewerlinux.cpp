@@ -741,7 +741,7 @@ std::string LLAppViewerLinux::generateSerialNumber()
 	char serial_md5[MD5HEX_STR_SIZE];
 	serial_md5[0] = 0;
 
-	// TODO
+	// Don't do anything, serious privacy breach to leak internal identifying numbers out to the 'net.
 
 	return serial_md5;
 }

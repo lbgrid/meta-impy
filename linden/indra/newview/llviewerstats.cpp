@@ -714,9 +714,7 @@ void send_stats()
 	system["ram"] = (S32) gSysMemory.getPhysicalMemoryKB();
 	system["os"] = LLAppViewer::instance()->getOSInfo().getOSStringSimple();
 	system["cpu"] = gSysCPU.getCPUString();
-	std::string macAddressString = llformat("%02x-%02x-%02x-%02x-%02x-%02x",
-											gMACAddress[0],gMACAddress[1],gMACAddress[2],
-											gMACAddress[3],gMACAddress[4],gMACAddress[5]);
+	std::string macAddressString = llformat("%02x-%02x-%02x-%02x-%02x-%02x", 0,1,2,3,4,5);  // Hell no don't seand the MAC across the 'net.  Bad LL.
 	system["mac_address"] = macAddressString;
 	system["serial_number"] = LLAppViewer::instance()->getSerialNumber();
 	std::string gpu_desc = llformat(

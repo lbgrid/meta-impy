@@ -419,27 +419,7 @@ std::string LLAppViewerMacOSX::generateSerialNumber()
 	char serial_md5[MD5HEX_STR_SIZE];		// Flawfinder: ignore
 	serial_md5[0] = 0;
 
-	// JC: Sample code from http://developer.apple.com/technotes/tn/tn1103.html
-	CFStringRef serialNumber = NULL;
-	io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault,
-																 IOServiceMatching("IOPlatformExpertDevice"));
-	if (platformExpert) {
-		serialNumber = (CFStringRef) IORegistryEntryCreateCFProperty(platformExpert,
-																	 CFSTR(kIOPlatformSerialNumberKey),
-																	 kCFAllocatorDefault, 0);		
-		IOObjectRelease(platformExpert);
-	}
-	
-	if (serialNumber)
-	{
-		char buffer[MAX_STRING];		// Flawfinder: ignore
-		if (CFStringGetCString(serialNumber, buffer, MAX_STRING, kCFStringEncodingASCII))
-		{
-			LLMD5 md5( (unsigned char*)buffer );
-			md5.hex_digest(serial_md5);
-		}
-		CFRelease(serialNumber);
-	}
+	// Don't do anything, serious privacy breach to leak internal identifying numbers out to the 'net.
 
 	return serial_md5;
 }
