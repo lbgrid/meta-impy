@@ -266,6 +266,7 @@ set(viewer_SOURCE_FILES
     lllandmarklist.cpp
     lllogchat.cpp
     llloginhandler.cpp
+    llsavedlogins.cpp
     llmanip.cpp
     llmaniprotate.cpp
     llmanipscale.cpp
@@ -726,6 +727,7 @@ set(viewer_HEADER_FILES
     lllightconstants.h
     lllogchat.h
     llloginhandler.h
+    llsavedlogins.h
     llmanip.h
     llmaniprotate.h
     llmanipscale.h
