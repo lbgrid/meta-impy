@@ -1,10 +1,11 @@
 /** 
- * @file llfloaterabout.h
- * @brief The about box from Help -> About
+ * @file slfloatermediafilter.h
+ * @brief The SLFloaterMediaFilter class declaration
  *
- * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * $LicenseInfo:firstyear=2011&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2011, Sione Lomu
+ * with debugging and improvements by Henri Beauchamp
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -30,25 +31,40 @@
  * $/LicenseInfo$
  */
 
-#ifndef LL_LLFLOATERABOUT_H
-#define LL_LLFLOATERABOUT_H
+#ifndef LL_SLFLOATERMEDIAFILTER_H
+#define LL_SLFLOATERMEDIAFILTER_H
 
 #include "llfloater.h"
 
-class LLFloaterAbout 
-: public LLFloater
+class LLScrollListCtrl;
+class LLButton;
+
+class SLFloaterMediaFilter : public LLFloater
 {
 public:
-	LLFloaterAbout();
-	virtual ~LLFloaterAbout();
+	SLFloaterMediaFilter();
+	BOOL postBuild();
+	virtual void draw();
+	virtual ~SLFloaterMediaFilter();
 
-	static void show(void*);
+	static void setDirty();
+	static BOOL instanceVisible();
+	static void toggleInstance();
+
+	static void onClearLists(void*);
+	static void onWhitelistAdd(void*);
+	static void onWhitelistRemove(void*);
+	static void onBlacklistAdd(void*);
+	static void onBlacklistRemove(void*);
+	static void onCommitDomain(void*);
 
 private:
-	static LLFloaterAbout* sInstance;
+	static bool sIsWhitelist;
+	LLScrollListCtrl* mWhitelistSLC;
+	LLScrollListCtrl* mBlacklistSLC;
+	bool mIsDirty;
 
-	static void onClickCopy(void* user_data);
+	static SLFloaterMediaFilter* sInstance;
+
 };
-
-
-#endif // LL_LLFLOATERABOUT_H
+#endif

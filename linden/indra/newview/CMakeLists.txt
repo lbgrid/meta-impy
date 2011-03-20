@@ -497,6 +497,7 @@ set(viewer_SOURCE_FILES
     rlvmultistringsearch.cpp
     rlvextensions.cpp
     rlvfloaterbehaviour.cpp
+    slfloatermediafilter.cpp
     viewertime.cpp
     viewerversion.cpp
     windlightsettingsupdate.cpp
@@ -966,6 +967,7 @@ set(viewer_HEADER_FILES
     rlvmultistringsearch.h
     rlvextensions.h
     rlvfloaterbehaviour.h
+    slfloatermediafilter.h
     VertexCache.h
     VorbisFramework.h
     viewertime.h

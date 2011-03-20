@@ -42,7 +42,7 @@
 #include "llviewertexteditor.h"
 #include "llviewerwindow.h"
 
-// viewer library includes
+// linden library includes
 #include "llbutton.h"
 #include "llhttpclient.h"
 #include "llhttpstatuscodes.h"	// for HTTP_FOUND
@@ -303,3 +303,4 @@ void LLFloaterTOS::handleMediaEvent(LLPluginClassMedia* /*self*/, EMediaEvent ev
 		}
 	}
 }
+

@@ -1,10 +1,9 @@
 /** 
- * @file llfloaterabout.h
- * @brief The about box from Help -> About
+ * @file cmake_dummy.cpp
  *
- * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * $LicenseInfo:firstyear=2008&license=viewergpl$
  * 
- * Copyright (c) 2001-2009, Linden Research, Inc.
+ * Copyright (c) 2008-2009, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -29,26 +28,3 @@
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
  */
-
-#ifndef LL_LLFLOATERABOUT_H
-#define LL_LLFLOATERABOUT_H
-
-#include "llfloater.h"
-
-class LLFloaterAbout 
-: public LLFloater
-{
-public:
-	LLFloaterAbout();
-	virtual ~LLFloaterAbout();
-
-	static void show(void*);
-
-private:
-	static LLFloaterAbout* sInstance;
-
-	static void onClickCopy(void* user_data);
-};
-
-
-#endif // LL_LLFLOATERABOUT_H
