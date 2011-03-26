@@ -223,9 +223,9 @@
       <key>gridname</key>  <string>meta 7 beta</string>
       <key>gridnick</key>  <string>meta7beta</string>
       <key>platform</key>  <string>OpenSim</string>
-      <key>loginuri</key>  <string>https://login.meta7.com/</string>
+      <key>loginuri</key>  <string>https://beta.meta7.com/</string>
       <key>loginpage</key> <string>http://api.meta7.com/loginscreen.php</string>
-      <key>helperuri</key> <string>https://login.meta7.com/secure/</string>
+      <key>helperuri</key> <string>https://beta.meta7.com/secure/</string>
       <key>password</key>  <string>https://api.meta7.com/forgotpass.php</string>
       <key>register</key>  <string>https://www.meta7.com/register.php</string>
       <key>search</key>    <string>http://search.meta7.com/client_search.php?</string>
