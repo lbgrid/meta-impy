@@ -787,6 +787,14 @@ bool cmd_line_chat(std::string revised_text, EChatType type)
 			{
 				invrepair();
 			}
+#define AVYADJ_DEV 1
+#ifdef AVYADJ_DEV
+            else if ("aadtest" == command)
+            {
+                cmdline_printchat("Hello AAD world!");
+                return false;
+            }
+#endif // def AVYADJ_DEV
 #ifdef JC_PROFILE_GSAVED
 			else if(command == "gsavedprofile")
 			{	
