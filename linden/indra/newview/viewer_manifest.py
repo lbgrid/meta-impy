@@ -596,6 +596,19 @@ class DarwinManifest(ViewerManifest):
                 self.path("libopenal.1.dylib")
                 self.path("libalut.0.dylib")
 
+	        # otr lib and deps
+	        self.path("libotr.dylib");
+	        self.path("libintl.8.dylib");
+	        self.path("libgcrypt.11.dylib");
+	        self.path("libgpg-error.0.dylib");
+	        self.path("libiconv.2.dylib");
+	        # self.path("../../libraries/universal-darwin/lib_release/libotr.dylib", "MacOS/libotr.dylib");
+	        # self.path("../../libraries/universal-darwin/lib_release/libintl.8.dylib", "MacOS/libintl.8.dylib");
+	        # self.path("../../libraries/universal-darwin/lib_release/libgcrypt.11.dylib", "MacOS/libgcrypt.11.dylib");
+	        # self.path("../../libraries/universal-darwin/lib_release/libgpg-error.0.dylib", "MacOS/libgpg-error.0.dylib");
+	        # self.path("../../libraries/universal-darwin/lib_release/libiconv.2.dylib", "MacOS/libiconv.2.dylib");
+
+
                 # self.path("libglib-2.0.dylib")
                 # self.path("libgmodule-2.0.dylib")
                 # self.path("libgobject-2.0.dylib")
@@ -1105,6 +1118,8 @@ class Linux_i686Manifest(LinuxManifest):
                 
                 #self.end_prefix("gstreamer-plugins")
             
+            self.path("libotr.so.2.2.0")
+            self.path("libotr.so.2")
             self.end_prefix("lib")
 
             # Vivox runtimes and libs
@@ -1237,6 +1252,8 @@ class Linux_x86_64Manifest(LinuxManifest):
                 #self.path("libgstwavparse.so")
                 
                 #self.end_prefix("gstreamer-plugins")
+            self.path("libotr.so.2.2.0")
+            self.path("libotr.so.2")
             self.end_prefix("lib64")
         
 

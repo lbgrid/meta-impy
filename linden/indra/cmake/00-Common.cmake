@@ -66,6 +66,10 @@ if (WINDOWS)
       /MP
       )
      
+  add_definitions(
+      /DUSE_OTR=1
+      )
+     
   if(MSVC80 OR MSVC90)
     set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} -D_SECURE_STL=0 -D_HAS_ITERATOR_DEBUGGING=0"
@@ -146,6 +150,10 @@ if (LINUX)
       -pthread
       )
 
+    add_definitions(
+        -DUSE_OTR=1
+        )
+
   if (SERVER)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftemplate-depth-60")
     if (EXISTS /etc/debian_version)
@@ -193,6 +201,11 @@ endif (LINUX)
 
 if (DARWIN)
   add_definitions(-DLL_DARWIN=1)
+
+  add_definitions(
+    -DUSE_OTR=1
+  )
+
   set(CMAKE_CXX_LINK_FLAGS "-Wl,-headerpad_max_install_names,-search_paths_first")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlong-branch -msse3 -mssse3 -w")

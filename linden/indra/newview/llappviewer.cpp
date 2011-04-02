@@ -206,6 +206,11 @@
 
 //----------------------------------------------------------------------------
 // viewer.cpp - these are only used in viewer, should be easily moved.
+
+#if USE_OTR          // [$PLOTR$]
+#include "otr_wrapper.h"
+#endif // COMPILE_OTR    // [/$PLOTR$]
+
 extern void disable_win_error_reporting();
 
 #if LL_DARWIN
@@ -3779,6 +3784,10 @@ void LLAppViewer::idle()
 
 void LLAppViewer::idleShutdown()
 {
+#if USE_OTR          // [$PLOTR$]
+    OTR_Wrapper::logout();
+#endif // USE_OTR    // [/$PLOTR$]
+
 	// Wait for all modal alerts to get resolved
 	if (LLModalDialog::activeCount() > 0)
 	{
@@ -4354,4 +4363,7 @@ void LLAppViewer::handleLoginComplete()
 		gRlvHandler.processRetainedCommands();
 	}
 // [/RLVa:KB]
+#if USE_OTR         // [$PLOTR$]
+    OTR_Wrapper::init();
+#endif // USE_OTR   // [/$PLOTR$]
 }
