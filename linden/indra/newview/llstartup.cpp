@@ -102,6 +102,7 @@
 #include "llfloatergesture.h"
 #include "llfloaterhud.h"
 #include "llfloaterland.h"
+#include "llfloaterpreference.h"
 #include "llfloaterteleporthistory.h"
 #include "llfloatertopobjects.h"
 #include "llfloatertos.h"
@@ -416,6 +417,8 @@ bool idle_startup()
 	static U64 first_sim_handle = 0;
 	static LLHost first_sim;
 	static std::string first_sim_seed_cap;
+	static U32 first_sim_size_x = 256;
+	static U32 first_sim_size_y = 256;
 
 	static LLVector3 initial_sun_direction(1.f, 0.f, 0.f);
 	static LLVector3 agent_start_position_region(10.f, 10.f, 10.f);		// default for when no space server
@@ -1777,6 +1780,16 @@ bool idle_startup()
 				first_sim_handle = to_region_handle(region_x, region_y);
 			}
 			
+			text = LLUserAuth::getInstance()->getResponse("region_size_x");
+			if(!text.empty()) {
+				first_sim_size_x = strtoul(text.c_str(), NULL, 10);
+				LLViewerParcelMgr::getInstance()->init(first_sim_size_x);
+			}
+
+			//region Y size is currently unused, major refactoring required. - Patrick Sapinski (2/10/2011)
+			text = LLUserAuth::getInstance()->getResponse("region_size_y");
+			if(!text.empty()) first_sim_size_y = strtoul(text.c_str(), NULL, 10);
+			
 			const std::string look_at_str = LLUserAuth::getInstance()->getResponse("look_at");
 			if (!look_at_str.empty())
 			{
@@ -2072,7 +2085,7 @@ bool idle_startup()
 
 		gAgent.initOriginGlobal(from_region_handle(first_sim_handle));
 
-		LLWorld::getInstance()->addRegion(first_sim_handle, first_sim);
+		LLWorld::getInstance()->addRegion(first_sim_handle, first_sim, first_sim_size_x, first_sim_size_y);
 
 		LLViewerRegion *regionp = LLWorld::getInstance()->getRegionFromHandle(first_sim_handle);
 		LL_INFOS("AppInit") << "Adding initial simulator " << regionp->getOriginGlobal() << LL_ENDL;
@@ -2979,6 +2992,8 @@ bool idle_startup()
 			gFloaterTeleportHistory->addEntry(regionp->getName(),(S16)agent_pos.mV[0],(S16)agent_pos.mV[1],(S16)agent_pos.mV[2],false);
 		}
 
+		LLViewerParcelMedia::loadDomainFilterList();
+
 		// Let the map know about the inventory.
 		if(gFloaterWorldMap)
 		{
@@ -3075,6 +3090,8 @@ bool idle_startup()
 #if 0 // sjb: enable for auto-enabling timer display
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
+
+		LLFloaterPreference::updateIsLoggedIn(true);
 
 		return TRUE;
 	}

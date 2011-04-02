@@ -28,7 +28,7 @@ bool HippoUpdate::checkUpdate()
 
 	// get mac address
 	char macAddress[18];
-	sprintf(macAddress, "%02x:%02x:%02x:%02x:%02x:%02x", 0, 1, 2, 3, 4, 5);  // Not sending private info acress the 'net.  Screw LL.
+	sprintf(macAddress, "%02x:%02x:%02x:%02x:%02x:%02x", 0, 1, 2, 3, 4, 5);  // Not sending private info across the 'net.  Screw LL.
 
 	// build URL for update check
 	char url[1000];

@@ -356,16 +356,6 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 	else
 	// the site is not available (missing page, server down, other badness)
 	{
-#if !USE_VIEWER_AUTH
-		if ( web_browser )
-		{
-			// hide browser control (revealing default one)
-			web_browser->setVisible( FALSE );
-
-			// mark as unavailable
-			mHtmlAvailable = FALSE;
-		}
-#else
 
 		if ( web_browser )
 		{	
@@ -374,7 +364,7 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 			// mark as available
 			mHtmlAvailable = TRUE;
 		}
-#endif
+
 	}
 }
 
@@ -1454,3 +1444,4 @@ void LLPanelLogin::clearPassword()
 	sInstance->mIncomingPassword = blank;
 	sInstance->mMungedPassword = blank;
 }
+

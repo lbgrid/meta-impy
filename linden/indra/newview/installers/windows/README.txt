@@ -1,29 +1,51 @@
 
- ABOUT IMPRUDENCE
 
-   Imprudence is an open source metaverse viewer project based on
-   the Second Life Viewer source.
+ ABOUT META7
 
-   The goal of Imprudence is to greatly improve the usability of
-   the Viewer through community involvement, thoughtful design,
-   modern development methods, and a pro-change atmosphere.
+   Meta 7 is a Virtual World loosely based on OpenSimulator core
+   server code.
 
-   For more information about the rationale, goals, and methods
-   of the Imprudence project, please see MANIFESTO.txt.
+   The meta 7 Viewer is our open source client application designed
+   for the world, based on both Imprudence (an open source metaverse
+   viewer project) and the Second Life viewer.
 
-   If you would like to get involved with the Imprudence project,
-   please see CONTRIBUTE.txt. There are many ways you can help,
-   no matter your skills or the amount of time you can dedicate.
+   Meta 7 is online at http://www.meta7.com/
 
 
-   Imprudence is online at ImprudenceViewer.org
-
-
-   The latest source code for the Imprudence Viewer is always
+   The latest source code for the meta-impy viewer is always
    available at:
 
-     http://github.com/jacek/imprudence/tree/master
+     http://github.com/onefang/meta-impy
 
+ ABOUT META-IMPY
+
+    The old meta 7 viewer was based on an ancient version of Emerald.  We
+    need an update.  After much discussion and evaluation, and too much
+    delay, I decided to fork and modify the Imprudence 1.4.0 code base
+    to our requirements.  Thus the meta-impy viewer was born.  This time
+    around I will try to keep up with the upstream changes.
+
+    I agree with the Imprudence manifesto.  I also have my own ideas
+    about how code should be written, and how the mess that is the LL
+    code base should be morphed into something sane.  I don't think that
+    moving to the SL 2 code base is such a good idea.  Even now I still
+    see problems from the move to the SL 1.23 code base.  I thought
+    moving from 1.22 was a bad idea to.  LL has us playing catch up at
+    their chosen pace.  We should just fix up their horrid code and
+    streak ahead of them.
+
+    Since this is being done for meta7, and meta7 does not care about LL
+    TPVP, somethings are just going to be changed specifically to suit
+    the meta7 grid.  On the other hand, there are some things we might
+    implement that are of general usefulness, or already on the Impy
+    wish list.  I will try to write them such that Impy developers can
+    cherry pick those things, then let the Impy developers know.
+
+    Note, since we don't care about LL TPVP, it's likely that meta7
+    viewers will not be TPVP compliant.  Meta 7 viewers are made for use
+    on the meta7 grid.  They will probably work on the SL grid, but that
+    is not important to us, and not recommended by us.  Use at your own
+    risk on the SL grid.
 
  LICENSE
 
@@ -38,3 +60,5 @@
    Second Life is a registered trademark of Linden Research, Inc.
 
    Imprudence is in no way affiliated with Linden Research, Inc.
+
+   meta7 and/or Magne Metaverse Reasearch are in no way affiliated with Linden Research, Inc.

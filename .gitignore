@@ -1,7 +1,7 @@
-# 
+#
 # This file contains names (and wildcards) of files that
 # Git should ignore.
-# 
+#
 
 
 # LIBRARIES
@@ -39,3 +39,4 @@ ChangeLog.txt
 .DS_Store
 *.zip
 linden/indra/newview/mozilla-universal-darwin.tgz
+

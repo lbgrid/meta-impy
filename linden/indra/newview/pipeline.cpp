@@ -157,6 +157,7 @@ std::string gPoolNames[] =
 	"POOL_GROUND",
 	"POOL_INVISIBLE",
 	"POOL_AVATAR",
+	"POOL_VOIDWATER",
 	"POOL_WATER",
 	"POOL_GRASS",
 	"POOL_FULLBRIGHT",
@@ -4933,7 +4934,7 @@ void LLPipeline::setUseVBO(BOOL use_vbo)
 		}
 		
 		resetVertexBuffers();
-		LLVertexBuffer::initClass(use_vbo);
+		LLVertexBuffer::initClass(use_vbo && gGLManager.mHasVertexBufferObject);
 	}
 }
 

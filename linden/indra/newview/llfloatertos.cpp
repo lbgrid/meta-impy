@@ -303,3 +303,4 @@ void LLFloaterTOS::handleMediaEvent(LLPluginClassMedia* /*self*/, EMediaEvent ev
 		}
 	}
 }
+

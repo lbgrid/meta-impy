@@ -36,6 +36,8 @@
 #include "llviewerobject.h"
 #include "llfloaterregioninfo.h"
 #include "llfloaterworldmap.h"
+#include "llvoiceclient.h"
+#include "viewertime.h"
 
 //DEBUG includes
 //#include "llsdserialize.h" //LLSDNotationStreamer - for dumping LLSD to string
@@ -149,12 +151,15 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		}
 		if ( body.has("OffsetOfUTC") )
 		{
-			gSavedSettings.setS32("TimeOffset", body["OffsetOfUTC"].asReal());
+			gSavedSettings.setS32("TimeOffset", body["OffsetOfUTC"].asInteger());
 			gSavedSettings.setBOOL("UseTimeOffset", true);
+			ViewerTime::sUseTimeOffset = true;
+			ViewerTime::sTimeOffset = gSavedSettings.getS32("TimeOffset");
 		}
 		if ( body.has("OffsetOfUTCDST") )
 		{
 			gSavedSettings.setBOOL("TimeOffsetDST", body["OffsetOfUTCDST"].asInteger() == 1 ? TRUE : FALSE);
+			ViewerTime::sTimeOffsetDST = gSavedSettings.getBOOL("TimeOffsetDST");
 		}
 		if ( body.has("RenderWater") )
 		{
@@ -199,6 +204,12 @@ class OpenRegionInfoUpdate : public LLHTTPNode
 		if ( body.has("AllowParcelWindLight") )
 		{
 			gHippoLimits->mAllowParcelWindLight = body["AllowParcelWindLight"].asInteger() == 1;
+		}
+		if ( body.has("Voice") )
+		{
+			gSavedSettings.setString("VoiceModule", body["Voice"].asString());
+			//gVoiceClient->close();
+			//gVoiceClient->start();
 		}
 
 		if (limitschanged)

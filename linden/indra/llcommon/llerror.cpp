@@ -168,6 +168,9 @@ namespace {
 				}
 			}
 			fprintf(stderr, "%s\n", message.c_str());
+#if LL_WINDOWS
+		    fflush(stderr); //Now using a buffer. flush is required.
+#endif
 			if (ANSI_YES == mUseANSI) colorANSI("0"); // reset
 		}
 	
@@ -563,7 +566,7 @@ namespace
 #if LL_WINDOWS
 		LLError::addRecorder(new RecordToWinDebug);
 #endif
-
+		llwarns << "Load LogControlFile from Directory:"<< dir << llendl;
 		LogControlFile& e = LogControlFile::fromDirectory(dir);
 
 		// NOTE: We want to explicitly load the file before we add it to the event timer
