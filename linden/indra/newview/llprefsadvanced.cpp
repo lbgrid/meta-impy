@@ -47,6 +47,10 @@
 
 #include "boost/algorithm/string.hpp"
 
+#if USE_OTR         // [$PLOTR$]
+#include "llweb.h"
+#endif // USE_OTR   // [/$PLOTR$]
+
 LLPrefsAdvanced* LLPrefsAdvanced::sInstance;
 
 LLPrefsAdvanced::LLPrefsAdvanced()
@@ -115,6 +119,11 @@ BOOL LLPrefsAdvanced::postBuild()
 	getChild<LLButton>("ac_button")->setClickedCallback(onAutoCorrectButton,this);
 
 	initHelpBtn("EmeraldHelp_SpellCheck",		"EmeraldHelp_SpellCheck");
+
+#if USE_OTR         // [$PLOTR$]
+	childSetValue("EmeraldUseOTR", LLSD((S32)gSavedSettings.getU32("EmeraldUseOTR")));
+	getChild<LLButton>("otr_help_btn")->setClickedCallback(onClickOtrHelp, this);
+#endif // USE_OTR   // [/$PLOTR$]
 
 	refresh();
 
@@ -202,6 +211,9 @@ void LLPrefsAdvanced::apply()
 
 	LLComboBox* crash_behavior_combobox = getChild<LLComboBox>("crash_behavior_combobox");
 	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, crash_behavior_combobox->getCurrentIndex());
+#if USE_OTR         // [$PLOTR$]
+	gSavedSettings.setU32("EmeraldUseOTR", (U32)childGetValue("EmeraldUseOTR").asReal());
+#endif // USE_OTR   // [/$PLOTR$]
 }
 
 void LLPrefsAdvanced::cancel()
@@ -349,3 +361,10 @@ void LLPrefsAdvanced::onClickCommandLine(void* data)
 	FloaterCommandLine::getInstance()->open();
 	FloaterCommandLine::getInstance()->center();
 }
+
+#if USE_OTR         // [$PLOTR$]
+void LLPrefsAdvanced::onClickOtrHelp(void* data)
+{
+    LLWeb::loadURL("http://www.cypherpunks.ca/otr/");
+}
+#endif // USE_OTR   // [/$PLOTR$]

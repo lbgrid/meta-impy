@@ -115,6 +115,10 @@ public:
 	static void useLoginScreen();
 	static void callbackClientTags(const LLSD& notification, const LLSD& response);
 	static void ClientTags();
+#if USE_OTR         // [$PLOTR$]
+	static void callbackEmeraldOTR(const LLSD& notification, const LLSD& response);
+	static void EmeraldOTR();
+#endif // USE_OTR   // [/$PLOTR$]
 	static void voiceLicenseAgreement();
 	static void callbackPrivacy(const LLSD& notification, const LLSD& response);
 	static void Privacy();
