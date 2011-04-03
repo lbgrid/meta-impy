@@ -2845,6 +2845,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		}
 		// In the future we may wish to hide the tools menu unless you
 		// are building. JC
+		// I think the users generally told LL to get fucked on that silly idea.  Pfffft
 		//gMenuBarView->setItemVisible("Tools", gFloaterTools->getVisible());
 		//gMenuBarView->arrange();
 	}
@@ -2917,7 +2918,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 
 		// Always update console
 		LLRect console_rect = getChatConsoleRect();
-		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad();
+		// Add a magic number so the pre login console does not cover the login panel.
+		// TODO: Would be nice to only do this for the pre login window.
+		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad() + 20;
 		gConsole->reshape(console_rect.getWidth(), console_rect.getHeight());
 		gConsole->setRect(console_rect);
 	}
