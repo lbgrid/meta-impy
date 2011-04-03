@@ -165,6 +165,13 @@ const std::string& HippoGridInfo::getRealCurrencySymbol() const
 	return mRealCurrencySymbol;
 }
 
+bool HippoGridInfo::isUsernameCompat() const
+{
+	// currently only SecondLife grids support username-style logins
+	// but Aurora is working on implementing it -- MC
+	return (mPlatform == HippoGridInfo::PLATFORM_SECONDLIFE);
+}
+
 
 
 // ********************************************************************
@@ -802,7 +809,17 @@ void HippoGridManager::loadFromFile()
 	parseFile(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "default_grids.xml"), !mGridInfo.empty());
 	// merge grid info from web site, if newer. Force load, if list of grids is empty.
 	if (gSavedSettings.getBOOL("CheckForGridUpdates"))
-		parseUrl(gSavedSettings.getString("GridUpdateList"), !mGridInfo.empty());
+	{
+		std::string update_list = gSavedSettings.getString("GridUpdateList");
+		if (!update_list.empty())
+		{
+			parseUrl(update_list, !mGridInfo.empty());
+		}
+		else
+		{
+			llwarns << "\"CheckForGridUpdates\" is set to true, but \"GridUpdateList\" contains no URL to fetch the grid info from. Skipping." << llendl;
+		}
+	}
 
 	std::string last_grid = gSavedSettings.getString("LastSelectedGrid");
 	if (last_grid.empty()) last_grid = gSavedSettings.getString("DefaultGrid");
