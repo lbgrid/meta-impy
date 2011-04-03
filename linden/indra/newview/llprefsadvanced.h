@@ -62,6 +62,10 @@ private:
 	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
 	static void onAutoCorrectButton(void * data);
 
+#if USE_OTR         // [$PLOTR$]
+    static void onClickOtrHelp(void* data);
+#endif // USE_OTR   // [/$PLOTR$]
+
 protected:
 	void initHelpBtn(const std::string& name, const std::string& xml_alert);
 	static void onClickHelp(void* data);

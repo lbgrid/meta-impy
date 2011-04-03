@@ -42,6 +42,16 @@ if (WINDOWS)
     include(CopyWinLibs)
 endif (WINDOWS)
 
+# [$PLOTR$]
+include(libgcrypt)
+include(libgpg-error)
+include(libotr)
+
+if (DARWIN OR LINUX)
+    include(libotrb)
+endif (DARWIN OR LINUX)
+# [/$PLOTR$]
+
 include_directories(
     ${DBUSGLIB_INCLUDE_DIRS}
     ${HUNSPELL_INCLUDE_DIR}
@@ -64,6 +74,21 @@ include_directories(
     ${LSCRIPT_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}/lscript_compile
     )
+
+# [$PLOTR$]
+if (WINDOWS)
+    include_directories(
+        ../gpg.vs/inc.vs
+        ../gpg.vs/libgpg-error-1.1.vs/custom
+        ../gpg.vs/libgcrypt-1.2.2.vs/custom
+    )
+endif (WINDOWS)
+include_directories(
+    ../libgpg-error/libgpg-error-1.0/src
+    ../libgcrypt/libgcrypt-1.2.2/src
+    ../libotr/libotr-3.2.0/src
+)
+# [/$PLOTR$]
 
 set(viewer_SOURCE_FILES
 	lggautocorrectfloater.cpp
@@ -505,6 +530,11 @@ set(viewer_SOURCE_FILES
     wlfloaterwindlightsend.cpp
     wlretrievesettings.cpp
     wlsettingsmanager.cpp
+# [/$PLOTR$]
+    otr_wrapper.cpp
+    otr_floater_smp_dialog.cpp
+    otr_floater_smp_progress.cpp
+# [/$PLOTR$]
     )
 
 set(VIEWER_BINARY_NAME "meta-impy-bin" CACHE STRING
@@ -976,6 +1006,11 @@ set(viewer_HEADER_FILES
     wlfloaterwindlightsend.h
     wlretrievesettings.h
     wlsettingsmanager.h
+# [$PLOTR$]
+    otr_wrapper.h
+    otr_floater_smp_dialog.h
+    otr_floater_smp_progress.h
+# [/$PLOTR$]
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)
@@ -1382,7 +1417,20 @@ if (WINDOWS)
     endif (PACKAGE)
 endif (WINDOWS)
 
+# [$PLOTR$]
+if (WINDOWS)
+    set(otr_link_libs ${LIBGPG-ERROR_LIBRARIES}
+                      ${LIBGCRYPT_LIBRARIES}
+                      ${LIBOTR_LIBRARIES}
+       )
+else (WINDOWS)
+    set(otr_link_libs ${OTR_LIBRARY}
+       )
+endif (WINDOWS)
+# [/$PLOTR$]
+
 target_link_libraries(${VIEWER_BINARY_NAME}
+    ${otr_link_libs}
     ${LLAUDIO_LIBRARIES}
     ${LLCHARACTER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
