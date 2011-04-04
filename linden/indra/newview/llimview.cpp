@@ -681,6 +681,10 @@ void LLIMMgr::addMessage(
 	LLColor4 color;
 	if (is_from_system) 
 		color = gSavedSettings.getColor4("SystemChatColor");
+    else if ((msg.substr(0, 3) == "\xe2\x80\xa7"))
+    {
+        color = gSavedSettings.getColor("IMEncryptedChatColor");
+    }
 	else
 	{
 		std::string new_line = std::string(msg);

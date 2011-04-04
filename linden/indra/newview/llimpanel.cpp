@@ -89,7 +89,6 @@
 #include "otr_wrapper.h"
 #include "otr_floater_smp_dialog.h"
 #include "otr_floater_smp_progress.h"
-#include "mfdKeywordFloater.h"
 #endif // USE_OTR // [/$PLOTR$]
 
 //
@@ -1412,6 +1411,7 @@ BOOL LLFloaterIMPanel::postBuild()
 
 #if USE_OTR       // [$PLOTR$]
         if (!gOTR) OTR_Wrapper::init();
+        llinfos << "$PLOTR$ gOTR is " << gOTR << llendl;
 		if (gOTR && (IM_NOTHING_SPECIAL == mDialog))
         {
             LLComboBox *combo = getChild<LLComboBox>("otr_combo");
@@ -3183,16 +3183,31 @@ void LLFloaterIMPanel::sendMsg()
 					std::string prefix = utf8_text.substr(0, 4);
 					if (prefix == "/me " || prefix == "/me'")
 					{
+#if USE_OTR // [$PLOTR$]
+                        if (isEncrypted())
+                            utf8_text.replace(0,3,"\xe2\x80\xa7");
+                        else
+#endif // USE_OTR // [/$PLOTR$]
 						utf8_text.replace(0,3,"");
 					}
 					else
 					{
+#if USE_OTR // [$PLOTR$]
+                        if (isEncrypted())
+                            history_echo += "\xe2\x80\xa7: ";
+                        else
+#endif // USE_OTR // [/$PLOTR$]
 						history_echo += ": ";
 					}
 					history_echo += utf8_text;
 
 					BOOL other_was_typing = mOtherTyping;
 
+#if USE_OTR // [$PLOTR$]
+                    if (isEncrypted())
+                        addHistoryLine(history_echo, gSavedSettings.getColor("IMEncryptedChatColor"), true, gAgent.getID());
+                    else
+#endif // USE_OTR // [/$PLOTR$]
 					addHistoryLine(history_echo, gSavedSettings.getColor("IMChatColor"), true, gAgent.getID());
 
 					if (other_was_typing) 
@@ -3423,7 +3438,7 @@ void LLFloaterIMPanel::chatFromLogFile(LLLogChat::ELogLineType type, std::string
 	//self->addHistoryLine(line, LLColor4::grey, FALSE);
 	self->mHistoryEditor->appendColoredText(message, false, true, LLColor4::grey);
 }
-/*
+#if 0
 // user is known to be offline when we receive this
 void LLFloaterIMPanel::setOffline()
 {
@@ -3443,7 +3458,7 @@ void LLFloaterIMPanel::setOffline()
     }
 #endif // USE_OTR // [/$PLOTR$]
 }
-*/
+#endif // 0
 void LLFloaterIMPanel::showSessionStartError(
 	const std::string& error_string)
 {
@@ -3529,3 +3544,14 @@ bool LLFloaterIMPanel::onConfirmForceCloseError(const LLSD& notification, const 
 }
 
 
+#if USE_OTR       // [$PLOTR$]
+bool LLFloaterIMPanel::isEncrypted()
+{
+    if (gOTR)
+    {
+        ConnContext *context = getOtrContext();
+        if (context && (context->msgstate == OTRL_MSGSTATE_ENCRYPTED)) return true;
+    }
+	return false;
+}
+#endif // USE_OTR // [/$PLOTR$]

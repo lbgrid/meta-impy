@@ -356,6 +356,7 @@ private:
     OtrlMessageState mOtrLastStatus;
     OtrFloaterSmpDialog *mOtrSmpDialog;
     OtrFloaterSmpProgress *mOtrSmpProgress;
+    bool isEncrypted();
 #endif // USE_OTR // [/$PLOTR$]
 
 private:

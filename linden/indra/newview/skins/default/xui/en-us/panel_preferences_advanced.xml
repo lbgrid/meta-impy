@@ -183,8 +183,8 @@ To use spellcheck, right-click a misspelled word
 
     <!--[$PLOTR$]-->
     <panel border="true" bottom="-580" follows="left|top|right|bottom"
-           height="525" label="SpellCheck"
-           left="1" mouse_opaque="true" name="SpellCheck" width="418">
+           height="525" label="OTR"
+           left="1" mouse_opaque="true" name="OTR" width="418">
       <button bottom_delta="0" follows="left|top" font="SansSerifSmall" 
 	      height="18" right="470"
 	      name="otr_help_btn" width="98" label="What is OTR?"/>

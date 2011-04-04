@@ -369,7 +369,7 @@ void LLFirstUse::callbackEmeraldOTR(const LLSD &notification, const LLSD &respon
 	gSavedSettings.setWarning("EmeraldOTR", FALSE);
 
 	S32 option = LLNotification::getSelectedOption(notification, response);
-	
+
 	if ( option == 0 )
 	{
 		gSavedSettings.setU32("EmeraldUseOTR",(U32)1);
