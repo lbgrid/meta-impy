@@ -1411,7 +1411,6 @@ BOOL LLFloaterIMPanel::postBuild()
 
 #if USE_OTR       // [$PLOTR$]
         if (!gOTR) OTR_Wrapper::init();
-        llinfos << "$PLOTR$ gOTR is " << gOTR << llendl;
 		if (gOTR && (IM_NOTHING_SPECIAL == mDialog))
         {
             LLComboBox *combo = getChild<LLComboBox>("otr_combo");
