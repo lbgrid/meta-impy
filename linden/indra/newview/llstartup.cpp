@@ -817,8 +817,23 @@ bool idle_startup()
 			// Show the login dialog
 			login_show();
 			// connect dialog is already shown, so fill in the names
-			LLPanelLogin::setFields( firstname, lastname, password);
-
+			// icky how usernames get bolted on here as a kind of hack -- MC
+			if (gHippoGridManager && gHippoGridManager->getCurrentGrid()->isUsernameCompat())
+			{
+				if (lastname == "resident" || lastname == "Resident")
+				{
+					LLPanelLogin::setFields(firstname, password);
+				}
+				else
+				{
+					LLPanelLogin::setFields(firstname+"."+lastname, password);
+				}
+			}
+			else
+			{
+				LLPanelLogin::setFields(firstname, lastname, password);
+			}
+			
 			LLPanelLogin::giveFocus();
 
 			gSavedSettings.setBOOL("FirstRunThisInstall", FALSE);
@@ -1247,6 +1262,20 @@ bool idle_startup()
 		hashed_mac.finalize();
 		hashed_mac.hex_digest(hashed_mac_string);
 
+		// Don't report crashes if the grid we crashed in
+		// is different from the grid we log in
+		eLastExecEvent last_exec_event = LAST_EXEC_NORMAL;
+		{
+			std::string current_grid = gHippoGridManager->getCurrentGrid()->getGridNick();
+			std::string last_grid = gSavedSettings.getString("LastConnectedGrid");
+			LL_DEBUGS("AppInit")	<< "current grid: " << current_grid 
+						<< " Last Connected Grid: " << last_grid << LL_ENDL;
+			if( last_grid ==  current_grid )
+			{
+				last_exec_event = gLastExecEvent;
+			}
+		}
+
 		// TODO if statement here to use web_login_key
 		if(web_login_key.isNull()){
 		sAuthUriNum = llclamp(sAuthUriNum, 0, (S32)sAuthUris.size()-1);
@@ -1261,7 +1290,7 @@ bool idle_startup()
 			gSkipOptionalUpdate,
 			gAcceptTOS,
 			gAcceptCriticalMessage,
-			gLastExecEvent,
+			last_exec_event,
 			requested_options,
 			hashed_mac_string,
 			LLAppViewer::instance()->getSerialNumber());
@@ -1276,7 +1305,7 @@ bool idle_startup()
 			gSkipOptionalUpdate,
 			gAcceptTOS,
 			gAcceptCriticalMessage,
-			gLastExecEvent,
+			last_exec_event,
 			requested_options,
 			hashed_mac_string,
 			LLAppViewer::instance()->getSerialNumber());
@@ -1514,6 +1543,11 @@ bool idle_startup()
 
 		if(successful_login)
 		{
+			{
+				std::string current_grid = gHippoGridManager->getConnectedGrid()->getGridNick();
+				gSavedSettings.setString("LastConnectedGrid", current_grid);
+			}
+
 			std::string text;
 			text = LLUserAuth::getInstance()->getResponse("udp_blacklist");
 			if(!text.empty())

@@ -1278,6 +1278,13 @@ LLViewerWindow::LLViewerWindow(
         LLAppViewer::instance()->forceExit(1);
 	}
 	
+	const U32 real_fsaa = mWindow->getFSAASamples();
+	if (real_fsaa != gSavedSettings.getU32("RenderFSAASamples"))
+	{
+		LL_WARNS("Window") << "Window created with reduced anti-aliasing samples: " << real_fsaa << "x FSAA." << LL_ENDL;
+		gSavedSettings.setU32("RenderFSAASamples", real_fsaa);
+	}
+
 	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
 	// the size of a window or fullscreen context may have been adjusted slightly...)
 	F32 ui_scale_factor = gSavedSettings.getF32("UIScaleFactor");
@@ -2178,7 +2185,7 @@ void LLViewerWindow::draw()
 		{
 			// Used for special titles such as "MyViewer - Special E3 2003 Beta"
 			const S32 DIST_FROM_TOP = 20;
-			LLFontGL::getFontSansSerifBig()->renderUTF8(
+			LLFontGL::getFontSansSerifLarge()->renderUTF8(
 				mOverlayTitle, 0,
 				llround( getWindowWidth() * 0.5f),
 				getWindowHeight() - DIST_FROM_TOP,
@@ -2838,6 +2845,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		}
 		// In the future we may wish to hide the tools menu unless you
 		// are building. JC
+		// I think the users generally told LL to get fucked on that silly idea.  Pfffft
 		//gMenuBarView->setItemVisible("Tools", gFloaterTools->getVisible());
 		//gMenuBarView->arrange();
 	}
@@ -2910,7 +2918,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 
 		// Always update console
 		LLRect console_rect = getChatConsoleRect();
-		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad();
+		// Add a magic number so the pre login console does not cover the login panel.
+		// TODO: Would be nice to only do this for the pre login window.
+		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad() + 20;
 		gConsole->reshape(console_rect.getWidth(), console_rect.getHeight());
 		gConsole->setRect(console_rect);
 	}
