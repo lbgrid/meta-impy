@@ -193,14 +193,14 @@ LLTool* LLToolMgr::getCurrentTool()
 	else
 	{
 		// due to window management weirdness we can get here with gToolNull
-		// Don't use keyboard overrides when the edit window doesn't have focus. The chatbar is an unfortunate exception -- MC
-		if (gViewerWindow && gViewerWindow->getUIHasFocus()
-			&& gFloaterTools && !gFloaterTools->hasFocus()
-			&& gChatBar && !gChatBar->getVisible())
-		{
-			cur_tool = mBaseTool;
-		}
-		else
+//		// Don't use keyboard overrides when the edit window doesn't have focus. The chatbar is an unfortunate exception -- MC
+//		if (gViewerWindow && gViewerWindow->getUIHasFocus()
+//			&& gFloaterTools && !gFloaterTools->hasFocus()
+//			&& gChatBar && !gChatBar->getVisible())
+//		{
+//			cur_tool = mBaseTool;
+//		}
+//		else
 		{
 			bool can_override = mBaseTool && (mBaseTool != gToolNull) ;
 								
