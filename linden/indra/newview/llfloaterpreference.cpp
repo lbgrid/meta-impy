@@ -427,11 +427,6 @@ LLFloaterPreference::~LLFloaterPreference()
 void LLFloaterPreference::apply()
 {
 	this->mPreferenceCore->apply();
-#if USE_OTR        // [$PLOTR$]
-    U32 otrpref = gSavedSettings.getU32("EmeraldUseOTR");
-    // otrpref: 0 == Require OTR, 1 == Request OTR, 2 == Accept OTR, 3 == Decline OTR
-    if (3 == otrpref) OTR_Wrapper::stopAll();
-#endif // USE_OTR  // [/$PLOTR$]
 }
 
 
@@ -502,13 +497,6 @@ void LLFloaterPreference::onBtnOK( void* userdata )
 	if (fp->canClose())
 	{
 		fp->apply();
-
-#if USE_OTR        // [$PLOTR$]
-        U32 otrpref = gSavedSettings.getU32("EmeraldUseOTR");
-        // otrpref: 0 == Require OTR, 1 == Request OTR, 2 == Accept OTR, 3 == Decline OTR
-        if (3 == otrpref) OTR_Wrapper::stopAll();
-#endif // USE_OTR  // [/$PLOTR$]
-
 		fp->close(false);
 
 		gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile"), TRUE );
@@ -540,11 +528,6 @@ void LLFloaterPreference::onBtnApply( void* userdata )
 		}
 	}
 	fp->apply();
-#if USE_OTR        // [$PLOTR$]
-    U32 otrpref = gSavedSettings.getU32("EmeraldUseOTR");
-    // otrpref: 0 == Require OTR, 1 == Request OTR, 2 == Accept OTR, 3 == Decline OTR
-    if (3 == otrpref) OTR_Wrapper::stopAll();
-#endif // USE_OTR  // [/$PLOTR$]
 
 	LLPanelLogin::refreshLocation( false );
 }

@@ -1,12 +1,12 @@
 /**
-* @file llprefsadvanced.h
-* @brief Advanced preferences options for Imprudence
+* @file floaterotr.h
+* @brief Custom OTR settings for meta-impy
 *
 * $LicenseInfo:firstyear=2009&license=viewergpl$
 *
-* Copyright (c) 2010, McCabe Maxsted
+* Copyright (c) 2011, David Seikel
 *
-* Imprudence Viewer Source Code
+* meta-impy Viewer Source Code
 * The source code in this file ("Source Code") is provided to you
 * under the terms of the GNU General Public License, version 2.0
 * ("GPL"). Terms of the GPL can be found in doc/GPL-license.txt in
@@ -26,42 +26,32 @@
 * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
 * COMPLETENESS OR PERFORMANCE.
 * $/LicenseInfo$
+*
+* Copied from floaterbusy.h, originally by McCabe Maxsted from Imprudence.
 */
 
-#ifndef LLPREFSADVANCED_H
-#define LLPREFSADVANCED_H
+#ifndef FLOATEROTR_H
+#define FLOATEROTR_H
 
-#include "llpanel.h"
-#include "llviewerinventory.h"
+#include "llfloater.h"
 
-class LLPrefsAdvanced : public LLPanel
+class LLViewerInventoryItem;
+
+class FloaterOTR : public LLFloater, public LLFloaterSingleton<FloaterOTR>
 {
 public:
-	LLPrefsAdvanced();
-	~LLPrefsAdvanced();
+	FloaterOTR(const LLSD& seed);
+	virtual ~FloaterOTR();
 
 	BOOL postBuild();
 
 	void apply();
 	void cancel();
-	void refresh();
 
 private:
-	static LLPrefsAdvanced* sInstance;
-
-	static void onCommitCheckBox(LLUICtrl* ctrl, void* user_data);
-	static void onClickCommandLine(void* data);
-
-	static void onSpellAdd(void* data);
-	static void onSpellRemove(void* data);
-	static void onSpellGetMore(void* data);
-	static void onSpellEditCustom(void* data);
-	static void onSpellBaseComboBoxCommit(LLUICtrl* ctrl, void* userdata);	
-	static void onAutoCorrectButton(void * data);
-
-protected:
-	void initHelpBtn(const std::string& name, const std::string& xml_alert);
-	static void onClickHelp(void* data);
+	static void onClickOK(void* userdata);
+	static void onClickCancel(void* userdata);
+	static void onClickOtrHelp(void* userdata);
 };
 
-#endif // LLPREFSADVANCED_H
+#endif // FLOATEROTR_H
