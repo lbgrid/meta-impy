@@ -97,13 +97,8 @@
 	     visible="false" width="100" />
 
   <flyout_button bottom_delta="0" follows="left|top" height="20" label="OTR: Status" left_delta="5" width="150"
-       list_position="below" mouse_opaque="true" name="otr_btn">
-    <flyout_button_item value="otr_start_entry" name="otr_start_entry">
-      Start private conversation
-    </flyout_button_item>
-    <flyout_button_item value="otr_stop_entry" name="otr_stop_entry">
-      End private conversation
-    </flyout_button_item>
+       list_position="below" mouse_opaque="true" name="otr_btn"
+       tool_tip="Click to change OTR status, or dropdown for other options." >
     <flyout_button_item value="otr_auth_entry" name="otr_auth_entry">
      Authenticate buddy
     </flyout_button_item>
@@ -128,10 +123,6 @@
 		     image_unselected="icn_speaker_dark.tga" label="" left_delta="56"
 		     name="mute_btn" tool_tip="Mute voice" width="25" />
 	</panel>
-  <!--[$PLOTR$]-->
-  <combo_box bottom="-40" follows="top|right" left="-230" height="20" width="120"
-             label="OTR: Not Private" name="otr_combo"/>
-  <!--[/$PLOTR$]-->
 	<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
 	     bottom="30" embedded_items="false" enabled="false"
 	     follows="left|top|right|bottom" font="SansSerif" height="221" left="5"

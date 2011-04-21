@@ -1413,6 +1413,7 @@ BOOL LLFloaterIMPanel::postBuild()
         if (!gOTR) OTR_Wrapper::init();
 		if (gOTR && (IM_NOTHING_SPECIAL == mDialog))
 		{
+			childSetCommitCallback("otr_btn", onClickOtr, this);
 			LLComboBox *combo = getChild<LLComboBox>("otr_btn");
 			if (!combo)
 			{
@@ -2429,20 +2430,16 @@ void LLFloaterIMPanel::doOtrMenu()
         }
         else
         {
-            std::string choice = combo->getSimple();
-            if ((combo->getValue().asString() == "otr_start_entry") ||
-                (combo->getValue().asString() == "otr_restart_entry") ||
-                (combo->getValue().asString() == "otr_refresh_entry"))
+	    ConnContext *context = getOtrContext();
+	    U32 otrpref = gSavedSettings.getU32("EmeraldUseOTR");
+            if (combo->getValue().asString() == "otr_auth_entry")
             {
-                doOtrStart();
-            }
-            else if (combo->getValue().asString() == "otr_stop_entry")
-            {
-                doOtrStop();
-            }
-            else if (combo->getValue().asString() == "otr_auth_entry")
-            {
-                doOtrAuth();
+		// Instant crash when doing this with someone that has no OTR capability.
+		// So guard it if no encryption is happening.
+        	if (context && (OTRL_MSGSTATE_ENCRYPTED == context->msgstate))
+        	{
+            	    doOtrAuth();
+            	}
             }
             else if (combo->getValue().asString() == "otr_help_entry")
             {
@@ -2454,9 +2451,28 @@ void LLFloaterIMPanel::doOtrMenu()
                 llinfos << "$PLOTR$ otr levels help" << llendl;
                 LLWeb::loadURL("http://www.cypherpunks.ca/otr/help/3.2.0/levels.php");
             }
-            else
+            else // Clicked the flyout itself.  Sort out what level to put them in based on the old level.
             {
-                llwarns << "$PLOTR$ unknown menu item" << llendl;
+        	// otrpref: 0 == Require OTR, 1 == Request OTR, 2 == Accept OTR, 3 == Decline OTR
+        	if (3 == otrpref)
+        	{
+            	    if (context && (OTRL_MSGSTATE_ENCRYPTED == context->msgstate))
+            	    {
+                	doOtrStop();
+            	    }
+        	}
+        	else if (context && (OTRL_MSGSTATE_ENCRYPTED == context->msgstate))
+        	{
+            	    doOtrStop();
+        	}
+        	else if (context && (OTRL_MSGSTATE_FINISHED == context->msgstate))
+        	{
+            	    doOtrStop();
+        	}
+        	else // OTRL_MSGSTATE_PLAINTEXT, or no context yet
+        	{
+            	    doOtrStart();
+        	}
             }
         }
     }
@@ -2519,22 +2535,10 @@ void LLFloaterIMPanel::showOtrStatus()
                 {
                     doOtrStop();
                 }
-//                combo->removeall();
-//                combo->add(getString("otr_start_entry"),   ADD_BOTTOM, TRUE); // to tell them where to turn it back on
-//                combo->add(getString("otr_stop_entry"),    ADD_BOTTOM, FALSE);
-//                combo->add(getString("otr_auth_entry"),    ADD_BOTTOM, FALSE);
-//                combo->add(getString("otr_help_entry"),    ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_levels_entry"),  ADD_BOTTOM, TRUE);
                 combo->setLabel(getString("otr_not_private"));
             }
             else if (context && (OTRL_MSGSTATE_ENCRYPTED == context->msgstate))
             {
-//                combo->removeall();
-//                combo->add(getString("otr_refresh_entry"), ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_stop_entry"),    ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_auth_entry"),    ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_help_entry"),    ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_levels_entry"),  ADD_BOTTOM, TRUE);
                 if (otherIsOtrAuthenticated())
                     combo->setLabel(getString("otr_private"));
                 else
@@ -2549,22 +2553,10 @@ void LLFloaterIMPanel::showOtrStatus()
                     else
                         otrLogMessageGetstringName("otr_prog_they_stop_unverified");
                 }
-//                combo->removeall();
-//                combo->add(getString("otr_restart_entry"), ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_stop_entry"),    ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_auth_entry"),    ADD_BOTTOM, FALSE);
-//                combo->add(getString("otr_help_entry"),    ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_levels_entry"),  ADD_BOTTOM, TRUE);
                 combo->setLabel(getString("otr_finished"));
             }
             else // OTRL_MSGSTATE_PLAINTEXT, or no context yet
             {
-//                combo->removeall();
-//                combo->add(getString("otr_start_entry"),   ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_stop_entry"),    ADD_BOTTOM, FALSE);
-//                combo->add(getString("otr_auth_entry"),    ADD_BOTTOM, FALSE);
-//                combo->add(getString("otr_help_entry"),    ADD_BOTTOM, TRUE);
-//                combo->add(getString("otr_levels_entry"),  ADD_BOTTOM, TRUE);
                 combo->setLabel(getString("otr_not_private"));
             }
             if (context)
