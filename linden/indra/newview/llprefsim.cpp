@@ -36,6 +36,7 @@
 #include "llprefsim.h"
 
 #include "floaterbusy.h"
+#include "floaterotr.h"
 #include "llpanel.h"
 #include "llcheckboxctrl.h"
 #include "llstring.h"
@@ -73,6 +74,7 @@ public:
 	static void onCommitLogging(LLUICtrl* ctrl, void* user_data);
 
 	static void onClickBusyAdvanced(void* user_data);
+	static void onClickOTRAdvanced(void* user_data);
 
 protected:
  
@@ -131,6 +133,7 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetCommitCallback("log_instant_messages",onCommitLogging,this);
 
 	childSetAction("busy_adv_btn", onClickBusyAdvanced, this);
+	childSetAction("otr_adv_btn", onClickOTRAdvanced, this);
 	
 	preparePerAccountPrefs(LLStartUp::isLoggedIn());
 
@@ -325,6 +328,13 @@ void LLPrefsIMImpl::onClickBusyAdvanced(void* user_data)
 {
 	FloaterBusy::getInstance()->open();
 	FloaterBusy::getInstance()->center();
+}
+
+// static
+void LLPrefsIMImpl::onClickOTRAdvanced(void* user_data)
+{
+	FloaterOTR::getInstance()->open();
+	FloaterOTR::getInstance()->center();
 }
 
 // static

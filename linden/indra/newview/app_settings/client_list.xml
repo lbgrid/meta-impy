@@ -1138,6 +1138,18 @@
         <key>name</key>
             <string>Firestorm</string>
         </map>
+    <key>46697265-7374-6f72-6d00-000000000000</key>
+        <map>
+        <key>color</key>
+            <array>
+                <real>-0.04313725490196099882078684</real>
+                <real>-0.6862745098039200186690323</real>
+                <real>-0.3647058823529399917973137</real>
+                <real>1</real>
+            </array>
+        <key>name</key>
+            <string>Firestorm</string>
+        </map>
     <key>d3eb4a5f-aec5-4bcb-b007-cce9efe89d37</key>
         <map>
         <key>color</key>

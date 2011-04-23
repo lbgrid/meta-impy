@@ -107,6 +107,7 @@ set(viewer_SOURCE_FILES
     floatergriddefault.cpp
     floatergridmanager.cpp
     floaterlocalassetbrowse.cpp
+    floaterotr.cpp
     floatervoicelicense.cpp
     hbfloatergrouptitles.cpp
     hippogridmanager.cpp
@@ -569,6 +570,7 @@ set(viewer_HEADER_FILES
     floatergriddefault.h
     floatergridmanager.h
     floaterlocalassetbrowse.h
+    floaterotr.h
     floatervoicelicense.h
     hbfloatergrouptitles.h
     hippogridmanager.h
