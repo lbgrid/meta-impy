@@ -45,10 +45,13 @@ endif (WINDOWS)
 # [$PLOTR$]
 include(libgcrypt)
 include(libgpg-error)
-include(libotr)
 
 if (DARWIN OR LINUX)
+  if (STATIC_LIBOTR_ETC)
+    include(libotr) # to build libotr from source and statically link in libgcrypt and libgpg-error
+  else (STATIC_LIBOTR_ETC)
     include(libotrb)
+  endif (STATIC_LIBOTR_ETC)
 endif (DARWIN OR LINUX)
 # [/$PLOTR$]
 
@@ -1059,9 +1062,19 @@ if (LINUX)
     LIST(APPEND viewer_SOURCE_FILES llappviewerlinux.cpp)
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--as-needed")
 
+  # [$PLOTR$] 
+  if (STATIC_LIBOTR_ETC) # defined in .../linden/indra/CMakeLists.txt
     set(viewer_LIBRARIES
-        Xinerama
+        Xinerama	
+        gpg-error
+        gcrypt  # to build libotr from source and statically link in libgcrypt and libgpg-error
         )
+  else (STATIC_LIBOTR_ETC) # below for dynamically linked, unmodified libotr
+    set(viewer_LIBRARIES
+        Xinerama	
+        )
+  endif (STATIC_LIBOTR_ETC)
+  # [/$PLOTR$]
 endif (LINUX)
 
 if (WINDOWS)
@@ -1424,8 +1437,13 @@ if (WINDOWS)
                       ${LIBOTR_LIBRARIES}
        )
 else (WINDOWS)
+  if (STATIC_LIBOTR_ETC)
+    set(otr_link_libs ${LIBOTR_LIBRARIES}
+       ) # statically linked libotr, built from source
+  else (STATIC_LIBOTR_ETC)
     set(otr_link_libs ${OTR_LIBRARY}
        )
+  endif (STATIC_LIBOTR_ETC)
 endif (WINDOWS)
 # [/$PLOTR$]
 

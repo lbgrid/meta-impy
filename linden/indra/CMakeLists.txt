@@ -35,6 +35,20 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp)
 file(WRITE ${CMAKE_BINARY_DIR}/temp/sentinel_installed "0")
 add_subdirectory(cmake)
 
+# [$PLOTR$]
+if (WINDOWS)
+    add_subdirectory(${LIBS_OPEN_PREFIX}gpg.vs)
+    add_subdirectory(${LIBS_OPEN_PREFIX}libgcrypt)
+    add_subdirectory(${LIBS_OPEN_PREFIX}libgpg-error)
+endif (WINDOWS)
+
+# if ON will cause linux to link in static OTR like windows does
+# if off will use the systems libotr.so but won't be fully compatible with windows version
+set(STATIC_LIBOTR_ETC 1)
+
+add_subdirectory(${LIBS_OPEN_PREFIX}libotr)
+# [/$PLOTR$]
+
 add_subdirectory(${LIBS_OPEN_PREFIX}llaudio)
 add_subdirectory(${LIBS_OPEN_PREFIX}llcharacter)
 add_subdirectory(${LIBS_OPEN_PREFIX}llcommon)

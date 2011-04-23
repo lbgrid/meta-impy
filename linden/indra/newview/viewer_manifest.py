@@ -1118,8 +1118,10 @@ class Linux_i686Manifest(LinuxManifest):
                 
                 #self.end_prefix("gstreamer-plugins")
             
-            self.path("libotr.so.2.2.0")
-            self.path("libotr.so.2")
+# [$PLOTR$] these two are not needed when STATIC_LIBOTR_ETC is on in .../linden/indra/CMakeLists.txt
+#            self.path("libotr.so.2.2.0")
+#            self.path("libotr.so.2")
+# [/$PLOTR$]
             self.end_prefix("lib")
 
             # Vivox runtimes and libs
@@ -1252,8 +1254,10 @@ class Linux_x86_64Manifest(LinuxManifest):
                 #self.path("libgstwavparse.so")
                 
                 #self.end_prefix("gstreamer-plugins")
-            self.path("libotr.so.2.2.0")
-            self.path("libotr.so.2")
+# [$PLOTR$] these two are not needed when STATIC_LIBOTR_ETC is on in .../linden/indra/CMakeLists.txt
+#            self.path("libotr.so.2.2.0")
+#            self.path("libotr.so.2")
+# [/$PLOTR$]
             self.end_prefix("lib64")
         
 
