@@ -1038,6 +1038,7 @@ LLVOAvatar::~LLVOAvatar()
 		LL_DEBUGS("VOAvatar") << "Destructing Zombie from previous session." << LL_ENDL;	
 	}
 
+
 	mRoot.removeAllChildren();
 
 	delete [] mSkeleton;
@@ -1493,6 +1494,8 @@ void LLVOAvatar::cleanupClass()
 }
 
 LLPartSysData LLVOAvatar::sCloud;
+bool LLVOAvatar::sHasCloud = false;
+
 void LLVOAvatar::initCloud()
 {
 	// fancy particle cloud designed by Brent
@@ -1506,12 +1509,45 @@ void LLVOAvatar::initCloud()
 		filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "cloud.xml");
 	}
 
+	loadCloud(filename, sCloud);
+	sHasCloud = true;
+}
+
+
+void LLVOAvatar::loadCloud(const std::string& filename,  LLPartSysData& particles)
+{
 	LLSD cloud;
 	llifstream in_file(filename);
 	LLSDSerialize::fromXMLDocument(cloud, in_file);
-	sCloud.fromLLSD(cloud);
-	LLViewerImage* cloud_image = gImageList.getImageFromFile("cloud-particle.j2c");
-	sCloud.mPartImageID                 = cloud_image->getID();
+
+	particles.fromLLSD(cloud);
+	const LLUUID default_id = DEFAULT_UNREZZED_AVATAR_PARTICLE;
+	if(particles.mPartImageID.isNull() || default_id == particles.mPartImageID)
+	{
+		LLViewerImage* cloud_image =
+		 	gImageList.getImageFromFile("cloud-particle.j2c", MIPMAP_YES, IMMEDIATE_YES, 0, 0, default_id);
+		particles.mPartImageID = cloud_image->getID();
+	}
+}
+
+
+void LLVOAvatar::saveCloud(const std::string& filename,  LLPartSysData& particles)
+{
+	llofstream out(filename);
+	if (!out.good())
+	{
+		llwarns << "Unable to open " << filename << " for output." << llendl;
+		return;
+	}
+	LLSDSerialize::toXML(particles.asLLSD(), out);
+	out.close();
+
+	// Imprudence: actually we could export any particle system with this,
+	// though we don't have a clue about its creator (could be from a no mod script) :(
+	// This  is probably also not ok to export on open sim grids,
+	// unless theiy either add a creator property to particle  systems
+	// or their terms of service make sure this sort of content is free and open.
+	// Saving only the cloud for now, which only exists client side.
 
 }
 
@@ -3228,6 +3264,7 @@ bool LLVOAvatar::loadClientTags()
 void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client, LLVOAvatar* avatar)
 {
 	LLUUID idx = avatar->getTE(0)->getID();
+
 	// meta 7 gets special treatment -
 	// A) coz this is our damn viewer.
 	// 2) makes it quicker coz everyone else around you is using it.
@@ -3239,9 +3276,14 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 		client = "meta 7";
 	}
 	// Imprudence is special to, coz dark blue on black is just unreadable.  Pffft.
+	// Also in case the user has a local color they prefer.
+	// This means clientside colors for Imp will always override any on the website.
+	// If you're going to add a new color, a new UUID needs to be added -- MC
 	else if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
 	{
-		avatar_name_color = LLColor4(0.79f,0.44f,0.88f);// Imprudence
+		//avatar_name_color = LLColor4(0.79f,0.44f,0.88f);// Imprudence
+		// defaults to LLColor4(0.79f,0.44f,0.88f)
+		avatar_name_color = gSavedSettings.getColor4("ImprudenceTagColor"); //Imprudence
 		client = "Imprudence";
 	}
 	// Don't think anyone allocates these tags, so grab one for us to.
@@ -3431,6 +3473,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			client = "nolife";
 		}
 	}
+
 	if(client.empty())
 	{
 		LLPointer<LLViewerImage> image_point = gImageList.getImage(idx, MIPMAP_YES, IMMEDIATE_NO);
@@ -3580,7 +3623,7 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				else
 				{
 					// Set your own name to the Imprudence color -- MC
-					client_color = LLColor4(0.79f,0.44f,0.88f);
+					client_color = gSavedSettings.getColor4("ImprudenceTagColor");
 				}
 
 				static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
@@ -7393,6 +7436,7 @@ BOOL LLVOAvatar::isVisible()
 // returns true if the value has changed.
 BOOL LLVOAvatar::updateIsFullyLoaded()
 {
+
     // a "heuristic" to determine if we have enough avatar data to render
     // (to avoid rendering a "Ruth" - DEV-3168)
 
@@ -7472,11 +7516,19 @@ BOOL LLVOAvatar::updateIsFullyLoaded()
 
 BOOL LLVOAvatar::isFullyLoaded()
 {
+	static BOOL* sPreviewAvatarCloud = rebind_llcontrol<BOOL>("PreviewAvatarAsCloud", &gSavedSettings, true);
 	static BOOL* sRenderUnloadedAvatar = rebind_llcontrol<BOOL>("RenderUnloadedAvatar", &gSavedSettings, true);
-	if (*sRenderUnloadedAvatar)
-		return TRUE;
-	else
-		return mFullyLoaded;
+
+	if(*sPreviewAvatarCloud && mIsSelf)
+	{
+		return FALSE;
+	}
+	else if (*sRenderUnloadedAvatar)
+	{
+		 return TRUE;
+	}
+
+	return mFullyLoaded;
 }
 
 

@@ -7135,11 +7135,14 @@ You need to specify a unique grid nickname.
 
 <notification
  icon="alertmodal.tga"
- name="GridsNoLoginUri"
+ name="GridInfoDirty"
  type="alertmodal">
-Cannot save new grid '[NAME]'.
-
-You need to specify a login URI.
+You have unsaved changes that will be lost. Continue?
+  <usetemplate
+   ignoretext="When creating new grids"
+   name="okcancelignore"
+   notext="Cancel"
+   yestext="Continue"/>
 </notification>
 
 <notification
@@ -7151,6 +7154,13 @@ Cannot save new grid '[NAME]'.
 A grid with the same nickname already exists.
 </notification>
 
+<notification
+  icon="alertmodal.tga"
+  name="GridInfoNoLoginUri"
+  type="alertmodal">
+  A login URI is required to retrieve the grid info.
+</notification>
+  
 <notification
  icon="alertmodal.tga"
  name="GridInfoNoLoginUri"
@@ -7194,6 +7204,20 @@ If you don't have an account, would you like to create one now?
    yestext="Create an account"/>
 </notification>
 
+<notification
+  icon="alertmodal.tga"
+  name="InvalidPassword"
+  type="alertmodal">
+You have entered an invalid password! Please try again.
+</notification>
+  
+<notification
+   icon="notifytip.tga"
+   name="IncompleteInventoryItem"
+   type="notifytip">
+The item you are accessing is not yet locally available. Please try again in a minute.
+</notification>
+  
 <notification
  icon="alert.tga"
  name="ShowLookAtInfo"
@@ -7370,6 +7394,62 @@ Media/audio URL blocked for [DOMAIN]
    name="MediaFiltersCleared"
    type="alertmodal">
 The media filters have been cleared
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="ProxyNeedRestart"
+   type="alertmodal">
+Socks proxy settings will take effect after you restart [VIEWER_NAME].
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SOCKS_CONNECT_OK"
+   type="alertmodal">
+Connection to Socks5 proxy [PROXY] was successful.
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SOCKS_NOT_PERMITTED"
+   type="alertmodal">
+The Socks5 proxy "[PROXY]" refused the connection, not allowed by rule set
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SOCKS_CONNECT_ERROR"
+   type="alertmodal">
+The Socks5 proxy "[PROXY]" refused the connection, could not open TCP channel
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SOCKS_NOT_ACCEPTABLE"
+   type="alertmodal">
+The Socks5 proxy "[PROXY]" refused the selected authentication system
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SOCKS_AUTH_FAIL"
+   type="alertmodal">
+The Socks5 proxy "[PROXY]" reported your credentials are invalid
+  </notification>
+
+  <notification
+   icon="alertmodal.tga"
+   name="SOCKS_UDP_FWD_NOT_GRANTED"
+   type="alertmodal">
+The Socks5 proxy "[PROXY]" refused the UDP associate request
+  </notification>
+
+  <notification
+   icon="alert.tga"
+   name="SOCKS_HOST_CONNECT_FAILED"
+   type="alert">
+Could not connect to Socks5 proxy server "[PROXY]"
   </notification>
 
 <!--End Imprudence notifications-->

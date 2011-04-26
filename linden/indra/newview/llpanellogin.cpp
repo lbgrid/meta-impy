@@ -91,6 +91,7 @@
 
 const S32 BLACK_BORDER_HEIGHT = 160;
 const S32 MAX_PASSWORD = 16;
+const std::string PASSWORD_FILLER = "123456789!123456";
 
 LLPanelLogin *LLPanelLogin::sInstance = NULL;
 BOOL LLPanelLogin::sCapslockDidNotification = FALSE;
@@ -174,7 +175,8 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mLogoImage(),
 	mCallback(callback),
 	mCallbackData(cb_data),
-	mHtmlAvailable( TRUE )
+	mHtmlAvailable( TRUE ),
+	mActualPassword("")
 {
 	setFocusRoot(TRUE);
 
@@ -200,7 +202,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mLogoImage = LLUI::getUIImage("startup_logo.j2c");
 
 	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_login.xml");
-	
+
 #if USE_VIEWER_AUTH
 	//leave room for the login menu bar
 	setRect(LLRect(0, rect.getHeight()-18, rect.getWidth(), 0)); 
@@ -212,7 +214,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	childSetPrevalidate("last_name_edit", LLLineEditor::prevalidatePrintableNoSpace);
 	childSetPrevalidate("username_edit", LLLineEditor::prevalidatePrintableSpace);
 
-	childSetCommitCallback("password_edit", mungePassword);
+	childSetCommitCallback("password_edit", onPasswordChanged, this);
 	childSetKeystrokeCallback("password_edit", onPassKey, this);
 	childSetUserData("password_edit", this);
 
@@ -361,22 +363,6 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 			mHtmlAvailable = TRUE;
 		}
 
-	}
-}
-
-void LLPanelLogin::mungePassword(LLUICtrl* caller, void* user_data)
-{
-	LLPanelLogin* self = (LLPanelLogin*)user_data;
-	LLLineEditor* editor = (LLLineEditor*)caller;
-	std::string password = editor->getText();
-
-	// Re-md5 if we've changed at all
-	if (password != self->mIncomingPassword)
-	{
-		LLMD5 pass((unsigned char *)password.c_str());
-		char munged_password[MD5HEX_STR_SIZE];
-		pass.hex_digest(munged_password);
-		self->mMungedPassword = munged_password;
 	}
 }
 
@@ -598,6 +584,8 @@ void LLPanelLogin::setFields(const std::string& firstname,
 // static
 void LLPanelLogin::setPassword(const std::string& password)
 {
+	// we check for sInstance before getting here
+
 	// Max "actual" password length is 16 characters.
 	// Hex digests are always 32 characters.
 	if (password.length() == 32)
@@ -606,21 +594,16 @@ void LLPanelLogin::setPassword(const std::string& password)
 		// We don't actually use the password input field, 
 		// fill it with MAX_PASSWORD characters so we get a 
 		// nice row of asterixes.
-		const std::string filler("123456789!123456");
-		sInstance->childSetText("password_edit", filler);
-		sInstance->mIncomingPassword = filler;
-		sInstance->mMungedPassword = password;
+		sInstance->childSetText("password_edit", PASSWORD_FILLER);
 	}
 	else
 	{
 		// this is a normal text password
 		sInstance->childSetText("password_edit", password);
-		sInstance->mIncomingPassword = password;
-		LLMD5 pass((unsigned char *)password.c_str());
-		char munged_password[MD5HEX_STR_SIZE];
-		pass.hex_digest(munged_password);
-		sInstance->mMungedPassword = munged_password;
 	}
+
+	// munging happens in the grid manager now
+	sInstance->mActualPassword = password;
 }
 
 
@@ -716,7 +699,8 @@ void LLPanelLogin::getFields(std::string *firstname,
 		LLStringUtil::trim(*lastname);
 	}
 
-	*password = sInstance->mMungedPassword;
+	// sent to us from LLStartUp. Saved only on an actual connect
+	*password = sInstance->mActualPassword;
 }
 
 // static
@@ -844,9 +828,9 @@ void LLPanelLogin::refreshLoginPage()
     if (!sInstance) return;
 
     sInstance->childSetVisible("create_new_account_text",
-        !gHippoGridManager->getCurrentGrid()->getRegisterUrl().empty());
+        !gHippoGridManager->getCurrentGrid()->getRegisterURL().empty());
     sInstance->childSetVisible("forgot_password_text",
-        !gHippoGridManager->getCurrentGrid()->getPasswordUrl().empty());
+        !gHippoGridManager->getCurrentGrid()->getPasswordURL().empty());
 
     // kick off a request to grab the url manually
 	gResponsePtr = LLIamHereLogin::build(sInstance);
@@ -868,44 +852,47 @@ void LLPanelLogin::loadLoginForm()
 	if (!sInstance) return;
 	
 	// toggle between username/first+last login based on grid -- MC
-	LLTextBox* firstnamet = sInstance->getChild<LLTextBox>("first_name_text");
-	LLTextBox* lastnamet = sInstance->getChild<LLTextBox>("last_name_text");
-	LLTextBox* usernamet = sInstance->getChild<LLTextBox>("username_text");
+	LLTextBox* firstname_t = sInstance->getChild<LLTextBox>("first_name_text");
+	LLTextBox* lastname_t = sInstance->getChild<LLTextBox>("last_name_text");
+	LLTextBox* username_t = sInstance->getChild<LLTextBox>("username_text");
 
-	LLLineEditor* firstnamel = sInstance->getChild<LLLineEditor>("first_name_edit");
-	LLLineEditor* lastnamel = sInstance->getChild<LLLineEditor>("last_name_edit");
-	LLLineEditor* usernamel = sInstance->getChild<LLLineEditor>("username_edit");
+	LLLineEditor* firstname_l = sInstance->getChild<LLLineEditor>("first_name_edit");
+	LLLineEditor* lastname_l = sInstance->getChild<LLLineEditor>("last_name_edit");
+	LLLineEditor* username_l = sInstance->getChild<LLLineEditor>("username_edit");
 
-	firstnamet->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	lastnamet->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	usernamet->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	firstname_t->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	lastname_t->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	username_t->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
 
-	firstnamel->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	lastnamel->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
-	usernamel->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	firstname_l->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	lastname_l->setVisible(!gHippoGridManager->getCurrentGrid()->isUsernameCompat());
+	username_l->setVisible(gHippoGridManager->getCurrentGrid()->isUsernameCompat());
 
-	// these should really REALLY be stored in the grid info -- MC
-	std::string firstnames = gSavedSettings.getString("FirstName");
-	std::string lastnames = gSavedSettings.getString("LastName");
-	if (!firstnames.empty() && !lastnames.empty())
+	// get name info if we've got it
+	std::string firstname_s = gHippoGridManager->getCurrentGrid()->getFirstName();
+	std::string lastname_s = gHippoGridManager->getCurrentGrid()->getLastName();
+	if (gHippoGridManager->getCurrentGrid()->isUsernameCompat())
 	{
-		if (gHippoGridManager->getCurrentGrid()->isUsernameCompat())
+		if (lastname_s == "resident" || lastname_s == "Resident")
 		{
-			if (lastnames == "resident" || lastnames == "Resident")
-			{
-				usernamel->setText(firstnames);
-			}
-			else
-			{
-				usernamel->setText(firstnames+"."+lastnames);
-			}
+			username_l->setText(firstname_s);
+		}
+		else if (!firstname_s.empty() && !lastname_s.empty())
+		{
+			username_l->setText(firstname_s+"."+lastname_s);
 		}
 		else
 		{
-			firstnamel->setText(firstnames);
-			lastnamel->setText(lastnames);
+			username_l->clear();
 		}
 	}
+	else
+	{
+		firstname_l->setText(firstname_s);
+		lastname_l->setText(lastname_s);
+	}
+
+	setPassword(gHippoGridManager->getCurrentGrid()->getPassword());
 }
 
 
@@ -1223,16 +1210,33 @@ bool LLPanelLogin::newAccountAlertCallback(const LLSD& notification, const LLSD&
 // static
 void LLPanelLogin::onClickNewAccount(void*)
 {
-	const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterUrl();
-	if (!url.empty()) {
+	const std::string &url = gHippoGridManager->getConnectedGrid()->getRegisterURL();
+	if (!url.empty()) 
+	{
 		llinfos << "Going to account creation URL." << llendl;
 		LLWeb::loadURLExternal(url);
-	} else {
+	} 
+	else 
+	{
 		llinfos << "Account creation URL is empty." << llendl;
 		sInstance->setFocus(TRUE);
 	}
 }
 
+// static
+void LLPanelLogin::onPasswordChanged(LLUICtrl* caller, void* user_data)
+{
+	LLPanelLogin* self = (LLPanelLogin*)user_data;
+	LLLineEditor* editor = (LLLineEditor*)caller;
+	std::string password = editor->getText();
+
+	// update if we've changed at all
+	// is there a good way to let users know we can't let them use PASSWORD_FILLER?
+	if (password != self->mActualPassword && password != PASSWORD_FILLER)
+	{
+		self->mActualPassword = password;
+	}
+}
 
 // *NOTE: This function is dead as of 2008 August.  I left it here in case
 // we suddenly decide to put the Quit button back. JC
@@ -1261,10 +1265,13 @@ void LLPanelLogin::onClickForgotPassword(void*)
 {
 	if (sInstance )
 	{
-		const std::string &url = gHippoGridManager->getConnectedGrid()->getPasswordUrl();
-		if (!url.empty()) {
+		const std::string &url = gHippoGridManager->getConnectedGrid()->getPasswordURL();
+		if (!url.empty()) 
+		{
 			LLWeb::loadURLExternal(url);
-		} else {
+		} 
+		else 
+		{
 			llwarns << "Link for 'forgotton password' not set." << llendl;
 		}
 	}

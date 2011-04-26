@@ -422,13 +422,16 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 			}
 // [/RLVa:KB]
 		}
-		else if (object->isAttachment() && !object->isHUDAttachment())
+		else if (object->isAttachment())
 		{
-			gPieAttachment->show(x, y, mPieMouseButtonDown);
-		}
-		else if (object->isHUDAttachment())
-		{
-			gPieHUD->show(x, y, mPieMouseButtonDown);
+			if (object->isHUDAttachment())
+			{
+				gPieHUD->show(x, y, mPieMouseButtonDown);
+			}
+			else
+			{
+				gPieAttachment->show(x, y, mPieMouseButtonDown);
+			}
 		}
 		else
 		{
@@ -802,8 +805,8 @@ BOOL LLToolPie::handleDoubleClick(S32 x, S32 y, MASK mask)
 		}
 
 		const LLTextureEntry* tep = object->getTE(mPick.mObjectFace);
-		viewer_media_t media_impl = LLViewerMedia::getMediaImplFromTextureID(tep->getID());
-		if (tep && media_impl.notNull() && media_impl->hasMedia())
+		viewer_media_t media_impl = tep ? LLViewerMedia::getMediaImplFromTextureID(tep->getID()) : NULL;
+		if (media_impl.notNull() && media_impl->hasMedia())
 		{
 			LL_DEBUGS("DoubleClicks") << "Double clicked running parcel media" << LL_ENDL;
 			return FALSE;

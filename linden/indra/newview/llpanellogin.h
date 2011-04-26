@@ -83,7 +83,6 @@ public:
 	static void refreshLoginPage();
 	static void giveFocus();
 	static void setAlwaysRefresh(bool refresh); 
-	static void mungePassword(LLUICtrl* caller, void* user_data);
 	
 	// inherited from LLViewerMediaObserver
 	/*virtual*/ void handleMediaEvent(LLPluginClassMedia* self, EMediaEvent event);
@@ -95,6 +94,7 @@ private:
 	static bool newAccountAlertCallback(const LLSD& notification, const LLSD& response);
 	static void onClickQuit(void*);
 	static void onClickVersion(void*);
+	static void onPasswordChanged(LLUICtrl* caller, void* user_data);
 	static void onClickForgotPassword(void*);
 	static void onPassKey(LLLineEditor* caller, void* user_data);
 	static void onSelectServer(LLUICtrl*, void*);
@@ -117,8 +117,7 @@ private:
 	void			(*mCallback)(S32 option, void *userdata);
 	void*			mCallbackData;
 
-	std::string mIncomingPassword;
-	std::string mMungedPassword;
+	std::string mActualPassword;
 
 	static LLPanelLogin* sInstance;
 	static BOOL		sCapslockDidNotification;
