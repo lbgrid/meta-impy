@@ -707,8 +707,6 @@ void HippoGridManager::deleteGrid(const std::string& grid)
 
 void HippoGridManager::setDefaultGrid(const std::string& grid)
 {
-	return;
-	/* Prevent setting the default grid to anything but meta7 (except by editing the settings file).
 	GridIterator it = mGridInfo.find(grid);
 	if (it != mGridInfo.end()) 
 	{
@@ -726,7 +724,6 @@ void HippoGridManager::setDefaultGrid(const std::string& grid)
 	{
 		mDefaultGrid = "";
 	}
-	*/
 }
 
 

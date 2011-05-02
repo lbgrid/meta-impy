@@ -634,7 +634,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://www.meta7.com/grids.xml</string>
+    <string>http://imprudenceviewer.org/app/grids/</string>
   </map>
   <key>GoAction</key>
   <map>
@@ -1476,7 +1476,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>meta7</string>
+    <string>osgrid</string>
   </map>
   <key>KeepAppearance</key>
   <map>
