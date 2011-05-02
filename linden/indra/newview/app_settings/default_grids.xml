@@ -204,36 +204,6 @@
       <key>version</key>   <string>2</string>
     </map> 
 
-    <!-- meta 7 -->
-    <map>
-      <key>gridname</key>  <string>meta 7</string>
-      <key>gridnick</key>  <string>meta7</string>
-      <key>platform</key>  <string>OpenSim</string>
-      <key>loginuri</key>  <string>https://login.meta7.com/</string>
-      <key>loginpage</key> <string>http://api.meta7.com/loginscreen.php</string>
-      <key>helperuri</key> <string>https://login.meta7.com/secure/</string>
-      <key>password</key>  <string>https://api.meta7.com/forgotpass.php</string>
-      <key>register</key>  <string>https://www.meta7.com/register.php</string>
-      <key>search</key>    <string>http://search.meta7.com/client_search.php?</string>
-      <key>support</key>   <string>https://www.meta7.com/support.php</string>
-      <key>website</key>   <string>http://www.meta7.com/</string>
-      <key>version</key>   <string>0</string>
-    </map>
-    <map>
-      <key>gridname</key>  <string>meta 7 beta</string>
-      <key>gridnick</key>  <string>meta7beta</string>
-      <key>platform</key>  <string>OpenSim</string>
-      <key>loginuri</key>  <string>https://beta.meta7.com/</string>
-      <key>loginpage</key> <string>http://api.meta7.com/loginscreen.php</string>
-      <key>helperuri</key> <string>https://beta.meta7.com/secure/</string>
-      <key>password</key>  <string>https://api.meta7.com/forgotpass.php</string>
-      <key>register</key>  <string>https://www.meta7.com/register.php</string>
-      <key>search</key>    <string>http://search.meta7.com/client_search.php?</string>
-      <key>support</key>   <string>https://www.meta7.com/support.php</string>
-      <key>website</key>   <string>http://www.meta7.com/</string>
-      <key>version</key>   <string>0</string>
-    </map>
-
     <!-- ScienceSim -->
     <map>
       <key>gridname</key>  <string>IEEE/ACM ScienceSim Virtual World</string>
