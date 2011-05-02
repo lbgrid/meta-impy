@@ -284,17 +284,9 @@ LLMuteList::~LLMuteList()
 
 BOOL LLMuteList::isGod(const std::string& name) const
 {
-	typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-	boost::char_separator<char> sep(" ");
-	tokenizer tokens(name, sep);
-	tokenizer::iterator token_iter = tokens.begin();
-	
-	if (token_iter == tokens.end()) return FALSE;
-	token_iter++;
-	if (token_iter == tokens.end()) return FALSE;
-	
-	std::string last_name = *token_iter;
-	return last_name == "Meta";
+    // Basing god status on the last name is bound to break in random grids.
+    // Track down users of this and see if we can get their user level instead.
+    return FALSE;
 }
 
 
