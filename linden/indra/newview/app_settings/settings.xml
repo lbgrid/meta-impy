@@ -10957,13 +10957,13 @@
     <key>ShowGridManager</key>
     <map>
       <key>Comment</key>
-      <string>(meta7 setting) Show the grid manager on startup?</string>
+      <string>Show the grid manager on startup?</string>
       <key>Persist</key>
       <integer>1</integer>
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <real>0</real>
+      <real>1</real>
     </map>
     <key>ShowHoverTips</key>
     <map>
