@@ -1,23 +1,9 @@
-
-
- ABOUT META7
-
-   Meta 7 is a Virtual World loosely based on OpenSimulator core
-   server code.
-
-   The meta 7 Viewer is our open source client application designed
-   for the world, based on both Imprudence (an open source metaverse
-   viewer project) and the Second Life viewer.
-
-   Meta 7 is online at http://www.meta7.com/
-
-
-   The latest source code for the meta-impy viewer is always
-   available at:
-
-     http://github.com/onefang/meta-impy
-
  ABOUT META-IMPY
+
+    Meta-impy used to be the next generation experimental viewer for the 
+    meta 7 grid.  Meta 7 closed, but meta-impy lives on.  The rest of
+    this text is the old text from the meta 7 days.  I'll write
+    something now soon.
 
     The old meta 7 viewer was based on an ancient version of Emerald.  We
     need an update.  After much discussion and evaluation, and too much
@@ -47,6 +33,12 @@
     is not important to us, and not recommended by us.  Use at your own
     risk on the SL grid.
 
+    The latest source code for the meta-impy viewer is always
+    available at:
+
+    http://github.com/onefang/meta-impy
+
+
  LICENSE
 
    All code is licensed under the terms of the GNU General Public
@@ -62,3 +54,4 @@
    Imprudence is in no way affiliated with Linden Research, Inc.
 
    meta7 and/or Magne Metaverse Reasearch are in no way affiliated with Linden Research, Inc.
+
