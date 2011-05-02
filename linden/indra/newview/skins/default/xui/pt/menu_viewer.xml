@@ -206,19 +206,6 @@
 			<menu_item_separator label="-----------" name="separator9"/>
 			<menu_item_call label="Reportar Bug..." name="Report Bug..."/>
 		</menu>
-		<menu label="meta 7 web site" name="meta 7 web site">
-		     <menu_item_call label="meta 7 página principal..." name="meta 7 home page..."/>
-		     <menu_item_call label="Comprar M$..." name="Buy M$..."/>
-		     <menu_item_call label="Downloads..." name="Downloads..."/>
-		     <menu_item_call label="meta 7 wiki..." name="meta 7 wiki..."/>
-		     <menu_item_call label="Foros oficiais..." name="Official forums..."/>
-		     <menu_item_call label="Termos de Serviço..." name="Terms of service..."/>
-		     <menu_item_call label="Normas Comunitárias..." name="Community standards..."/>
-		     <menu_item_call label="Níveis de Maturidade..." name="Maturity ratings..."/>
-		     <menu_item_call label="Política de Privacidade..." name="Privacy policy..."/>
-		     <menu_item_call label="Envie relatório de bug..." name="Submit a bug report..."/>
-		     <menu_item_call label="Envie ticket de suporte..." name="Submit a support ticket..."/>
-		</menu>
 		<menu_item_call label="Sobre meta-impy..." name="About meta-impy..."/>
 	</menu>
 </menu_bar>
