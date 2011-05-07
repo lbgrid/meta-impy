@@ -219,5 +219,22 @@
       <key>version</key>   <string>0</string>
     </map>
 
+    <!-- Slackdog -->
+    <map>
+      <key>gridname</key>  <string>Slackdog grid</string>
+      <key>gridnick</key>  <string>slackdog</string>
+      <key>platform</key>  <string>OpenSim</string>
+      <key>loginuri</key>  <string>http://gallifrey.slackdog.com:8002/</string>
+      <key>loginpage</key> <string>http://www.slackdog.com/loginscreen.php</string>
+      <key>helperuri</key> <string></string>
+      <key>password</key>  <string>http://gallifrey.slackdog.com:8002/wifi/forgotpassword</string>
+      <key>register</key>  <string>http://gallifrey.slackdog.com:8002/wifi/user/account</string>
+      <key>support</key>   <string></string>
+      <key>website</key>   <string>http://slackdog.com/</string>
+      <key>search</key>    <string>http://webi.metaverseink.com/</string>
+      <key>version</key>   <string>0</string>
+
+    </map>
+
   </array>
 </llsd>
