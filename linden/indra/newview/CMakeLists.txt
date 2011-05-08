@@ -46,6 +46,10 @@ endif (WINDOWS)
 include(libgcrypt)
 include(libgpg-error)
 
+if (WINDOWS)
+    include(libotr)
+    # on windows always build libotr from source and statically link in libgcrypt and libgpg-error
+endif (WINDOWS)
 if (DARWIN OR LINUX)
   if (STATIC_LIBOTR_ETC)
     include(libotr) # to build libotr from source and statically link in libgcrypt and libgpg-error
