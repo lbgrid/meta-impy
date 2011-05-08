@@ -609,20 +609,20 @@ bool LLStringOps::isHexString(const std::string& str)
 
 #if LL_WINDOWS
 // documentation moved to header. Phoenix 2007-11-27
-namespace snprintf_hack
-{
-	int snprintf(char *str, size_t size, const char *format, ...)
+//namespace snprintf_hack
+//{
+	int ll_snprintf(char *str, size_t size, const char *format, ...)
 	{
 		va_list args;
 		va_start(args, format);
 
 		int num_written = _vsnprintf(str, size, format, args); /* Flawfinder: ignore */
 		va_end(args);
-		
+
 		str[size-1] = '\0'; // always null terminate
 		return num_written;
 	}
-}
+//}
 
 std::string ll_convert_wide_to_string(const wchar_t* in)
 {
@@ -642,9 +642,9 @@ std::string ll_convert_wide_to_string(const wchar_t* in)
 		// We will need two more bytes for the double NULL ending
 		// created in WideCharToMultiByte().
 		char* pout = new char [len_out + 2];
-		memset(pout, 0, len_out + 2);
 		if(pout)
 		{
+    		memset(pout, 0, len_out + 2);
 			WideCharToMultiByte(
 				CP_ACP,
 				0,

@@ -1882,17 +1882,17 @@ BOOL LLKeyframeMotion::serialize(LLDataPacker& dp) const
 		success &= dp.packU8(shared_constraintp->mChainLength, "chain_length");
 		success &= dp.packU8(shared_constraintp->mConstraintType, "constraint_type");
 		char volume_name[16];	/* Flawfinder: ignore */
-		snprintf(volume_name, sizeof(volume_name), "%s",	/* Flawfinder: ignore */
+		ll_snprintf(volume_name, sizeof(volume_name), "%s",	/* Flawfinder: ignore */
 				 mCharacter->findCollisionVolume(shared_constraintp->mSourceConstraintVolume)->getName().c_str()); 
 		success &= dp.packBinaryDataFixed((U8*)volume_name, 16, "source_volume");
 		success &= dp.packVector3(shared_constraintp->mSourceConstraintOffset, "source_offset");
 		if (shared_constraintp->mConstraintTargetType == CONSTRAINT_TARGET_TYPE_GROUND)
 		{
-			snprintf(volume_name,sizeof(volume_name), "%s", "GROUND");	/* Flawfinder: ignore */
+			ll_snprintf(volume_name,sizeof(volume_name), "%s", "GROUND");	/* Flawfinder: ignore */
 		}
 		else
 		{
-			snprintf(volume_name, sizeof(volume_name),"%s", /* Flawfinder: ignore */
+			ll_snprintf(volume_name, sizeof(volume_name),"%s", /* Flawfinder: ignore */
 					 mCharacter->findCollisionVolume(shared_constraintp->mTargetConstraintVolume)->getName().c_str());	
 		}
 		success &= dp.packBinaryDataFixed((U8*)volume_name, 16, "target_volume");
@@ -2171,7 +2171,7 @@ void LLKeyframeDataCache::dumpDiagInfo()
 
 	llinfos << "-----------------------------------------------------" << llendl;
 	llinfos << "Motions\tTotal Size" << llendl;
-	snprintf(buf, sizeof(buf), "%d\t\t%d bytes", (S32)sKeyframeDataMap.size(), total_size );		/* Flawfinder: ignore */
+	ll_snprintf(buf, sizeof(buf), "%d\t\t%d bytes", (S32)sKeyframeDataMap.size(), total_size );		/* Flawfinder: ignore */
 	llinfos << buf << llendl;
 	llinfos << "-----------------------------------------------------" << llendl;
 }

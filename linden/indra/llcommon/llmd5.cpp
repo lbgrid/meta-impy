@@ -264,7 +264,7 @@ LLMD5::LLMD5(const unsigned char *string, const unsigned int number)
 	init();
 	update(string, (U32)strlen((const char *) string));		/* Flawfinder: ignore */
 	update((const unsigned char *) colon, (U32)strlen(colon));		/* Flawfinder: ignore */
-	snprintf(tbuf, sizeof(tbuf), "%i", number);	/* Flawfinder: ignore */
+	ll_snprintf(tbuf, sizeof(tbuf), "%i", number);	/* Flawfinder: ignore */
 	update((const unsigned char *) tbuf, (U32)strlen(tbuf));	/* Flawfinder: ignore */
 	finalize();
 }

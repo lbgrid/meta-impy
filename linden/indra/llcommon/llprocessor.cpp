@@ -591,7 +591,7 @@ bool CProcessor::AnalyzeIntelProcessor()
 			mov sig3, edx
 		}
 		// Then we convert the data to a readable string
-		snprintf(	/* Flawfinder: ignore */
+		ll_snprintf(	/* Flawfinder: ignore */
 			CPUInfo.strProcessorSerial,
 			sizeof(CPUInfo.strProcessorSerial),
 			"%04lX-%04lX-%04lX-%04lX-%04lX-%04lX",
@@ -604,7 +604,7 @@ bool CProcessor::AnalyzeIntelProcessor()
 	else
 	{
 		// If there's no serial number support we just put "No serial number"
-		snprintf(	/* Flawfinder: ignore */
+		ll_snprintf(	/* Flawfinder: ignore */
 			CPUInfo.strProcessorSerial,
 			sizeof(CPUInfo.strProcessorSerial),
 			"No Processor Serial Number");	
@@ -953,7 +953,7 @@ bool CProcessor::AnalyzeAMDProcessor()
 		if ((ecxreg >> 24) > 0)
 		{
 			CPUInfo._L1.Data.bPresent = true;
-			snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", ecxreg >> 24);		/* Flawfinder: ignore */
+			ll_snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", ecxreg >> 24);		/* Flawfinder: ignore */
 			CPUInfo._L1.Data.uiAssociativeWays = (ecxreg >> 15) & 0xFF;
 			CPUInfo._L1.Data.uiLineSize = ecxreg & 0xFF;
 		}
@@ -961,7 +961,7 @@ bool CProcessor::AnalyzeAMDProcessor()
 		if ((edxreg >> 24) > 0)
 		{
 			CPUInfo._L1.Instruction.bPresent = true;
-			snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", edxreg >> 24); 	/* Flawfinder: ignore */
+			ll_snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", edxreg >> 24); 	/* Flawfinder: ignore */
 			CPUInfo._L1.Instruction.uiAssociativeWays = (edxreg >> 15) & 0xFF;
 			CPUInfo._L1.Instruction.uiLineSize = edxreg & 0xFF;
 		}
@@ -985,7 +985,7 @@ bool CProcessor::AnalyzeAMDProcessor()
 		if (((ecxreg >> 12) & 0xF) > 0)
 		{
 			CPUInfo._L2.bPresent = true;
-			snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", ecxreg >> 16);		/* Flawfinder: ignore */
+			ll_snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", ecxreg >> 16);		/* Flawfinder: ignore */
 			switch ((ecxreg >> 12) & 0xF)
 			{
 				case 1:
@@ -1078,9 +1078,9 @@ bool CProcessor::AnalyzeUnknownProcessor()
 	strcpy(CPUInfo.strProcessorSerial, "Unknown / Not supported");	/*Flawfinder: ignore*/
 
 	// For the family, model and brand id we can only print the numeric value
-	snprintf(CPUInfo.strBrandID, sizeof(CPUInfo.strBrandID), "Brand-ID number %d", CPUInfo.uiBrandID);		/* Flawfinder: ignore */
-	snprintf(CPUInfo.strFamily, sizeof(CPUInfo.strFamily), "Family number %d", CPUInfo.uiFamily);		/* Flawfinder: ignore */
-	snprintf(CPUInfo.strModel, sizeof(CPUInfo.strModel), "Model number %d", CPUInfo.uiModel);		/* Flawfinder: ignore */
+	ll_snprintf(CPUInfo.strBrandID, sizeof(CPUInfo.strBrandID), "Brand-ID number %d", CPUInfo.uiBrandID);		/* Flawfinder: ignore */
+	ll_snprintf(CPUInfo.strFamily, sizeof(CPUInfo.strFamily), "Family number %d", CPUInfo.uiFamily);		/* Flawfinder: ignore */
+	ll_snprintf(CPUInfo.strModel, sizeof(CPUInfo.strModel), "Model number %d", CPUInfo.uiModel);		/* Flawfinder: ignore */
 
 	// And thats it
 	return true;
@@ -1397,7 +1397,7 @@ FORCEINLINE static void TranslateTLB(ProcessorTLB *tlb)
 
 	// We just check if the TLB is present
 	if (tlb->bPresent)
-        snprintf(tlb->strTLB,sizeof(tlb->strTLB), "%s page size, %s, %d entries", tlb->strPageSize, TranslateAssociativeWays(tlb->uiAssociativeWays, buf), tlb->uiEntries);	/* Flawfinder: ignore */
+        ll_snprintf(tlb->strTLB,sizeof(tlb->strTLB), "%s page size, %s, %d entries", tlb->strPageSize, TranslateAssociativeWays(tlb->uiAssociativeWays, buf), tlb->uiEntries);	/* Flawfinder: ignore */
 	else
         strcpy(tlb->strTLB, "Not present");	/* Flawfinder: ignore */
 }
@@ -1409,7 +1409,7 @@ FORCEINLINE static void TranslateCache(ProcessorCache *cache)
     if (cache->bPresent)
 	{
 		// If present we construct the string
-		snprintf(cache->strCache, sizeof(cache->strCache), "%s cache size, %s, %d bytes line size", cache->strSize, TranslateAssociativeWays(cache->uiAssociativeWays, buf), cache->uiLineSize);	/* Flawfinder: ignore */
+		ll_snprintf(cache->strCache, sizeof(cache->strCache), "%s cache size, %s, %d bytes line size", cache->strSize, TranslateAssociativeWays(cache->uiAssociativeWays, buf), cache->uiLineSize);	/* Flawfinder: ignore */
 		if (cache->bSectored)
 			strncat(cache->strCache, ", sectored", sizeof(cache->strCache)-strlen(cache->strCache)-1);	/* Flawfinder: ignore */
 	}
@@ -1737,7 +1737,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	}
 
 	if(ncpus > 1)
-        	snprintf(strCPUName, sizeof(strCPUName), "%d x ", ncpus); 
+        	ll_snprintf(strCPUName, sizeof(strCPUName), "%d x ", ncpus); 
 
 	kstat_read(kc, CPU_stats_list, NULL);
 	ksinfo = (kstat_named_t *)CPU_stats_list->ks_data;
@@ -1845,7 +1845,7 @@ static void TranslateTLB(ProcessorTLB *tlb)
 
 	// We just check if the TLB is present
 	if (tlb->bPresent)
-        snprintf(tlb->strTLB, sizeof(tlb->strTLB), "%s page size, %s, %d entries", tlb->strPageSize, TranslateAssociativeWays(tlb->uiAssociativeWays, buf), tlb->uiEntries);	/* Flawfinder: ignore */
+        ll_snprintf(tlb->strTLB, sizeof(tlb->strTLB), "%s page size, %s, %d entries", tlb->strPageSize, TranslateAssociativeWays(tlb->uiAssociativeWays, buf), tlb->uiEntries);	/* Flawfinder: ignore */
 	else
         strcpy(tlb->strTLB, "Not present");	/* Flawfinder: ignore */
 }
@@ -1857,7 +1857,7 @@ static void TranslateCache(ProcessorCache *cache)
     if (cache->bPresent)
 	{
 		// If present we construct the string
-		snprintf(cache->strCache,sizeof(cache->strCache), "%s cache size, %s, %d bytes line size", cache->strSize, TranslateAssociativeWays(cache->uiAssociativeWays, buf), cache->uiLineSize);	/* Flawfinder: ignore */
+		ll_snprintf(cache->strCache,sizeof(cache->strCache), "%s cache size, %s, %d bytes line size", cache->strSize, TranslateAssociativeWays(cache->uiAssociativeWays, buf), cache->uiLineSize);	/* Flawfinder: ignore */
 		if (cache->bSectored)
 			strncat(cache->strCache, ", sectored", sizeof(cache->strCache)-strlen(cache->strCache)-1);	/* Flawfinder: ignore */
 	}
@@ -2003,7 +2003,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	}
 	else
 	{
-		snprintf(strCPUName, sizeof(strCPUName), "%d x ", ncpu);	/* Flawfinder: ignore */
+		ll_snprintf(strCPUName, sizeof(strCPUName), "%d x ", ncpu);	/* Flawfinder: ignore */
 	}
 	
 #if __ppc__
@@ -2100,7 +2100,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l1dcachesize != 0)
 	{
 		CPUInfo._L1.Data.bPresent = true;
-		snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", l1dcachesize / 1024);	/* Flawfinder: ignore */
+		ll_snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", l1dcachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L1.Data.uiAssociativeWays = ???;
 		CPUInfo._L1.Data.uiLineSize = cachelinesize;
 	}
@@ -2108,7 +2108,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l1icachesize != 0)
 	{
 		CPUInfo._L1.Instruction.bPresent = true;
-		snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", l1icachesize / 1024);	/* Flawfinder: ignore */
+		ll_snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", l1icachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L1.Instruction.uiAssociativeWays = ???;
 		CPUInfo._L1.Instruction.uiLineSize = cachelinesize;
 	}
@@ -2116,7 +2116,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l2cachesize != 0)
 	{
 		CPUInfo._L2.bPresent = true;
-		snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l2cachesize / 1024);	/* Flawfinder: ignore */
+		ll_snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l2cachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L2.uiAssociativeWays = ???;
 		CPUInfo._L2.uiLineSize = cachelinesize;
 	}
@@ -2124,7 +2124,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l3cachesize != 0)
 	{
 		CPUInfo._L2.bPresent = true;
-		snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l3cachesize / 1024);	/* Flawfinder: ignore */
+		ll_snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l3cachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L2.uiAssociativeWays = ???;
 		CPUInfo._L2.uiLineSize = cachelinesize;
 	}

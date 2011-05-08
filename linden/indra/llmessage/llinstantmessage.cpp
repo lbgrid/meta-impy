@@ -234,8 +234,8 @@ void pack_instant_message_block(
 	if(!message.empty())
 	{
 		char buffer[MTUBYTES];
-		int num_written = snprintf(buffer, MTUBYTES, "%s", message.c_str());	/* Flawfinder: ignore */
-		// snprintf returns number of bytes that would have been written
+		int num_written = ll_snprintf(buffer, MTUBYTES, "%s", message.c_str());	/* Flawfinder: ignore */
+		// ll_snprintf returns number of bytes that would have been written
 		// had the output not being truncated. In that case, it will
 		// return either -1 or value >= passed in size value . So a check needs to be added
 		// to detect truncation, and if there is any, only account for the

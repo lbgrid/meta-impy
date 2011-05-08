@@ -45,9 +45,9 @@ typedef int socklen_t;
 #endif
 
 // !s0rr0w!
-#define SIZEOF_UINT64_T 8
-#define UINT64_C(C) (C)
-typedef unsigned __int64 uint64_t;
+//#define SIZEOF_UINT64_T 8
+//#define UINT64_C(C) (C)
+//typedef unsigned __int64 uint64_t;
 
 #if WIN32          /* [$PLOTR$] */
 #ifndef snprintf

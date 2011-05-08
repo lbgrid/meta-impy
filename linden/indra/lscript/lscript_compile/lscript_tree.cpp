@@ -8805,7 +8805,7 @@ void LLScriptIf::recurse(LLFILE *fp, S32 tabs, S32 tabsize, LSCRIPTCompilePass p
 	case LSCP_EMIT_BYTE_CODE:
 		{
 			char jumpname[32];	 	/*Flawfinder: ignore*/
-			snprintf(jumpname, sizeof(jumpname),"##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
+			ll_snprintf(jumpname, sizeof(jumpname),"##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
 
 			mExpression->recurse(fp, tabs, tabsize, LSCP_TO_STACK, ptype, prunearg, scope, type, basetype, count, chunk, heap, stacksize, entry, entrycount, NULL);
 			chunk->addByte(LSCRIPTOpCodes[LOPC_JUMPNIF]);
@@ -8891,9 +8891,9 @@ void LLScriptIfElse::recurse(LLFILE *fp, S32 tabs, S32 tabsize, LSCRIPTCompilePa
 	case LSCP_EMIT_BYTE_CODE:
 		{
 			char jumpname1[32]; 				/*Flawfinder: ignore*/
-			snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
+			ll_snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
 			char jumpname2[32];			 	/*Flawfinder: ignore*/
-			snprintf(jumpname2, sizeof(jumpname2), "##Temp Jump %d##", gTempJumpCount++);	 /* Flawfinder: ignore */
+			ll_snprintf(jumpname2, sizeof(jumpname2), "##Temp Jump %d##", gTempJumpCount++);	 /* Flawfinder: ignore */
 
 			mExpression->recurse(fp, tabs, tabsize, LSCP_TO_STACK, ptype, prunearg, scope, type, basetype, count, chunk, heap, stacksize, entry, entrycount, NULL);
 			chunk->addByte(LSCRIPTOpCodes[LOPC_JUMPNIF]);
@@ -8996,9 +8996,9 @@ void LLScriptFor::recurse(LLFILE *fp, S32 tabs, S32 tabsize, LSCRIPTCompilePass 
 	case LSCP_EMIT_BYTE_CODE:
 		{
 			char jumpname1[32];		 	/*Flawfinder: ignore*/
-			snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
+			ll_snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
 			char jumpname2[32];			 	/*Flawfinder: ignore*/
-			snprintf(jumpname2, sizeof(jumpname2), "##Temp Jump %d##", gTempJumpCount++);	 	/* Flawfinder: ignore */
+			ll_snprintf(jumpname2, sizeof(jumpname2), "##Temp Jump %d##", gTempJumpCount++);	 	/* Flawfinder: ignore */
 
 			if(mSequence)
 				mSequence->recurse(fp, tabs, tabsize, LSCP_TO_STACK, ptype, prunearg, scope, type, basetype, count, chunk, heap, stacksize, entry, entrycount, NULL);
@@ -9095,7 +9095,7 @@ void LLScriptDoWhile::recurse(LLFILE *fp, S32 tabs, S32 tabsize, LSCRIPTCompileP
 	case LSCP_EMIT_BYTE_CODE:
 		{
 			char jumpname1[32];	 	/*Flawfinder: ignore*/
-			snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++);	 	/* Flawfinder: ignore */
+			ll_snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++);	 	/* Flawfinder: ignore */
 
 			chunk->addLabel(jumpname1);
 			mStatement->recurse(fp, tabs, tabsize, pass, ptype, prunearg, scope, type, basetype, count, chunk, heap, stacksize, entry, entrycount, NULL);
@@ -9171,9 +9171,9 @@ void LLScriptWhile::recurse(LLFILE *fp, S32 tabs, S32 tabsize, LSCRIPTCompilePas
 	case LSCP_EMIT_BYTE_CODE:
 		{
 			char jumpname1[32]; 	/*Flawfinder: ignore*/
-			snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
+			ll_snprintf(jumpname1, sizeof(jumpname1), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
 			char jumpname2[32]; 	/*Flawfinder: ignore*/
-			snprintf(jumpname2, sizeof(jumpname2), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
+			ll_snprintf(jumpname2, sizeof(jumpname2), "##Temp Jump %d##", gTempJumpCount++); 	/* Flawfinder: ignore */
 
 			chunk->addLabel(jumpname1);
 			mExpression->recurse(fp, tabs, tabsize, LSCP_TO_STACK, ptype, prunearg, scope, type, basetype, count, chunk, heap, stacksize, entry, entrycount, NULL);
