@@ -498,6 +498,8 @@ LL_COMMON_API std::string utf8str_removeCRLF(const std::string& utf8str);
 LL_COMMON_API std::string ll_convert_wide_to_string(const wchar_t* in);
 
 //@}
+#else
+#define ll_snprintf snprintf
 #endif // LL_WINDOWS
 
 /**
