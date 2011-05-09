@@ -346,12 +346,32 @@ void primbackup::pre_export_object()
 }
 
 
+// This is the central place where exporting permissions checks are done.
+
 // static
 bool primbackup::check_perms( LLSelectNode* node )
 {
 	LLPermissions *perms = node->mPermissions;
+
+	// Exporting other content) from Second Life
+	// without checking creator is a violation of the Second Life
+	// Policy on Third-Party Viewers and Terms of Service.
+	// Coz LL are paranoid about other grids getting useful content.
+	// This is probably illegal with respect to open source content, 
+	// it usually has licenses designed to prevent third parties (LL)
+	// from restricting copying.
+	// This is the meta-impy viewer, we don't care about LL's broken policies
+	// and we really don't care for LL imposing their own restrictions
+	// on content that the content author did not want.
+	if(gHippoGridManager->getConnectedGrid()->isSecondLife())
+	{
+		return (gAgent.getID() == perms->getOwner() &&
+		 	gAgent.getID() == perms->getCreator() &&
+			(PERM_ITEM_UNRESTRICTED &
+			 perms->getMaskOwner()) == PERM_ITEM_UNRESTRICTED);
+	}
+
 	return (gAgent.getID() == perms->getOwner() &&
-	        gAgent.getID() == perms->getCreator() &&
 	        (PERM_ITEM_UNRESTRICTED &
 	         perms->getMaskOwner()) == PERM_ITEM_UNRESTRICTED);
 }
@@ -377,10 +397,6 @@ void primbackup::exportworker(void *userdata)
 
 			if(LLSelectMgr::getInstance()->getSelection()->applyToNodes(&func,false))
 			{
-				if(gHippoGridManager->getConnectedGrid()->isSecondLife())
-				{
-					LLNotifications::instance().add("NoTextureExportSL");
-				}
 				primbackup::getInstance()->export_state=EXPORT_STRUCTURE;
 			}
 			else
@@ -420,22 +436,6 @@ void primbackup::exportworker(void *userdata)
 		}
 
 		case EXPORT_TEXTURES: {
-			// Exporting object textures (or other content) from Second Life
-			// without checking creator is a violation of the Second Life
-			// Policy on Third-Party Viewers and Terms of Service.
-			// Coz LL are paranoid about other grids getting useful content.
-			// This is probably illegal with respect to open source content, 
-			// it usually has licenses designed to prevent third parties (LL)
-			// from restricting copying.
-			// This is the meta-impy viewer, we don't care about LL's broken policies
-			// and we really don't care for LL imposing their own restrictions
-			// on content that the content author did not want.
-//			if(gHippoGridManager->getConnectedGrid()->isSecondLife())
-//			{
-//				primbackup::getInstance()->export_state=EXPORT_DONE;
-//				return;
-//			}
-
 			if(primbackup::getInstance()->m_nexttextureready==false)
 				return;
 

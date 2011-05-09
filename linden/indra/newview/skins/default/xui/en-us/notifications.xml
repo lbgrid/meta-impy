@@ -7280,13 +7280,6 @@ Shadows cannot be enabled due to your graphics settings being set too low. Make 
 </notification>
 
 <notification
- icon="notifytip.tga"
- name="NoTextureExportSL"
- type="notifytip">
-Note: To comply with the Second Life Terms of Service, Imprudence did not download any texture files for the exported object(s).
-</notification>
-
-<notification
  icon="alert.tga"
  name="Help_CmdLine"
  type="alert">
