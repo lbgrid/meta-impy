@@ -1783,6 +1783,24 @@ void LLPipeline::shiftObjects(const LLVector3 &offset)
 	}
 	mShiftList.resize(0);
 
+
+	// This is a workaround for the "TP more than 4096 sims" bug.
+	// This workaround is the difference between "can't see anything" and "can't see some prims close to you".
+	// Sa it's a worthwhile workaround for now, pending further investigation.
+	// The actual problem is deeper.
+	// According to my notes, the actual bug is in void LLSpatialGroup::shift(const LLVector3 &offset), or deeper.
+	// The original workaround came from Mana Janus TWO YEARS ago, as mentioned in https://jira.secondlife.com/browse/SVC-2941?
+	// I've just refined the placement of the workaround, in an effort to track down the real problem.
+	// 	onefang, from the meta-impy viewer.
+	LLVector3 offsetOC = offset;
+	// don't shift objects, if teleporting more than about 4000 sims, as
+	// for long teleports shifting objects garbles the view at the target region
+//	if (offsetOC.lengthSquared() > 6.5e10f)  // roughly 1000 sims, fer easier testing
+	if (offsetOC.lengthSquared() > 1.05e12f) // 4000 sims, though the trigger point is being reported as 4096.
+	    offsetOC = LLVector3::zero;
+	// End of workaround, except where offsetOC is used below.
+
+
 	for (LLWorld::region_list_t::const_iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
 			iter != LLWorld::getInstance()->getRegionList().end(); ++iter)
 	{
@@ -1792,7 +1810,7 @@ void LLPipeline::shiftObjects(const LLVector3 &offset)
 			LLSpatialPartition* part = region->getSpatialPartition(i);
 			if (part)
 			{
-				part->shift(offset);
+				part->shift(offsetOC);
 			}
 		}
 	}
