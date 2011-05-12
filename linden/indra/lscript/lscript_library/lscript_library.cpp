@@ -591,7 +591,7 @@ LLScriptLibraryFunction::LLScriptLibraryFunction(F32 eu, F32 st, void (*exec_fun
 	char *mDesc_ = new char[512];
 	if (mSleepTime)
 	{
-		snprintf(	/* Flawfinder: ignore */
+		ll_snprintf(	/* Flawfinder: ignore */
 			mDesc_,
 			512,
 			"%s\nSleeps script for %.1f seconds.",
@@ -652,7 +652,7 @@ void LLScriptLibData::print(std::ostream &s, BOOL b_prepend_comma)
 	     s << mInteger;
 	     break;
 	case LST_FLOATINGPOINT:
-	     snprintf(tmp, 1024, "%f", mFP);	/* Flawfinder: ignore */
+	     ll_snprintf(tmp, 1024, "%f", mFP);	/* Flawfinder: ignore */
 	     s << tmp;
 	     break;
 	case LST_KEY:
@@ -662,12 +662,12 @@ void LLScriptLibData::print(std::ostream &s, BOOL b_prepend_comma)
 	     s << mString;
 	     break;
 	case LST_VECTOR:
-	     snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], /* Flawfinder: ignore */
+	     ll_snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], /* Flawfinder: ignore */
 		      mVec.mV[VY], mVec.mV[VZ]);
 	     s << tmp;
 	     break;
 	case LST_QUATERNION:
-	     snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], /* Flawfinder: ignore */
+	     ll_snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], /* Flawfinder: ignore */
 		      mQuat.mQ[VZ], mQuat.mQ[VS]);
 	     s << tmp;
 	     break;
@@ -691,7 +691,7 @@ void LLScriptLibData::print_separator(std::ostream& ostr, BOOL b_prepend_sep, ch
 		     ostr << mInteger;
 		     break;
 		case LST_FLOATINGPOINT:
-		     snprintf(tmp, 1024, "%f", mFP);	/* Flawfinder: ignore */
+		     ll_snprintf(tmp, 1024, "%f", mFP);	/* Flawfinder: ignore */
 		     ostr << tmp;
 		     break;
 		case LST_KEY:
@@ -701,12 +701,12 @@ void LLScriptLibData::print_separator(std::ostream& ostr, BOOL b_prepend_sep, ch
 		     ostr << mString;
 		     break;
 		case LST_VECTOR:
-		     snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], /* Flawfinder: ignore */
+		     ll_snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], /* Flawfinder: ignore */
 			      mVec.mV[VY], mVec.mV[VZ]);
 		     ostr << tmp;
 		     break;
 		case LST_QUATERNION:
-		     snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], /* Flawfinder: ignore */
+		     ll_snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], /* Flawfinder: ignore */
 			      mQuat.mQ[VZ], mQuat.mQ[VS]);
 		     ostr << tmp;
 		     break;

@@ -79,6 +79,10 @@
 #include "llscrollcontainer.h"
 #include "llfloaterhardwaresettings.h"
 
+#if USE_OTR        // [$PLOTR$]
+#include "otr_wrapper.h"
+#endif // USE_OTR  // [/$PLOTR$]
+
 const S32 PREF_BORDER = 4;
 const S32 PREF_PAD = 5;
 const S32 PREF_BUTTON_WIDTH = 70;

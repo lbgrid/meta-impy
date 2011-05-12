@@ -42,6 +42,7 @@ endif (EXISTS ${CMAKE_SOURCE_DIR}/Server.cmake)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   set(WINDOWS ON BOOL FORCE)
+  set(USE_OTR 0)
   set(ARCH i686)
   set(LL_ARCH ${ARCH}_win32)
   set(LL_ARCH_DIR ${ARCH}-win32)

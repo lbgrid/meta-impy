@@ -1338,3 +1338,8 @@ void LLFlyoutButton::setToggleState(BOOL state)
 	mToggleState = state;
 }
 
+void LLFlyoutButton::setLabel(const LLStringExplicit& name)
+{
+	mActionButton->setLabel(name);
+}
+

@@ -3125,7 +3125,7 @@ bool LLMessageSystem::generateDigestForNumberAndUUIDs(
 
 	d.update((const unsigned char *) colon, (U32)strlen(colon));	/* Flawfinder: ignore */ 
 	
-	snprintf(tbuf, sizeof(tbuf),"%i", number);		/* Flawfinder: ignore */
+	ll_snprintf(tbuf, sizeof(tbuf),"%i", number);		/* Flawfinder: ignore */
 	d.update((unsigned char *) tbuf, (U32)strlen(tbuf));	/* Flawfinder: ignore */ 
 	
 	d.update((const unsigned char *) colon, (U32)strlen(colon));	/* Flawfinder: ignore */ 
@@ -3385,7 +3385,7 @@ void LLMessageSystem::dumpPacketToLog()
 	for (i = 0; i < mTrueReceiveSize; i++)
 	{
 		S32 offset = cur_line_pos * 3;
-		snprintf(line_buffer + offset, sizeof(line_buffer) - offset,
+		ll_snprintf(line_buffer + offset, sizeof(line_buffer) - offset,
 				 "%02x ", mTrueReceiveBuffer.buffer[i]);	/* Flawfinder: ignore */
 		cur_line_pos++;
 		if (cur_line_pos >= 16)

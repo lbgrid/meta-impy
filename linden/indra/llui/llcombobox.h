@@ -225,6 +225,8 @@ public:
 	static void		onActionButtonClick(void *userdata);
 	static void		onSelectAction(LLUICtrl* ctrl, void *userdata);
 
+	void			setLabel(const LLStringExplicit& name);
+
 protected:
 	LLButton*				mActionButton;
 	LLPointer<LLUIImage>	mActionButtonImage;

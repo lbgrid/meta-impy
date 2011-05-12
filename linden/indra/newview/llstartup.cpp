@@ -217,6 +217,10 @@
 #include "hippogridmanager.h"
 #include "hippolimits.h"
 
+#if USE_OTR          // [$PLOTR$]
+#include "otr_wrapper.h"
+#endif // USE_OTR    // [/$PLOTR$]
+
 #include "lggautocorrect.h"
 //
 // exported globals
@@ -2918,6 +2922,9 @@ bool idle_startup()
 		}
 
 		LLFirstUse::ClientTags();
+#if USE_OTR          // [$PLOTR$]
+		LLFirstUse::EmeraldOTR();
+#endif // USE_OTR    // [/$PLOTR$]
 
 		// Add login location to teleport history 'teleported-into'
 		LLVector3 agent_pos=gAgent.getPositionAgent();
@@ -2960,7 +2967,11 @@ bool idle_startup()
 		{
 			gAgent.requestEnterGodMode();
 		}
-		
+
+#if USE_OTR         // [$PLOTR$]
+        OTR_Wrapper::init();
+#endif // USE_OTR   // [/$PLOTR$]
+
 		// Start automatic replay if the flag is set.
 		if (gSavedSettings.getBOOL("StatsAutoRun"))
 		{

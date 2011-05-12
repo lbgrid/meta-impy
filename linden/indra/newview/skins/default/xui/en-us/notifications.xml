@@ -6891,6 +6891,27 @@ This ensures that you have the latest information available regarding other clie
 The URL you clicked cannot be opened from this web browser.
 </notification>
 
+<!--[$PLOTR$]-->
+<notification
+   icon="notify.tga"
+   name="QueryEmeraldOTR"
+   type="alertmodal">
+OTR encrypts your IMs so they can't be read by anyone other than the person you are talking to.
+
+Do you want to automatically secure your IMs?
+  <form name="form">
+    <button index="0" name="Yes" text="Yes"/>
+    <button index="1" name="No" text="No"/>
+  </form>
+</notification>
+<!-- These belong in some help page, but there is no similar page in Imprudence (yet?)
+
+OTR - This is automatic encryption of your IM's to prevent sniffers from spying.
+Strongly recommended to use Require OTR setting.
+Typing stop packets - sends encrypted messages differently so they do not wind up in offline emails.
+
+-->
+<!--[/$PLOTR$]-->
 <!--Begin Imprudence notifications-->
 
 <notification
@@ -7288,6 +7309,8 @@ Various options for command line features.
 To use a command, type it in your chat bar (Local Chat) and press enter.
 </notification>
   
+
+
 <notification
  icon="alertmodal.tga"
  label="Spell Check Help"

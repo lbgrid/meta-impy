@@ -42,6 +42,23 @@ if (WINDOWS)
     include(CopyWinLibs)
 endif (WINDOWS)
 
+# [$PLOTR$]
+include(libgcrypt)
+include(libgpg-error)
+
+if (WINDOWS)
+    include(libotr)
+    # on windows always build libotr from source and statically link in libgcrypt and libgpg-error
+endif (WINDOWS)
+if (DARWIN OR LINUX)
+  if (STATIC_LIBOTR_ETC)
+    include(libotr) # to build libotr from source and statically link in libgcrypt and libgpg-error
+  else (STATIC_LIBOTR_ETC)
+    include(libotrb)
+  endif (STATIC_LIBOTR_ETC)
+endif (DARWIN OR LINUX)
+# [/$PLOTR$]
+
 include_directories(
     ${DBUSGLIB_INCLUDE_DIRS}
     ${HUNSPELL_INCLUDE_DIR}
@@ -65,6 +82,21 @@ include_directories(
     ${LSCRIPT_INCLUDE_DIRS}/lscript_compile
     )
 
+# [$PLOTR$]
+if (WINDOWS)
+    include_directories(
+        ../gpg.vs/inc.vs
+        ../gpg.vs/libgpg-error-1.1.vs/custom
+        ../gpg.vs/libgcrypt-1.2.2.vs/custom
+    )
+endif (WINDOWS)
+include_directories(
+    ../libgpg-error/libgpg-error-1.0/src
+    ../libgcrypt/libgcrypt-1.2.2/src
+    ../libotr/libotr-3.2.0/src
+)
+# [/$PLOTR$]
+
 set(viewer_SOURCE_FILES
 	lggautocorrectfloater.cpp
 	lggautocorrect.cpp
@@ -79,6 +111,7 @@ set(viewer_SOURCE_FILES
     floatergriddefault.cpp
     floatergridmanager.cpp
     floaterlocalassetbrowse.cpp
+    floaterotr.cpp
     floatervoicelicense.cpp
     hbfloatergrouptitles.cpp
     hippogridmanager.cpp
@@ -506,6 +539,11 @@ set(viewer_SOURCE_FILES
     wlfloaterwindlightsend.cpp
     wlretrievesettings.cpp
     wlsettingsmanager.cpp
+# [/$PLOTR$]
+    otr_wrapper.cpp
+    otr_floater_smp_dialog.cpp
+    otr_floater_smp_progress.cpp
+# [/$PLOTR$]
     )
 
 set(VIEWER_BINARY_NAME "meta-impy-bin" CACHE STRING
@@ -537,6 +575,7 @@ set(viewer_HEADER_FILES
     floatergriddefault.h
     floatergridmanager.h
     floaterlocalassetbrowse.h
+    floaterotr.h
     floatervoicelicense.h
     hbfloatergrouptitles.h
     hippogridmanager.h
@@ -978,6 +1017,11 @@ set(viewer_HEADER_FILES
     wlfloaterwindlightsend.h
     wlretrievesettings.h
     wlsettingsmanager.h
+# [$PLOTR$]
+    otr_wrapper.h
+    otr_floater_smp_dialog.h
+    otr_floater_smp_progress.h
+# [/$PLOTR$]
     )
 
 source_group("CMake Rules" FILES ViewerInstall.cmake)
@@ -1026,9 +1070,19 @@ if (LINUX)
     LIST(APPEND viewer_SOURCE_FILES llappviewerlinux.cpp)
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--as-needed")
 
+  # [$PLOTR$] 
+  if (STATIC_LIBOTR_ETC) # defined in .../linden/indra/CMakeLists.txt
     set(viewer_LIBRARIES
-        Xinerama
+        Xinerama	
+        gpg-error
+        gcrypt  # to build libotr from source and statically link in libgcrypt and libgpg-error
         )
+  else (STATIC_LIBOTR_ETC) # below for dynamically linked, unmodified libotr
+    set(viewer_LIBRARIES
+        Xinerama	
+        )
+  endif (STATIC_LIBOTR_ETC)
+  # [/$PLOTR$]
 endif (LINUX)
 
 if (WINDOWS)
@@ -1384,7 +1438,25 @@ if (WINDOWS)
     endif (PACKAGE)
 endif (WINDOWS)
 
+# [$PLOTR$]
+if (WINDOWS)
+    set(otr_link_libs ${LIBGPG-ERROR_LIBRARIES}
+                      ${LIBGCRYPT_LIBRARIES}
+                      ${LIBOTR_LIBRARIES}
+       )
+else (WINDOWS)
+  if (STATIC_LIBOTR_ETC)
+    set(otr_link_libs ${LIBOTR_LIBRARIES}
+       ) # statically linked libotr, built from source
+  else (STATIC_LIBOTR_ETC)
+    set(otr_link_libs ${OTR_LIBRARY}
+       )
+  endif (STATIC_LIBOTR_ETC)
+endif (WINDOWS)
+# [/$PLOTR$]
+
 target_link_libraries(${VIEWER_BINARY_NAME}
+    ${otr_link_libs}
     ${LLAUDIO_LIBRARIES}
     ${LLCHARACTER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
