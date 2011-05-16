@@ -131,7 +131,9 @@ F32 HippoLimits::getMinPrimScale() const
 {
 	if (gSavedSettings.getBOOL("DisableMaxBuildConstraints") && !mEnforceMaxBuild)
 	{
-		return 0;
+		// Don't return 0, that causes a few bugs when it's used to creat objects zero sized.
+		// 0.00001 should be the minimum the edit controls can display anyway.
+		return 0.00001f;
 	}
 	else
 	{
