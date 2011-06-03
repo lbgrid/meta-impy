@@ -1207,6 +1207,7 @@ void LLTextureCache::readHeaderCache()
 				{
 					purge_list.insert(iter->second);
 				}
+				llassert_always(purge_list.size() >= entries_to_purge);
 			}
 			else
 			{

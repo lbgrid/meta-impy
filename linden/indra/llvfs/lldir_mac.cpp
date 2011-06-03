@@ -173,7 +173,7 @@ LLDir_Mac::LLDir_Mac()
 		if (error == noErr)
 		{
 			FSRefToLLString(&cacheDirRef, mOSCacheDir);
-			(void)CFCreateDirectory(&cacheDirRef, CFSTR("meta-impyExperimental"),NULL);
+			(void)CFCreateDirectory(&cacheDirRef, CFSTR("meta-impy"),NULL);
 		}
 		
 		// mOSUserAppDir

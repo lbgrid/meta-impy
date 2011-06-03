@@ -138,16 +138,16 @@ if [ -n "$LL_RUN_ERR" ]; then
 	fi
 fi
 
-LOGS_PATH="${HOME}/.imprudence/logs"
+LOGS_PATH="${HOME}/.meta-impy/logs"
 if [ -f "${LOGS_PATH}/stack_trace.log" ]; then
 	LOG_PACKAGE_NAME="MAIL-THIS-CRASHLOG-PLEASE.$(date +%y%m%d%H%M).tar.bz2"
 	cp "${LOGS_PATH}/stack_trace.log" stack_trace.log
-	cp "${LOGS_PATH}/Imprudence.log" Imprudence.log
+	cp "${LOGS_PATH}/meta-impy.log" meta-impy.log
 	tar --numeric-owner -cjf  ${LOG_PACKAGE_NAME} \
 				stack_trace.log \
-				Imprudence.log
+				meta-impy.log
 	rm stack_trace.log
-	rm Imprudence.log
+	rm meta-impy.log
 	echo "You find a crash log package to mail to Imprudence here:"
 	echo "${RUN_PATH}/${LOG_PACKAGE_NAME}"
 	echo "See where to send: http://wiki.kokuaviewer.org/wiki/Imprudence:Debug_Logs#Where_to_Send_Them"

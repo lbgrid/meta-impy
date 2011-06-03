@@ -472,7 +472,7 @@ gboolean viewer_app_api_HotplugJoystick(ViewerAppAPI *obj, gchar *dummy, gboolea
 	return TRUE; // the invokation succeeded, even if the actual dispatch didn't.
 
         // TODO: fire this by the spacenavi udev rule.
-	// for testing plug in joystick while Imprudence is running and type in a 
+	// for testing plug in joystick while viewer is running and type in a 
 	// console: dbus-send --type=method_call --dest=com.secondlife.ViewerAppAPIService /com/secondlife/ViewerAppAPI com.secondlife.ViewerAppAPI.HotplugJoystick string:'dummy'
 }
 

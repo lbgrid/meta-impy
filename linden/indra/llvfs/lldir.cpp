@@ -249,7 +249,7 @@ std::string LLDir::buildSLOSCacheDir() const
 	}
 	else
 	{
-		res = getOSCacheDir() + mDirDelimiter + "meta-impyExperimental";
+		res = getOSCacheDir() + mDirDelimiter + "meta-impy";
 	}
 	return res;
 }

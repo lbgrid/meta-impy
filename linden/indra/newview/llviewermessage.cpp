@@ -1973,7 +1973,7 @@ void process_improved_im(LLMessageSystem *msg, void **user_data)
 	{
 	case IM_CONSOLE_AND_CHAT_HISTORY:
 		// These are used for system messages, hence don't need the name,
-		// as it is always "Imprudence".
+		// as it is always "Imprudence".  Or "meta-impy" maybe?  shrugs
 	  	// *TODO:translate
 		args["MESSAGE"] = message;
 
