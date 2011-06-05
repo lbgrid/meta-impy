@@ -318,7 +318,7 @@ USE left="270" FOR TABBING OPTIONS
   <slider bottom_delta="-18" can_edit_text="false" control_name="RenderTreeLODFactor"
 	     decimal_digits="3" enabled="true" follows="left|top" height="16"
 	     increment="0.125" initial_val="160" label="  Trees:"
-	     label_width="140" left_delta="0" max_val="1" min_val="0"
+	     label_width="140" left_delta="0" max_val="12" min_val="0"
 	     mouse_opaque="true" name="TreeMeshDetail" show_text="false" width="223" />
   <slider bottom_delta="-18" can_edit_text="false" control_name="RenderAvatarLODFactor"
 	     decimal_digits="3" enabled="true" follows="left|top" height="16"
