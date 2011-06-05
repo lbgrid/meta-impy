@@ -7,7 +7,7 @@
 	<!--NO SHADERS-->
 	<RenderAvatarVP value="TRUE"/>
 	<!--Short Range-->
-	<RenderFarClip value="256"/>
+	<RenderFarClip value="1024"/>
 	<!--Default for now-->
 	<RenderFlexTimeFactor value="1"/>
 	<!--256... but they don't use this-->
@@ -15,7 +15,7 @@
 	<!--Sun/Moon only-->
 	<RenderLightingDetail value="1"/>
 	<!--Low number-->
-	<RenderMaxPartCount value="4096"/>
+	<RenderMaxPartCount value="8192"/>
 	<!--bump okay-->
 	<RenderObjectBump value="TRUE"/>
 	<!--NO SHADERS-->
@@ -25,11 +25,11 @@
 	<!--Default for now-->
 	<RenderTerrainLODFactor value="2.0"/>
 	<!--Default for now-->
-	<RenderTreeLODFactor value="1.0"/>
+	<RenderTreeLODFactor value="12.0"/>
 	<!--Try Impostors-->
 	<RenderUseImpostors value="TRUE"/>
 	<!--Default for now-->
-	<RenderVolumeLODFactor value="2.0"/>
+	<RenderVolumeLODFactor value="4.0"/>
 	<!--NO SHADERS-->
 	<RenderWaterReflections value="TRUE"/>
 	<!--NO SHADERS-->
