@@ -152,13 +152,13 @@
   <key>HeadFollowsMouse</key>
   <map>
     <key>Comment</key>
-    <string>IF your avatars head follows your mouse movements (then the extend is defined in YawFromMousePosition  and PitchFromMousePosition</string>
+    <string>If your avatars head follows your mouse movements (then the extend is defined in YawFromMousePosition  and PitchFromMousePosition</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>HighlightOwnNameInChat</key>
   <map>
@@ -316,7 +316,7 @@
     <key>Type</key>
     <string>U32</string>
     <key>Value</key>
-    <real>20</real>
+    <real>30</real>
   </map>
   <key>ClassicCloudHeight</key>
   <map>
@@ -685,7 +685,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>http://imprudenceviewer.org/app/grids/</string>
+    <string>http://onefang.net/downloads/grids.xml</string>
   </map>
   <key>GoAction</key>
   <map>
@@ -981,7 +981,7 @@
   <key>PreviewAvatarAsCloud</key>
   <map>
     <key>Comment</key>
-    <string>Turns your avatar into the paricle clud if true</string>
+    <string>Turns your avatar into the paricle cloud if true</string>
     <key>Persist</key>
     <integer>0</integer>
     <key>Type</key>
@@ -1130,7 +1130,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>SaveInventoryScriptsAsMono</key>
   <map>
@@ -1141,7 +1141,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <real>0</real>
+    <real>1</real>
   </map>
   <key>SearchURLDefault</key>
   <map>
@@ -1285,7 +1285,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>1</integer>
+    <integer>0</integer>
   </map>
   <key>ShowStatusBarInMouselook</key>
   <map>
@@ -1538,7 +1538,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>osgrid</string>
+    <string>infinitegrid</string>
   </map>
   <key>KeepAppearance</key>
   <map>
@@ -1549,7 +1549,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <string>0</string>
+    <string>1</string>
   </map>
   <key>CheckForGridUpdates</key>
   <map>
@@ -1610,7 +1610,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>1</integer>
+    <integer>0</integer>
   </map>
   <key>AONoStandsInMouselook</key>
   <map>
@@ -1632,7 +1632,7 @@
     <key>Type</key>
     <string>F32</string>
     <key>Value</key>
-    <real>20</real>
+    <real>30</real>
   </map>
   <key>AOStandRandomize</key>
   <map>
@@ -1643,7 +1643,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>AORect</key>
   <map>
@@ -1670,7 +1670,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
 
   <!-- Begin: Boob physics -->
@@ -2054,7 +2054,7 @@
     <key>Type</key>
     <string>String</string>
     <key>Value</key>
-    <string>tp2cam</string>
+    <string>2c</string>
   </map>
   <key>CmdLineChatbarKeyToName</key>
   <map>
@@ -2459,7 +2459,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>FloaterRadarRect</key>
   <map>
@@ -2486,7 +2486,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>RadarUpdateRate</key>
   <map>
@@ -2701,7 +2701,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>AllowTapTapHoldRun</key>
   <map>
@@ -3717,7 +3717,7 @@
     <key>Type</key>
     <string>S32</string>
     <key>Value</key>
-    <integer>8</integer>
+    <integer>999999</integer>
   </map>
   <key>ButtonFlashRate</key>
   <map>
@@ -4775,7 +4775,7 @@
   <key>Cursor3D</key>
   <map>
     <key>Comment</key>
-    <string>Tread Joystick values as absolute positions (not deltas).</string>
+    <string>Treat Joystick values as absolute positions (not deltas).</string>
     <key>Persist</key>
     <integer>1</integer>
     <key>Type</key>
@@ -5853,18 +5853,7 @@
     <key>Type</key>
     <string>F32</string>
     <key>Value</key>
-    <real>60.0</real>
-  </map>
-  <key>FPSLogFrequency</key>
-  <map>
-    <key>Comment</key>
-    <string>Seconds between display of FPS in log (0 for never)</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>F32</string>
-    <key>Value</key>
-    <real>10.0</real>
+    <real>0</real>
   </map>
   <key>FilterItemsPerFrame</key>
   <map>
@@ -5952,7 +5941,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>FirstPersonBtnState</key>
   <map>
@@ -7507,7 +7496,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>InBandwidth</key>
   <map>
@@ -7897,7 +7886,7 @@
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
-      <integer>768</integer>
+      <integer>1024</integer>
     </map>
     <key>LastSnapshotToEmailWidth</key>
     <map>
@@ -7919,7 +7908,7 @@
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
-      <integer>768</integer>
+      <integer>1024</integer>
     </map>
     <key>LastSnapshotToDiskWidth</key>
     <map>
@@ -7941,7 +7930,7 @@
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
-      <integer>512</integer>
+      <integer>1024</integer>
     </map>
     <key>LastSnapshotToInventoryWidth</key>
     <map>
@@ -7952,7 +7941,7 @@
       <key>Type</key>
       <string>S32</string>
       <key>Value</key>
-      <integer>512</integer>
+      <integer>1024</integer>
     </map>
     <key>LastSnapshotType</key>
     <map>
@@ -8161,7 +8150,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>20.0</real>
+      <real>45.0</real>
     </map>
     <key>MapOverlayIndex</key>
     <map>
@@ -9153,7 +9142,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>0</integer>
     </map>
     <key>PluginAttachDebuggerToPlugins</key>
     <map>
@@ -9549,7 +9538,7 @@
         <key>Type</key>
             <string>Boolean</string>
         <key>Value</key>
-            <integer>1</integer>
+            <integer>0</integer>
         </map>
     <key>RenderAttachedParticles</key>
         <map>
@@ -9821,7 +9810,7 @@
     <key>Type</key>
     <string>Boolean</string>
     <key>Value</key>
-    <integer>0</integer>
+    <integer>1</integer>
   </map>
   <key>RenderDeferredAlphaSoften</key>
   <map>
@@ -11436,7 +11425,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>0</integer>
     </map>
     <key>ShowSelectionBeam</key>
     <map>
@@ -11568,7 +11557,7 @@
       <key>Type</key>
       <string>String</string>
       <key>Value</key>
-      <string>meta7</string>
+      <string>pslpurple</string>
     </map>
     <key>SkyAmbientScale</key>
     <map>
