@@ -7533,7 +7533,7 @@ void LLVOAvatar::updateRuthTimer(bool loading)
 	const F32 LOADING_TIMEOUT__SECONDS = 90.f;
 	if (mRuthTimer.getElapsedTimeF32() > LOADING_TIMEOUT__SECONDS)
 	{
-		llinfos << "Ruth Timer timeout: Missing texture data for '" << getFullname() << "' "
+		llwarns << "Ruth Timer timeout: Missing texture data for '" << getFullname() << "' "
 			<< "( Params loaded : " << !visualParamWeightsAreDefault() << " ) "
 			<< "( Lower : " << isTextureDefined(TEX_LOWER_BAKED) << " ) "
 			<< "( Upper : " << isTextureDefined(TEX_UPPER_BAKED) << " ) "
@@ -8860,7 +8860,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		if (visualParamWeightsAreDefault() && mRuthTimer.getElapsedTimeF32() > LOADING_TIMEOUT_SECONDS)
 		{
 			// re-request appearance, hoping that it comes back with a shape next time
-			llinfos << "Re-requesting AvatarAppearance for object: "  << getID() << llendl;
+			llwarns << "Re-requesting AvatarAppearance for object: "  << getID() << llendl;
 			//LLAvatarPropertiesProcessor::getInstance()->sendAvatarTexturesRequest(getID());
 			std::vector<std::string> strings;
 			strings.push_back(getID().asString());
@@ -8869,7 +8869,7 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 		}
 		else
 		{
-			llinfos << "That's okay, we already have a non-default shape for object: "  << getID() << llendl;
+			llwarns << "That's okay, we already have a non-default shape for object: "  << getID() << llendl;
 			// we don't really care.
 		}
 	}
