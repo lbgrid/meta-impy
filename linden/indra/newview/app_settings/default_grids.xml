@@ -1,7 +1,7 @@
 <llsd>
   <array>
     <map>
-      <key>default_grids_version</key><string>33</string>
+      <key>default_grids_version</key><string>37</string>
     </map>
 
     <!-- Local Host -->
@@ -153,12 +153,13 @@
       <key>gridname</key><string>Role Play Worlds</string>
       <key>platform</key><string>OpenSim</string>
       <key>loginuri</key><string>http://grid.roleplayworlds.net:8002/</string>
-      <key>loginpage</key><string>http://grid.roleplayworlds.net/loginscreen.php</string>
+      <key>loginpage</key><string>http://roleplayworlds.net/loginscreen</string>
       <key>helperuri</key><string>http://grid.roleplayworlds.net/</string>
       <key>website</key><string>http://roleplayworlds.net/</string>
-      <key>register</key><string>http://grid.roleplayworlds.net/index.php?page=create</string>
-      <key>password</key><string>http://grid.roleplayworlds.net/index.php?page=change</string>
-      <key>version</key><string>0</string>
+      <key>support</key><string>http://roleplayworlds.net/help</string>
+      <key>register</key><string>http://roleplayworlds.net/register</string>
+      <key>password</key><string>http://roleplayworlds.net/password</string>
+      <key>version</key><string>1</string>
     </map>
 
     <!-- The New World Grid -->
@@ -166,14 +167,14 @@
       <key>gridnick</key><string>thenewworldgrid</string>
       <key>gridname</key><string>The New World Grid</string>
       <key>platform</key><string>OpenSim</string>
-      <key>loginuri</key><string>http://grid.newworldgrid.com:8002/</string>
-      <key>loginpage</key><string>http://account.newworldgrid.com/loginscreen.php</string>
-      <key>helperuri</key><string>http://account.newworldgrid.com/</string>
-      <key>website</key><string>http://www.newworldgrid.com/</string>
-      <key>support</key><string>http://www.newworldgrid.com/</string>
-      <key>register</key><string>http://www.newworldgrid.com/register</string>
-      <key>password</key><string>http://account.newworldgrid.com/</string>
-      <key>version</key><string>0</string>
+      <key>loginuri</key><string>http://giantgrid.no-ip.biz:8002/</string>
+      <key>loginpage</key><string>http://www.giantgrid.nl</string>
+      <key>helperuri</key><string>http://giantgrid.no-ip.biz/XoopCube/html/modules/xoopensim/helper/</string>
+      <key>website</key><string>http://www.giantgrid.nl</string>
+      <key>register</key><string>http://giantgrid.no-ip.biz:8002/wifi/user/account/</string>
+      <key>password</key><string>http://giantgrid.no-ip.biz:8002/wifi/forgotpassword</string>
+      <key>support</key><string>http://gianttest.no-ip.biz/ticket/</string>
+      <key>version</key><string>1</string>
     </map>
 
     <!-- 3rd Rock Grid -->

@@ -7302,6 +7302,27 @@ Shadows cannot be enabled due to your graphics settings being set too low. Make 
 
 <notification
  icon="alert.tga"
+ name="ExportFailed"
+ type="alert">
+Bad permissions for the exported object. Export aborted.
+</notification>
+
+<notification
+ icon="alert.tga"
+ name="ExportPartial"
+ type="alert">
+Object exported. Some textures could not be saved due to: [REASON]
+</notification>
+
+<notification
+ icon="notifytip.tga"
+ name="ExportSuccessful"
+ type="notifytip">
+Export successful.
+</notification>  
+  
+<notification
+ icon="alert.tga"
  name="Help_CmdLine"
  type="alert">
 Various options for command line features.
@@ -7467,6 +7488,21 @@ The Socks5 proxy "[PROXY]" refused the UDP associate request
    type="alert">
 Could not connect to Socks5 proxy server "[PROXY]"
   </notification>
+
+
+  <notification
+   icon="alert.tga"
+   name="FeatureNotAvailableOnOS"
+   type="alert">
+Sorry, [FEATURE] is not yet available on [OS].
+  </notification>
+
+  <!-- Non-specific defaults for use with FeatureNotAvailableOnOS -->
+  <global name="this feature">this feature</global>
+  <global name="this os">this operating system</global>
+
+  <global name="view history">View History</global>
+
 
 <!--End Imprudence notifications-->
  <!-- [KITTY VIEWER] -->
