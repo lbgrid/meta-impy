@@ -49,10 +49,10 @@ public:
 
 private:
 	static void onSelectSkin(LLUICtrl* ctrl, void* data);
-	static void onClickClassic(void* data);
-	static void onClickMeta7(void* data);
-	static void onClickM7White(void* data);
-	static void onClickPSLPurple(void* data);
+	static void onClickSkin0(void* data);
+	static void onClickSkin1(void* data);
+	static void onClickSkin2(void* data);
+	static void onClickSkin3(void* data);
 
 private:
 	std::string mSkin;

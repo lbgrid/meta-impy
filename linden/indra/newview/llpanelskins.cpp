@@ -58,10 +58,10 @@ BOOL LLPanelSkins::postBuild()
 	skin_select->setCommitCallback(onSelectSkin);
 	skin_select->setCallbackUserData(this);
 
-	getChild<LLButton>("meta7_preview")->setClickedCallback(onClickMeta7, this);
-	getChild<LLButton>("m7white_preview")->setClickedCallback(onClickM7White, this);
-	getChild<LLButton>("pslpurple_preview")->setClickedCallback(onClickPSLPurple, this);
-	getChild<LLButton>("classic_preview")->setClickedCallback(onClickClassic, this);
+	getChild<LLButton>("pslpurple_preview")->setClickedCallback(onClickSkin0, this);
+	getChild<LLButton>("gemini_preview")->setClickedCallback(onClickSkin1, this);
+	getChild<LLButton>("dark_preview")->setClickedCallback(onClickSkin2, this);
+	getChild<LLButton>("classic_preview")->setClickedCallback(onClickSkin3, this);
 
 	refresh();
 	return TRUE;
@@ -96,33 +96,34 @@ void LLPanelSkins::onSelectSkin(LLUICtrl* ctrl, void* data)
 }
 
 //static 
-void LLPanelSkins::onClickClassic(void* data)
+void LLPanelSkins::onClickSkin0(void* data)
+{
+	LLPanelSkins* self = (LLPanelSkins*)data;
+	gSavedSettings.setString("SkinCurrent", "pslpurple");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("pslpurple");
+}
+
+//static 
+void LLPanelSkins::onClickSkin1(void* data)
+{
+	LLPanelSkins* self = (LLPanelSkins*)data;
+	gSavedSettings.setString("SkinCurrent", "gemini");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("gemini");
+}
+
+//static 
+void LLPanelSkins::onClickSkin2(void* data)
+{
+	LLPanelSkins* self = (LLPanelSkins*)data;
+	gSavedSettings.setString("SkinCurrent", "dark");
+	self->getChild<LLRadioGroup>("skin_selection")->setValue("dark");
+}
+
+//static 
+void LLPanelSkins::onClickSkin3(void* data)
 {
 	LLPanelSkins* self = (LLPanelSkins*)data;
 	gSavedSettings.setString("SkinCurrent", "default");
 	self->getChild<LLRadioGroup>("skin_selection")->setValue("default");
 }
 
-//static 
-void LLPanelSkins::onClickMeta7(void* data)
-{
-	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "meta7");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("meta7");
-}
-
-//static 
-void LLPanelSkins::onClickM7White(void* data)
-{
-	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "white_meta7");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("white_meta7");
-}
-
-//static 
-void LLPanelSkins::onClickPSLPurple(void* data)
-{
-	LLPanelSkins* self = (LLPanelSkins*)data;
-	gSavedSettings.setString("SkinCurrent", "pslpurple");
-	self->getChild<LLRadioGroup>("skin_selection")->setValue("pslpurple");
-}
