@@ -3268,32 +3268,29 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 {
 	LLUUID idx = avatar->getTE(0)->getID();
 
-	// meta 7 gets special treatment -
+	// meta-impy gets special treatment -
 	// A) coz this is our damn viewer.
 	// 2) makes it quicker coz everyone else around you is using it.
-	// III) the client tags list out in the wild is wrong.
-	// D) Casper sucks cocks, or Casper cocks suck.  Probably both.
-	if(idx == LLUUID("b32f01bc-f9b3-4535-b1f3-99dc38f022db"))
-	{
-		avatar_name_color = LLColor4(0.8f,1.0f,0.0f,1.0f);// meta 7
-		client = "meta 7";
-	}
-	// Imprudence is special to, coz dark blue on black is just unreadable.  Pffft.
-	// Also in case the user has a local color they prefer.
-	// This means clientside colors for Imp will always override any on the website.
-	// If you're going to add a new color, a new UUID needs to be added -- MC
-	else if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
-	{
-		//avatar_name_color = LLColor4(0.79f,0.44f,0.88f);// Imprudence
-		// defaults to LLColor4(0.79f,0.44f,0.88f)
-		avatar_name_color = gSavedSettings.getColor4("ImprudenceTagColor"); //Imprudence
-		client = "Imprudence";
-	}
 	// Don't think anyone allocates these tags, so grab one for us to.
-	else if(idx == LLUUID("f5788536-508d-4d2a-b6db-bb2b4a19f626"))
+	if(idx == LLUUID("f5788536-508d-4d2a-b6db-bb2b4a19f626"))
 	{
 		avatar_name_color = LLColor4(0.5f,0.5f,1.0f);//meta-impy
 		client = "meta-impy";
+	}
+	// Imprudence is special to, coz dark blue on black is just unreadable.  Pffft.
+	// If you're going to add a new color, a new UUID needs to be added -- MC
+	else if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
+	{
+		avatar_name_color = LLColor4(0.79f,0.44f,0.88f);// Imprudence
+		client = "Imprudence";
+	}
+	// meta 7 gets special treatment to -
+	// I) the client tags list out in the wild is wrong.
+	// B) Casper sucks cocks, or Casper cocks suck.  Probably both.
+	else if(idx == LLUUID("b32f01bc-f9b3-4535-b1f3-99dc38f022db"))
+	{
+		avatar_name_color = LLColor4(0.8f,1.0f,0.0f,1.0f);// meta 7
+		client = "meta 7";
 	}
 	else if(LLVOAvatar::sClientResolutionList.has("isComplete") 
 		&& LLVOAvatar::sClientResolutionList.has(idx.asString()))
@@ -3305,7 +3302,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 		avatar_name_color += colour;
 		avatar_name_color *= 1.0/(cllsd["multiple"].asReal()+1.0f);
 	}
-	else
+	else // No tag data from the web, try some old defaults.
 	{
 		if(idx == LLUUID("2a9a406c-f448-68f2-4e38-878f8c46c190") ||
 			idx == LLUUID("b6820989-bf42-ff59-ddde-fd3fd3a74fe4"))
@@ -3625,8 +3622,8 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 				}
 				else
 				{
-					// Set your own name to the Imprudence color -- MC
-					client_color = gSavedSettings.getColor4("ImprudenceTagColor");
+					// Set your own name to the meta-impy color -- MC & onefang
+					client_color = LLColor4(0.5f,0.5f,1.0f);
 				}
 
 				static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
