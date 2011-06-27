@@ -1,5 +1,7 @@
 # -*- cmake -*-
 
+project(libgpg-error)
+project(libgcrypt)
 project(libotr)
 
 if (WINDOWS)
@@ -12,7 +14,8 @@ if (WINDOWS)
         )
 else (WINDOWS)
     include_directories(
-        ../libgpg-error/libgpg-error-1.0/src
+        ${LIBGPG-ERROR_INCLUDE_DIRS}
+        ${LIBGCRYPT_INCLUDE_DIRS}
         ../libgcrypt/libgcrypt-1.2.2/src
         )
 endif (WINDOWS)
@@ -56,6 +59,7 @@ set_source_files_properties(${libotr_HEADER_FILES}
 list(APPEND libotr_SOURCE_FILES ${libotr_HEADER_FILES})
 
 add_library (libotr ${libotr_SOURCE_FILES})
-target_link_libraries(
-    libotr
+target_link_libraries(libotr
+    gcrypt
+    gpg-error
     )

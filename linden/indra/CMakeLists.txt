@@ -46,7 +46,8 @@ endif (WINDOWS)
 # if off will use the systems libotr.so but won't be fully compatible with windows version
 set(STATIC_LIBOTR_ETC 1)
 
-add_subdirectory(${LIBS_OPEN_PREFIX}libotr)
+add_subdirectory(${LIBS_OPEN_PREFIX}libgpg-error)
+add_subdirectory(${LIBS_OPEN_PREFIX}libgcrypt)
 # [/$PLOTR$]
 
 add_subdirectory(${LIBS_OPEN_PREFIX}llaudio)
@@ -62,6 +63,10 @@ add_subdirectory(${LIBS_OPEN_PREFIX}llrender)
 add_subdirectory(${LIBS_OPEN_PREFIX}llvfs)
 add_subdirectory(${LIBS_OPEN_PREFIX}llwindow)
 add_subdirectory(${LIBS_OPEN_PREFIX}llxml)
+
+# [$PLOTR$]
+add_subdirectory(${LIBS_OPEN_PREFIX}libotr)
+# [/$PLOTR$]
 
 add_subdirectory(${LIBS_OPEN_PREFIX}lscript)
 

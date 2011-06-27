@@ -15,6 +15,24 @@ include(HUNSPELL)
 include(FindOpenGL)
 include(JsonCpp)
 include(LLAddBuildTest)
+
+# [$PLOTR$]
+include(libgpg-error)
+include(libgcrypt)
+
+if (WINDOWS)
+    include(libotr)
+    # on windows always build libotr from source and statically link in libgcrypt and libgpg-error
+endif (WINDOWS)
+if (DARWIN OR LINUX)
+  if (STATIC_LIBOTR_ETC)
+    include(libotr) # to build libotr from source and statically link in libgcrypt and libgpg-error
+  else (STATIC_LIBOTR_ETC)
+    include(libotrb)
+  endif (STATIC_LIBOTR_ETC)
+endif (DARWIN OR LINUX)
+# [/$PLOTR$]
+
 include(LLAudio)
 include(LLCharacter)
 include(LLCommon)
@@ -42,23 +60,6 @@ include(ViewerMiscLibs)
 if (WINDOWS)
     include(CopyWinLibs)
 endif (WINDOWS)
-
-# [$PLOTR$]
-include(libgcrypt)
-include(libgpg-error)
-
-if (WINDOWS)
-    include(libotr)
-    # on windows always build libotr from source and statically link in libgcrypt and libgpg-error
-endif (WINDOWS)
-if (DARWIN OR LINUX)
-  if (STATIC_LIBOTR_ETC)
-    include(libotr) # to build libotr from source and statically link in libgcrypt and libgpg-error
-  else (STATIC_LIBOTR_ETC)
-    include(libotrb)
-  endif (STATIC_LIBOTR_ETC)
-endif (DARWIN OR LINUX)
-# [/$PLOTR$]
 
 include_directories(
     ${DBUSGLIB_INCLUDE_DIRS}
@@ -1072,13 +1073,13 @@ if (LINUX)
   # [$PLOTR$] 
   if (STATIC_LIBOTR_ETC) # defined in .../linden/indra/CMakeLists.txt
     set(viewer_LIBRARIES
-        Xinerama	
-        gpg-error
-        gcrypt  # to build libotr from source and statically link in libgcrypt and libgpg-error
+        Xinerama
+        #gpg-error
+        #gcrypt  # to build libotr from source and statically link in libgcrypt and libgpg-error
         )
   else (STATIC_LIBOTR_ETC) # below for dynamically linked, unmodified libotr
     set(viewer_LIBRARIES
-        Xinerama	
+        Xinerama
         )
   endif (STATIC_LIBOTR_ETC)
   # [/$PLOTR$]
@@ -1449,6 +1450,8 @@ if (WINDOWS)
 else (WINDOWS)
   if (STATIC_LIBOTR_ETC)
     set(otr_link_libs ${LIBOTR_LIBRARIES}
+                      ${LIBGCRYPT_LIBRARIES}
+                      ${LIBGPG-ERROR_LIBRARIES}
        ) # statically linked libotr, built from source
   else (STATIC_LIBOTR_ETC)
     set(otr_link_libs ${OTR_LIBRARY}
