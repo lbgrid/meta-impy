@@ -38,8 +38,8 @@ add_subdirectory(cmake)
 # [$PLOTR$]
 if (WINDOWS)
     add_subdirectory(${LIBS_OPEN_PREFIX}gpg.vs)
-    add_subdirectory(${LIBS_OPEN_PREFIX}libgcrypt)
     add_subdirectory(${LIBS_OPEN_PREFIX}libgpg-error)
+    add_subdirectory(${LIBS_OPEN_PREFIX}libgcrypt)
 endif (WINDOWS)
 
 # if ON will cause linux to link in static OTR like windows does
@@ -63,10 +63,6 @@ add_subdirectory(${LIBS_OPEN_PREFIX}llrender)
 add_subdirectory(${LIBS_OPEN_PREFIX}llvfs)
 add_subdirectory(${LIBS_OPEN_PREFIX}llwindow)
 add_subdirectory(${LIBS_OPEN_PREFIX}llxml)
-
-# [$PLOTR$]
-add_subdirectory(${LIBS_OPEN_PREFIX}libotr)
-# [/$PLOTR$]
 
 add_subdirectory(${LIBS_OPEN_PREFIX}lscript)
 
@@ -108,6 +104,10 @@ if (VIEWER)
     add_subdirectory(solaris_crash_logger)
     add_dependencies(viewer solaris-crash-logger)
   endif (LINUX)
+
+# [$PLOTR$]
+    add_subdirectory(${LIBS_OPEN_PREFIX}libotr)
+# [/$PLOTR$]
 
   add_subdirectory(${VIEWER_PREFIX}newview)
   add_dependencies(viewer meta-impy-bin)

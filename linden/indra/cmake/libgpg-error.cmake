@@ -5,6 +5,6 @@ set(LIBGPG-ERROR_INCLUDE_DIRS
     )
 
 set(LIBGPG-ERROR_LIBRARIES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../libgpg-error/libgpg-error-1.0/lib
+    gpg-error
     )
 

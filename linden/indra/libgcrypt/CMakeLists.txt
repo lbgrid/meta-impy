@@ -144,9 +144,10 @@ include_directories(${LIBGCRYPT_INCLUDE_DIRS})
 
 add_library(libgcrypt STATIC IMPORTED)
 
-set_target_properties(libgcrypt PROPERTIES 
-    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../libgcrypt/libgcrypt-1.2.2/lib/libgcrypt.a
-    )
+# Happy this is not needed, but leaving it around for reference.
+#set_target_properties(libgcrypt PROPERTIES 
+#    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../libgcrypt/libgcrypt-1.2.2/lib/libgcrypt.a
+#    )
 
 # This wont work until 2.8.4  sigh
 #add_dependencies(libgcrypt EP_libgcrypt)

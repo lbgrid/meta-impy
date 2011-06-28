@@ -66,6 +66,7 @@ include_directories(${LIBGPG-ERROR_INCLUDE_DIRS})
 
 add_library(libgpg-error STATIC IMPORTED)
 
+# Happy this is not needed, but leaving it around for reference.
 #set_target_properties(libgpg-error PROPERTIES 
 #    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../libgpg-error/libgpg-error-1.0/lib/libgpg-error.a
 #    )

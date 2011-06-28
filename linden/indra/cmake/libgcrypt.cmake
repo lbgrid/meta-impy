@@ -5,6 +5,6 @@ set(LIBGCRYPT_INCLUDE_DIRS
     )
 
 set(LIBGCRYPT_LIBRARIES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../libgcrypt/libgcrypt-1.2.2/lib
+    gcrypt
     )
 
