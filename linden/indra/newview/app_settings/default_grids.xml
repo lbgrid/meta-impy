@@ -34,11 +34,26 @@
       <key>loginuri</key>  <string>http://grid.infinitegrid.org:8002/</string>
       <key>loginpage</key> <string>http://webfront.infinitegrid.org/loginscreen.php</string>
       <key>helperuri</key> <string>http://www.infinitegrid.org/helper/</string>
-      <key>password</key>  <string>http://webfront.infinitegrid.org//</string>
-      <key>register</key>  <string>http://webfront.infinitegrid.org//</string>
+      <key>password</key>  <string>http://webfront.infinitegrid.org/</string>
+      <key>register</key>  <string>http://webfront.infinitegrid.org/</string>
       <key>support</key>   <string>http://www.infinitegrid.org/help</string>
       <key>website</key>   <string>http://www.infinitegrid.org/about/</string>
       <key>search</key>    <string>http://webi.metaverseink.com/</string>
+      <key>version</key>   <string>0</string>
+    </map>
+
+    <!-- Infinite Grid dev-->
+    <map>
+      <key>gridname</key>  <string>Infinite Grid dev</string>
+      <key>gridnick</key>  <string>infinitegriddev</string>
+      <key>platform</key>  <string>OpenSim</string>
+      <key>loginuri</key>  <string>http://grid.infinitegrid.org:8502/</string>
+      <key>loginpage</key> <string>http://www.infinitegrid.org/webdev/loginscreen.php</string>
+      <key>helperuri</key> <string>http://www.infinitegrid.org/webdev/helper/</string>
+      <key>password</key>  <string>http://www.infinitegrid.org/webdev/</string>
+      <key>register</key>  <string>http://www.infinitegrid.org/webdev/</string>
+      <key>support</key>   <string>http://www.infinitegrid.org/webdev/help</string>
+      <key>website</key>   <string>http://www.infinitegrid.org/webdev/about/</string>
       <key>version</key>   <string>0</string>
     </map>
 
