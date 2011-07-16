@@ -44,9 +44,9 @@ void mimesh::load(LLViewerObject* object, std::string URL)
 {
     if ((URL.substr(0, 7).compare("file://") == 0) || (URL.substr(0, 7).compare("http://") == 0))
     {
-	if ((NULL == object->g3dModel) || (0 != object->mMeshURL.compare(URL)))
+	if ((NULL == object->mimeshModel) || (0 != object->mimeshURL.compare(URL)))
 	{
-	    object->mMeshURL = URL;
+	    object->mimeshURL = URL;
 	    cmdline_printchat(URL);
 	    std::string temp_URL = URL;
 	    if (temp_URL.substr(0, 7).compare("file://") == 0)
@@ -61,12 +61,12 @@ void mimesh::load(LLViewerObject* object, std::string URL)
 		{
 		    texture_load_all_textures(model);
 		    cmdline_printchat("Loaded model " + temp_URL);
-		    if (object->g3dModel)
+		    if (object->mimeshModel)
 		    {
 			cmdline_printchat("Freeing old  model.");
-			g3d_model_free(object->g3dModel);
+			g3d_model_free(object->mimeshModel);
 		    }
-		    object->g3dModel = model;
+		    object->mimeshModel = model;
 //			    gPipeline.markTextured(object->mDrawable);
 //			    gPipeline.markRebuild(object->mDrawable, LLDrawable::REBUILD_VOLUME, TRUE);
 //			    object->mDrawable->getVOVolume()->mVolumeChanged = TRUE;
@@ -79,7 +79,7 @@ void mimesh::load(LLViewerObject* object, std::string URL)
 	}
     }
     else
-	object->mMeshURL.clear();
+	object->mimeshURL.clear();
 }
 
 
@@ -115,23 +115,23 @@ LLFace->mVertexBuffer gets a copy.
 
 //void mimesh::getData(LLVolume* volume)
 //{
-//    cmdline_printchat("Transferring model data for " + std::string(volume->g3dModel->filename));
+//    cmdline_printchat("Transferring model data for " + std::string(volume->mimeshModel->filename));
 //}
 
 
 void mimesh::render(LLViewerObject* object)
 {
-//    cmdline_printchat("Rendering model data for " + std::string(object->g3dModel->filename));
-    gl_draw_model(object->g3dModel);
+//    cmdline_printchat("Rendering model data for " + std::string(object->mimeshModel->filename));
+    gl_draw_model(object->mimeshModel);
 }
 
 
 void mimesh::unload(LLViewerObject* object)
 {
-    cmdline_printchat("Deleting model data for " + std::string(object->g3dModel->filename));
-    g3d_model_free(object->g3dModel);
-    object->g3dModel = NULL;
-    object->mMeshURL.clear();
+    cmdline_printchat("Deleting model data for " + std::string(object->mimeshModel->filename));
+    g3d_model_free(object->mimeshModel);
+    object->mimeshModel = NULL;
+    object->mimeshURL.clear();
 }
 
 void mimesh::shutdown(void)
