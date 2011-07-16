@@ -20,6 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#include <stdlib.h>
 #include <sys/param.h>	/* PATH_MAX */
 
 #include <string.h>
@@ -29,6 +30,8 @@
 #include <g3d/stream.h>
 #include <g3d/types.h>
 #include <g3d/plugins.h>
+
+#include <curl/curl.h>
 
 static void plugins_free_plugin(G3DPlugin *plugin)
 {
@@ -375,52 +378,125 @@ static G3DPlugin *get_plugin_for_type(G3DContext *context,
 	return plugin;
 }
 
+struct httpBuffer
+{
+    void *buffer;
+    size_t size;
+    size_t max;
+};
+
+static size_t curlWrite(void *ptr, size_t size, size_t nmemb, void *userData)
+{
+	struct httpBuffer *result = (struct httpBuffer *) userData;
+	size_t bytes = size * nmemb;
+
+	if ((result->size + bytes) > result->max)
+	{
+	    result->max    += bytes;
+	    result->buffer = realloc(result->buffer, result->max);
+	}
+	if (result->buffer)
+	{
+	    memcpy(result->buffer + result->size, ptr, bytes);
+	    result->size += bytes;
+	}
+	else
+	    g_warning("curlWrite() ran out of memory.");
+
+	return nmemb;
+}
+
 EAPI
 gboolean g3d_plugins_load_model(G3DContext *context, const gchar *filename,
 	G3DModel *model)
 {
 	G3DPlugin *plugin = NULL;
 	G3DStream *stream;
-	gchar *basename, *dirname;
 	gboolean retval = FALSE;
-	gchar *olddir;
 
 	plugin = get_plugin_for_type(context, filename);
 	if(plugin == NULL)
 		return FALSE;
 
-	basename = g_path_get_basename(filename);
-	dirname = g_path_get_dirname(filename);
+	if (strncmp(filename, "http://", 6) == 0)
+	{
+	    struct httpBuffer result;
+	    char curlErrorBuffer[CURL_ERROR_SIZE];
+	    CURLcode curlSuccess;
+	    long httpStatus = 499;
+	    CURL* curlp = curl_easy_init();
 
-	olddir = g_get_current_dir();
-	/* TODO: since glib 2.8 there is a g_chdir() wrapper, use it if
-	 * for some reason a glib >= 2.8 is required */
-	chdir(dirname);
+	    result.size   = 0;
+	    result.max    = 0;
+	    result.buffer = NULL;
 
-	if(plugin->loadmodelstream_func != NULL) {
-		/* try to load the model via the more generic G3DStream interface */
-		stream = g3d_stream_open_file(basename, "rb");
-		if(stream) {
-			retval = plugin->loadmodelstream_func(context, stream, model,
-				plugin->user_data);
-			g3d_stream_close(stream);
-		}
-		else {
-			g_warning("failed to open '%s'", basename);
-		}
-	} else {
-		retval = plugin->loadmodel_func(context, basename, model,
-			plugin->user_data);
+	    curl_easy_setopt(curlp, CURLOPT_NOSIGNAL, 1);	// don't use SIGALRM for timeouts
+	    curl_easy_setopt(curlp, CURLOPT_TIMEOUT, 5);	// seconds
+	    curl_easy_setopt(curlp, CURLOPT_WRITEFUNCTION, curlWrite);
+	    curl_easy_setopt(curlp, CURLOPT_WRITEDATA, &result);
+	    curl_easy_setopt(curlp, CURLOPT_URL, filename);
+	    curl_easy_setopt(curlp, CURLOPT_ERRORBUFFER, curlErrorBuffer);
+	    curl_easy_setopt(curlp, CURLOPT_FAILONERROR, 1);
+
+	    curlSuccess = curl_easy_perform(curlp);
+	    curl_easy_getinfo(curlp, CURLINFO_RESPONSE_CODE, &httpStatus);
+	    if (curlSuccess != 0)
+		g_warning("CURL ERROR (HTTP Status %ld): %s", httpStatus, curlErrorBuffer);
+	    else if (httpStatus != 200)
+		g_warning("HTTP Error %ld, but no Curl error.", httpStatus);
+	    else
+		g_warning("CUR got the file %s", filename);
+
+	    stream = g3d_stream_from_buffer(result.buffer, result.size, filename, FALSE);
+	    if(stream)
+	    {
+		retval = plugin->loadmodelstream_func(context, stream, model, plugin->user_data);
+		g3d_stream_close(stream);
+	    }
+	    else
+		g_warning("failed to open '%s'", filename);
+
+	    curl_easy_cleanup(curlp);
+	    if (result.buffer)
+		free(result.buffer);
+	}
+	else // It's a file.
+	{
+	    gchar *basename, *dirname;
+	    gchar *olddir;
+
+	    basename = g_path_get_basename(filename);
+	    dirname = g_path_get_dirname(filename);
+
+	    olddir = g_get_current_dir();
+	    /* TODO: since glib 2.8 there is a g_chdir() wrapper, use it if
+	     * for some reason a glib >= 2.8 is required */
+	    chdir(dirname);
+
+	    if(plugin->loadmodelstream_func != NULL) {
+		    /* try to load the model via the more generic G3DStream interface */
+		    stream = g3d_stream_open_file(basename, "rb");
+		    if(stream) {
+			    retval = plugin->loadmodelstream_func(context, stream, model,
+				    plugin->user_data);
+			    g3d_stream_close(stream);
+		    }
+		    else {
+			    g_warning("failed to open '%s'", basename);
+		    }
+	    } else {
+		    retval = plugin->loadmodel_func(context, basename, model,
+			    plugin->user_data);
+	    }
+	    g_free(basename);
+	    g_free(dirname);
+
+	    chdir(olddir);
+	    g_free(olddir);
 	}
 
-	if(retval)
-		model->plugin = plugin;
-
-	g_free(basename);
-	g_free(dirname);
-
-	chdir(olddir);
-	g_free(olddir);
+	    if(retval)
+		    model->plugin = plugin;
 
 	return retval;
 }

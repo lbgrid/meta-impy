@@ -217,6 +217,7 @@ G3DStream *g3d_stream_open_zip(const gchar *filename, const gchar *subfile)
 	GsfInput *input;
 	GError *error = NULL;
 
+// FIXME: This wont work if the "file" is a buffer.
 	input = gsf_input_stdio_new(filename, &error);
 	if(error != NULL) {
 		g_warning("error opening container file '%s': %s", filename,

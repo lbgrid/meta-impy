@@ -5,7 +5,7 @@ This is very rough, and just a proof of concept.  I wrote it in 2010.
 It works by having a totally transparent hovertext that specifies the
 name of the mesh file to load -
 
-llSetText("file://TestMeshes/Citizen Extras_Female 02.zip", <1.0, 1.0, 1.0>, 0.0);
+llSetText("http://onefang.net/downloads/Citizen%20Extras_Female%2002.zip", <1.0, 1.0, 1.0>, 0.0);
 
 Only the dae and kmz loaders are included in the build so far.  The
 gdk_pixbuf one is included in the build to, but it's broken.
@@ -27,7 +27,4 @@ If the model is not moving, it will only show for a few seconds, then
 flicker out until you move it again.
 
 I have not sorted out how to scale them yet.
-
-I thought it did http loading as well as local file loading.  Apparently
-not, though I think it was always meant to, just not implimented yet. 
 
