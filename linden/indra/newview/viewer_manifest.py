@@ -135,6 +135,7 @@ class ViewerManifest(LLManifest):
         # From the top level directory (meta-impy)
         if self.prefix("../../..", dst=""):
             self.path("README.txt")
+            self.path("README_MESH.txt")
             self.path("MANIFESTO.txt")
             self.path("CONTRIBUTE.txt")
             self.path("ChangeLog.txt", required=False)
