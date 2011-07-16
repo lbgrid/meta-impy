@@ -431,7 +431,7 @@ gboolean g3d_plugins_load_model(G3DContext *context, const gchar *filename,
 	    result.buffer = NULL;
 
 	    curl_easy_setopt(curlp, CURLOPT_NOSIGNAL, 1);	// don't use SIGALRM for timeouts
-	    curl_easy_setopt(curlp, CURLOPT_TIMEOUT, 5);	// seconds
+	    curl_easy_setopt(curlp, CURLOPT_TIMEOUT, 30);	// seconds
 	    curl_easy_setopt(curlp, CURLOPT_WRITEFUNCTION, curlWrite);
 	    curl_easy_setopt(curlp, CURLOPT_WRITEDATA, &result);
 	    curl_easy_setopt(curlp, CURLOPT_URL, filename);
