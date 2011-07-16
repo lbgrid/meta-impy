@@ -2936,6 +2936,7 @@ LLDrawInfo::LLDrawInfo(U16 start, U16 end, U32 count, U32 offset,
 	mVSize(0.f),
 	mGroup(NULL),
 	mFace(NULL),
+	mimeshVObj(NULL),
 	mDistance(0.f)
 {
 	mDebugColor = (rand() << 16) + rand();

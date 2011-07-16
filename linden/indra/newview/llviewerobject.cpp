@@ -97,6 +97,7 @@
 #include "llviewernetwork.h"
 #include "llvowlsky.h"
 #include "llmanip.h"
+#include "mimesh.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"
@@ -228,10 +229,16 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	}
 
 	LLViewerObject::sNumObjects++;
+
+	mimeshURL.clear();
+	mimeshModel = NULL;
 }
 
 LLViewerObject::~LLViewerObject()
 {
+	if (mimeshModel)
+	    mimesh::unload(this);
+
 	deleteTEImages();
 
 	if(mInventory)
@@ -1009,7 +1016,12 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						mText->setObjectText(temp_string);
 					}
 // [/RLVa:KB]
-					
+
+//					if (0 == coloru.mV[3])
+					{
+					    mimesh::load(this, temp_string);
+					}
+
 					if (mDrawable.notNull())
 					{
 						setChanged(MOVED | SILHOUETTE);
@@ -1432,6 +1444,11 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						mText->setObjectText(temp_string);
 					}
 // [/RLVa:KB]
+
+//					if (0 == coloru.mV[3])
+					{
+					    mimesh::load(this, temp_string);
+					}
 
 					setChanged(TEXTURE);
 				}

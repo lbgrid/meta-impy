@@ -51,6 +51,8 @@
 #include "v3math.h"
 #include "llvertexbuffer.h"
 
+#include "g3d/g3d.h"
+
 class LLAgent;			// TODO: Get rid of this.
 class LLAudioSource;
 class LLAudioSourceVO;
@@ -547,6 +549,10 @@ public:
 
 	// In bits
 	S32				mBestUpdatePrecision;
+
+	// Bits for the mesh file.
+	std::string mimeshURL;
+	G3DModel* mimeshModel;
 
 	// TODO: Make all this stuff private.  JC
 	LLPointer<LLHUDText> mText;

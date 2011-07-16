@@ -16,7 +16,7 @@ set(ROOT_PROJECT_NAME "meta-impy" CACHE STRING
     "The root project/makefile/solution name. Defaults to meta-impy.")
 project(${ROOT_PROJECT_NAME})
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake" "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 include(Variables)
 
@@ -34,6 +34,8 @@ endif (NOT CMAKE_BUILD_TYPE)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/temp)
 file(WRITE ${CMAKE_BINARY_DIR}/temp/sentinel_installed "0")
 add_subdirectory(cmake)
+
+add_subdirectory(${LIBS_OPEN_PREFIX}mimesh)
 
 # [$PLOTR$]
 if (WINDOWS)
@@ -63,7 +65,6 @@ add_subdirectory(${LIBS_OPEN_PREFIX}llrender)
 add_subdirectory(${LIBS_OPEN_PREFIX}llvfs)
 add_subdirectory(${LIBS_OPEN_PREFIX}llwindow)
 add_subdirectory(${LIBS_OPEN_PREFIX}llxml)
-
 add_subdirectory(${LIBS_OPEN_PREFIX}lscript)
 
 if (WINDOWS AND EXISTS ${LIBS_CLOSED_DIR}copy_win_scripts)

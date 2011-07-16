@@ -87,6 +87,7 @@ public:
 	F32 mVSize;
 	LLSpatialGroup* mGroup;
 	LLFace* mFace; //associated face
+	LLPointer<LLViewerObject> mimeshVObj;
 	F32 mDistance;
 	LLVector3 mExtents[2];
 

@@ -55,6 +55,8 @@
 #include "llviewercamera.h"
 #include "lldrawpoolwlsky.h"
 
+#include "mimesh.h"
+
 S32 LLDrawPool::sNumDrawPools = 0;
 
 //=============================
@@ -506,6 +508,9 @@ void LLRenderPass::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture)
 		params.mVertexBuffer->drawRange(LLRender::TRIANGLES, params.mStart, params.mEnd, params.mCount, params.mOffset);
 		gPipeline.addTrianglesDrawn(params.mCount/3);
 	}
+
+	if ((params.mimeshVObj) && (params.mimeshVObj->mimeshModel))
+	    mimesh::render(params.mimeshVObj);
 
 	if (params.mTextureMatrix && texture && params.mTexture.notNull())
 	{

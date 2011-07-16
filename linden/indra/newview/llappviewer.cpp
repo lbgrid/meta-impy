@@ -197,6 +197,8 @@
 // llviewernetwork.h
 #include "llviewernetwork.h"
 
+#include "mimesh.h"
+
 
 ////// Windows-specific includes to the bottom - nasty defines in these pollute the preprocessor
 //
@@ -904,6 +906,8 @@ bool LLAppViewer::init()
 */
 	LLViewerJoystick::getInstance()->init();
 
+	mimesh::startup();
+
 	return true;
 }
 
@@ -1176,6 +1180,8 @@ bool LLAppViewer::mainLoop()
 
 bool LLAppViewer::cleanup()
 {
+	mimesh::shutdown();
+
 	//flag all elements as needing to be destroyed immediately
 	// to ensure shutdown order
 	LLMortician::setZealous(TRUE);

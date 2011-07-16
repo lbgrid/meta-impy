@@ -50,6 +50,7 @@ include(LLWindow)
 include(LLXML)
 include(LScript)
 include(Linking)
+include(mimesh)
 include(NDOF)
 include(GooglePerfTools)
 include(TemplateCheck)
@@ -82,6 +83,8 @@ include_directories(
     ${LLXML_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}
     ${LSCRIPT_INCLUDE_DIRS}/lscript_compile
+    ${G3D_INCLUDE_DIRS}
+    ${MIMESH_INCLUDE_DIRS}
     )
 
 # [$PLOTR$]
@@ -1457,7 +1460,6 @@ endif (WINDOWS)
 # [/$PLOTR$]
 
 target_link_libraries(${VIEWER_BINARY_NAME}
-    ${otr_link_libs}
     ${LLAUDIO_LIBRARIES}
     ${LLCHARACTER_LIBRARIES}
     ${LLIMAGE_LIBRARIES}
@@ -1494,6 +1496,9 @@ target_link_libraries(${VIEWER_BINARY_NAME}
     ${XMLRPCEPI_LIBRARIES}
     ${ELFIO_LIBRARIES}
     ${HUNSPELL_LIBRARY}
+    ${G3D_LIBRARIES}
+    ${MIMESH_LIBRARIES}
+    ${otr_link_libs}
     )
 
 build_version(viewer)
@@ -1693,3 +1698,4 @@ if (DARWIN)
 #    DEPENDS ${CMAKE_SOURCE_DIR}/../libraries/universal-darwin/lib_release/libllqtwebkit.dylib
 #  )
 endif (DARWIN)
+

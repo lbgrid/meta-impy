@@ -54,6 +54,8 @@
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
 
+#include "mimesh.h"
+
 #define LL_MAX_INDICES_COUNT 1000000
 
 BOOL LLFace::sSafeRenderSelect = TRUE; // FALSE
@@ -1504,6 +1506,10 @@ S32 LLFace::pushVertices(const U16* index_array) const
 		mVertexBuffer->drawRange(LLRender::TRIANGLES, mGeomIndex, mGeomIndex+mGeomCount-1, mIndicesCount, mIndicesIndex);
 		gPipeline.addTrianglesDrawn(mIndicesCount/3);
 	}
+
+	LLViewerObject* object = getViewerObject();
+	if ((object) && (object->mimeshModel))
+		mimesh::render(object);
 
 	return mIndicesCount;
 }

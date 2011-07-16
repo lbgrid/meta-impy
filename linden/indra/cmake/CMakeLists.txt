@@ -98,6 +98,12 @@ set(cmake_SOURCE_FILES
 	WebKitLibPlugin.cmake
 	XmlRpcEpi.cmake
 	ZLIB.cmake
+	gpg.vs.cmake
+	libgcrypt.cmake
+	libgpg-error.cmake
+	libotr.cmake
+	libotrb.cmake
+	mimesh.cmake
     )
 
 source_group("Shared Rules" FILES ${cmake_SOURCE_FILES})

@@ -2229,6 +2229,14 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 		}
 		draw_info->mExtents[0] = facep->mExtents[0];
 		draw_info->mExtents[1] = facep->mExtents[1];
+//		if (pObj->getVolume()->mimeshModel)
+		{
+//		    if (0 == idx)
+		    {
+//			cmdline_printchat("Adding model data to DrawInfo for " + std::string(pObj->getVolume()->mimeshModel->filename));
+			draw_info->mimeshVObj = pObj;
+		    }
+		}
 		validate_draw_info(*draw_info);
 	}
 }
