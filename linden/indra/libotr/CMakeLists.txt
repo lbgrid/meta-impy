@@ -66,6 +66,9 @@ target_link_libraries(libotr
 
 # Not sure if either or both are needed, does not seem to hurt.
 # Still does not make things build in the right sequence.  sigh
-add_dependencies(libotr EP_libgcrpt)
-add_dependencies(libotr libgcrypt)
+if (NOT WINDOWS)
+    add_dependencies(libotr EP_libgcrpt)
+else (NOT WINDOWS)
+    add_dependencies(libotr libgcrypt)
+endif (NOT WINDOWS)
 
