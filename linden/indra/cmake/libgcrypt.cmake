@@ -1,10 +1,10 @@
 # -*- cmake -*-
 
 set(LIBGCRYPT_INCLUDE_DIRS
-    ${CMAKE_CURRENT_SOURCE_DIR}/../libgcrypt/libgcrypt-1.2.2/include
+    ${CMAKE_BINARY_DIR}/libgcrypt/include
     )
 
 set(LIBGCRYPT_LIBRARIES
-    gcrypt
+    ${CMAKE_BINARY_DIR}/libgcrypt/lib/libgcrypt.a
     )
 

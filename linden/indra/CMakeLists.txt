@@ -38,8 +38,6 @@ add_subdirectory(cmake)
 # [$PLOTR$]
 if (WINDOWS)
     add_subdirectory(${LIBS_OPEN_PREFIX}gpg.vs)
-    add_subdirectory(${LIBS_OPEN_PREFIX}libgpg-error)
-    add_subdirectory(${LIBS_OPEN_PREFIX}libgcrypt)
 endif (WINDOWS)
 
 # if ON will cause linux to link in static OTR like windows does

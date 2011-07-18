@@ -93,8 +93,8 @@ if (WINDOWS)
     )
 endif (WINDOWS)
 include_directories(
-    ../libgpg-error/libgpg-error-1.0/src
-    ../libgcrypt/libgcrypt-1.2.2/src
+    ${LIBGPG-ERROR_INCLUDE_DIRS}
+    ${LIBGCRYPT_INCLUDE_DIRS}
     ../libotr/libotr-3.2.0/src
 )
 # [/$PLOTR$]
@@ -1074,8 +1074,8 @@ if (LINUX)
   if (STATIC_LIBOTR_ETC) # defined in .../linden/indra/CMakeLists.txt
     set(viewer_LIBRARIES
         Xinerama
-        #gpg-error
-        #gcrypt  # to build libotr from source and statically link in libgcrypt and libgpg-error
+	${LIBGPG-ERROR_LDBRARIES}
+	${LIBGCRYPT-ERROR_LDBRARIES}
         )
   else (STATIC_LIBOTR_ETC) # below for dynamically linked, unmodified libotr
     set(viewer_LIBRARIES
@@ -1446,8 +1446,6 @@ if (WINDOWS)
 else (WINDOWS)
   if (STATIC_LIBOTR_ETC)
     set(otr_link_libs ${LIBOTR_LIBRARIES}
-                      ${LIBGCRYPT_LIBRARIES}
-                      ${LIBGPG-ERROR_LIBRARIES}
        ) # statically linked libotr, built from source
   else (STATIC_LIBOTR_ETC)
     set(otr_link_libs ${OTR_LIBRARY}
