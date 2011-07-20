@@ -175,7 +175,6 @@ add_library(g3d_plugin_dae
     )
 
 target_link_libraries(g3d_plugin_dae
-    g3d
     )
 
 
@@ -205,7 +204,6 @@ add_library(g3d_plugin_kmz
     )
 
 target_link_libraries(g3d_plugin_kmz
-    g3d
     )
 
 
