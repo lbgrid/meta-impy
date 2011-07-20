@@ -1,12 +1,12 @@
 # -*- cmake -*-
 
-project(libgpg-error)
-
 include(00-Common)
 include(libgpg-error)
 include(Linking)
 
 if (WINDOWS)
+
+project(gpg-error)
 
     include_directories(
 	../gpg.vs/inc.vs
@@ -25,7 +25,7 @@ set(libgpg-error_SOURCE_FILES
     libgpg-error-1.0/src/strsource.c
     )
 
-set(libgpg-error_HEADER_FILES
+set(gpg-error_HEADER_FILES
     CMakeLists.txt
 
     libgpg-error-1.0/src/err-codes.h
@@ -34,49 +34,28 @@ set(libgpg-error_HEADER_FILES
     libgpg-error-1.0/src/gpg-error.h
     )
 
-set_source_files_properties(${libgpg-error_HEADER_FILES}
+set_source_files_properties(${gpg-error_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-list(APPEND libgpg-error_SOURCE_FILES ${libgpg-error_HEADER_FILES})
+list(APPEND gpg-error_SOURCE_FILES ${gpg-error_HEADER_FILES})
 
-add_library (libgpg-error ${libgpg-error_SOURCE_FILES})
+add_library (gpg-error ${gpg-error_SOURCE_FILES})
+target_link_libraries(
+    gpg-error
+    )
 
 else (WINDOWS)
 
 include(ExternalProject)
 
-    include_directories(
-	libgpg-error-1.0/src
-	libgpg-error-1.0
-	)
-
 # Gotta fake a DOWNLOAD_COMMAND to work around a bug in cmake before 2.8.3.
-externalproject_add(EP_libgpg-error
+externalproject_add(gpg-error
     DOWNLOAD_COMMAND ""
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/../libgpg-error/libgpg-error-1.0
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../libgpg-error/libgpg-error-1.0
+    PREFIX ${CMAKE_BINARY_DIR}/libgpg-error
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libgpg-error/libgpg-error-1.0
     CONFIGURE_COMMAND <SOURCE_DIR>/configure -prefix=<INSTALL_DIR>
-    BUILD_COMMAND ${MAKE}
-    BUILD_IN_SOURCE 1
     INSTALL_COMMAND make install
     )
 
-link_directories(${LIBGPG-ERROR_LIBRARIES})
-include_directories(${LIBGPG-ERROR_INCLUDE_DIRS})
-
-add_library(libgpg-error STATIC IMPORTED)
-
-# Happy this is not needed, but leaving it around for reference.
-#set_target_properties(libgpg-error PROPERTIES 
-#    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../libgpg-error/libgpg-error-1.0/lib/libgpg-error.a
-#    )
-
-# This wont work until 2.8.4  sigh
-#add_dependencies(libgpg-error EP_libgpg-error)
-
 endif (WINDOWS)
-
-target_link_libraries(
-    libgpg-error
-    )
 

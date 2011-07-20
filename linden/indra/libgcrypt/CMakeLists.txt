@@ -1,11 +1,11 @@
 # -*- cmake -*-
 
-project(libgcrypt)
-
 include(00-Common)
 include(libgpg-error)
 include(libgcrypt)
 include(Linking)
+
+project(gcrypt)
 
 if (WINDOWS)
     include_directories(
@@ -17,7 +17,7 @@ if (WINDOWS)
 	libgcrypt-1.2.2/mpi/generic
 	)
 
-set(libgcrypt_SOURCE_FILES
+set(gcrypt_SOURCE_FILES
     libgcrypt-1.2.2/src/ath.c
     libgcrypt-1.2.2/src/global.c
     libgcrypt-1.2.2/src/misc.c
@@ -83,7 +83,7 @@ set(libgcrypt_SOURCE_FILES
     libgcrypt-1.2.2/mpi/generic/udiv-w-sdiv.c
     )
 
-set(libgcrypt_HEADER_FILES
+set(gcrypt_HEADER_FILES
     CMakeLists.txt
 
     libgcrypt-1.2.2/src/ath.h
@@ -108,53 +108,30 @@ set(libgcrypt_HEADER_FILES
     libgcrypt-1.2.2/mpi/generic/mpi-asm-defs.h
     )
 
-set_source_files_properties(${libgcrypt_HEADER_FILES}
+set_source_files_properties(${gcrypt_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-list(APPEND libgcrypt_SOURCE_FILES ${libgcrypt_HEADER_FILES})
+list(APPEND gcrypt_SOURCE_FILES ${gcrypt_HEADER_FILES})
 
-add_library (libgcrypt ${libgcrypt_SOURCE_FILES})
+add_library (gcrypt ${gcrypt_SOURCE_FILES})
+target_link_libraries(
+    gcrypt
+    )
 
 else (WINDOWS)
 
 include(ExternalProject)
 
-    include_directories(
-        ${LIBGPG-ERROR_INCLUDE_DIRS}
-	libgcrypt-1.2.2/src
-	libgcrypt-1.2.2/mpi
-	libgcrypt-1.2.2/mpi/generic
-	libgcrypt-1.2.2
-	)
-
 # Gotta fake a DOWNLOAD_COMMAND to work around a bug in cmake before 2.8.3.
-externalproject_add(EP_libgcrypt
-    DEPENDS EP_libgpg-error
+externalproject_add(gcrypt
+    DEPENDS gpg-error
     DOWNLOAD_COMMAND ""
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/../libgcrypt/libgcrypt-1.2.2
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../libgcrypt/libgcrypt-1.2.2
-    CONFIGURE_COMMAND <SOURCE_DIR>/configure -prefix=<INSTALL_DIR> --with-gpg-error-prefix=${CMAKE_CURRENT_SOURCE_DIR}/../libgpg-error/libgpg-error-1.0
-    BUILD_COMMAND ${MAKE}
-    BUILD_IN_SOURCE 1
+    PREFIX ${CMAKE_BINARY_DIR}/libgcrypt
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libgcrypt/libgcrypt-1.2.2
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure -prefix=<INSTALL_DIR> --with-gpg-error-prefix=${CMAKE_BINARY_DIR}/libgpg-error
     INSTALL_COMMAND make install
     )
 
-link_directories(${LIBGCRYPT_LIBRARIES})
-include_directories(${LIBGCRYPT_INCLUDE_DIRS})
-
-add_library(libgcrypt STATIC IMPORTED)
-
-# Happy this is not needed, but leaving it around for reference.
-#set_target_properties(libgcrypt PROPERTIES 
-#    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../libgcrypt/libgcrypt-1.2.2/lib/libgcrypt.a
-#    )
-
-# This wont work until 2.8.4  sigh
-#add_dependencies(libgcrypt EP_libgcrypt)
-
 endif (WINDOWS)
 
-target_link_libraries(
-    libgcrypt
-    )
 

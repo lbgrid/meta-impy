@@ -1,8 +1,11 @@
 # -*- cmake -*-
 
-project(libgpg-error)
-project(libgcrypt)
-project(libotr)
+project(otr)
+
+include(00-Common)
+include(libgpg-error)
+include(libgcrypt)
+include(Linking)
 
 if (WINDOWS)
     include_directories(
@@ -16,11 +19,10 @@ else (WINDOWS)
     include_directories(
         ${LIBGPG-ERROR_INCLUDE_DIRS}
         ${LIBGCRYPT_INCLUDE_DIRS}
-        ../libgcrypt/libgcrypt-1.2.2/src
         )
 endif (WINDOWS)
 
-set(libotr_SOURCE_FILES
+set(otr_SOURCE_FILES
     libotr-3.2.0/src/auth.c
     libotr-3.2.0/src/b64.c
     libotr-3.2.0/src/context.c
@@ -34,7 +36,7 @@ set(libotr_SOURCE_FILES
     libotr-3.2.0/src/userstate.c
     )
 
-set(libotr_HEADER_FILES
+set(otr_HEADER_FILES
     CMakeLists.txt
 
     libotr-3.2.0/src/auth.h
@@ -53,19 +55,16 @@ set(libotr_HEADER_FILES
     libotr-3.2.0/src/version.h
     )
 
-set_source_files_properties(${libotr_HEADER_FILES}
+set_source_files_properties(${otr_HEADER_FILES}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-list(APPEND libotr_SOURCE_FILES ${libotr_HEADER_FILES})
+list(APPEND libotr_SOURCE_FILES ${otr_HEADER_FILES})
 
-add_library (libotr ${libotr_SOURCE_FILES})
-target_link_libraries(libotr
-    gcrypt
-    gpg-error
+add_library (otr ${otr_SOURCE_FILES})
+target_link_libraries(otr
+    ${LIBGCRYPT_LIBRARIES}
+    ${LIBGPG-ERROR_LIBRARIES}
     )
 
-# Not sure if either or both are needed, does not seem to hurt.
-# Still does not make things build in the right sequence.  sigh
-add_dependencies(libotr EP_libgcrpt)
-add_dependencies(libotr libgcrypt)
+add_dependencies(otr gcrypt)
 
