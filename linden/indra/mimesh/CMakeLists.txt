@@ -50,7 +50,7 @@ set_source_files_properties(${G3D_HEADER_FILES}
 list(APPEND G3D_SOURCE_FILES ${G3D_HEADER_FILES})
 
 add_library(g3d
-    SHARED
+#    SHARED
     ${G3D_SOURCE_FILES}
     )
 

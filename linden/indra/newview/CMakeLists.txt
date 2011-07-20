@@ -1339,6 +1339,12 @@ add_executable(${VIEWER_BINARY_NAME}
     MACOSX_BUNDLE
     ${viewer_SOURCE_FILES}
     )
+
+set_target_properties(${VIEWER_BINARY_NAME}
+    PROPERTIES
+    LINK_FLAGS "-Wl,-export-dynamic -Wl,-whole-archive,${CMAKE_BINARY_DIR}/mimesh/libg3d.a,-no-whole-archive"
+    )
+
 #check_message_template(${VIEWER_BINARY_NAME})
 
 

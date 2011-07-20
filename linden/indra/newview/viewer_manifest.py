@@ -1037,7 +1037,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("meta-impy-stripped","bin/do-not-directly-run-meta-impy-bin")
 
         self.path("../llcommon/libllcommon.so", "lib/libllcommon.so")
-        self.path("../mimesh/libg3d.so", "lib/libg3d.so")
+#        self.path("../mimesh/libg3d.so", "lib/libg3d.so")
 
         if (not self.standalone()) and self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")
@@ -1165,7 +1165,7 @@ class Linux_x86_64Manifest(LinuxManifest):
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
 
         self.path("../llcommon/libllcommon.so", "lib64/libllcommon.so")
-        self.path("../mimesh/libg3d.so", "lib64/libg3d.so")
+#        self.path("../mimesh/libg3d.so", "lib64/libg3d.so")
 
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):
