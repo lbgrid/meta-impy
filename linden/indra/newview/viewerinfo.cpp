@@ -35,7 +35,7 @@ namespace ViewerInfo
 	const S32         MAJOR = 1;
 	const S32         MINOR = 4;
 	const S32         PATCH = 0;
-	const S32         RLEAS = 3; // increment for each beta/RC/release
+	const S32         RLEAS = 2; // increment for each beta/RC/release
 	const std::string EXTRA = "beta 1.5";
 
 	// Mac OS X bundle identifier. Should match the one in Info.plist.
