@@ -564,7 +564,6 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 					found_gestures = TRUE;
 				}
 			}
-
 		}
 		
 		if(!gesture)
