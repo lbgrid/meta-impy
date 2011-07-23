@@ -67,9 +67,9 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 
 		daename = kmz_find_model(xmldoc);
 		if(daename != NULL) {
-#if DEBUG > 1
-			g_debug("KMZ: loading '%s' from '%s'", daename, filename);
-#endif
+//#if DEBUG > 1
+			g_debug("KMZ: loading '%s' from '%s'", daename, stream->uri);
+//#endif
 			if(from_zip)
 				stream_model = g3d_stream_open_zip_from_stream(stream,
 					daename);
