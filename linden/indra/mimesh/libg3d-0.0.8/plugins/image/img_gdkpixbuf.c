@@ -57,15 +57,10 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 		g_warning("gdkpixbuf - plugin_load_image_from_stream(): no loader");
 		return FALSE;
 	}
-g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3");
 	while(!g3d_stream_eof(stream)) {
-g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3.0");
 		n = g3d_stream_read(stream, buffer, BUFSIZE);
-g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3.1  BUFSIZE: %u, n : %u",
-			BUFSIZE, ((guint32)n));
 		if(0 >= n)
 			break;
-g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3.2");
 		if(!gdk_pixbuf_loader_write(loader, buffer, n, &error)) {
 			g_warning("error loading image data from stream: %s",
 				error->message);
@@ -96,23 +91,17 @@ EAPI
 gboolean plugin_load_image(G3DContext *context, const gchar *filename,
 	G3DImage *image, gpointer user_data)
 {
-g_warning("gdkpixbuf - plugin_load_image(): 0");
 	GdkPixbuf *pixbuf;
 
 	if(!gdkpixbuf_init())
 		return FALSE;
 
-g_warning("gdkpixbuf - plugin_load_image(): 1");
 	pixbuf = gdk_pixbuf_new_from_file(filename, NULL);
-g_warning("gdkpixbuf - plugin_load_image(): 2");
 	if(pixbuf == NULL)
 	{
-g_warning("gdkpixbuf - plugin_load_image(): 3");
 		g_warning("failed to load '%s'", filename);
-g_warning("gdkpixbuf - plugin_load_image(): 4");
 		return FALSE;
 	}
-g_warning("gdkpixbuf - plugin_load_image(): 5");
 
 	return gdkpixbuf_postprocess(pixbuf, image, filename);
 }
@@ -128,7 +117,7 @@ gchar **plugin_extensions(G3DContext *context)
 {
 	gchar *extensions = g_strdup("");
 	gchar **retval;
-	gchar *tmp;
+	gchar *tmp, **ext;
 	GSList *fitem;
 	GdkPixbufFormat *format;
 
@@ -136,11 +125,16 @@ gchar **plugin_extensions(G3DContext *context)
 	while(fitem)
 	{
 		format = (GdkPixbufFormat *)fitem->data;
-		tmp = g_strdup_printf("%s%s%s", extensions,
+		ext = gdk_pixbuf_format_get_extensions(format);
+		if (('j' != *ext[0]) && ('b' != *ext[0]))	// quick and nasty check for jpeg, jpeg 2000, and bmp.
+		{						// Coz for some odd reason, this don't work with jpeg images.
+								// And we already have a bmp loader.
+		    tmp = g_strdup_printf("%s%s%s", extensions,
 			strlen(extensions) ? ":" : "",
-			g_strjoinv(":", gdk_pixbuf_format_get_extensions(format)));
-		g_free(extensions);
-		extensions = tmp;
+			g_strjoinv(":", ext));
+		    g_free(extensions);
+		    extensions = tmp;
+		}
 		fitem = fitem->next;
 	}
 
