@@ -271,11 +271,11 @@ gboolean dae_cb_newparam(DaeGlobalData *global, DaeLocalData *local)
 		if(pipe != NULL) {
 			container = g_strndup(global->stream->uri + 6,
 				(pipe - global->stream->uri) - 6);
-			g_debug("DAE: container file: %s", container);
 			subfile = filename;
 			while(strncmp(subfile, "../", 3) == 0)
 				subfile += 3;
-			imgstream = g3d_stream_open_zip(container, subfile);
+			g_debug("DAE: loading %s from container file: %s", subfile, container);
+			imgstream = g3d_stream_open_zip_from_stream(global->stream->zip_container, subfile);
 		}
 #endif
 	} else {

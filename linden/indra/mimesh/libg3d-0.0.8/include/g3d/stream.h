@@ -143,6 +143,7 @@ struct _G3DStream {
 	G3DStreamCloseFunc close;
 	gpointer data;
 	guint32 linecount;
+	struct _G3DStream  *zip_container;
 };
 
 /* public interface */
@@ -406,6 +407,7 @@ gint g3d_stream_close(G3DStream *stream);
  * @eoffunc: end-of-file callback function
  * @closefunc: close callback function
  * @data: opaque data for all callback functions
+ * @zip_container: original zip container
  *
  * Creates a new #G3DStream with custom callback functions.
  *
@@ -416,7 +418,8 @@ G3DStream *g3d_stream_new_custom(guint32 flags, const gchar *uri,
 	G3DStreamReadFunc readfunc, G3DStreamReadLineFunc readlinefunc,
 	G3DStreamSeekFunc seekfunc, G3DStreamTellFunc tellfunc,
 	G3DStreamSizeFunc sizefunc,
-	G3DStreamEofFunc eoffunc, G3DStreamCloseFunc closefunc, gpointer data);
+	G3DStreamEofFunc eoffunc, G3DStreamCloseFunc closefunc, gpointer data,
+	G3DStream *zip_container);
 
 /**
  * g3d_stream_open_file:

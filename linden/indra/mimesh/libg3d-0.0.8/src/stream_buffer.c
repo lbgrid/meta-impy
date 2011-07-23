@@ -119,7 +119,7 @@ G3DStream *g3d_stream_from_buffer(guint8 *buffer, gsize size,
 		NULL /* use generic implementation of *_read_line */,
 		g3d_stream_buffer_seek, g3d_stream_buffer_tell,
 		g3d_stream_buffer_size, g3d_stream_buffer_eof,
-		g3d_stream_buffer_close, sbuf);
+		g3d_stream_buffer_close, sbuf, NULL);
 	g_free(uri);
 	return stream;
 }

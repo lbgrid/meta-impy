@@ -55,6 +55,13 @@ GsfInput *g3d_gsf_input_stream_new(G3DStream *stream)
 	return GSF_INPUT(g3dsf);
 }
 
+EAPI G3DStream *g3d_gsf_input_stream_get_stream(GsfInput *input)
+{
+	G3DGsfInputStream *g3dsf = G3D_GSF_INPUT_STREAM(input);
+
+	return g3dsf->stream;
+}
+
 static void g3d_gsf_input_stream_finalize(GObject *obj)
 {
 	G3DGsfInputStream *g3dsf = G3D_GSF_INPUT_STREAM(obj);

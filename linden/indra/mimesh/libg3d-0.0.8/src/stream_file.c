@@ -112,6 +112,6 @@ G3DStream *g3d_stream_open_file(const gchar *filename, const gchar *mode)
 		g3d_stream_file_read, g3d_stream_file_read_line,
 		g3d_stream_file_seek, g3d_stream_file_tell,
 		g3d_stream_file_size, g3d_stream_file_eof,
-		g3d_stream_file_close, sf);
+		g3d_stream_file_close, sf, NULL);
 }
 

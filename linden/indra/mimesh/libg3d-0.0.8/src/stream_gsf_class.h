@@ -42,6 +42,9 @@ EAPI GType g3d_gsf_input_stream_get_type(void) G_GNUC_CONST;
 
 EAPI GsfInput *g3d_gsf_input_stream_new(G3DStream *stream);
 
+// Classes be damned, I don't have time to learn this opaque class system.  Maybe fix it later, or just replace it all.  Pffft
+EAPI G3DStream *g3d_gsf_input_stream_get_stream(GsfInput *input);
+
 #ifdef __cplusplus
 }
 #endif /* ifdef __cplusplus */

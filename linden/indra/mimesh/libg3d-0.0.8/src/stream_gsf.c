@@ -151,7 +151,7 @@ G3DStream *g3d_stream_open_gzip_from_stream(G3DStream *stream)
 		g3d_stream_gsf_read, NULL,
 		g3d_stream_gsf_seek, g3d_stream_gsf_tell,
 		g3d_stream_gsf_size, g3d_stream_gsf_eof,
-		g3d_stream_gsf_close, sg);
+		g3d_stream_gsf_close, sg, NULL);
 }
 
 
@@ -165,6 +165,7 @@ static G3DStream *g3d_stream_open_zip_from_input(GsfInput *input,
 	guint32 flags = 0;
 	GsfInput *input_dir;
 	gchar *basename, *dirname;
+	G3DStream *zip_stream = g3d_gsf_input_stream_get_stream(input);
 
 	sg = g_new0(G3DStreamGsf, 1);
 	sg->input_container = input;
@@ -204,11 +205,14 @@ static G3DStream *g3d_stream_open_zip_from_input(GsfInput *input,
 
 	sg->uri = g_strdup_printf("zip://%s|%s", gsf_input_name(input), subfile);
 
+	if (NULL != zip_stream->zip_container)
+	    zip_stream = zip_stream->zip_container;
+
 	return g3d_stream_new_custom(flags, sg->uri,
 		g3d_stream_gsf_read, NULL,
 		g3d_stream_gsf_seek, g3d_stream_gsf_tell,
 		g3d_stream_gsf_size, g3d_stream_gsf_eof,
-		g3d_stream_gsf_close, sg);
+		g3d_stream_gsf_close, sg, zip_stream);
 }
 
 EAPI
@@ -308,7 +312,7 @@ static G3DStream *g3d_stream_open_structured_file_from_input(GsfInput *input,
 		g3d_stream_gsf_read, NULL,
 		g3d_stream_gsf_seek, g3d_stream_gsf_tell,
 		g3d_stream_gsf_size, g3d_stream_gsf_eof,
-		g3d_stream_gsf_close, sg);
+		g3d_stream_gsf_close, sg, NULL);
 }
 
 EAPI

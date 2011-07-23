@@ -148,7 +148,8 @@ G3DStream *g3d_stream_new_custom(guint32 flags, const gchar *uri,
 	G3DStreamReadFunc readfunc, G3DStreamReadLineFunc readlinefunc,
 	G3DStreamSeekFunc seekfunc, G3DStreamTellFunc tellfunc,
 	G3DStreamSizeFunc sizefunc,
-	G3DStreamEofFunc eoffunc, G3DStreamCloseFunc closefunc, gpointer data)
+	G3DStreamEofFunc eoffunc, G3DStreamCloseFunc closefunc, gpointer data,
+	G3DStream *zip_container)
 {
 	G3DStream *stream;
 
@@ -163,6 +164,7 @@ G3DStream *g3d_stream_new_custom(guint32 flags, const gchar *uri,
 	stream->eof = eoffunc;
 	stream->close = closefunc;
 	stream->data = data;
+	stream->zip_container = zip_container;
 
 	return stream;
 }
