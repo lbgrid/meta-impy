@@ -105,13 +105,14 @@ G3DStream *g3d_stream_from_buffer(guint8 *buffer, gsize size,
 	G3DStreamBuffer *sbuf;
 	guint32 flags = 0;
 	gchar *uri;
+	unsigned int usize = ((unsigned int)size);
 
 	sbuf = g_new0(G3DStreamBuffer, 1);
 	sbuf->buffer = buffer;
 	sbuf->size = size;
 	sbuf->free_buffer = free_buffer;
 	flags |= (1 << G3D_STREAM_SEEKABLE) | (1 << G3D_STREAM_READABLE);
-	uri = g_strdup_printf("buffer://0x%8p:%u/%s", buffer, size,
+	uri = g_strdup_printf("buffer://0x%8p:%u/%s", buffer, usize,
 		(title ? title : "unnamed"));
 	stream = g3d_stream_new_custom(flags, uri,
 		g3d_stream_buffer_read,

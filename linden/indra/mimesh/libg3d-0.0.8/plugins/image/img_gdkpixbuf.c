@@ -60,11 +60,11 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3");
 	while(!g3d_stream_eof(stream)) {
 g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3.0");
-		n = g3d_stream_read(stream, buffer, 1023/*BUFSIZE*/);
-g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3.1 - %d %d", BUFSIZE, n);
+		n = g3d_stream_read(stream, buffer, BUFSIZE);
+g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3.1  BUFSIZE: %u, n : %u",
+			BUFSIZE, ((guint32)n));
 		if(0 >= n)
 			break;
-break;  // Fucked if I know why it's crashing.  It crashes when it gets to 1024 bytes of data.
 g_warning("gdkpixbuf - plugin_load_image_from_stream(): 3.2");
 		if(!gdk_pixbuf_loader_write(loader, buffer, n, &error)) {
 			g_warning("error loading image data from stream: %s",

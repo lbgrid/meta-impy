@@ -192,7 +192,8 @@ gpointer g3d_iff_handle_chunk(G3DIffGlobal *global, G3DIffLocal *plocal,
 	G3DIffChunkInfo *chunks, guint32 flags)
 {
 	gpointer object = NULL;
-	guint32 chunk_id, chunk_len;
+	guint32 chunk_id;
+	gsize chunk_len;
 	G3DIffLocal *sublocal;
 	G3DIffChunkInfo *info;
 
@@ -201,7 +202,11 @@ gpointer g3d_iff_handle_chunk(G3DIffGlobal *global, G3DIffLocal *plocal,
 		g3d_iff_read_chunk(global->stream, &chunk_id, &chunk_len, 0);
 	else
 #ifndef G3D_DISABLE_DEPRECATED
-		g3d_iff_readchunk(global->f, &chunk_id, &chunk_len, 0);
+	{
+		guint32 chunk_len32;
+		g3d_iff_readchunk(global->f, &chunk_id, &chunk_len32, 0);
+		chunk_len = chunk_len32;
+	}
 #else
 		return NULL;
 #endif
@@ -213,7 +218,7 @@ gpointer g3d_iff_handle_chunk(G3DIffGlobal *global, G3DIffLocal *plocal,
 	sublocal->id = chunk_id;
 	sublocal->object = plocal->object;
 	sublocal->level = plocal->level + 1;
-	sublocal->nb = chunk_len;
+	sublocal->nb = ((guint32)chunk_len);
 	plocal->nb -= sublocal->nb;
 
 	/* call function */
@@ -251,7 +256,8 @@ gboolean g3d_iff_read_ctnr(G3DIffGlobal *global, G3DIffLocal *local,
 {
 	G3DIffLocal *sublocal;
 	G3DIffChunkInfo *info;
-	guint32 chunk_id, chunk_len, chunk_mod, chunk_type;
+	guint32 chunk_id, chunk_mod, chunk_type;
+	gsize chunk_len;
 	gchar *tid;
 	gpointer level_object;
 #ifndef G3D_DISABLE_DEPRECATED
@@ -272,7 +278,11 @@ gboolean g3d_iff_read_ctnr(G3DIffGlobal *global, G3DIffLocal *local,
 			g3d_iff_read_chunk(global->stream, &chunk_id, &chunk_len, flags);
 		else
 #ifndef G3D_DISABLE_DEPRECATED
-			g3d_iff_readchunk(global->f, &chunk_id, &chunk_len, flags);
+		{
+			guint32 chunk_len32 = ((guint32)chunk_len);
+			g3d_iff_readchunk(global->f, &chunk_id, &chunk_len32, flags);
+			chunk_len = chunk_len32;
+		}
 #else
 			return FALSE;
 #endif
@@ -350,7 +360,7 @@ gboolean g3d_iff_read_ctnr(G3DIffGlobal *global, G3DIffLocal *local,
 			sublocal->object = local->object;
 			sublocal->level = local->level + 1;
 			sublocal->level_object = level_object;
-			sublocal->nb = chunk_len;
+			sublocal->nb = ((guint32)chunk_len);
 
 			if(info->callback)
 				info->callback(global, sublocal);
@@ -386,7 +396,7 @@ gboolean g3d_iff_read_ctnr(G3DIffGlobal *global, G3DIffLocal *local,
 		} else {
 			tid = g3d_iff_id_to_text(chunk_id);
 			g_warning("[IFF] unknown chunk type \"%s\" (%d) @ 0x%08x",
-				tid, chunk_len, (guint32)g3d_iff_pos(global) - 8);
+				tid, (guint32)chunk_len, (guint32)g3d_iff_pos(global) - 8);
 			g_free(tid);
 			if(global->stream)
 				g3d_stream_skip(global->stream, chunk_len);
