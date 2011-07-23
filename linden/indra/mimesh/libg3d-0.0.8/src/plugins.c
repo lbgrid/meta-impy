@@ -445,7 +445,7 @@ gboolean g3d_plugins_load_model(G3DContext *context, const gchar *filename,
 	    else if (httpStatus != 200)
 		g_warning("HTTP Error %ld, but no Curl error.", httpStatus);
 	    else
-		g_warning("CUR got the file %s", filename);
+		g_debug("CURL got the file %s", filename);
 
 	    stream = g3d_stream_from_buffer(result.buffer, result.size, filename, FALSE);
 	    if(stream)
