@@ -274,7 +274,7 @@ gboolean dae_cb_newparam(DaeGlobalData *global, DaeLocalData *local)
 			subfile = filename;
 			while(strncmp(subfile, "../", 3) == 0)
 				subfile += 3;
-			g_debug("DAE: loading %s from container file: %s", subfile, container);
+			g_debug("DAE: loading '%s' from: '%s'", subfile, container);
 			imgstream = g3d_stream_open_zip_from_stream(global->stream->zip_container, subfile);
 		}
 #endif
