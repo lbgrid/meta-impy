@@ -187,6 +187,6 @@ G3DStream *g3d_stream_zlib_inflate_stream(G3DStream *stream, gsize cmp_size)
 		g3d_stream_zlib_read, NULL /* readline */,
 		NULL /* seek */, g3d_stream_zlib_tell,
 		NULL /* size */, g3d_stream_zlib_eof,
-		g3d_stream_zlib_close, sz);
+		g3d_stream_zlib_close, sz, NULL);
 }
 
