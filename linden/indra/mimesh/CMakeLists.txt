@@ -37,38 +37,37 @@ include_directories(
 
 macro(add_mimesh_library name type path)
 
-project(${name})
+    project(${name})
 
-# Note, will have to rebuild from scratch when adding or deleting a file.
-if (${ARGC} EQUAL 3)
-    file(GLOB ${name}_SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${path}/*.c ${path}/*.cpp)
-    file(GLOB ${name}_HEADER_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${path}/*.h)
-else (${ARGC} EQUAL 3)
-    file(GLOB ${name}_SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${path}/${ARGV3})
-endif (${ARGC} EQUAL 3)
+    # Note, will have to rebuild from scratch when adding or deleting a file.
+    if (${ARGC} EQUAL 3)
+	file(GLOB ${name}_SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${path}/*.c ${path}/*.cpp)
+	file(GLOB ${name}_HEADER_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${path}/*.h)
+    else (${ARGC} EQUAL 3)
+	file(GLOB ${name}_SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${path}/${ARGV3})
+    endif (${ARGC} EQUAL 3)
 
-list(APPEND ${name}_SOURCE_FILES ${${name}_HEADER_FILES})
-add_library(${name} ${type} ${${name}_SOURCE_FILES})
+    list(APPEND ${name}_SOURCE_FILES ${${name}_HEADER_FILES})
+    add_library(${name} ${type} ${${name}_SOURCE_FILES})
 
-if (DARWIN)
-  # don't embed a full path in the library's install name
-  set_target_properties(
-    ${name}
-    PROPERTIES
-    BUILD_WITH_INSTALL_RPATH 1
-    INSTALL_NAME_DIR "@executable_path/../Resources"
-    )
-endif (DARWIN)
+    if (DARWIN)
+	# don't embed a full path in the library's install name
+	set_target_properties(
+	    ${name}
+	    PROPERTIES
+	    BUILD_WITH_INSTALL_RPATH 1
+	    INSTALL_NAME_DIR "@executable_path/../Resources"
+	    )
+    endif (DARWIN)
 
-#  set_target_properties(
-#    ${name}
-#    PROPERTIES
-#    LINK_FLAGS "-export-dynamic -no-undefined"
+#    set_target_properties(
+#	 ${name}
+#	PROPERTIES
+#	LINK_FLAGS "-export-dynamic -no-undefined"
 #    )
 
-target_link_libraries(${name}
-    ${${name}_link_LIBRARIES}
-    )
+    target_link_libraries(${name} ${${name}_link_LIBRARIES})
+
 
 endmacro(add_mimesh_library)
 
