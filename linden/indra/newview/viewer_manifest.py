@@ -958,21 +958,6 @@ class LinuxManifest(ViewerManifest):
             self.path("../media_plugins/gstreamer010/libmedia_plugin_gstreamer010.so", "libmedia_plugin_gstreamer.so")
             self.end_prefix("bin/llplugin")
 
-        # libg3d plugins
-        if self.prefix(src="", dst="bin/libg3d"):
-            self.path("../../mimesh/libg3d-0.0.8/libg3d.magic", "libg3d.magic")
-            self.end_prefix("bin/libg3d")
-
-	# Can't use globs here.  WTF?
-        if self.prefix(src="../mimesh", dst="bin/libg3d/image"):
-            self.path("libg3d_plugin_gdkpixbuf.so")
-            self.end_prefix("bin/libg3d/image")
-
-        if self.prefix(src="../mimesh", dst="bin/libg3d/import"):
-            self.path("libg3d_plugin_dae.so")
-            self.path("libg3d_plugin_kmz.so")
-            self.end_prefix("bin/libg3d/import")
-
         # Per platform MIME config on the cheap.  See SNOW-307 / DEV-41388
         self.path("skins/default/xui/en-us/mime_types_linux.xml", "skins/default/xui/en-us/mime_types.xml")
 
@@ -1037,7 +1022,6 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("meta-impy-stripped","bin/do-not-directly-run-meta-impy-bin")
 
         self.path("../llcommon/libllcommon.so", "lib/libllcommon.so")
-#        self.path("../mimesh/libg3d.so", "lib/libg3d.so")
 
         if (not self.standalone()) and self.prefix("../../libraries/i686-linux/lib_release_client", dst="lib"):
             self.path("libapr-1.so.0")
@@ -1165,7 +1149,6 @@ class Linux_x86_64Manifest(LinuxManifest):
 #        self.path("../linux_crash_logger/linux-crash-logger-stripped","linux-crash-logger.bin")
 
         self.path("../llcommon/libllcommon.so", "lib64/libllcommon.so")
-#        self.path("../mimesh/libg3d.so", "lib64/libg3d.so")
 
         self.path("linux_tools/launch_url.sh","launch_url.sh")
         if self.prefix("res-sdl"):

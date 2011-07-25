@@ -60,7 +60,6 @@ static gboolean plugins_loaddirectory(G3DContext *context,
 {
 	GDir *plugindir;
 	G3DPlugin *plugin;
-	gchar **last, **dir, **dirnames;
 	gchar **ext, **exts;
 	gchar *path;
 	const gchar *filename;
@@ -69,24 +68,6 @@ static gboolean plugins_loaddirectory(G3DContext *context,
 	plugindir = g_dir_open(dirname, 0, NULL);
 	if(!plugindir)
 		return FALSE;
-
-	dirnames = g_strsplit(dirname, G_DIR_SEPARATOR_S, 0);
-	dir = last = dirnames;
-
-	while(*dir != NULL)
-	{
-		if(*dir != NULL)
-			last = dir;
-
-		dir ++;
-	}
-
-	if(strcmp("import", *last) == 0)
-		type = G3D_PLUGIN_IMPORT;
-	else if(strcmp("image", *last) == 0)
-		type = G3D_PLUGIN_IMAGE;
-
-	g_strfreev(dirnames);
 
 	while((filename = g_dir_read_name(plugindir)) != NULL) {
 #ifdef G_OS_WIN32
@@ -101,7 +82,6 @@ static gboolean plugins_loaddirectory(G3DContext *context,
 
 			plugin->name = g_strdup(filename);
 			plugin->path = g_strdup(dirname);
-			plugin->type = type;
 
 			path = g_strdup_printf("%s%c%s", dirname, G_DIR_SEPARATOR,
 				filename);
@@ -123,6 +103,12 @@ static gboolean plugins_loaddirectory(G3DContext *context,
 				PLUGIN_GET_SYMBOL("plugin_load_image", plugin->loadimage_func);
 				PLUGIN_GET_SYMBOL("plugin_load_image_from_stream",
 					plugin->loadimagestream_func);
+				
+				if (plugin->loadimagestream_func)
+				    type = G3D_PLUGIN_IMAGE;
+				if (plugin->loadmodelstream_func)
+				    type = G3D_PLUGIN_IMPORT;
+				plugin->type = type;
 
 				/* append plugin to list */
 				context->plugins = g_slist_append(context->plugins, plugin);
@@ -257,11 +243,9 @@ gboolean g3d_plugins_init(G3DContext *context)
 	context->exts_image = g_hash_table_new(g_str_hash, g_str_equal);
 
 #ifdef G_OS_WIN32
-	plugins_loaddirectory(context, "plugins\\image");
-	plugins_loaddirectory(context, "plugins\\import");
+	plugins_loaddirectory(context, "plugins");
 #else
-	plugins_loaddirectory(context, PLUGIN_DIR "/image");
-	plugins_loaddirectory(context, PLUGIN_DIR "/import");
+	plugins_loaddirectory(context, PLUGIN_DIR);
 #endif
 
 #ifdef USE_LIBMAGIC

@@ -68,6 +68,10 @@ macro(add_mimesh_library name type path)
 
     target_link_libraries(${name} ${${name}_link_LIBRARIES})
 
+    install(TARGETS ${name}
+	ARCHIVE DESTINATION ${CMAKE_CURRENT_BINARY_DIR}	# This is just be a dummy.
+	LIBRARY DESTINATION lib/libg3d
+	)
 
 endmacro(add_mimesh_library)
 
@@ -87,4 +91,5 @@ set(g3d_plugin_gdkpixbuf_link_LIBRARIES
     ${LIBPANGO_LIBRARIES}
     )
 add_mimesh_library(g3d_plugin_gdkpixbuf SHARED libg3d-0.0.8/plugins/image img_gdkpixbuf.c)
+install(FILES libg3d-0.0.8/libg3d.magic DESTINATION lib/libg3d)
 

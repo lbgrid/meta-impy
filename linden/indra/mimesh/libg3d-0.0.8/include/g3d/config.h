@@ -11,10 +11,10 @@
 #define HAVE_ZLIB 1
 
 /* magic file */
-#define MAGIC_FILENAME "./bin/libg3d/libg3d.magic"
+#define MAGIC_FILENAME "./lib/libg3d/libg3d.magic"
 
 /* Plugin directory */
-#define PLUGIN_DIR "./bin/libg3d"
+#define PLUGIN_DIR "./lib/libg3d"
 
 
 // Don't think the rest are actually used.
