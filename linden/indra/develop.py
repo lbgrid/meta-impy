@@ -394,9 +394,9 @@ class LinuxSetup(UnixSetup):
             '''opts.extend(['-j', str(2)])'''
 
         if targets:
-            targets = ' '.join(targets)
+            targets = ' '.join(targets).join(' install')
         else:
-            targets = 'all'
+            targets = 'install'
 
         for d in self.build_dirs():
             cmd = 'make -C %r %s %s' % (d, ' '.join(opts), targets)
