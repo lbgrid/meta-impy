@@ -74,20 +74,6 @@ typedef gpointer (* G3DPluginInitFunc)(G3DContext *context);
 typedef void (* G3DPluginCleanupFunc)(gpointer user_data);
 
 /**
- * G3DPluginLoadModelFunc:
- * @context: the context
- * @filename: file name of model
- * @model: the model structure to fill
- * @user_data: opaque plugin data
- *
- * Prototype for plugin_load_model().
- *
- * Returns: TRUE on success, FALSE else.
- */
-typedef gboolean (* G3DPluginLoadModelFunc)(G3DContext *context,
-	const gchar *filename, G3DModel *model, gpointer user_data);
-
-/**
  * G3DPluginLoadModelFromStreamFunc:
  * @context: the context
  * @stream: the stream to load from
@@ -100,20 +86,6 @@ typedef gboolean (* G3DPluginLoadModelFunc)(G3DContext *context,
  */
 typedef gboolean (* G3DPluginLoadModelFromStreamFunc)(G3DContext *context,
 	G3DStream *stream, G3DModel *model, gpointer user_data);
-
-/**
- * G3DPluginLoadImageFunc:
- * @context: the context
- * @filename: file name of image
- * @image: image structure to fill
- * @user_data: opaque plugin data
- *
- * Prototype for plugin_load_image().
- *
- * Returns: TRUE on success, FALSE else.
- */
-typedef gboolean (* G3DPluginLoadImageFunc)(G3DContext *context,
-	const gchar *filename, G3DImage *image, gpointer user_data);
 
 /**
  * G3DPluginLoadImageStreamFunc:
@@ -164,9 +136,7 @@ struct _G3DPlugin {
 
 	G3DPluginInitFunc init_func;
 	G3DPluginCleanupFunc cleanup_func;
-	G3DPluginLoadModelFunc loadmodel_func;
 	G3DPluginLoadModelFromStreamFunc loadmodelstream_func;
-	G3DPluginLoadImageFunc loadimage_func;
 	G3DPluginLoadImageStreamFunc loadimagestream_func;
 	G3DPluginGetDescFunc desc_func;
 	G3DPluginGetExtFunc ext_func;

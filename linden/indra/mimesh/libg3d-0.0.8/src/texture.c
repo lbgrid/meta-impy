@@ -31,71 +31,6 @@
 static gboolean dump_ppm(G3DImage *image, const gchar *filename);
 #endif
 
-EAPI
-G3DImage *g3d_texture_load(G3DContext *context, const gchar *filename)
-{
-	G3DImage *image;
-	gchar *basename, *path, *casedup, *caseddown, *realfile = NULL;
-
-	/* convert DOS path separator */
-	path = g_strdup(filename);
-	g_strdelimit(path, "\\", '/');
-
-	if(g_file_test(path, G_FILE_TEST_EXISTS))
-	{
-		realfile = g_strdup(path);
-	}
-	else
-	{
-		basename = g_path_get_basename(path);
-		if(g_file_test(basename, G_FILE_TEST_EXISTS))
-		{
-			realfile = g_strdup(basename);
-		}
-		else
-		{
-			casedup = g_ascii_strup(basename, -1);
-			if(g_file_test(casedup, G_FILE_TEST_EXISTS))
-			{
-				realfile = g_strdup(casedup);
-			}
-			else
-			{
-				caseddown = g_ascii_strdown(basename, -1);
-				if(g_file_test(caseddown, G_FILE_TEST_EXISTS))
-				{
-					realfile = g_strdup(caseddown);
-				}
-				g_free(caseddown);
-			}
-			g_free(casedup);
-		}
-		g_free(basename);
-	}
-	g_free(path);
-
-	if(realfile == NULL)
-	{
-		g_warning("failed to find a file matching '%s'", filename);
-		return NULL;
-	}
-
-	/* create emtpy G3DImage */
-	image = g_new0(G3DImage, 1);
-	image->tex_scale_u = 1.0;
-	image->tex_scale_v = 1.0;
-
-	if(g3d_plugins_load_image(context, realfile, image))
-	{
-		g_free(realfile);
-		return image;
-	}
-
-	g_free(image);
-	g_free(realfile);
-
-	return NULL;
-}
 
 EAPI
 G3DImage *g3d_texture_load_from_stream(G3DContext *context, G3DModel *model,
@@ -145,7 +80,8 @@ G3DImage *g3d_texture_load_cached(G3DContext *context, G3DModel *model,
 	if(image != NULL)
 		return image;
 
-	image = g3d_texture_load(context, filename);
+// FIXME - convert this to use stream.
+//	image = g3d_texture_load(context, filename);
 	if(image != NULL)
 	{
 		image->tex_id = g_str_hash(filename);

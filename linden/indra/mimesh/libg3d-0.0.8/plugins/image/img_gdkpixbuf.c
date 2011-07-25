@@ -88,25 +88,6 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 }
 
 EAPI
-gboolean plugin_load_image(G3DContext *context, const gchar *filename,
-	G3DImage *image, gpointer user_data)
-{
-	GdkPixbuf *pixbuf;
-
-	if(!gdkpixbuf_init())
-		return FALSE;
-
-	pixbuf = gdk_pixbuf_new_from_file(filename, NULL);
-	if(pixbuf == NULL)
-	{
-		g_warning("failed to load '%s'", filename);
-		return FALSE;
-	}
-
-	return gdkpixbuf_postprocess(pixbuf, image, filename);
-}
-
-EAPI
 gchar *plugin_description(G3DContext *context)
 {
 	return g_strdup("plugin to read images using the GdkPixbuf library");
