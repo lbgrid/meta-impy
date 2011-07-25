@@ -90,7 +90,7 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("plugin to read images using the GdkPixbuf library");
+	return g_strdup("Plugin to read images using the GdkPixbuf library");
 }
 
 EAPI
@@ -105,14 +105,25 @@ gchar **plugin_extensions(G3DContext *context)
 	fitem = gdk_pixbuf_get_formats();
 	while(fitem)
 	{
+		gboolean doit = TRUE;
+
 		format = (GdkPixbufFormat *)fitem->data;
 		ext = gdk_pixbuf_format_get_extensions(format);
-		if (('j' != *ext[0]) && ('b' != *ext[0]))	// quick and nasty check for jpeg, jpeg 2000, and bmp.
-		{						// Coz for some odd reason, this don't work with jpeg images.
-								// And we already have a bmp loader.
-		    tmp = g_strdup_printf("%s%s%s", extensions,
-			strlen(extensions) ? ":" : "",
-			g_strjoinv(":", ext));
+
+		if (0 == g_strcmp0("bmp", *ext))
+		    doit = FALSE;
+		else if (0 == g_strcmp0("jpg", *ext))
+		    doit = FALSE;
+		else if (0 == g_strcmp0("jpeg", *ext))
+		    doit = FALSE;
+		else if (0 == g_strcmp0("jfif", *ext))
+		    doit = FALSE;
+		else if (0 == g_strcmp0("jif", *ext))
+		    doit = FALSE;
+
+		if (doit)
+		{
+		    tmp = g_strdup_printf("%s%s%s", extensions, strlen(extensions) ? ":" : "", g_strjoinv(":", ext));
 		    g_free(extensions);
 		    extensions = tmp;
 		}
