@@ -19,6 +19,7 @@ find_package(Libmagic REQUIRED)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
+    ${LIBS_PREBUILT_DIR}/include/jpeglib  # Coz JPEG.cmake seems to want to grab the system headers instead.  Though it works fine for llimage.
     ${LLIMAGE_INCLUDE_DIRS}
     ${LLINVENTORY_INCLUDE_DIRS}
     ${LLMATH_INCLUDE_DIRS}
@@ -91,6 +92,10 @@ set(g3d_plugin_gdkpixbuf_link_LIBRARIES
     ${LIBPANGO_LIBRARIES}
     )
 add_mimesh_library(g3d_plugin_gdkpixbuf SHARED libg3d-0.0.8/plugins/image img_gdkpixbuf.c)
+
+set(g3d_plugin_jpeg_link_LIBRARIES
+    ${JPEG_LIBRARIES}
+    )
 add_mimesh_library(g3d_plugin_jpeg SHARED libg3d-0.0.8/plugins/image img_jpeg.c)
 
 install(FILES libg3d-0.0.8/libg3d.magic DESTINATION lib/libg3d)
