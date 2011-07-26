@@ -36,7 +36,7 @@ namespace ViewerInfo
 	const S32         MINOR = 4;
 	const S32         PATCH = 0;
 	const S32         RLEAS = 0; // increment for each beta/RC/release
-	const std::string EXTRA = "mesh experiment 2011-07-21";
+	const std::string EXTRA = "mesh experiment 2011-07-26";
 
 	// Mac OS X bundle identifier. Should match the one in Info.plist.
 	const std::string BUNDLE_ID = "org.imprudenceviewer.viewer";
