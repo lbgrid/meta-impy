@@ -47,7 +47,6 @@ void mimesh::load(LLViewerObject* object, std::string URL)
 	if ((NULL == object->mimeshModel) || (0 != object->mimeshURL.compare(URL)))
 	{
 	    object->mimeshURL = URL;
-	    cmdline_printchat(URL);
 	    std::string temp_URL = URL;
 	    if (temp_URL.substr(0, 7).compare("file://") == 0)
 		temp_URL = temp_URL.substr(6);
