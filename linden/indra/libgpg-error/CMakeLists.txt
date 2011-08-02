@@ -14,7 +14,7 @@ project(gpg-error)
 	libgpg-error-1.0/src
 	)
 
-set(libgpg-error_SOURCE_FILES
+set(gpg-error_SOURCE_FILES
     libgpg-error-1.0/src/code-from-errno.c
     libgpg-error-1.0/src/code-to-errno.c
     libgpg-error-1.0/src/gpg-error.c
