@@ -427,6 +427,13 @@ typedef struct {
 typedef struct _G3DPlugin G3DPlugin;
 
 /*****************************************************************************
+ * G3DStream
+ *****************************************************************************/
+
+/* declared in stream.h */
+typedef struct _G3DStream G3DStream;
+
+/*****************************************************************************
  * G3DModel
  *****************************************************************************/
 
@@ -450,16 +457,11 @@ typedef struct {
 	/*< private >*/
 	GHashTable *tex_images;
 
-	/* the plugin used to load the image, may be NULL */
+	/* the plugin used to load the model, may be NULL */
 	G3DPlugin *plugin;
+	/* The stream used to load the model, may be NULL */
+	G3DStream *stream;
 } G3DModel;
-
-/*****************************************************************************
- * G3DStream
- *****************************************************************************/
-
-/* declared in stream.h */
-typedef struct _G3DStream G3DStream;
 
 #ifdef __cplusplus
 }

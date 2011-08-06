@@ -22,6 +22,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <g3d/config.h>
 #include <g3d/types.h>
 #include <g3d/plugins.h>
 #include <g3d/stream.h>
@@ -66,7 +67,8 @@ EAPI
 G3DImage *g3d_texture_load_cached(G3DContext *context, G3DModel *model,
 	const gchar *filename)
 {
-	G3DImage *image;
+	G3DImage *image = NULL;
+	G3DStream *imgstream;
 #ifdef G3D_DEBUG_DUMP_IMAGE
 	gchar *basename, *ppmname;
 #endif
@@ -80,8 +82,12 @@ G3DImage *g3d_texture_load_cached(G3DContext *context, G3DModel *model,
 	if(image != NULL)
 		return image;
 
-// FIXME - convert this to use stream.
-//	image = g3d_texture_load(context, filename);
+	if (model->stream)
+	{
+	    g_debug("texture: loading '%s' from: '%s'", filename, model->stream->uri);
+	    imgstream = g3d_stream_open_zip_from_stream(model->stream->zip_container, filename);
+	    image = g3d_texture_load_from_stream(context, model, imgstream);
+	}
 	if(image != NULL)
 	{
 		image->tex_id = g_str_hash(filename);

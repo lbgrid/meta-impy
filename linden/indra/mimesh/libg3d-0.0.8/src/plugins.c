@@ -432,6 +432,7 @@ gboolean g3d_plugins_load_model(G3DContext *context, const gchar *filename,
 	    stream = g3d_stream_from_buffer(result.buffer, result.size, filename, FALSE);
 	    if(stream)
 	    {
+		model->stream = stream;
 		retval = plugin->loadmodelstream_func(context, stream, model, plugin->user_data);
 		g3d_stream_close(stream);
 	    }
@@ -459,6 +460,7 @@ gboolean g3d_plugins_load_model(G3DContext *context, const gchar *filename,
 		    /* try to load the model via the more generic G3DStream interface */
 		    stream = g3d_stream_open_file(basename, "rb");
 		    if(stream) {
+			    model->stream = stream;
 			    retval = plugin->loadmodelstream_func(context, stream, model,
 				    plugin->user_data);
 			    g3d_stream_close(stream);
