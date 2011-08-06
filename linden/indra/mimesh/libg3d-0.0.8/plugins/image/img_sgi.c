@@ -30,6 +30,7 @@
 #define SGI_STORAGE_VERBATIM  0
 #define SGI_STORAGE_RLE       1
 
+EAPI
 gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 	G3DImage *image, gpointer user_data)
 {
@@ -166,12 +167,14 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
 	return g_strdup(
 		"Plugin to read SGI RGB (.rgb) images\n");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("rgb:rgba:sgi", ":", 0);

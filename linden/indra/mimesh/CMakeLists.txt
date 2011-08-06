@@ -98,5 +98,9 @@ set(g3d_plugin_jpeg_link_LIBRARIES
     )
 add_mimesh_library(g3d_plugin_jpeg SHARED libg3d-0.0.8/plugins/image img_jpeg.c)
 
+add_mimesh_library(g3d_plugin_bmp SHARED libg3d-0.0.8/plugins/image img_bmp.c)
+add_mimesh_library(g3d_plugin_dds SHARED libg3d-0.0.8/plugins/image img_dds.c)
+add_mimesh_library(g3d_plugin_sgi SHARED libg3d-0.0.8/plugins/image img_sgi.c)
+
 install(FILES libg3d-0.0.8/libg3d.magic DESTINATION lib/libg3d)
 

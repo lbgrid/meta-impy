@@ -27,6 +27,7 @@
 #include <g3d/types.h>
 #include <g3d/stream.h>
 
+EAPI
 gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 	G3DImage *image, gpointer user_data)
 {
@@ -113,6 +114,7 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
 	return g_strdup(
@@ -121,6 +123,7 @@ gchar *plugin_description(G3DContext *context)
 		"Author: Markus Dahms");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("bmp", ":", 0);
