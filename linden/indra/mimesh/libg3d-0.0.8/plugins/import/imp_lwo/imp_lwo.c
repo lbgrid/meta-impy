@@ -50,12 +50,14 @@
 
 static void lwo_fix_texfaces(G3DModel *model);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
 	LwoObject *obj;
 	G3DMaterial *material;
-	guint32 id, len;
+	guint32 id;
+	gsize len;
 	G3DIffGlobal *global;
 	G3DIffLocal *local;
 
@@ -114,6 +116,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
 	return g_strdup(
@@ -121,6 +124,7 @@ gchar *plugin_description(G3DContext *context)
 		"Author: Markus Dahms\n");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("lwo:lwb:lw", ":", 0);
