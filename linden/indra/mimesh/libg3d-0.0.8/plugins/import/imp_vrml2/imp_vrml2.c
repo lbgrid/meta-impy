@@ -35,6 +35,7 @@
 #include "imp_vrml2.h"
 #include "imp_vrml_read.h"
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -66,12 +67,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return retval;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for VRML v2 files\n");
+	return g_strdup("VRML v2 files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("wrl", ":", 0);

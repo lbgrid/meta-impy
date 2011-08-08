@@ -34,6 +34,7 @@
 static gboolean tdm_read_container(TdmGlobal *global, gpointer object,
 	goffset nb, guint32 level);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -70,12 +71,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return retval;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for OpenNURBS 3dm files\n");
+	return g_strdup("OpenNURBS files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("3dm", ":", 0);

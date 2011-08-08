@@ -26,6 +26,7 @@
 #include "imp_ta_3do.h"
 #include "imp_ta_3do_palette.h"
 
+EAPI
 gpointer plugin_init(G3DContext *context)
 {
 	G3DMaterial *materials;
@@ -47,12 +48,14 @@ gpointer plugin_init(G3DContext *context)
 	return materials;
 }
 
+EAPI
 void plugin_cleanup(gpointer user_data)
 {
 	/* (G3DMaterials *) */
 	g_free(user_data);
 }
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -60,12 +63,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		(G3DMaterial *)user_data);
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"import plugin for Total Annihilation unit files\n");
+	return g_strdup("Total Annihilation unit files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("3do", ":", 0);

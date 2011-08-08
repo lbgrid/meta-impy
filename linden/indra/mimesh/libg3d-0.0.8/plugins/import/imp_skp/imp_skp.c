@@ -37,6 +37,7 @@ static gchar *skp_find_section(G3DStream *stream, guint32 max_nlen,
 	guint32 max_version, guint32 *version);
 static SkpChunkDesc *skp_get_chunk_desc(gchar *cname);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -112,12 +113,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for SketchUp .skp files\n");
+	return g_strdup("SketchUp.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("skp", ":", 0);

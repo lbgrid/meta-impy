@@ -44,6 +44,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 	G3DModel *model, gchar *line, struct ac3d_transform *transform,
 	guint32 flags, GSList **objectlist, gint32 *rowcnt, guint32 level);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -131,11 +132,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("import plugin for AC3D models\n");
+	return g_strdup("AC3D models.");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("ac:acc", ":", 0);

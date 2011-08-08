@@ -36,6 +36,7 @@
 static gboolean cob_read_file_bin(G3DStream *stream, G3DModel *model,
 	gboolean is_be, G3DContext *context);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -77,11 +78,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup("import plugin for Caligari TrueSpace objects\n");
+	return g_strdup("Caligari TrueSpace objects.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("cob", ":", 0);

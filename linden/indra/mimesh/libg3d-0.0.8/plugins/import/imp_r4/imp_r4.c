@@ -30,6 +30,7 @@
 
 #include "imp_r4_chunks.h"
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -61,12 +62,14 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
 	return g_strdup(
-		"import plugin for Reflections R4\n");
+		"Reflections R4.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("r4:r3:mon", ":", 0);

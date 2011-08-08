@@ -83,8 +83,34 @@ set(g3d_link_LIBRARIES
     )
 add_mimesh_library(g3d STATIC libg3d-0.0.8/src)
 add_mimesh_library(mimesh STATIC ".")
+
+add_mimesh_library(g3d_plugin_3dm SHARED libg3d-0.0.8/plugins/import/imp_3dm)
+add_mimesh_library(g3d_plugin_3dmf SHARED libg3d-0.0.8/plugins/import/imp_3dmf)
+add_mimesh_library(g3d_plugin_acf SHARED libg3d-0.0.8/plugins/import/imp_acf)
+add_mimesh_library(g3d_plugin_blend SHARED libg3d-0.0.8/plugins/import/imp_blend)
+add_mimesh_library(g3d_plugin_c4d SHARED libg3d-0.0.8/plugins/import/imp_c4d)
+add_mimesh_library(g3d_plugin_cob SHARED libg3d-0.0.8/plugins/import/imp_cob)
 add_mimesh_library(g3d_plugin_dae SHARED libg3d-0.0.8/plugins/import/imp_dae)
+add_mimesh_library(g3d_plugin_dxf SHARED libg3d-0.0.8/plugins/import/imp_dxf)
+#add_mimesh_library(g3d_plugin_heightfield SHARED libg3d-0.0.8/plugins/import/imp_heightfield)
+add_mimesh_library(g3d_plugin_iob SHARED libg3d-0.0.8/plugins/import/imp_iob)
 add_mimesh_library(g3d_plugin_kmz SHARED libg3d-0.0.8/plugins/import/imp_kmz)
+#add_mimesh_library(g3d_plugin_ldraw SHARED libg3d-0.0.8/plugins/import/imp_ldraw)
+#add_mimesh_library(g3d_plugin_leocad SHARED libg3d-0.0.8/plugins/import/imp_leocad)
+add_mimesh_library(g3d_plugin_max SHARED libg3d-0.0.8/plugins/import/imp_max)
+add_mimesh_library(g3d_plugin_maya SHARED libg3d-0.0.8/plugins/import/imp_maya)
+add_mimesh_library(g3d_plugin_nff SHARED libg3d-0.0.8/plugins/import/imp_nff)
+add_mimesh_library(g3d_plugin_obj SHARED libg3d-0.0.8/plugins/import/imp_obj)
+add_mimesh_library(g3d_plugin_osm SHARED libg3d-0.0.8/plugins/import/imp_osm)
+add_mimesh_library(g3d_plugin_q3o SHARED libg3d-0.0.8/plugins/import/imp_q3o)
+add_mimesh_library(g3d_plugin_r4 SHARED libg3d-0.0.8/plugins/import/imp_r4)
+add_mimesh_library(g3d_plugin_rbh SHARED libg3d-0.0.8/plugins/import/imp_rbh)
+add_mimesh_library(g3d_plugin_skp SHARED libg3d-0.0.8/plugins/import/imp_skp)
+add_mimesh_library(g3d_plugin_stl SHARED libg3d-0.0.8/plugins/import/imp_stl)
+add_mimesh_library(g3d_plugin_ta SHARED libg3d-0.0.8/plugins/import/imp_ta)
+#add_mimesh_library(g3d_plugin_vrml SHARED libg3d-0.0.8/plugins/import/imp_vrml)
+add_mimesh_library(g3d_plugin_vrml2 SHARED libg3d-0.0.8/plugins/import/imp_vrml2)
+
 
 set(g3d_plugin_gdkpixbuf_link_LIBRARIES
     ${LIBGTK_LIBRARIES}
@@ -103,4 +129,15 @@ add_mimesh_library(g3d_plugin_dds SHARED libg3d-0.0.8/plugins/image img_dds.c)
 add_mimesh_library(g3d_plugin_sgi SHARED libg3d-0.0.8/plugins/image img_sgi.c)
 
 install(FILES libg3d-0.0.8/libg3d.magic DESTINATION lib/libg3d)
+
+# Should be able to add -
+#   3dm, 3dmf, acf, blend, c4d, cob, dxf, iob, max, maya, nff, obj, osm, q3o, r4, rbh, skp, stl, ta, vrml2
+# NOT -
+#   heightfield	- too buggy to use.
+#   ldraw	- needs a ldraw parts library installed.
+#   leocad	- needs a leocad parts library installed.
+#   test	- no point, it's for testing.  lol
+#   vrml	- failed to load ./lib/libg3d/libg3d_plugin_vrml.so: ./lib/libg3d/libg3d_plugin_vrml.so: undefined symbol: yywrap
+#
+# All the rest need the texture cache stuff to work.
 

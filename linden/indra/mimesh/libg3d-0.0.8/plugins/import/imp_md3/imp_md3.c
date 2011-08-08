@@ -44,6 +44,7 @@ gboolean md3_read_tag(G3DStream *stream, G3DContext *context, G3DModel *model);
 gboolean md3_read_mesh(G3DStream *stream, G3DContext *context, G3DModel *model);
 
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -89,11 +90,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("Quake 3 model loading plugin\n");
+	return g_strdup("Quake 3 models.");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("md3:mdc", ":", 0);

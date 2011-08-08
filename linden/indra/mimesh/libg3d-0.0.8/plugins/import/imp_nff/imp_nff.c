@@ -44,6 +44,7 @@
 
 static gboolean nff_readline(G3DStream *stream, gchar *line, guint32 maxlen);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer plugin_data)
 {
@@ -137,12 +138,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"Neutral File Format import plugin\n");
+	return g_strdup("Neutral File Format.");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("nff", ":", 0);

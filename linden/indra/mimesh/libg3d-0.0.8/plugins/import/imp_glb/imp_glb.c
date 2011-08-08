@@ -34,17 +34,20 @@
 static G3DObject *glb_load_object(G3DContext *context, G3DStream *stream,
 	G3DModel *model);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
 	return (glb_load_object(context, stream, model) != NULL);
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("import plugin for UltimateStunts GLB models\n");
+	return g_strdup("UltimateStunts models.");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("glb", ":", 0);

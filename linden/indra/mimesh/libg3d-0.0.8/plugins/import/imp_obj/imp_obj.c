@@ -48,6 +48,7 @@ static G3DObject *obj_get_offset(GSList *group_list, guint32 *voffp,
 	guint32 index, G3DObject *defobj);
 #endif
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -232,12 +233,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for Maya .obj files\n");
+	return g_strdup("Maya .obj files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("obj", ":", 0);

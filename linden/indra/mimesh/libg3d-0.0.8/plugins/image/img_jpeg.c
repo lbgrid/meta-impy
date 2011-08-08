@@ -85,7 +85,7 @@ static void jpeg_stream_src(struct jpeg_decompress_struct *cinfo, G3DStream *str
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-    return g_strdup("Plugin to read JPEG images.\n");
+    return g_strdup("JPEG images.");
 }
 
 EAPI

@@ -44,6 +44,7 @@ void joe_object_flip_x(G3DObject *object);
 /* plugin interface                                                          */
 /*****************************************************************************/
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer plugin_data)
 {
@@ -124,12 +125,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return rval;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for VDrift .joe files\n");
+	return g_strdup("VDrift files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("joe:car", ":", 0);

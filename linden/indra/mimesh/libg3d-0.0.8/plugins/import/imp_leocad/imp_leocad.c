@@ -38,6 +38,7 @@
 static int leocad_load_lcd(G3DStream *stream, G3DModel *model,
 	LeoCadLibrary *library, G3DContext *context);
 
+EAPI
 gpointer plugin_init(G3DContext *context)
 {
 	LeoCadLibrary *library;
@@ -60,6 +61,7 @@ gpointer plugin_init(G3DContext *context)
 	return library;
 }
 
+EAPI
 void plugin_cleanup(gpointer user_data)
 {
 	LeoCadLibrary *library;
@@ -74,6 +76,7 @@ void plugin_cleanup(gpointer user_data)
 		leocad_library_free(library);
 }
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -92,12 +95,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return leocad_load_lcd(stream, model, library, context);
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"Import plugin for LeoCAD files\n");
+	return g_strdup("LeoCAD files.");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("lcd", ":", 0);

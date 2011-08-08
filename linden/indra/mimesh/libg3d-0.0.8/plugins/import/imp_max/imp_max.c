@@ -81,6 +81,7 @@ typedef struct {
 	G3DObject *object;
 } MaxTreeItem;
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model)
 {
@@ -111,11 +112,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return retval;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup("import plugin for 3D Studio MAX files (EXPERIMENTAL)\n");
+	return g_strdup("3D Studio MAX files (EXPERIMENTAL).");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("max:gmax", ":", 0);

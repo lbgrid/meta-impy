@@ -29,6 +29,7 @@
 #include <g3d/material.h>
 #include <g3d/primitive.h>
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -99,13 +100,14 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"plugin to generate height fields from images\n"
-		"Author: Markus Dahms\n");
+	return g_strdup("Generate height fields from images.\n"
+		"Author: Markus Dahms");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g3d_plugins_get_image_extensions(context);

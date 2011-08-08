@@ -42,6 +42,7 @@ static G3DObject *ar_load_subfile(G3DContext *context, G3DModel *model,
 /*****************************************************************************/
 /* plugin interface                                                          */
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer plugin_data)
 {
@@ -109,12 +110,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for Racer .ar files\n");
+	return g_strdup("Racer files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("ar:dof", ":", 0);

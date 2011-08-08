@@ -43,6 +43,7 @@ static gboolean q3o_read_texture(G3DStream *stream, G3DModel *model,
 static gboolean q3o_read_scene(G3DStream *stream, G3DContext *context);
 static gboolean q3o_read_eof(G3DStream *stream);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -118,11 +119,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup("import plugin for Quick3D objects\n");
+	return g_strdup("Quick3D objects.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("q3o:q3s", ":", 0);

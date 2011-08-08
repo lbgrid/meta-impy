@@ -36,6 +36,7 @@
 
 static void dxf_cleanup(DxfGlobalData *global);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -94,12 +95,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for AutoCAD DXF files\n");
+	return g_strdup("AutoCAD files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("dxf", ":", 0);

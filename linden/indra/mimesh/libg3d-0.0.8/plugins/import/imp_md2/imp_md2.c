@@ -36,6 +36,7 @@
 static const char *textureExtensions[] = {
 	".pcx", ".bmp", ".jpg", ".tga", ".png", NULL };
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -277,12 +278,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"import plugin for ID Software's Quake II models\n");
+	return g_strdup("ID Software's Quake II models.");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("md2", ":", 0);

@@ -43,6 +43,7 @@ static gboolean stl_load_binary(G3DContext *context, G3DModel *model,
 static gboolean stl_load_text(G3DContext *context, G3DModel *model,
 	G3DStream *stream);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -69,13 +70,14 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		return stl_load_text(context, model, stream);
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"Import plugin .stl files\n"
-		"Author: Oliver Dippel\n");
+	return g_strdup("STLA and STLB stereolithography files.\n"
+		"Author: Oliver Dippel");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("stl:stla:stlb", ":", 0);

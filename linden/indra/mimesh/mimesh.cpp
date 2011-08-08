@@ -26,9 +26,10 @@
 #include "llface.h"
 #include "llvovolume.h"
 #include "pipeline.h"
-#include "glib.h"	// Foc G_BEGIN_DECLS
+#include "glib.h"	// For G_BEGIN_DECLS
 #include "gl.h"
 #include "mimesh.h"
+#include "g3d/plugins.h"
 
 void cmdline_printchat(std::string message);
 
@@ -37,7 +38,31 @@ G3DContext* mimesh::context;
 
 void mimesh::startup(void)
 {
+    GSList *item;
+   
     context = g3d_context_new();
+
+    // Print the details.
+    for (item = context->plugins; item != NULL; item = item->next)
+    {
+	G3DPlugin *plugin = (G3DPlugin *) item->data;
+	gchar **pext = plugin->extensions;
+	std::string message;
+
+	if (plugin->type == G3D_PLUGIN_IMPORT)
+	    message = "Model";
+	else
+	    message = "Image";
+	message += " loader " + std::string(plugin->name) + " - " + std::string(plugin->desc_func(context)) + "\n  For file extensions : ";
+
+	while(*pext)
+	{
+	    message += std::string(*pext) + " ";
+	    pext ++;
+	}
+	LL_WARNS("startup") << message << LL_ENDL;
+	cmdline_printchat(message);
+    }
 }
 
 void mimesh::load(LLViewerObject* object, std::string URL)

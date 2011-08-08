@@ -36,6 +36,7 @@ static gboolean test_texture_uv(G3DContext *context, G3DModel *model);
 /*****************************************************************************/
 
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -54,13 +55,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return FALSE;
 }
 
+EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"Test plugin\n"
-		);
+	return g_strdup("Test plugin.");
 }
 
+EAPI
 gchar **plugin_extensions(G3DContext *context)
 {
 	return g_strsplit("test", ":", 0);

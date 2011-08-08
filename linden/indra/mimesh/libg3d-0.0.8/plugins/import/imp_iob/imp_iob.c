@@ -35,6 +35,7 @@
 
 #include "imp_iob_chunks.h"
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -71,12 +72,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 char *plugin_description(void)
 {
-	return g_strdup(
-		"import plugin for Impulse Turbo Silver / Imagine objects\n");
+	return g_strdup("Impulse Turbo Silver / Imagine objects.");
 }
 
+EAPI
 char **plugin_extensions(void)
 {
 	return g_strsplit("iob", ":", 0);

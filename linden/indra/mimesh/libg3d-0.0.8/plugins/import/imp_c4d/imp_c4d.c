@@ -31,6 +31,7 @@ static gboolean c4d_load_v5(G3DContext *context, G3DStream *stream,
 static gboolean c4d_load_v6(G3DContext *context, G3DStream *stream,
 	G3DModel *model);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -56,12 +57,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for Cinema4D files\n");
+	return g_strdup("Cinema4D files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("c4d", ":", 0);

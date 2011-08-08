@@ -37,11 +37,13 @@ static gboolean ldraw_load_simple(G3DStream *stream, G3DModel *model,
 	LDrawLibrary *lib);
 
 
+EAPI
 gpointer plugin_init(G3DContext *context)
 {
 	return ldraw_library_init();
 }
 
+EAPI
 void plugin_cleanup(gpointer user_data)
 {
 	LDrawLibrary *lib = user_data;
@@ -49,6 +51,7 @@ void plugin_cleanup(gpointer user_data)
 	ldraw_library_cleanup(lib);
 }
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -70,12 +73,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for LDraw files\n");
+	return g_strdup("LDraw files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("ldr:mpd:dat", ":", 0);

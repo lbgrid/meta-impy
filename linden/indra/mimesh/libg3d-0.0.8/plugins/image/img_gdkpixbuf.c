@@ -90,7 +90,7 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("Plugin to read images using the GdkPixbuf library");
+	return g_strdup("Read most image formats using the GdkPixbuf library.");
 }
 
 EAPI

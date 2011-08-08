@@ -30,6 +30,7 @@
 
 #include "imp_rbh_chunks.h"
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
     G3DModel *model, gpointer user_data)
 {
@@ -73,12 +74,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-    return g_strdup(
-        "import plugin for Discworld Noir models\n");
+    return g_strdup("Discworld Noir models.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
     return g_strsplit("rbh", ":", 0);

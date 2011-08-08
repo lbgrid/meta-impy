@@ -117,9 +117,7 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"Plugin to read Windows Bitmap (.bmp) images\n"
-		"(for use as textures or height fields)\n"
+	return g_strdup("Windows Bitmap images.\n"
 		"Author: Markus Dahms");
 }
 

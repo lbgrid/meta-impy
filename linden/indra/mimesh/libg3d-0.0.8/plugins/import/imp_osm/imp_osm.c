@@ -62,6 +62,7 @@ static void osm_add_node(G3DObject *object, OSMNodeTransList *translist,
 static void osm_add_way(G3DObject *object, OSMNodeTransList *translist,
 	xmlNodePtr node, GHashTable *materials);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model)
 {
@@ -136,11 +137,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 char *plugin_description(void)
 {
-	return g_strdup("import plugin for OpenStreetMap files\n");
+	return g_strdup("OpenStreetMap files.");
 }
 
+EAPI
 char **plugin_extensions(void)
 {
 	return g_strsplit("osm", ":", 0);

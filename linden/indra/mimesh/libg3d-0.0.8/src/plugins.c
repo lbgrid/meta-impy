@@ -76,20 +76,17 @@ static gboolean plugins_loaddirectory(G3DContext *context,
 //		if(g_strcasecmp(filename + strlen(filename) - 3, ".la") == 0) {
 		if(g_strcasecmp(filename + strlen(filename) - 3, ".so") == 0) {
 #endif
-			g_warning("libg3d: plugins: loading %s",
-				filename);
 			plugin = g_new0(G3DPlugin, 1);
 
 			plugin->name = g_strdup(filename);
 			plugin->path = g_strdup(dirname);
 
-			path = g_strdup_printf("%s%c%s", dirname, G_DIR_SEPARATOR,
-				filename);
+			path = g_strdup_printf("%s%c%s", dirname, G_DIR_SEPARATOR, filename);
 
+			g_warning("libg3d: plugins: loading %s", path);
 			plugin->module = g_module_open(path, 0);
 			if(plugin->module == NULL) {
-				g_warning("libg3d: plugins: failed to load %s: %s",
-					path, g_module_error());
+				g_warning("libg3d: plugins: failed to load %s: %s", path, g_module_error());
 
 				plugins_free_plugin(plugin);
 			} else {
@@ -111,12 +108,6 @@ static gboolean plugins_loaddirectory(G3DContext *context,
 				/* append plugin to list */
 				context->plugins = g_slist_append(context->plugins, plugin);
 
-				if(plugin->desc_func)
-				{
-				    g_warning("libg3d: plugins: loaded %s : %s",
-					filename, plugin->desc_func(context));
-				}
-
 				/* handle managed extensions */
 				if(plugin->ext_func) {
 					ext = exts = plugin->ext_func(context);
@@ -127,8 +118,6 @@ static gboolean plugins_loaddirectory(G3DContext *context,
 						else if(plugin->type == G3D_PLUGIN_IMPORT)
 							g_hash_table_insert(context->exts_import,
 								*ext, plugin);
-
-						g_warning(" %s", *ext);
 
 						ext ++;
 					}

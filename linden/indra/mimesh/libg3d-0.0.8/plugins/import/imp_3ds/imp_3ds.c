@@ -37,6 +37,7 @@
 /* plugin interface                                                          */
 /*****************************************************************************/
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer plugin_data)
 {
@@ -79,12 +80,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return retval;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for AutoCAD 3D Studio files\n");
+	return g_strdup("AutoCAD 3D Studio files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("3ds:prj", ":", 0);

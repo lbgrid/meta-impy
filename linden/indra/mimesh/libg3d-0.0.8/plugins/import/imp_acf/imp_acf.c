@@ -40,11 +40,13 @@
 static gboolean acf_load_body(AcfGlobalData *global);
 static gboolean acf_load_wings(AcfGlobalData *global);
 
+EAPI
 gpointer plugin_init(G3DContext *context)
 {
 	return acf_airfoil_init();
 }
 
+EAPI
 void plugin_cleanup(gpointer user_data)
 {
 	AcfAirfoilDb *db = user_data;
@@ -53,6 +55,7 @@ void plugin_cleanup(gpointer user_data)
 		acf_airfoil_cleanup(db);
 }
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -110,12 +113,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup(
-		"Import plugin for XPlane .acf files\n");
+	return g_strdup("XPlane files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("acf", ":", 0);

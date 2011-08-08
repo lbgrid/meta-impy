@@ -170,8 +170,7 @@ gboolean plugin_load_image_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup(
-		"Plugin to read SGI RGB (.rgb) images\n");
+	return g_strdup("SGI RGB images.");
 }
 
 EAPI

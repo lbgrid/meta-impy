@@ -37,6 +37,7 @@
 
 #define MAX_LINE_SIZE     2048
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -104,11 +105,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup("import plugin for VRML 1.x & SGI inventor files\n");
+	return g_strdup("VRML 1.x & SGI inventor files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("vrml:iv", ":", 0);

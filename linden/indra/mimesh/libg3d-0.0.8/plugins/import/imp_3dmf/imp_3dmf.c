@@ -58,6 +58,7 @@ static gboolean x3dmf_read_container(G3DStream *stream, guint32 length,
 static X3dmfToc *x3dmf_read_toc(G3DStream *stream, X3dmfToc *prev_toc,
 	G3DContext *context);
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
@@ -105,11 +106,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup("import plugin for 3D Metafiles\n");
+	return g_strdup("3D Metafiles.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("b3d:3mf:3dmf", ":", 0);

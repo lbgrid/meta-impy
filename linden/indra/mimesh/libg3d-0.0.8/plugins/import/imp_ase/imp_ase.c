@@ -33,6 +33,7 @@
 #include <g3d/model.h>
 #include <g3d/matrix.h>
 
+EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model)
 {
@@ -242,11 +243,13 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	return TRUE;
 }
 
+EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup("import plugin for ASCII Scene Exporter (ASE) files\n");
+	return g_strdup("ASCII Scene Exporter files.");
 }
 
+EAPI
 gchar **plugin_extensions(void)
 {
 	return g_strsplit("ase", ":", 0);
