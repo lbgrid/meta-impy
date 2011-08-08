@@ -4,9 +4,12 @@ project(llmath)
 
 include(00-Common)
 include(LLCommon)
+include(mimesh)
+include(UI)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
+    ${MIMESH_INCLUDE_DIRS}
     )
 
 set(llmath_SOURCE_FILES

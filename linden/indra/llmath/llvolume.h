@@ -55,6 +55,8 @@ class LLVolume;
 #include "llmemory.h"
 #include "llfile.h"
 
+#include "g3d/g3d.h"
+
 //============================================================================
 
 const S32 MIN_DETAIL_FACES = 6;
@@ -186,8 +188,10 @@ const U8 LL_SCULPT_TYPE_SPHERE    = 1;
 const U8 LL_SCULPT_TYPE_TORUS     = 2;
 const U8 LL_SCULPT_TYPE_PLANE     = 3;
 const U8 LL_SCULPT_TYPE_CYLINDER  = 4;
+const U8 LL_SCULPT_TYPE_MESH      = 5;  // Reserved for LL style meshes.
+const U8 LL_SCULPT_TYPE_MIMESH    = 6;  // onefang style meshes.
 
-const U8 LL_SCULPT_TYPE_MASK      = LL_SCULPT_TYPE_SPHERE | LL_SCULPT_TYPE_TORUS | LL_SCULPT_TYPE_PLANE | LL_SCULPT_TYPE_CYLINDER;
+const U8 LL_SCULPT_TYPE_MASK      = LL_SCULPT_TYPE_SPHERE | LL_SCULPT_TYPE_TORUS | LL_SCULPT_TYPE_PLANE | LL_SCULPT_TYPE_CYLINDER | LL_SCULPT_TYPE_MESH | LL_SCULPT_TYPE_MIMESH;
 
 const U8 LL_SCULPT_FLAG_INVERT    = 64;
 const U8 LL_SCULPT_FLAG_MIRROR    = 128;
@@ -853,6 +857,7 @@ private:
 class LLVolume : public LLRefCount
 {
 	friend class LLVolumeLODGroup;
+	friend class mimesh;
 
 private:
 	LLVolume(const LLVolume&);  // Don't implement
@@ -949,6 +954,7 @@ public:
 	LLVector3			mLODScaleBias;		// vector for biasing LOD based on scale
 	
 	void sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, S32 sculpt_level);
+	void sculptPostGenerate(S32 sculpt_level);
 
 	F32 sculptGetSurfaceArea();
 
@@ -975,6 +981,9 @@ protected:
 	BOOL mGenerateSingleFace;
 	typedef std::vector<LLVolumeFace> face_list_t;
 	face_list_t mVolumeFaces;
+public:
+	G3DModel	*mimeshModel;
+	BOOL		mimeshNeedData;
 };
 
 std::ostream& operator<<(std::ostream &s, const LLVolumeParams &volume_params);

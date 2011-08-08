@@ -31,9 +31,10 @@ class mimesh
 public:
     static void startup(void);
     static void load(LLViewerObject *object, std::string URL);
-//    static void getData(LLVolume* volume);
+    static void getData(LLVolume *volume);
     static void render(LLViewerObject *object);
     static void unload(LLViewerObject* object);
+    static void unload(LLVolume* volume);
     static void shutdown(void);
 
 private:

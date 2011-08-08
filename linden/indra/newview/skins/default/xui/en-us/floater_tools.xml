@@ -985,6 +985,12 @@
 				<combo_item name="Cylinder" value="Cylinder">
 					Cylinder
 				</combo_item>
+				<combo_item name="LL mesh" value="LL mesh">
+					LL mesh
+				</combo_item>
+				<combo_item name="Web mesh" value="Web mesh">
+					Web mesh
+				</combo_item>
 			</combo_box>
 		</panel>
 

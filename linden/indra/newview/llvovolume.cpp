@@ -63,6 +63,7 @@
 #include "llworld.h"
 #include "llselectmgr.h"
 #include "pipeline.h"
+#include "mimesh.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"
@@ -664,6 +665,7 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &volume_params, const S32 detail
 {
 	// Check if we need to change implementations
 	bool is_flexible = (volume_params.getPathParams().getCurveType() == LL_PCODE_PATH_FLEXIBLE);
+	U8 sculpt_type = volume_params.getSculptType();
 	if (is_flexible)
 	{
 		setParameterEntryInUse(LLNetworkData::PARAMS_FLEXIBLE, TRUE, false);
@@ -688,30 +690,44 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &volume_params, const S32 detail
 			}
 		}
 	}
-	
+
 	if ((LLPrimitive::setVolume(volume_params, mLOD, (mVolumeImpl && mVolumeImpl->isVolumeUnique()))) || mSculptChanged)
 	{
+		LLVolume *volume = getVolume();
 		mFaceMappingChanged = TRUE;
 		
 		if (mVolumeImpl)
 		{
 			mVolumeImpl->onSetVolume(volume_params, detail);
 		}
-		
+
+		mSculptSurfaceArea = 0.0;
+		if (LL_SCULPT_TYPE_MIMESH == (sculpt_type & LL_SCULPT_TYPE_MASK))
+		{
+			if ((mimeshModel) && (NULL == volume->mimeshModel))
+			{
+				volume->mimeshNeedData = TRUE;
+				volume->mimeshModel = mimeshModel;
+				mimeshModel = NULL;
+			}
+		}
 		updateSculptTexture();
 		if (isSculpted())
 		{
-			if (mSculptTexture.notNull())
+			if (LL_SCULPT_TYPE_MIMESH == (sculpt_type & LL_SCULPT_TYPE_MASK))
+			{
+				if (volume->mimeshNeedData)
+				{
+					mimesh::getData(volume);
+					volume->sculptPostGenerate(-2);
+				}
+			}
+			else if (mSculptTexture.notNull())
 			{
 				sculpt();
 				mSculptSurfaceArea = getVolume()->sculptGetSurfaceArea();
 			}
 		}
-		else
-		{
-			mSculptSurfaceArea = 0.0;
-		}
-
 		return TRUE;
 	}
 	return FALSE;

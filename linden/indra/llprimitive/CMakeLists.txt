@@ -7,12 +7,15 @@ include(LLCommon)
 include(LLMath)
 include(LLMessage)
 include(LLXML)
+include(mimesh)
+include(UI)
 
 include_directories(
     ${LLCOMMON_INCLUDE_DIRS}
     ${LLMATH_INCLUDE_DIRS}
     ${LLMESSAGE_INCLUDE_DIRS}
     ${LLXML_INCLUDE_DIRS}
+    ${G3D_INCLUDE_DIRS}
     )
 
 set(llprimitive_SOURCE_FILES

@@ -47,6 +47,8 @@
 #include "llvolume.h"
 #include "llstl.h"
 
+#include "mimesh.h"
+
 #define DEBUG_SILHOUETTE_BINORMALS 0
 #define DEBUG_SILHOUETTE_NORMALS 0 // TomY: Use this to display normals using the silhouette
 #define DEBUG_SILHOUETTE_EDGE_MAP 0 // DaveP: Use this to display edge map using the silhouette
@@ -1672,6 +1674,8 @@ LLVolume::LLVolume(const LLVolumeParams &params, const F32 detail, const BOOL ge
 	mFaceMask = 0x0;
 	mDetail = detail;
 	mSculptLevel = -2;
+	mimeshModel = NULL;
+	mimeshNeedData = FALSE;
 	
 	// set defaults
 	if (mParams.getPathParams().getCurveType() == LL_PCODE_PATH_FLEXIBLE)
@@ -1712,6 +1716,8 @@ void LLVolume::genBinormals(S32 face)
 
 LLVolume::~LLVolume()
 {
+	if (mimeshModel)
+	    mimesh::unload(this);
 	sNumMeshPoints -= mMesh.size();
 	delete mPathp;
 
@@ -2194,7 +2200,7 @@ void sculpt_calc_mesh_resolution(U16 width, U16 height, U8 type, F32 detail, S32
 // sculpt replaces generate() for sculpted surfaces
 void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, S32 sculpt_level)
 {
-	LLMemType m1(LLMemType::MTYPE_VOLUME);
+//	LLMemType m1(LLMemType::MTYPE_VOLUME);	// What's this for?
     U8 sculpt_type = mParams.getSculptType();
 
 	BOOL data_is_empty = FALSE;
@@ -2248,8 +2254,11 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 		sculptGeneratePlaceholder();
 	}
 
+	sculptPostGenerate(sculpt_level);
+}
 
-	
+void LLVolume::sculptPostGenerate(S32 sculpt_level)
+{	
 	for (S32 i = 0; i < (S32)mProfilep->mFaces.size(); i++)
 	{
 		mFaceMask |= mProfilep->mFaces[i].mFaceID;
@@ -2262,9 +2271,7 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 	
 	createVolumeFaces();
 }
-
-
-
+ 
 
 BOOL LLVolume::isCap(S32 face)
 {
@@ -2586,6 +2593,7 @@ bool LLVolumeParams::setSculptID(const LLUUID sculpt_id, U8 sculpt_type)
 {
 	mSculptID = sculpt_id;
 	mSculptType = sculpt_type;
+
 	return true;
 }
 
