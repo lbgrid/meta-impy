@@ -84,21 +84,38 @@ set(g3d_link_LIBRARIES
 add_mimesh_library(g3d STATIC libg3d-0.0.8/src)
 add_mimesh_library(mimesh STATIC ".")
 
+#   3ds		- Still using g3d_texture_load, which I removed.
+#   heightfield	- too buggy to use.
+#   ldraw	- needs a ldraw parts library installed.
+#   leocad	- needs a leocad parts library installed.
+#   test	- no point, it's for testing.  lol
+#   vrml	- failed to load ./lib/libg3d/libg3d_plugin_vrml.so: ./lib/libg3d/libg3d_plugin_vrml.so: undefined symbol: yywrap
 add_mimesh_library(g3d_plugin_3dm SHARED libg3d-0.0.8/plugins/import/imp_3dm)
 add_mimesh_library(g3d_plugin_3dmf SHARED libg3d-0.0.8/plugins/import/imp_3dmf)
+#add_mimesh_library(g3d_plugin_3ds SHARED libg3d-0.0.8/plugins/import/imp_3ds)
+add_mimesh_library(g3d_plugin_ac3d SHARED libg3d-0.0.8/plugins/import/imp_ac3d)
 add_mimesh_library(g3d_plugin_acf SHARED libg3d-0.0.8/plugins/import/imp_acf)
+add_mimesh_library(g3d_plugin_ar SHARED libg3d-0.0.8/plugins/import/imp_ar)
+add_mimesh_library(g3d_plugin_ase SHARED libg3d-0.0.8/plugins/import/imp_ase)
 add_mimesh_library(g3d_plugin_blend SHARED libg3d-0.0.8/plugins/import/imp_blend)
 add_mimesh_library(g3d_plugin_c4d SHARED libg3d-0.0.8/plugins/import/imp_c4d)
 add_mimesh_library(g3d_plugin_cob SHARED libg3d-0.0.8/plugins/import/imp_cob)
 add_mimesh_library(g3d_plugin_dae SHARED libg3d-0.0.8/plugins/import/imp_dae)
+add_mimesh_library(g3d_plugin_dpm SHARED libg3d-0.0.8/plugins/import/imp_dpm)
 add_mimesh_library(g3d_plugin_dxf SHARED libg3d-0.0.8/plugins/import/imp_dxf)
+add_mimesh_library(g3d_plugin_flt SHARED libg3d-0.0.8/plugins/import/imp_flt)
+add_mimesh_library(g3d_plugin_glb SHARED libg3d-0.0.8/plugins/import/imp_glb)
 #add_mimesh_library(g3d_plugin_heightfield SHARED libg3d-0.0.8/plugins/import/imp_heightfield)
 add_mimesh_library(g3d_plugin_iob SHARED libg3d-0.0.8/plugins/import/imp_iob)
+add_mimesh_library(g3d_plugin_joe SHARED libg3d-0.0.8/plugins/import/imp_joe)
 add_mimesh_library(g3d_plugin_kmz SHARED libg3d-0.0.8/plugins/import/imp_kmz)
-#add_mimesh_library(g3d_plugin_ldraw SHARED libg3d-0.0.8/plugins/import/imp_ldraw)
-#add_mimesh_library(g3d_plugin_leocad SHARED libg3d-0.0.8/plugins/import/imp_leocad)
+add_mimesh_library(g3d_plugin_ldraw SHARED libg3d-0.0.8/plugins/import/imp_ldraw)
+add_mimesh_library(g3d_plugin_leocad SHARED libg3d-0.0.8/plugins/import/imp_leocad)
+add_mimesh_library(g3d_plugin_lwo SHARED libg3d-0.0.8/plugins/import/imp_lwo)
 add_mimesh_library(g3d_plugin_max SHARED libg3d-0.0.8/plugins/import/imp_max)
 add_mimesh_library(g3d_plugin_maya SHARED libg3d-0.0.8/plugins/import/imp_maya)
+add_mimesh_library(g3d_plugin_md2 SHARED libg3d-0.0.8/plugins/import/imp_md2)
+add_mimesh_library(g3d_plugin_md3 SHARED libg3d-0.0.8/plugins/import/imp_md3)
 add_mimesh_library(g3d_plugin_nff SHARED libg3d-0.0.8/plugins/import/imp_nff)
 add_mimesh_library(g3d_plugin_obj SHARED libg3d-0.0.8/plugins/import/imp_obj)
 add_mimesh_library(g3d_plugin_osm SHARED libg3d-0.0.8/plugins/import/imp_osm)
@@ -108,6 +125,7 @@ add_mimesh_library(g3d_plugin_rbh SHARED libg3d-0.0.8/plugins/import/imp_rbh)
 add_mimesh_library(g3d_plugin_skp SHARED libg3d-0.0.8/plugins/import/imp_skp)
 add_mimesh_library(g3d_plugin_stl SHARED libg3d-0.0.8/plugins/import/imp_stl)
 add_mimesh_library(g3d_plugin_ta SHARED libg3d-0.0.8/plugins/import/imp_ta)
+#add_mimesh_library(g3d_plugin_test SHARED libg3d-0.0.8/plugins/import/imp_test)
 #add_mimesh_library(g3d_plugin_vrml SHARED libg3d-0.0.8/plugins/import/imp_vrml)
 add_mimesh_library(g3d_plugin_vrml2 SHARED libg3d-0.0.8/plugins/import/imp_vrml2)
 
@@ -130,14 +148,4 @@ add_mimesh_library(g3d_plugin_sgi SHARED libg3d-0.0.8/plugins/image img_sgi.c)
 
 install(FILES libg3d-0.0.8/libg3d.magic DESTINATION lib/libg3d)
 
-# Should be able to add -
-#   3dm, 3dmf, acf, blend, c4d, cob, dxf, iob, max, maya, nff, obj, osm, q3o, r4, rbh, skp, stl, ta, vrml2
-# NOT -
-#   heightfield	- too buggy to use.
-#   ldraw	- needs a ldraw parts library installed.
-#   leocad	- needs a leocad parts library installed.
-#   test	- no point, it's for testing.  lol
-#   vrml	- failed to load ./lib/libg3d/libg3d_plugin_vrml.so: ./lib/libg3d/libg3d_plugin_vrml.so: undefined symbol: yywrap
-#
-# All the rest need the texture cache stuff to work.
 
