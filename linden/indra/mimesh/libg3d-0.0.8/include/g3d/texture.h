@@ -39,19 +39,6 @@ extern "C" {
  */
 
 /**
- * g3d_texture_load:
- * @context: a valid context
- * @filename: the file name of the texture
- *
- * Load a texture from a file. The type of file is determined by the file
- * extension.
- *
- * Returns: the texture image or NULL in case of an error.
- */
-EAPI
-G3DImage *g3d_texture_load(G3DContext *context, const gchar *filename);
-
-/**
  * g3d_texture_load_from_stream:
  * @context: a valid context
  * @model: a valid model or NULL
