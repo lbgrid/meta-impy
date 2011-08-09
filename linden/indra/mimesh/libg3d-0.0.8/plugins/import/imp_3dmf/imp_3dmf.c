@@ -62,7 +62,8 @@ EAPI
 gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DModel *model, gpointer user_data)
 {
-	guint32 id, len, flags, tocloc, pos;
+	guint32 id, flags, tocloc, pos;
+	gsize len;
 	guint16 ver_min, ver_maj;
 	gchar txthead[10];
 	X3dmfToc *toc = NULL;
@@ -405,7 +406,8 @@ static gboolean x3dmf_read_rfrn(G3DStream *stream, G3DModel *model,
 	X3dmfToc *toc, G3DContext *context)
 {
 	G3DObject *object;
-	guint32 id, len, i, refid, savedoffset;
+	guint32 id, i, refid, savedoffset;
+	gsize len;
 	X3dmfTocEntry *tocentry = NULL;
 
 	refid = g3d_stream_read_int32_be(stream);
@@ -451,7 +453,8 @@ static gboolean x3dmf_read_container(G3DStream *stream, guint32 length,
 {
 	G3DMaterial *material = NULL;
 	X3dmfChunkDesc *chunkdesc;
-	guint32 len, id, chk, i;
+	guint32 id, chk, i;
+	gsize len;
 	gfloat matrix[16];
 
 	g3d_matrix_identity(matrix);
@@ -546,7 +549,7 @@ static gboolean x3dmf_read_container(G3DStream *stream, guint32 length,
 				g3d_object_transform(object, matrix);
 				if(chk != len) {
 					g_warning("3DMF: mesh: wrong length (%u != %u)\n",
-						chk, len);
+						chk, (unsigned int) len);
 					return FALSE;
 				}
 				break;

@@ -587,7 +587,7 @@ gboolean maya_cb_STR_(G3DIffGlobal *global, G3DIffLocal *local)
 
 	g_debug("\\%s[Maya][STR ] %s = '%.*s' (%d characters)",
 		padding + (strlen(padding) - local->level),
-		var, 40, buffer, strlen(buffer));
+		var, 40, buffer, (int) strlen(buffer));
 
 	if(local->object)
 		maya_var_set((MayaObject *)local->object, var, g_strdup(buffer));
