@@ -339,7 +339,11 @@ static void gl_draw_objects(gint32 glflags, GSList *objects,
 
 		if(object->transformation)
 		{
+#if G3D_FLOAT_IS_DOUBLE
+			glMultMatrixd(object->transformation->matrix);
+#else
 			glMultMatrixf(object->transformation->matrix);
+#endif
 		}
 
 		glBegin(GL_TRIANGLES);
@@ -386,7 +390,11 @@ void gl_draw_model_with_flags(gint32 glflags, G3DModel *model)
 void gl_draw(gint32 glflags, G3DFloat zoom, G3DFloat aspect, G3DFloat *bgcolor,
 	G3DFloat *quat, G3DModel *model)
 {
+#if G3D_FLOAT_IS_DOUBLE
+	GLdouble m[4][4];
+#else
 	GLfloat m[4][4];
+#endif
 	static gchar *previous_name = NULL;
 	static gint32 previous_glflags = -1;
 	static gint32 dlist = -1;
@@ -421,7 +429,11 @@ void gl_draw(gint32 glflags, G3DFloat zoom, G3DFloat aspect, G3DFloat *bgcolor,
 	glLoadIdentity();
 	glTranslatef(0, 0, -30);
 	build_rotmatrix(m, quat);
+#if G3D_FLOAT_IS_DOUBLE
+	glMultMatrixd(&m[0][0]);
+#else
 	glMultMatrixf(&m[0][0]);
+#endif
 
 	/* reset texture */
 	glBindTexture (GL_TEXTURE_2D, 0);

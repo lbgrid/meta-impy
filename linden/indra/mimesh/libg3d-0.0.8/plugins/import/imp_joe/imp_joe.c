@@ -374,7 +374,7 @@ void joe_destroy_car(GHashTable *hashtable)
 
 gboolean joe_parse_vertex(const gchar *text, G3DFloat *x, G3DFloat *y, G3DFloat *z)
 {
-	return (sscanf(text, "%f, %f, %f", x, y, z) == 3);
+	return (sscanf(text, G3D_SCANF_FLOAT ", " G3D_SCANF_FLOAT ", " G3D_SCANF_FLOAT, x, y, z) == 3);
 }
 
 void joe_object_flip_x(G3DObject *object)

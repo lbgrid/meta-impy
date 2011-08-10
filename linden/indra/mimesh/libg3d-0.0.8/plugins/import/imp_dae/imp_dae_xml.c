@@ -209,7 +209,7 @@ gboolean dae_xml_next_int(xmlNodePtr node, gchar **nextp, gint *i)
 	return TRUE;
 }
 
-gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, G3DFloat *f)
+gboolean dae_xml_next_double(xmlNodePtr node, gchar **nextp, GLdouble *d)
 {
 	gchar *s, *err = NULL;
 
@@ -222,7 +222,7 @@ gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, G3DFloat *f)
 	while(isspace(*s))
 		s ++;
 
-	*f = strtod(s, &err);
+	*d = strtod(s, &err);
 	if(s == err) {
 		g_debug("DAE: imp_xml_next_float: error at '%.*s...'", 5, s);
 		return FALSE;
@@ -231,3 +231,27 @@ gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, G3DFloat *f)
 	*nextp = err;
 	return TRUE;
 }
+
+gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, GLfloat *f)
+{
+	gchar *s, *err = NULL;
+
+	s = *nextp;
+
+	if(s == NULL)
+		s = (gchar *)node->children->content;
+
+	/* skip leading whitespace */
+	while(isspace(*s))
+		s ++;
+
+	*f = strtof(s, &err);
+	if(s == err) {
+		g_debug("DAE: imp_xml_next_float: error at '%.*s...'", 5, s);
+		return FALSE;
+	}
+
+	*nextp = err;
+	return TRUE;
+}
+

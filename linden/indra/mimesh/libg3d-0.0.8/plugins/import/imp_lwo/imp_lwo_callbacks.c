@@ -348,7 +348,7 @@ gboolean lwo_cb_PTAG(G3DIffGlobal *global, G3DIffLocal *local)
 gboolean lwo_cb_SPEC(G3DIffGlobal *global, G3DIffLocal *local)
 {
 	G3DMaterial *material;
-	G3DFloat tmpf;
+	GLfloat tmpf;
 
 	material = (G3DMaterial *)local->object;
 	g_return_val_if_fail(material != NULL, FALSE);
@@ -360,7 +360,7 @@ gboolean lwo_cb_SPEC(G3DIffGlobal *global, G3DIffLocal *local)
 	}
 	else
 	{
-		tmpf = 1.0 - (G3DFloat)g3d_stream_read_int16_be(global->stream) / 256.0;
+		tmpf = 1.0 - (GLfloat)g3d_stream_read_int16_be(global->stream) / 256.0;
 		local->nb -= 2;
 	}
 

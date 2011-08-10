@@ -40,6 +40,8 @@
  * Written by Gavin Bell for Silicon Graphics, November 1988.
  */
 
+#include <g3d/types.h>
+
 /*
  * Pass the x and y coordinates of the last and current positions of
  * the mouse, scaled so they are from (-1.0 ... 1.0).
@@ -48,7 +50,7 @@
  * first paramater.
  */
 void
-trackball(float q[4], float p1x, float p1y, float p2x, float p2y);
+trackball(G3DFloat q[4], G3DFloat p1x, G3DFloat p1y, G3DFloat p2x, G3DFloat p2y);
 
 /*
  * Given two quaternions, add them together to get a third quaternion.
@@ -59,14 +61,14 @@ trackball(float q[4], float p1x, float p1y, float p2x, float p2y);
  * over-written with the resulting new total rotation).
  */
 void
-add_quats(float *q1, float *q2, float *dest);
+add_quats(G3DFloat *q1, G3DFloat *q2, G3DFloat *dest);
 
 /*
  * A useful function, builds a rotation matrix in Matrix based on
  * given quaternion.
  */
 void
-build_rotmatrix(float m[4][4], float q[4]);
+build_rotmatrix(G3DFloat m[4][4], G3DFloat q[4]);
 
 /*
  * This function computes a quaternion based on an axis (defined by
@@ -74,5 +76,5 @@ build_rotmatrix(float m[4][4], float q[4]);
  * expressed in radians.  The result is put into the third argument.
  */
 void
-axis_to_quat(float a[3], float phi, float q[4]);
+axis_to_quat(G3DFloat a[3], G3DFloat phi, G3DFloat q[4]);
 

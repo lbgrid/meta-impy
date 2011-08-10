@@ -69,9 +69,9 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	while(nff_readline(stream, line, 1024)) {
 		if(strcmp(line, "v") == 0) {
 			section = NFF_SEC_VIEWPOINT;
-		} else if(sscanf(line, "b %g %g %g", &r, &g, &b) == 3) {
+		} else if(sscanf(line, "b " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &r, &g, &b) == 3) {
 			g3d_context_set_bgcolor(context, r, g, b, 1.0);
-		} else if(sscanf(line, "f %g %g %g %g %g %g %g %g",
+		} else if(sscanf(line, "f " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT,
 			&r, &g, &b, &Kd, &Ks, &Sh, &T, &refr) == 8) {
 			material = g3d_material_new();
 			material->r = r;
@@ -113,7 +113,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 					return FALSE;
 				}
 				if((section == NFF_SEC_POLPATCH) &&
-					 (sscanf(line, "%g %g %g %g %g %g",
+					 (sscanf(line,  G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT,
 						&v1,&v2,&v3,
 						&n1,&n2,&n3) == 6)) {
 					index = object->vertex_count - num + i;
@@ -124,7 +124,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 					face->normals[i*3+0] = -n1;
 					face->normals[i*3+1] = -n2;
 					face->normals[i*3+2] = -n3;
-				} else if(sscanf(line, "%g %g %g", &v1,&v2,&v3) == 3) {
+				} else if(sscanf(line,  G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &v1,&v2,&v3) == 3) {
 					index = object->vertex_count - num + i;
 					object->vertex_data[index*3+0] = v1;
 					object->vertex_data[index*3+1] = v2;

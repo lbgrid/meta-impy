@@ -23,6 +23,7 @@
 #ifndef __G3D_TYPES_H__
 #define __G3D_TYPES_H__
 
+#include <GL/gl.h>
 
 #include <glib.h>
 
@@ -99,11 +100,13 @@ typedef gint64 goffset;
  * A flag indicating type of #G3DFloat. It is TRUE if #G3DFloat is double and
  * FALSE if #G3DFloat is single precision.
  */
-#if 0
+#if 1
 #define G3D_FLOAT_IS_DOUBLE TRUE
+#define G3D_SCANF_FLOAT "%lf"
 typedef gdouble G3DFloat;
 #else
 #define G3D_FLOAT_IS_DOUBLE FALSE
+#define G3D_SCANF_FLOAT "%f"
 typedef gfloat G3DFloat;
 #endif
 /**
@@ -225,8 +228,8 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	G3DFloat r, g, b, a;
-	G3DFloat shininess;
-	G3DFloat specular[4];
+	GLfloat shininess;
+	GLfloat specular[4];
 	guint32 flags;
 
 	G3DImage *tex_image;

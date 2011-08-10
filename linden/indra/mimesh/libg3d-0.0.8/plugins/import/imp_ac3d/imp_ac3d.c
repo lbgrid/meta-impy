@@ -89,12 +89,12 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 			material = g3d_material_new();
 			if(sscanf(buffer,
 				"MATERIAL %s "
-				"rgb %f %f %f "
-				"amb %f %f %f "
-				"emis %f %f %f "
+				"rgb " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+				"amb " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+				"emis " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
 				"spec %f %f %f "
 				"shi %u "
-				"trans %f",
+				"trans " G3D_SCANF_FLOAT,
 				namebuf,
 				&(material->r), &(material->g), &(material->b),
 				&tf1, &tf2, &tf3,
@@ -248,7 +248,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 		}
 		else if(strncmp(buffer, "loc", 3) == 0)
 		{
-			if(sscanf(buffer, "loc %f %f %f", &locx, &locy, &locz) != 3)
+			if(sscanf(buffer, "loc " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &locx, &locy, &locz) != 3)
 			{
 				g_warning("AC3D: error reading loc line (%s)", buffer);
 				locx = locy = locz = 0.0;
@@ -274,7 +274,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 					if(g3d_stream_read_line(stream, buffer, 2048))
 					{
 						*rowcnt += 1;
-						if(sscanf(buffer, "%f %f %f",
+						if(sscanf(buffer, G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT,
 							&(object->vertex_data[i * 3 + 0]),
 							&(object->vertex_data[i * 3 + 1]),
 							&(object->vertex_data[i * 3 + 2])) != 3)
@@ -337,7 +337,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 								return 0;
 							*rowcnt += 1;
 
-							if(sscanf(buffer, "%u %f %f",
+							if(sscanf(buffer, "%u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT,
 								&(face->vertex_indices[i]),
 								&(face->tex_vertex_data[i * 2 + 0]),
 								&(face->tex_vertex_data[i * 2 + 1])) != 3)
@@ -391,11 +391,11 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 							{
 								/* TODO: error handling */
 								g3d_stream_read_line(stream, buffer, 2048);
-								sscanf(buffer, "%u %f %f", &i1, &u1, &v1);
+								sscanf(buffer, "%u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &i1, &u1, &v1);
 								g3d_stream_read_line(stream, buffer, 2048);
-								sscanf(buffer, "%u %f %f", &i2, &u2, &v2);
+								sscanf(buffer, "%u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &i2, &u2, &v2);
 								g3d_stream_read_line(stream, buffer, 2048);
-								sscanf(buffer, "%u %f %f", &i3, &u3, &v3);
+								sscanf(buffer, "%u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &i3, &u3, &v3);
 
 								*rowcnt += 3;
 								i += 3;
@@ -412,7 +412,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 
 								g3d_stream_read_line(stream, buffer, 2048);
 								*rowcnt += 1;
-								sscanf(buffer, "%u %f %f", &i3, &u3, &v3);
+								sscanf(buffer, "%u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &i3, &u3, &v3);
 
 								i ++;
 							}
@@ -475,7 +475,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 		}
 		else if(strncmp(buffer, "texrep", 6) == 0)
 		{
-			if(sscanf(buffer, "texrep %f %f", &texrepu, &texrepv) != 2)
+			if(sscanf(buffer, "texrep " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &texrepu, &texrepv) != 2)
 			{
 				g_warning("error reading texrep line (%s)", buffer);
 				texrepu = 1.0;
@@ -487,14 +487,14 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 		}
 		else if(strncmp(buffer, "texoff", 6) == 0)
 		{
-			if(sscanf(buffer, "texoff %f %f", &texoffu, &texoffv) != 2)
+			if(sscanf(buffer, "texoff " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &texoffu, &texoffv) != 2)
 			{
 				g_warning("error reading texoff line (%s)", buffer);
 			}
 		}
 		else if(strncmp(buffer, "crease", 6) == 0)
 		{
-			if(sscanf(buffer, "crease %f", &crease) != 1)
+			if(sscanf(buffer, "crease " G3D_SCANF_FLOAT, &crease) != 1)
 			{
 				g_warning("AC3D: error reading crease line (%i): %s",
 					*rowcnt, buffer);

@@ -143,7 +143,7 @@ static AcfAirfoil *acf_airfoil_read(const gchar *path)
 		g_strstrip(buffer);
 		if(strlen(buffer) == 0)
 			continue;
-		if(sscanf(buffer, "%f %f", &x, &y) == 2) {
+		if(sscanf(buffer, G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &x, &y) == 2) {
 			if((x < 0.0) || (x > 1.0))
 				continue;
 			off = afl->vertex_count;

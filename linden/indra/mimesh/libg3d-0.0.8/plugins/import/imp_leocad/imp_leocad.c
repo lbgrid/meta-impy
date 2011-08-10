@@ -418,7 +418,7 @@ static gboolean leocad_load_lcd(G3DStream *stream, G3DModel *model,
 	LeoCadLibrary *library, G3DContext *context)
 {
 	gchar magic[32];
-	G3DFloat version;
+	float version;
 	guint32 i, count;
 	G3DFloat r, g, b;
 	G3DMatrix rmatrix[16];

@@ -157,7 +157,11 @@ static gboolean dae_load_source(DaeLibrary *lib, gchar *id,
 
 	*asrc = g_new0(G3DFloat, *nsrc);
 	for(i = 0; i < *nsrc; i ++)
+#if G3D_FLOAT_IS_DOUBLE
+		if(!dae_xml_next_double(fnode, &next, &((*asrc)[i])))
+#else
 		if(!dae_xml_next_float(fnode, &next, &((*asrc)[i])))
+#endif
 			return FALSE;
 
 	return TRUE;
@@ -217,7 +221,11 @@ gboolean dae_cb_matrix(DaeGlobalData *global, DaeLocalData *local)
 	}
 
 	for(i = 0; i < 16; i ++)
+#if G3D_FLOAT_IS_DOUBLE
+		dae_xml_next_double(local->node, &next, transform->matrix + i);
+#else
 		dae_xml_next_float(local->node, &next, transform->matrix + i);
+#endif
 	g3d_matrix_transpose(transform->matrix);
 #if DEBUG > 3
 	g_debug("DAE: matrix for '%s':", object->name);
@@ -360,10 +368,17 @@ gboolean dae_cb_phong(DaeGlobalData *global, DaeLocalData *local)
 		n2 = dae_xml_get_child_by_tagname(n1, "color");
 		if(n2 != NULL) {
 			next = NULL;
+#if G3D_FLOAT_IS_DOUBLE
+			dae_xml_next_double(n2, &next, &(material->r));
+			dae_xml_next_double(n2, &next, &(material->g));
+			dae_xml_next_double(n2, &next, &(material->b));
+			dae_xml_next_double(n2, &next, &(material->a));
+#else
 			dae_xml_next_float(n2, &next, &(material->r));
 			dae_xml_next_float(n2, &next, &(material->g));
 			dae_xml_next_float(n2, &next, &(material->b));
 			dae_xml_next_float(n2, &next, &(material->a));
+#endif
 		}
 	}
 
@@ -373,6 +388,7 @@ gboolean dae_cb_phong(DaeGlobalData *global, DaeLocalData *local)
 		n2 = dae_xml_get_child_by_tagname(n1, "color");
 		if(n2 != NULL) {
 			next = NULL;
+			// These are floats either way.
 			dae_xml_next_float(n2, &next, &(material->specular[0]));
 			dae_xml_next_float(n2, &next, &(material->specular[1]));
 			dae_xml_next_float(n2, &next, &(material->specular[2]));
@@ -527,10 +543,17 @@ gboolean dae_cb_rotate(DaeGlobalData *global, DaeLocalData *local)
 		object->transformation = transform;
 	}
 
+#if G3D_FLOAT_IS_DOUBLE
+	dae_xml_next_double(local->node, &next, &x);
+	dae_xml_next_double(local->node, &next, &y);
+	dae_xml_next_double(local->node, &next, &z);
+	dae_xml_next_double(local->node, &next, &a);
+#else
 	dae_xml_next_float(local->node, &next, &x);
 	dae_xml_next_float(local->node, &next, &y);
 	dae_xml_next_float(local->node, &next, &z);
 	dae_xml_next_float(local->node, &next, &a);
+#endif
 	g_return_val_if_fail((x != 0.0) || (y != 0.0) || (z != 0.0), FALSE);
 	g3d_matrix_rotate(a, x, y, z, m);
 	g3d_matrix_multiply(transform->matrix, m, transform->matrix);
@@ -558,9 +581,15 @@ gboolean dae_cb_scale(DaeGlobalData *global, DaeLocalData *local)
 		object->transformation = transform;
 	}
 
+#if G3D_FLOAT_IS_DOUBLE
+	dae_xml_next_double(local->node, &next, &x);
+	dae_xml_next_double(local->node, &next, &y);
+	dae_xml_next_double(local->node, &next, &z);
+#else
 	dae_xml_next_float(local->node, &next, &x);
 	dae_xml_next_float(local->node, &next, &y);
 	dae_xml_next_float(local->node, &next, &z);
+#endif
 	g3d_matrix_scale(x, y, z, transform->matrix);
 #if DEBUG > 3
 	g_debug("DAE: scale for '%s': %.2f, %.2f, %.2f", object->name,
@@ -630,9 +659,15 @@ gboolean dae_cb_translate(DaeGlobalData *global, DaeLocalData *local)
 		object->transformation = transform;
 	}
 
+#if G3D_FLOAT_IS_DOUBLE
+	dae_xml_next_double(local->node, &next, &x);
+	dae_xml_next_double(local->node, &next, &y);
+	dae_xml_next_double(local->node, &next, &z);
+#else
 	dae_xml_next_float(local->node, &next, &x);
 	dae_xml_next_float(local->node, &next, &y);
 	dae_xml_next_float(local->node, &next, &z);
+#endif
 	g3d_matrix_translate(x, y, z, transform->matrix);
 #if DEBUG > 3
 	g_debug("DAE: translation for '%s': %.2f, %.2f, %.2f", object->name,
@@ -807,10 +842,16 @@ gboolean dae_cb_vertices__input(DaeGlobalData *global, DaeLocalData *local)
 		g_return_val_if_fail(object->vertex_count != 0, FALSE);
 
 		object->vertex_data = g_new0(G3DFloat, 3 * object->vertex_count);
-		for(i = 0; i < object->vertex_count / 3; i ++) {
-			for(j = 0; j < 3; j ++) {
-				if(!dae_xml_next_float(fanode, &next,
-					&(object->vertex_data[i * 3 + j]))) {
+		for(i = 0; i < object->vertex_count / 3; i ++)
+		{
+			for(j = 0; j < 3; j ++)
+			{
+#if G3D_FLOAT_IS_DOUBLE
+				if(!dae_xml_next_double(fanode, &next, &(object->vertex_data[i * 3 + j])))
+#else
+				if(!dae_xml_next_float(fanode, &next, &(object->vertex_data[i * 3 + j])))
+#endif
+				{
 					skip = TRUE;
 					break;
 				}

@@ -77,7 +77,10 @@ static gboolean ldraw_part_parse_ref(G3DObject *object, gchar *buffer,
 	g3d_matrix_identity(m);
 	memset(fname, 0, 256);
 
-	if(sscanf(buffer, "%u %f %f %f %f %f %f %f %f %f %f %f %f %255s",
+	if(sscanf(buffer, "%u "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " %255s", 
 		&colid, &x, &y, &z,
 		m + 0 * 4 + 0, m + 1 * 4 + 0, m + 2 * 4 + 0,
 		m + 0 * 4 + 1, m + 1 * 4 + 1, m + 2 * 4 + 1,
@@ -120,7 +123,11 @@ static gboolean ldraw_part_parse_tri(G3DObject *object, gchar *buffer,
 	object->vertex_count += 3;
 	object->vertex_data = g_realloc(object->vertex_data,
 		object->vertex_count * 3 * sizeof(G3DFloat));
-	if(sscanf(buffer, "%u %f %f %f %f %f %f %f %f %f", &colid,
+	if(sscanf(buffer, "%u "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, 
+		&colid,
 		object->vertex_data + (off + 0) * 3 + 0,
 		object->vertex_data + (off + 0) * 3 + 1,
 		object->vertex_data + (off + 0) * 3 + 2,
@@ -154,7 +161,11 @@ static gboolean ldraw_part_parse_quad(G3DObject *object, gchar *buffer,
 	object->vertex_count += 4;
 	object->vertex_data = g_realloc(object->vertex_data,
 		object->vertex_count * 3 * sizeof(G3DFloat));
-	if(sscanf(buffer, "%u %f %f %f %f %f %f %f %f %f %f %f %f", &colid,
+	if(sscanf(buffer, "%u "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " "
+		G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, 
+		&colid,
 		object->vertex_data + (off + 0) * 3 + 0,
 		object->vertex_data + (off + 0) * 3 + 1,
 		object->vertex_data + (off + 0) * 3 + 2,

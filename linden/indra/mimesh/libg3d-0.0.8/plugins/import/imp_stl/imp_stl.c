@@ -174,7 +174,7 @@ static gboolean stl_load_text(G3DContext *context, G3DModel *model,
 			object->vertex_count ++;
 			object->vertex_data = g_realloc(object->vertex_data,
 				object->vertex_count * 3 * sizeof(G3DFloat));
-			if(sscanf(line + 7, "%f %f %f", &x, &y, &z) == 3) {
+			if(sscanf(line + 7, G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &x, &y, &z) == 3) {
 				object->vertex_data[(object->vertex_count - 1) * 3 + 0] = x;
 				object->vertex_data[(object->vertex_count - 1) * 3 + 1] = y;
 				object->vertex_data[(object->vertex_count - 1) * 3 + 2] = z;

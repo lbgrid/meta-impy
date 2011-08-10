@@ -123,9 +123,9 @@ gboolean x3ds_cb_0x0011(x3ds_global_data *global, x3ds_parent_data *parent)
 			break;
 
 		case 0xA030: /* specular color */
-			material->specular[0] = (G3DFloat)r / 255.0;
-			material->specular[1] = (G3DFloat)g / 255.0;
-			material->specular[2] = (G3DFloat)b / 255.0;
+			material->specular[0] = (GLfloat)r / 255.0;
+			material->specular[1] = (GLfloat)g / 255.0;
+			material->specular[2] = (GLfloat)b / 255.0;
 			material->specular[3] = 0.25;
 			break;
 

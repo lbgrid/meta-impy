@@ -107,7 +107,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		}
 		else if(strncmp(line, "*MESH_VERTEX ", 13) == 0)
 		{
-			if(sscanf(line, "*MESH_VERTEX %u %f %f %f", &i, &x, &y, &z) == 4)
+			if(sscanf(line, "*MESH_VERTEX %u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &i, &x, &y, &z) == 4)
 			{
 				if(object && (i < object->vertex_count))
 				{
@@ -145,7 +145,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		}
 		else if(strncmp(line, "*MESH_FACENORMAL ", 17) == 0)
 		{
-			if(object && (sscanf(line, "*MESH_FACENORMAL %u %f %f %f",
+			if(object && (sscanf(line, "*MESH_FACENORMAL %u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT,
 				&i, &x, &y, &z) == 4))
 			{
 				face = g_slist_nth_data(object->faces, i);
@@ -165,7 +165,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		else if(strncmp(line, "*MESH_VERTEXNORMAL ", 19) == 0)
 		{
 			if(face && face->normals && (sscanf(line,
-				"*MESH_VERTEXNORMAL %u %f %f %f", &i, &x, &y, &z) == 4))
+				"*MESH_VERTEXNORMAL %u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &i, &x, &y, &z) == 4))
 			{
 				for(j = 0; j < 3; j ++)
 				{
@@ -192,7 +192,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		}
 		else if(strncmp(line, "*MESH_TVERT ", 12) == 0)
 		{
-			if(sscanf(line, "*MESH_TVERT %u %f %f %f", &i, &x, &y, &z) == 4)
+			if(sscanf(line, "*MESH_TVERT %u " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT " " G3D_SCANF_FLOAT, &i, &x, &y, &z) == 4)
 			{
 				if(i < tvertcnt)
 				{
