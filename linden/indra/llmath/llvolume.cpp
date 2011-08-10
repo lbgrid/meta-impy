@@ -2254,11 +2254,6 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 		sculptGeneratePlaceholder();
 	}
 
-	sculptPostGenerate(sculpt_level);
-}
-
-void LLVolume::sculptPostGenerate(S32 sculpt_level)
-{	
 	for (S32 i = 0; i < (S32)mProfilep->mFaces.size(); i++)
 	{
 		mFaceMask |= mProfilep->mFaces[i].mFaceID;

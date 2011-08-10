@@ -719,7 +719,6 @@ BOOL LLVOVolume::setVolume(const LLVolumeParams &volume_params, const S32 detail
 				if (volume->mimeshNeedData)
 				{
 					mimesh::getData(volume);
-					volume->sculptPostGenerate(-2);
 				}
 			}
 			else if (mSculptTexture.notNull())
