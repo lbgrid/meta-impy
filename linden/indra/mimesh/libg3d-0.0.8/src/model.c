@@ -144,12 +144,30 @@ G3DModel *g3d_model_load_full(G3DContext *context, const gchar *filename,
 	G3DModel *model;
 	gdouble max_rad;
 
+	/* create hash table if it does not exist yet */
+	if(context->modelCache == NULL)
+		context->modelCache = g_hash_table_new(g_str_hash, g_str_equal);
+
+	/* if already loaded, return cached model */
+	model = g_hash_table_lookup(context->modelCache, filename);
+	if(model != NULL)
+	{
+		model->refCount++;
+		return model;
+	}
+
 	model = g3d_model_new();
 
 	g3d_context_update_progress_bar(context, 0.0, TRUE);
 
 	if(g3d_plugins_load_model(context, filename, model))
 	{
+		model->refCount = 1;
+		model->context = context;
+		/* save filename */
+		if(model->filename == NULL)
+			model->filename = g_strdup(filename);
+		g_hash_table_insert(context->modelCache, (gpointer) model->filename, model);
 		g3d_context_update_progress_bar(context, 0.0, FALSE);
 
 		/* check model */
@@ -169,10 +187,6 @@ G3DModel *g3d_model_load_full(G3DContext *context, const gchar *filename,
 
 		/* scale and optimize objects */
 		objects_post_load(model->objects, max_rad, flags);
-
-		/* save filename */
-		if(model->filename == NULL)
-			model->filename = g_strdup(filename);
 
 		return model;
 	}
@@ -341,10 +355,15 @@ void g3d_model_clear(G3DModel *model)
 EAPI
 void g3d_model_free(G3DModel *model)
 {
-	g3d_model_clear(model);
-	if(model->filename)
+	model->refCount--;
+	if (0 == model->refCount)
+	{
+	    g_hash_table_remove(model->context->modelCache, model->filename);
+	    g3d_model_clear(model);
+	    if(model->filename)
 		g_free(model->filename);
-	g_free(model);
+	    g_free(model);
+	}
 }
 
 static G3DObject *objects_get_by_name(GSList *objects, const gchar *name)

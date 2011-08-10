@@ -421,6 +421,8 @@ typedef struct {
 	gpointer update_interface_data;
 	G3DUpdateProgressBarFunc update_progress_bar_func;
 	gpointer update_progress_bar_data;
+
+	GHashTable *modelCache;
 } G3DContext;
 
 /*****************************************************************************
@@ -464,6 +466,8 @@ typedef struct {
 	G3DPlugin *plugin;
 	/* The stream used to load the model, may be NULL */
 	G3DStream *stream;
+
+	int refCount;
 } G3DModel;
 
 #ifdef __cplusplus

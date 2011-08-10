@@ -48,6 +48,8 @@ EAPI
 void g3d_context_free(G3DContext *context)
 {
 	g3d_plugins_cleanup(context);
+	if (context->modelCache)
+	    g_hash_table_destroy(context->modelCache);
 #ifdef HAVE_LIBGSF
 	gsf_shutdown();
 #endif
