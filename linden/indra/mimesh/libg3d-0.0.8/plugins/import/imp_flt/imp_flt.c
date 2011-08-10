@@ -42,7 +42,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DObject *g3dobj = NULL;
 	gpointer level_object = NULL;
 	gchar *pad;
-	gfloat prev_pcnt = 0.0, pcnt;
+	G3DFloat prev_pcnt = 0.0, pcnt;
 	G3DMatrix rmatrix[16];
 
 	gd = g_new0(FltGlobalData, 1);
@@ -90,8 +90,8 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		g_free(ld);
 
 		/* update caller */
-		pcnt = (gfloat)g3d_stream_tell(stream) /
-			(gfloat)g3d_stream_size(stream);
+		pcnt = (G3DFloat)g3d_stream_tell(stream) /
+			(G3DFloat)g3d_stream_size(stream);
 		if((pcnt - prev_pcnt) > 0.002) {
 			prev_pcnt = pcnt;
 			g3d_context_update_progress_bar(context, pcnt, TRUE);

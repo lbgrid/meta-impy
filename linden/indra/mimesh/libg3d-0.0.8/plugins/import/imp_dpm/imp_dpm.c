@@ -46,7 +46,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DMaterial *material, *mat;
 	G3DFace *face;
 	GSList *mitem;
-	gfloat *normals;
+	G3DFloat *normals;
 	int i;
 
 	off_start = g3d_stream_tell(stream);
@@ -119,15 +119,15 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		/* read vertex data */
 		g3d_stream_seek(stream, off_start + ofs_verts, G_SEEK_SET);
 		object->vertex_count = nvertex;
-		object->vertex_data = g_new0(gfloat, nvertex * 3);
-		normals = g_new0(gfloat, nvertex * 3);
+		object->vertex_data = g_new0(G3DFloat, nvertex * 3);
+		normals = g_new0(G3DFloat, nvertex * 3);
 		for(j = 0; j < nvertex; j++) {
 
 		}
 
 		/* read texture coords */
 		g3d_stream_seek(stream, off_start + ofs_texcoords, G_SEEK_SET);
-		object->tex_vertex_data = g_new0(gfloat, nvertex * 2);
+		object->tex_vertex_data = g_new0(G3DFloat, nvertex * 2);
 		for(j = 0; j < nvertex; j++) {
 			object->tex_vertex_data[j * 2 + 0] =
 				g3d_stream_read_float_be(stream);

@@ -25,6 +25,7 @@
 #include <locale.h>
 
 #include <glib.h>
+#include <g3d/types.h>
 
 #include "imp_acf_airfoil.h"
 
@@ -123,7 +124,7 @@ static AcfAirfoil *acf_airfoil_read(const gchar *path)
 	FILE *f;
 	gchar buffer[BUFSIZ + 1];
 	guint32 off;
-	gfloat x, y;
+	G3DFloat x, y;
 
 	f = fopen(path, "r");
 	if(f == NULL)
@@ -148,7 +149,7 @@ static AcfAirfoil *acf_airfoil_read(const gchar *path)
 			off = afl->vertex_count;
 			afl->vertex_count ++;
 			afl->vertex_data = g_realloc(afl->vertex_data,
-				afl->vertex_count * 2 * sizeof(gfloat));
+				afl->vertex_count * 2 * sizeof(G3DFloat));
 			afl->vertex_data[off * 2 + 0] = x;
 			afl->vertex_data[off * 2 + 1] = y;
 		} else {

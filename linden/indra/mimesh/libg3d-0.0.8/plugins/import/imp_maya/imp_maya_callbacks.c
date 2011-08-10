@@ -339,7 +339,7 @@ gboolean maya_cb_DMSH(G3DIffGlobal *global, G3DIffLocal *local)
 gboolean maya_cb_FLT3(G3DIffGlobal *global, G3DIffLocal *local)
 {
 	gint32 len, flags;
-	gfloat *val;
+	G3DFloat *val;
 	gchar *var;
 	gchar *padding = "                         ";
 
@@ -351,7 +351,7 @@ gboolean maya_cb_FLT3(G3DIffGlobal *global, G3DIffLocal *local)
 	flags = g3d_stream_read_int8(global->stream);
 	local->nb -= 1;
 
-	val = g_new0(gfloat, 3);
+	val = g_new0(G3DFloat, 3);
 	val[0] = g3d_stream_read_float_be(global->stream);
 	val[1] = g3d_stream_read_float_be(global->stream);
 	val[2] = g3d_stream_read_float_be(global->stream);
@@ -375,7 +375,7 @@ gboolean maya_cb_FLT3(G3DIffGlobal *global, G3DIffLocal *local)
 gboolean maya_cb_MATR(G3DIffGlobal *global, G3DIffLocal *local)
 {
 	gint32 flags, i;
-	gfloat *val;
+	G3DFloat *val;
 	gchar *var;
 	gchar *padding = "                    ";
 
@@ -394,11 +394,11 @@ gboolean maya_cb_MATR(G3DIffGlobal *global, G3DIffLocal *local)
 	flags = g3d_stream_read_int8(global->stream);
 	local->nb -= 1;
 
-	val = g_new0(gfloat, 16);
+	val = g_new0(G3DFloat, 16);
 
 	for(i = 0; i < 16; i ++)
 	{
-		val[i] = (gfloat)g3d_stream_read_double_be(global->stream);
+		val[i] = (G3DFloat)g3d_stream_read_double_be(global->stream);
 		local->nb -= 8;
 	}
 
@@ -444,7 +444,7 @@ gboolean maya_cb_MESH(G3DIffGlobal *global, G3DIffLocal *local)
 	if(x1 == 0x6369)
 	{
 		object->vertex_count = x4 / 3;
-		object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+		object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 
 		for(i = 0; i < object->vertex_count; i ++)
 		{

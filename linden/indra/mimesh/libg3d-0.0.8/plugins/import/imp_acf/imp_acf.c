@@ -194,7 +194,7 @@ static gboolean acf_load_body(AcfGlobalData *global)
 		object = g_new0(G3DObject, 1);
 		object->name = g_strdup_printf("object[%d]", i);
 		object->vertex_count = ACF_VERTS_PER_OBJECT;
-		object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+		object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 		for(j = 0; j < object->vertex_count; j ++) {
 			object->vertex_data[j * 3 + 0] =
 				vbody_x->xflt[i * ACF_VERTS_PER_OBJECT + j] + vxarm->xflt[i];
@@ -237,8 +237,8 @@ static gboolean acf_load_wings(AcfGlobalData *global)
 	G3DMaterial *material;
 	gint32 i;
 	guint32 cnt;
-	gfloat m_dihed[16], m_sweep[16], m_trans[16];
-	gfloat vecrt[3], vectp[3], lf, ls;
+	G3DFloat m_dihed[16], m_sweep[16], m_trans[16];
+	G3DFloat vecrt[3], vectp[3], lf, ls;
 	gchar *title;
 
 	ACF_REQUIRE_PART(vpart_eq, "PARTS_part_eq", XINT);

@@ -31,7 +31,7 @@ typedef struct {
     G3DContext *context;
     G3DModel *model;
     G3DStream *stream;
-    gfloat scale;
+    G3DFloat scale;
 	gint32 max_tex_id;
 } x3ds_global_data;
 

@@ -55,7 +55,7 @@ gboolean ta_3do_read_children(G3DContext *context, G3DStream *stream,
 
 		/* number of vertices */
 		object->vertex_count = g3d_stream_read_int32_le(stream);
-		object->vertex_data = g_new0(gfloat, 3 * object->vertex_count);
+		object->vertex_data = g_new0(G3DFloat, 3 * object->vertex_count);
 
 		/* number of primitives */
 		num_prims = g3d_stream_read_int32_le(stream);

@@ -232,7 +232,7 @@ static void osm_add_street(G3DObject *object, OSMNodeTransList *translist,
 {
 	gint32 i, n;
 	gdouble *vdata;
-	gfloat matrix[16];
+	G3DFloat matrix[16];
 	G3DObject *ostreet = NULL;
 	gchar *name, *mname;
 	G3DMaterial *material = NULL;

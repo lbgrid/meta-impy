@@ -54,7 +54,7 @@ gboolean max_cb_debug_int32(MaxGlobalData *global, MaxLocalData *local)
 {
 	union {
 		gint32 i;
-		gfloat f;
+		G3DFloat f;
 	} u;
 
 	while(local->nb >= 4) {
@@ -183,7 +183,7 @@ gboolean max_cb_0x08FE_0x0100(MaxGlobalData *global, MaxLocalData *local)
 	global->vertex_offset = object->vertex_count;
 	object->vertex_count += num;
 	object->vertex_data = g_realloc(object->vertex_data,
-		object->vertex_count * 3 * sizeof(gfloat));
+		object->vertex_count * 3 * sizeof(G3DFloat));
 
 	for(i = 0; i < num; i ++) {
 		if(local->nb < 16)
@@ -545,7 +545,7 @@ gboolean max_cb_0x08FE_0x0914(MaxGlobalData *global, MaxLocalData *local)
 	global->vertex_offset = object->vertex_count;
 	object->vertex_count += num;
 	object->vertex_data = g_realloc(object->vertex_data,
-		object->vertex_count * 3 * sizeof(gfloat));
+		object->vertex_count * 3 * sizeof(G3DFloat));
 
 	for(i = 0; i < num; i ++) {
 		if(local->nb < 12)

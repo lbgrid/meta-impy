@@ -160,7 +160,7 @@ gboolean dxf_e_3DFACE(DxfGlobalData *global, DxfLocalData *local)
 
 	object->vertex_count += face->vertex_count;
 	object->vertex_data = g_realloc(object->vertex_data,
-		object->vertex_count * 3 * sizeof(gfloat));
+		object->vertex_count * 3 * sizeof(G3DFloat));
 	object->faces = g_slist_prepend(object->faces, face);
 
 	for(i = 0; i < face->vertex_count; i ++) {
@@ -212,7 +212,7 @@ gboolean dxf_e_INSERT(DxfGlobalData *global, DxfLocalData *local)
 	G3DObject *block, *object, *subobject;
 	GSList *item;
 	const gchar *name;
-	gfloat matrix[16];
+	G3DFloat matrix[16];
 
 	name = dxf_prop_get_str(local->eprop, 2, "*** error ***");
 	block = g_hash_table_lookup(global->blocks, name);
@@ -277,7 +277,7 @@ gboolean dxf_e_POLYLINE(DxfGlobalData *global, DxfLocalData *local)
 		object->name = g_strdup_printf("POLYFACE @ line %d",
 			g3d_stream_line(global->stream));
 		object->vertex_count = dxf_prop_get_int(local->eprop, 71, 0);
-		object->vertex_data = g_new0(gfloat, 3 * object->vertex_count);
+		object->vertex_data = g_new0(G3DFloat, 3 * object->vertex_count);
 	} else if(flags & DXF_POLY_3D_POLYMESH) {
 		m = dxf_prop_get_int(local->eprop, 71, 0);
 		n = dxf_prop_get_int(local->eprop, 72, 0);

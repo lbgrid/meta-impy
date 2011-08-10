@@ -225,7 +225,7 @@ void gl_update_material(gint32 glflags, G3DMaterial *material)
 }
 
 static void gl_draw_face(gint32 glflags, G3DObject *object, gint32 i,
-	gfloat min_a, gfloat max_a, gboolean *dont_render, gboolean *init)
+	G3DFloat min_a, G3DFloat max_a, gboolean *dont_render, gboolean *init)
 {
 	static G3DMaterial *prev_material = NULL;
 	static guint32 prev_texid = 0;
@@ -307,7 +307,7 @@ static void gl_draw_face(gint32 glflags, G3DObject *object, gint32 i,
 }
 
 static void gl_draw_objects(gint32 glflags, GSList *objects,
-	gfloat min_a, gfloat max_a)
+	G3DFloat min_a, G3DFloat max_a)
 {
 	GSList *olist;
 	int i;
@@ -362,7 +362,7 @@ static void gl_draw_objects(gint32 glflags, GSList *objects,
 
 void gl_draw_model(G3DModel *model)
 {
-	gfloat f;
+	G3DFloat f;
 	gint32 glflags =
 		/* G3D_FLAG_GL_SPECULAR | */
 		G3D_FLAG_GL_SHININESS |
@@ -376,22 +376,22 @@ void gl_draw_model(G3DModel *model)
 
 void gl_draw_model_with_flags(gint32 glflags, G3DModel *model)
 {
-	gfloat f;
+	G3DFloat f;
 
 	/* draw all objects */
 	for(f = 1.0; f >= 0.0; f -= 0.2)
 		gl_draw_objects(glflags, model->objects, f, f + 0.2);
 }
 
-void gl_draw(gint32 glflags, gfloat zoom, gfloat aspect, gfloat *bgcolor,
-	gfloat *quat, G3DModel *model)
+void gl_draw(gint32 glflags, G3DFloat zoom, G3DFloat aspect, G3DFloat *bgcolor,
+	G3DFloat *quat, G3DModel *model)
 {
 	GLfloat m[4][4];
 	static gchar *previous_name = NULL;
 	static gint32 previous_glflags = -1;
 	static gint32 dlist = -1;
 	GLenum error;
-//	gfloat f;
+//	G3DFloat f;
 
 	if(! _initialized)
 	{

@@ -53,8 +53,8 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DMaterial *material = NULL;
 	G3DFace *face;
 	guint32 section = NFF_SEC_NOSECTION;
-	gfloat r,g,b, Kd, Ks, Sh, T, refr;
-	gfloat v1,v2,v3, n1,n2,n3;
+	G3DFloat r,g,b, Kd, Ks, Sh, T, refr;
+	G3DFloat v1,v2,v3, n1,n2,n3;
 	gint32 i, num, index;
 	gchar name[128];
 
@@ -96,7 +96,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 
 			object->vertex_count += num;
 			object->vertex_data = g_realloc(object->vertex_data,
-				object->vertex_count * 3 * sizeof(gfloat));
+				object->vertex_count * 3 * sizeof(G3DFloat));
 
 			face->material = material;
 			face->vertex_count = num;
@@ -104,7 +104,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 			object->faces = g_slist_prepend(object->faces, face);
 			if(section == NFF_SEC_POLPATCH) {
 				face->flags |= G3D_FLAG_FAC_NORMALS;
-				face->normals = g_malloc0(num * 3 * sizeof(gfloat));
+				face->normals = g_malloc0(num * 3 * sizeof(G3DFloat));
 			}
 			/* most faces are in this direction, but there are wrong models */
 			for(i = num - 1; i >= 0; i --) {

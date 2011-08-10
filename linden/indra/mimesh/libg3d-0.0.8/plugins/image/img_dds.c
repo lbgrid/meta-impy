@@ -108,7 +108,7 @@ gchar **plugin_extensions(G3DContext *context)
 
 /*****************************************************************************/
 
-static void decode_rgb565(guint16 c, gfloat *r, gfloat *g, gfloat *b)
+static void decode_rgb565(guint16 c, G3DFloat *r, G3DFloat *g, G3DFloat *b)
 {
 	*r = ((c & 0xF800) >> 11) / 32.0;
 	*g = ((c & 0x07E0) >> 5)  / 64.0;
@@ -119,7 +119,7 @@ static gboolean decode_dxt1(G3DImage *image, G3DStream *stream)
 {
 	gint32 x, y, i, j;
 	guint32 index;
-	gfloat r, g, b, r1, r2, g1, g2, b1, b2;
+	G3DFloat r, g, b, r1, r2, g1, g2, b1, b2;
 	guint8 line, v2;
 
 	for(y = 0; y < image->height; y += 4) {

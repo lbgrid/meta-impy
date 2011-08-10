@@ -51,7 +51,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DMaterial *material;
 	G3DObject *object;
 	gchar *mname;
-	gfloat x, y, z;
+	G3DFloat x, y, z;
 
 	setlocale(LC_NUMERIC, "C");
 

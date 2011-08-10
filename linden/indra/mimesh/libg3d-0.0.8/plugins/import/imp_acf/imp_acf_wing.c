@@ -28,23 +28,23 @@
 #include "imp_acf_airfoil.h"
 
 G3DObject *acf_wing(G3DMaterial *material, const gchar *name,
-	gfloat *msweep, gfloat *mdihed, gfloat *mtrans,
-	gfloat *vrt, gfloat *vtp,
+	G3DFloat *msweep, G3DFloat *mdihed, G3DFloat *mtrans,
+	G3DFloat *vrt, G3DFloat *vtp,
 	AcfAirfoil *aflrt, AcfAirfoil *afltp,
-	gfloat wrt, gfloat wtp, gfloat lf)
+	G3DFloat wrt, G3DFloat wtp, G3DFloat lf)
 {
 	G3DObject *object;
 	G3DFace *face;
 	guint32 nverts;
 	gint32 i;
-	gfloat vec[3];
+	G3DFloat vec[3];
 
 	nverts = aflrt->vertex_count;
 
 	object = g_new0(G3DObject, 1);
 	object->name = g_strdup(name);
 	object->vertex_count = nverts * 2;
-	object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+	object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 
 	/* vertices */
 	for(i = 0; i < nverts; i ++) {

@@ -70,27 +70,27 @@ gboolean iob_cb_xLSx(G3DIffGlobal *global, G3DIffLocal *local)
 		{
 			case G3D_IFF_MKID('C', 'L', 'S', 'T'):
 			case G3D_IFF_MKID('C', 'L', 'S', '2'):
-				material->r = (gfloat)g3d_stream_read_int8(global->stream) / 255.0;
-				material->g = (gfloat)g3d_stream_read_int8(global->stream) / 255.0;
-				material->b = (gfloat)g3d_stream_read_int8(global->stream) / 255.0;
+				material->r = (G3DFloat)g3d_stream_read_int8(global->stream) / 255.0;
+				material->g = (G3DFloat)g3d_stream_read_int8(global->stream) / 255.0;
+				material->b = (G3DFloat)g3d_stream_read_int8(global->stream) / 255.0;
 				break;
 
 			case G3D_IFF_MKID('R', 'L', 'S', 'T'):
 			case G3D_IFF_MKID('R', 'L', 'S', '2'):
 				material->specular[0] =
-					(gfloat)g3d_stream_read_int8(global->stream) / 255.0;
+					(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0;
 				material->specular[1] =
-					(gfloat)g3d_stream_read_int8(global->stream) / 255.0;
+					(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0;
 				material->specular[2] =
-					(gfloat)g3d_stream_read_int8(global->stream) / 255.0;
+					(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0;
 				break;
 
 			case G3D_IFF_MKID('T', 'L', 'S', 'T'):
 			case G3D_IFF_MKID('T', 'L', 'S', '2'):
 				material->a = 1.0 - (
-					(gfloat)g3d_stream_read_int8(global->stream) / 255.0 +
-					(gfloat)g3d_stream_read_int8(global->stream) / 255.0 +
-					(gfloat)g3d_stream_read_int8(global->stream) / 255.0) / 3.0;
+					(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0 +
+					(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0 +
+					(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0) / 3.0;
 				break;
 		}
 
@@ -290,7 +290,7 @@ gboolean iob_cb_PNTx(G3DIffGlobal *global, G3DIffLocal *local)
 		local->nb -= 4;
 	}
 
-	object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+	object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 
 	for(i = 0; i < object->vertex_count; i ++)
 	{
@@ -318,7 +318,7 @@ gboolean iob_cb_REFL(G3DIffGlobal *global, G3DIffLocal *local)
 	g3d_stream_read_int8(global->stream);
 	for(i = 0; i < 3; i ++)
 		material->specular[i] =
-			(gfloat)g3d_stream_read_int8(global->stream) / 255.0;
+			(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0;
 	local->nb -= 4;
 
 	return TRUE;
@@ -337,9 +337,9 @@ gboolean iob_cb_TRAN(G3DIffGlobal *global, G3DIffLocal *local)
 
 	g3d_stream_read_int8(global->stream);
 	material->a = 1.0 - (
-		(gfloat)g3d_stream_read_int8(global->stream) / 255.0 +
-		(gfloat)g3d_stream_read_int8(global->stream) / 255.0 +
-		(gfloat)g3d_stream_read_int8(global->stream) / 255.0) / 3.0;
+		(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0 +
+		(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0 +
+		(G3DFloat)g3d_stream_read_int8(global->stream) / 255.0) / 3.0;
 	local->nb -= 4;
 
 	return TRUE;

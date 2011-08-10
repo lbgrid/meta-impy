@@ -74,7 +74,7 @@ static gboolean test_primitive_transfrom(G3DModel *model)
 	G3DObject *sphere, *cntr;
 	G3DMaterial *material;
 	G3DTransformation *tf;
-	gfloat matrix[16];
+	G3DFloat matrix[16];
 	/* gint32 i, j; */
 
 	cntr = g_new0(G3DObject, 1);

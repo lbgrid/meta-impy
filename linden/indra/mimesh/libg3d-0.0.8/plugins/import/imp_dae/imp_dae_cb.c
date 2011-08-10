@@ -127,7 +127,7 @@ static void dae_inputs_free(GSList *inputs)
 }
 
 static gboolean dae_load_source(DaeLibrary *lib, gchar *id,
-	gfloat **asrc, guint32 *nsrc)
+	G3DFloat **asrc, guint32 *nsrc)
 {
 	xmlNodePtr snode, fnode;
 	gchar *scnt, *next = NULL;
@@ -155,7 +155,7 @@ static gboolean dae_load_source(DaeLibrary *lib, gchar *id,
 	if(*nsrc == 0)
 		return FALSE;
 
-	*asrc = g_new0(gfloat, *nsrc);
+	*asrc = g_new0(G3DFloat, *nsrc);
 	for(i = 0; i < *nsrc; i ++)
 		if(!dae_xml_next_float(fnode, &next, &((*asrc)[i])))
 			return FALSE;
@@ -394,7 +394,7 @@ gboolean dae_cb_polylist(DaeGlobalData *global, DaeLocalData *local)
 	gint i, j, nv, tmp;
 	GSList *inputs, *item;
 	DaeInput *input;
-	gfloat *normal_data = NULL, *tex_data = NULL;
+	G3DFloat *normal_data = NULL, *tex_data = NULL;
 
 	g_return_val_if_fail(object != NULL, FALSE);
 
@@ -440,12 +440,12 @@ gboolean dae_cb_polylist(DaeGlobalData *global, DaeLocalData *local)
 			object->faces = g_slist_append(object->faces, face);
 
 			if(face->flags & G3D_FLAG_FAC_NORMALS) {
-				face->normals = g_new0(gfloat, nv * 3);
+				face->normals = g_new0(G3DFloat, nv * 3);
 			}
 			if(face->flags & G3D_FLAG_FAC_TEXMAP) {
 				face->tex_image = material->tex_image;
 				face->tex_vertex_count = nv;
-				face->tex_vertex_data = g_new0(gfloat, nv * 2);
+				face->tex_vertex_data = g_new0(G3DFloat, nv * 2);
 			}
 
 			for(j = 0; j < nv; j ++) {
@@ -515,7 +515,7 @@ gboolean dae_cb_rotate(DaeGlobalData *global, DaeLocalData *local)
 {
 	G3DObject *object = local->user_data;
 	G3DTransformation *transform;
-	gfloat x = 0.0, y = 0.0, z = 0.0, a = 0.0, m[16];
+	G3DFloat x = 0.0, y = 0.0, z = 0.0, a = 0.0, m[16];
 	gchar *next = NULL;
 
 	g_return_val_if_fail(object != NULL, FALSE);
@@ -546,7 +546,7 @@ gboolean dae_cb_scale(DaeGlobalData *global, DaeLocalData *local)
 {
 	G3DObject *object = local->user_data;
 	G3DTransformation *transform;
-	gfloat x = 0.0, y = 0.0, z = 0.0;
+	G3DFloat x = 0.0, y = 0.0, z = 0.0;
 	gchar *next = NULL;
 
 	g_return_val_if_fail(object != NULL, FALSE);
@@ -618,7 +618,7 @@ gboolean dae_cb_translate(DaeGlobalData *global, DaeLocalData *local)
 {
 	G3DObject *object = local->user_data;
 	G3DTransformation *transform;
-	gfloat x = 0.0, y = 0.0, z = 0.0;
+	G3DFloat x = 0.0, y = 0.0, z = 0.0;
 	gchar *next = NULL;
 
 	g_return_val_if_fail(object != NULL, FALSE);
@@ -650,7 +650,7 @@ gboolean dae_cb_triangles(DaeGlobalData *global, DaeLocalData *local)
 	xmlNodePtr pnode;
 	gchar *scnt, *smat, *nextp = NULL;
 	guint32 count, normal_count, tex_count, flags = 0;
-	gfloat *normal_data = NULL, *tex_data = NULL;
+	G3DFloat *normal_data = NULL, *tex_data = NULL;
 	gint i, j, tmp;
 	GSList *inputs, *item;
 	DaeInput *input;
@@ -699,12 +699,12 @@ gboolean dae_cb_triangles(DaeGlobalData *global, DaeLocalData *local)
 		object->faces = g_slist_append(object->faces, face);
 
 		if(face->flags & G3D_FLAG_FAC_NORMALS) {
-			face->normals = g_new0(gfloat, 3 * 3);
+			face->normals = g_new0(G3DFloat, 3 * 3);
 		}
 		if(face->flags & G3D_FLAG_FAC_TEXMAP) {
 			face->tex_image = material->tex_image;
 			face->tex_vertex_count = 3;
-			face->tex_vertex_data = g_new0(gfloat, 3 * 2);
+			face->tex_vertex_data = g_new0(G3DFloat, 3 * 2);
 		}
 
 		for(j = 0; j < 3; j ++) {
@@ -806,7 +806,7 @@ gboolean dae_cb_vertices__input(DaeGlobalData *global, DaeLocalData *local)
 		object->vertex_count = atoi(cnt);
 		g_return_val_if_fail(object->vertex_count != 0, FALSE);
 
-		object->vertex_data = g_new0(gfloat, 3 * object->vertex_count);
+		object->vertex_data = g_new0(G3DFloat, 3 * object->vertex_count);
 		for(i = 0; i < object->vertex_count / 3; i ++) {
 			for(j = 0; j < 3; j ++) {
 				if(!dae_xml_next_float(fanode, &next,

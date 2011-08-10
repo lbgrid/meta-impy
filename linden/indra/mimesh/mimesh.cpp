@@ -155,7 +155,7 @@ G3DModel
 
     for(f = 1.0; f >= 0.0; f -= 0.2)
     {
-	gfloat min_a = f, max_a = f + 0.2;
+	G3DFloat min_a = f, max_a = f + 0.2;
 	gl_draw_objects(glflags, model->objects, min_a, max_a);
 
 	    GSList *olist = model->objects;

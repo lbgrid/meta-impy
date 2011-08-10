@@ -134,7 +134,7 @@ gboolean flt_cb_0005(FltGlobalData *gd, FltLocalData *ld)
 	G3DFace *face;
 	gint16 index;
 	guint32 flags;
-	gfloat r, g, b;
+	G3DFloat r, g, b;
 
 	g_return_val_if_fail(object != NULL, FALSE);
 
@@ -153,9 +153,9 @@ gboolean flt_cb_0005(FltGlobalData *gd, FltLocalData *ld)
 		if(gd->vertex_palette) {
 			/* copy vertex palette to object */
 			object->vertex_count = gd->vertex_palette->n_entries;
-			object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+			object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 			memcpy(object->vertex_data, gd->vertex_palette->vertex_data,
-				object->vertex_count * 3 * sizeof(gfloat));
+				object->vertex_count * 3 * sizeof(G3DFloat));
 		}
 	}
 
@@ -243,9 +243,9 @@ gboolean flt_cb_0005(FltGlobalData *gd, FltLocalData *ld)
 		g3d_stream_read_int32_be(gd->stream);
 	else {
 		g3d_stream_read_int8(gd->stream); /* alpha, unused */
-		b = (gfloat)g3d_stream_read_int8(gd->stream) / 255.0;
-		g = (gfloat)g3d_stream_read_int8(gd->stream) / 255.0;
-		r = (gfloat)g3d_stream_read_int8(gd->stream) / 255.0;
+		b = (G3DFloat)g3d_stream_read_int8(gd->stream) / 255.0;
+		g = (G3DFloat)g3d_stream_read_int8(gd->stream) / 255.0;
+		r = (G3DFloat)g3d_stream_read_int8(gd->stream) / 255.0;
 		material = g3d_material_new();
 		material->r = r;
 		material->g = g;
@@ -380,13 +380,13 @@ static gboolean flt_inc_vertex_palette(FltGlobalData *gd)
 		gd->vertex_palette->n_entries * sizeof(guint32));
 	gd->vertex_palette->vertex_data = g_realloc(
 		gd->vertex_palette->vertex_data,
-		gd->vertex_palette->n_entries * 3 * sizeof(gfloat));
+		gd->vertex_palette->n_entries * 3 * sizeof(G3DFloat));
 	gd->vertex_palette->normal_data = g_realloc(
 		gd->vertex_palette->normal_data,
-		gd->vertex_palette->n_entries * 3 * sizeof(gfloat));
+		gd->vertex_palette->n_entries * 3 * sizeof(G3DFloat));
 	gd->vertex_palette->tex_vertex_data = g_realloc(
 		gd->vertex_palette->tex_vertex_data,
-		gd->vertex_palette->n_entries * 2 * sizeof(gfloat));
+		gd->vertex_palette->n_entries * 2 * sizeof(G3DFloat));
 	gd->vertex_palette->vertex_materials = g_realloc(
 		gd->vertex_palette->vertex_materials,
 		gd->vertex_palette->n_entries * sizeof(G3DMaterial *));
@@ -415,7 +415,7 @@ static G3DMaterial *flt_material_by_index(FltGlobalData *gd, guint32 i)
 #define FLOAT_EQUALS(a, b) (fabs((a) - (b)) < 0.001)
 
 static G3DMaterial *flt_find_color(G3DObject *pobj,
-	gfloat r, gfloat g, gfloat b, gfloat a)
+	G3DFloat r, G3DFloat g, G3DFloat b, G3DFloat a)
 {
 	GSList *item;
 	G3DMaterial *material;
@@ -435,7 +435,7 @@ static gboolean flt_handle_vertex_color(FltGlobalData *gd, FltLocalData *ld,
 {
 	G3DObject *vcolobj;
 	G3DMaterial *material;
-	gfloat r, g, b, a;
+	G3DFloat r, g, b, a;
 
 	if(flags & FLT_FLAG_NO_COLOR)
 		return TRUE;
@@ -446,10 +446,10 @@ static gboolean flt_handle_vertex_color(FltGlobalData *gd, FltLocalData *ld,
 		vcolobj->name = g_strdup("vertex colors");
 		gd->model->objects = g_slist_append(gd->model->objects, vcolobj);
 	}
-	a = (gfloat)g3d_stream_read_int8(gd->stream) / 255.0;
-	b = (gfloat)g3d_stream_read_int8(gd->stream) / 255.0;
-	g = (gfloat)g3d_stream_read_int8(gd->stream) / 255.0;
-	r = (gfloat)g3d_stream_read_int8(gd->stream) / 255.0;
+	a = (G3DFloat)g3d_stream_read_int8(gd->stream) / 255.0;
+	b = (G3DFloat)g3d_stream_read_int8(gd->stream) / 255.0;
+	g = (G3DFloat)g3d_stream_read_int8(gd->stream) / 255.0;
+	r = (G3DFloat)g3d_stream_read_int8(gd->stream) / 255.0;
 	ld->nb -= 4;
 
 	if(flags & FLT_FLAG_PACKED_COLOR) {
@@ -699,7 +699,7 @@ gboolean flt_cb_0072(FltGlobalData *gd, FltLocalData *ld)
 		if(gd->vertex_palette->flags[index] & G3D_FLAG_FAC_NORMALS) {
 			/* copy normal data */
 			if(face->normals == NULL) {
-				face->normals = g_new0(gfloat, n * 3);
+				face->normals = g_new0(G3DFloat, n * 3);
 				face->flags |= G3D_FLAG_FAC_NORMALS;
 			}
 			for(j = 0; j < 3; j ++)
@@ -709,7 +709,7 @@ gboolean flt_cb_0072(FltGlobalData *gd, FltLocalData *ld)
 		if(gd->vertex_palette->flags[index] & G3D_FLAG_FAC_TEXMAP) {
 			/* copy texture coordinate data */
 			if(face->tex_vertex_data == NULL) {
-				face->tex_vertex_data = g_new0(gfloat, n * 2);
+				face->tex_vertex_data = g_new0(G3DFloat, n * 2);
 				face->tex_vertex_count = n;
 				if(face->tex_image)
 					face->flags |= G3D_FLAG_FAC_TEXMAP;
@@ -797,9 +797,9 @@ gboolean flt_cb_0085(FltGlobalData *gd, FltLocalData *ld)
 	ld->nb -= 8;
 
 	object->vertex_count = nverts;
-	object->vertex_data = g_new0(gfloat, nverts * 3);
+	object->vertex_data = g_new0(G3DFloat, nverts * 3);
 	object->tex_vertex_count = nverts;
-	object->tex_vertex_data = g_new0(gfloat, nverts * 2);
+	object->tex_vertex_data = g_new0(G3DFloat, nverts * 2);
 
 	for(i = 0; i < nverts; i ++) {
 		if(attrmask & (1 << 31)) { /* has position */
@@ -925,7 +925,7 @@ gboolean flt_cb_0086(FltGlobalData *gd, FltLocalData *ld)
 			face->tex_image = object->tex_image;
 			if(face->tex_image != NULL) {
 				face->tex_vertex_count = nverts;
-				face->tex_vertex_data = g_new0(gfloat, nverts * 2);
+				face->tex_vertex_data = g_new0(G3DFloat, nverts * 2);
 				for(i = 0; i < nverts; i ++) {
 					face->tex_vertex_data[i * 2 + 0] =
 						object->tex_vertex_data[

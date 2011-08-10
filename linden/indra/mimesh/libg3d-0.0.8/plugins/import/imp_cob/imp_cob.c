@@ -161,7 +161,7 @@ static G3DObject *cob_read_polh_bin(G3DStream *stream, guint32 len, gboolean is_
 {
 	G3DObject *object;
 	guint32 nfaces, i;
-	gfloat curpos[16];
+	G3DFloat curpos[16];
 
 	object = g_new0(G3DObject, 1);
 	object->name = cob_read_name_bin(stream, &len, is_be);
@@ -187,7 +187,7 @@ static G3DObject *cob_read_polh_bin(G3DStream *stream, guint32 len, gboolean is_
 	/* vertex list */
 	object->vertex_count = cob_read_e(stream, int32, is_be);
 	len -= 4;
-	object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+	object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 	for(i = 0; i < object->vertex_count; i ++)
 	{
 		object->vertex_data[i*3+0] = cob_read_e(stream, float, is_be);
@@ -205,7 +205,7 @@ static G3DObject *cob_read_polh_bin(G3DStream *stream, guint32 len, gboolean is_
 	/* texture vertex list */
 	object->tex_vertex_count = cob_read_e(stream, int32, is_be);
 	len -= 4;
-	object->tex_vertex_data = g_new0(gfloat, object->tex_vertex_count * 2);
+	object->tex_vertex_data = g_new0(G3DFloat, object->tex_vertex_count * 2);
 	for(i = 0; i < object->tex_vertex_count; i ++)
 	{
 		object->tex_vertex_data[i*2+0] = cob_read_e(stream, float, is_be);

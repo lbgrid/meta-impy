@@ -64,7 +64,7 @@ typedef struct {
 	gsize n_items;
 	VrmlObject **v_object;
 	gchar **v_str;
-	gfloat *v_float;
+	G3DFloat *v_float;
 	gint32 *v_int;
 	gboolean v_boolean;
 	guint32 level;

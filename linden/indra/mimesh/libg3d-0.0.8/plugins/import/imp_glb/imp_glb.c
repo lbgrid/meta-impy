@@ -56,7 +56,7 @@ gchar **plugin_extensions(G3DContext *context)
 /*****************************************************************************/
 /* GLB specific                                                              */
 
-static gfloat glb_get_float(G3DStream *stream)
+static G3DFloat glb_get_float(G3DStream *stream)
 {
 	return 0.001 * (
 		(float)((guint32)g3d_stream_read_int32_be(stream)) - (float)(0x7FFFFFFF));
@@ -71,7 +71,7 @@ static G3DObject *glb_load_object(G3DContext *context, G3DStream *stream,
 	guint32 magic, otype, index;
 	gint32 i, j, msize, namelen, datalen, nvertices, nindices;
 	gchar *name;
-	gfloat *normals = NULL, *texcoords = NULL;
+	G3DFloat *normals = NULL, *texcoords = NULL;
 
 	magic = g3d_stream_read_int32_be(stream);
 	if(magic != G3D_IFF_MKID('\0', 'G', 'L', 'B')) {
@@ -129,10 +129,10 @@ static G3DObject *glb_load_object(G3DContext *context, G3DStream *stream,
 			material->name = g_strdup("default material");
 			object->materials = g_slist_append(object->materials, material);
 
-			material->r = (gfloat)g3d_stream_read_int8(stream) / 255.0;
-			material->g = (gfloat)g3d_stream_read_int8(stream) / 255.0;
-			material->b = (gfloat)g3d_stream_read_int8(stream) / 255.0;
-			material->a = (gfloat)g3d_stream_read_int8(stream) / 255.0;
+			material->r = (G3DFloat)g3d_stream_read_int8(stream) / 255.0;
+			material->g = (G3DFloat)g3d_stream_read_int8(stream) / 255.0;
+			material->b = (G3DFloat)g3d_stream_read_int8(stream) / 255.0;
+			material->a = (G3DFloat)g3d_stream_read_int8(stream) / 255.0;
 
 			if(material->a == 0.0)
 				material->a = 1.0;
@@ -146,7 +146,7 @@ static G3DObject *glb_load_object(G3DContext *context, G3DStream *stream,
 			g3d_stream_read_int8(stream); /* LODs */
 			g3d_stream_read_int8(stream); /* reflectance */
 			/* emissivity */
-			material->shininess = (gfloat)g3d_stream_read_int8(stream) / 255.0;
+			material->shininess = (G3DFloat)g3d_stream_read_int8(stream) / 255.0;
 			g3d_stream_read_int8(stream); /* static friction */
 			g3d_stream_read_int8(stream); /* dynamic friction */
 			g3d_stream_read_int8(stream); /* unused */
@@ -180,9 +180,9 @@ static G3DObject *glb_load_object(G3DContext *context, G3DStream *stream,
 		/* vertices */
 		if(nvertices > 0) {
 			object->vertex_count = nvertices;
-			object->vertex_data = g_new0(gfloat, nvertices * 3);
-			normals = g_new0(gfloat, nvertices * 3);
-			texcoords = g_new0(gfloat, nvertices * 2);
+			object->vertex_data = g_new0(G3DFloat, nvertices * 3);
+			normals = g_new0(G3DFloat, nvertices * 3);
+			texcoords = g_new0(G3DFloat, nvertices * 2);
 
 			for(i = 0; i < nvertices; i ++) {
 				object->vertex_data[i * 3 + 0] = glb_get_float(stream);
@@ -216,7 +216,7 @@ static G3DObject *glb_load_object(G3DContext *context, G3DStream *stream,
 				face = g_new0(G3DFace, 1);
 				face->vertex_count = 3;
 				face->vertex_indices = g_new0(guint32, 3);
-				face->normals = g_new0(gfloat, 3 * 3);
+				face->normals = g_new0(G3DFloat, 3 * 3);
 				face->flags |= G3D_FLAG_FAC_NORMALS;
 				for(j = 0; j < 3; j ++) {
 					face->vertex_indices[j] = g3d_stream_read_int32_be(stream);
@@ -231,7 +231,7 @@ static G3DObject *glb_load_object(G3DContext *context, G3DStream *stream,
 
 				if(face->material->tex_image != NULL) {
 					face->tex_vertex_count = 3;
-					face->tex_vertex_data = g_new0(gfloat, 3 * 2);
+					face->tex_vertex_data = g_new0(G3DFloat, 3 * 2);
 					face->tex_image = face->material->tex_image;
 					for(j = 0; j < 3; j ++) {
 						index = face->vertex_indices[j];

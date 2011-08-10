@@ -176,7 +176,7 @@ G3DObject *ar_dof_load_obj(G3DContext *context, G3DModel *model,
 	G3DMaterial *material;
 	GSList *item;
 	gint32 id, len = 0, dlen, nverts, ntver, nnorm, nind, i, j, index;
-	gfloat *tex_vertices = NULL, *normals = NULL;
+	G3DFloat *tex_vertices = NULL, *normals = NULL;
 
 	id = g3d_stream_read_int32_be(stream);
 	dlen = g3d_stream_read_int32_le(stream);
@@ -236,7 +236,7 @@ G3DObject *ar_dof_load_obj(G3DContext *context, G3DModel *model,
 				dlen -= 4;
 				if(nverts > 0) {
 					object->vertex_count = nverts;
-					object->vertex_data = g_new0(gfloat, nverts * 3);
+					object->vertex_data = g_new0(G3DFloat, nverts * 3);
 					for(i = 0; i < nverts; i ++) {
 						for(j = 0; j < 3; j ++)
 							object->vertex_data[i * 3 + j] =
@@ -249,7 +249,7 @@ G3DObject *ar_dof_load_obj(G3DContext *context, G3DModel *model,
 			case G3D_IFF_MKID('N', 'O','R','M'):
 				/* normals */
 				nnorm = g3d_stream_read_int32_le(stream);
-				normals = g_new0(gfloat, nnorm * 3);
+				normals = g_new0(G3DFloat, nnorm * 3);
 				dlen -= 4;
 				for(i = 0; i < nnorm; i ++) {
 					for(j = 0; j < 3; j ++)
@@ -261,7 +261,7 @@ G3DObject *ar_dof_load_obj(G3DContext *context, G3DModel *model,
 			case G3D_IFF_MKID('T', 'V','E','R'):
 				/* texture vertices */
 				ntver = g3d_stream_read_int32_le(stream);
-				tex_vertices = g_new0(gfloat, ntver * 2);
+				tex_vertices = g_new0(G3DFloat, ntver * 2);
 				dlen -= 4;
 
 #if DEBUG > 2
@@ -342,7 +342,7 @@ G3DObject *ar_dof_load_obj(G3DContext *context, G3DModel *model,
 		if(tex_vertices != NULL) {
 			face->tex_image = material->tex_image;
 			face->tex_vertex_count = 3;
-			face->tex_vertex_data = g_new0(gfloat, 3 * 2);
+			face->tex_vertex_data = g_new0(G3DFloat, 3 * 2);
 			for(j = 0; j < 3; j ++) {
 				index = face->vertex_indices[j];
 				face->tex_vertex_data[j * 2 + 0] = tex_vertices[index * 2 + 0];
@@ -353,7 +353,7 @@ G3DObject *ar_dof_load_obj(G3DContext *context, G3DModel *model,
 		}
 
 		if(normals != NULL) {
-			face->normals = g_new0(gfloat, 3 * 3);
+			face->normals = g_new0(G3DFloat, 3 * 3);
 			for(j = 0; j < 3; j ++) {
 				index = face->vertex_indices[j];
 				face->normals[j * 3 + 0] = normals[index * 3 + 0];

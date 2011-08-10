@@ -324,8 +324,8 @@ static gboolean max_read_chunk(MaxGlobalData *global, gint32 *nb,
 
 	if(level < 3)
 		g3d_context_update_progress_bar(global->context,
-			(gfloat)g3d_stream_tell(global->stream) /
-			(gfloat)g3d_stream_size(global->stream),
+			(G3DFloat)g3d_stream_tell(global->stream) /
+			(G3DFloat)g3d_stream_size(global->stream),
 			TRUE);
 
 	return TRUE;

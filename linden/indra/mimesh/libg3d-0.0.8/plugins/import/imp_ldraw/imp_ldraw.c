@@ -92,7 +92,7 @@ static gboolean ldraw_load_simple(G3DStream *stream, G3DModel *model,
 {
 	LDrawPart *part;
 	G3DObject *object;
-	gfloat m[16];
+	G3DFloat m[16];
 
 	part = g_new0(LDrawPart, 1);
 	part->name = g_path_get_basename(stream->uri);

@@ -56,7 +56,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	gchar *filename;
 	G3DObject *object = NULL;
 	G3DMaterial *material = NULL;
-	gfloat pcnt, prev_pcnt = 0.0;
+	G3DFloat pcnt, prev_pcnt = 0.0;
 	gdouble x,y,z;
 	guint32 num_v, v_off = 1, v_cnt = 0;
 #if OBJ_USE_GROUPING
@@ -131,7 +131,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 					{
 						object->vertex_count ++;
 						object->vertex_data = g_realloc(object->vertex_data,
-							object->vertex_count * 3 * sizeof(gfloat));
+							object->vertex_count * 3 * sizeof(G3DFloat));
 						object->vertex_data[v_cnt * 3 + 0] = x;
 						object->vertex_data[v_cnt * 3 + 1] = y;
 						object->vertex_data[v_cnt * 3 + 2] = z;
@@ -221,8 +221,8 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		}
 
 #if 1
-		pcnt = (gfloat)g3d_stream_tell(stream) /
-			(gfloat)g3d_stream_size(stream);
+		pcnt = (G3DFloat)g3d_stream_tell(stream) /
+			(G3DFloat)g3d_stream_size(stream);
 		if((pcnt - prev_pcnt) > 0.01) {
 			prev_pcnt = pcnt;
 			g3d_context_update_progress_bar(context, pcnt, TRUE);

@@ -198,7 +198,7 @@ static guint32 x3dmf_read_mesh(G3DStream *stream, G3DObject *object,
 	offv = object->vertex_count;
 	object->vertex_count += g3d_stream_read_int32_be(stream);
 	object->vertex_data = g_realloc(object->vertex_data,
-		object->vertex_count * 3 * sizeof(gfloat));
+		object->vertex_count * 3 * sizeof(G3DFloat));
 	nbytes += 4;
 
 	for(i = offv; i < object->vertex_count; i ++) {
@@ -376,7 +376,7 @@ static guint32 x3dmf_read_tmsh(G3DStream *stream, G3DObject *object,
 
 	/* points */
 	object->vertex_count = nverts;
-	object->vertex_data = g_new0(gfloat, 3 * nverts);
+	object->vertex_data = g_new0(G3DFloat, 3 * nverts);
 	for(i = 0; i < nverts; i ++) {
 		object->vertex_data[i * 3 + 0] = g3d_stream_read_float_be(stream);
 		object->vertex_data[i * 3 + 1] = g3d_stream_read_float_be(stream);
@@ -455,7 +455,7 @@ static gboolean x3dmf_read_container(G3DStream *stream, guint32 length,
 	X3dmfChunkDesc *chunkdesc;
 	guint32 id, chk, i;
 	gsize len;
-	gfloat matrix[16];
+	G3DFloat matrix[16];
 
 	g3d_matrix_identity(matrix);
 
@@ -602,8 +602,8 @@ static gboolean x3dmf_read_container(G3DStream *stream, guint32 length,
 			case G3D_IFF_MKID('t', 'r', 'n', 's'):
 				/* translate */
 				if(object) {
-					gfloat x,y,z;
-					gfloat matrix[16];
+					G3DFloat x,y,z;
+					G3DFloat matrix[16];
 
 					x = g3d_stream_read_float_be(stream);
 					y = g3d_stream_read_float_be(stream);

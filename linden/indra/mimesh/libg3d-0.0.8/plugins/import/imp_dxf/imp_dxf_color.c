@@ -38,9 +38,9 @@ static G3DMaterial *get_material(G3DModel *model, const gchar *cname)
 }
 
 #define DXF_COL_SET(rx, gx, bx) \
-	material->r = ((gfloat)(rx) / 255.0); \
-	material->g = ((gfloat)(gx) / 255.0); \
-	material->b = ((gfloat)(bx) / 255.0);
+	material->r = ((G3DFloat)(rx) / 255.0); \
+	material->g = ((G3DFloat)(gx) / 255.0); \
+	material->b = ((G3DFloat)(bx) / 255.0);
 
 /*
  * based on GPL code from
@@ -48,7 +48,7 @@ static G3DMaterial *get_material(G3DModel *model, const gchar *cname)
  */
 static gboolean set_aci(G3DMaterial *material, gint32 aci)
 {
-	gfloat r, g, b, h, s, l, m;
+	G3DFloat r, g, b, h, s, l, m;
 	gint32 mod10;
 
 	if((aci < 10) || (aci > 249)) {

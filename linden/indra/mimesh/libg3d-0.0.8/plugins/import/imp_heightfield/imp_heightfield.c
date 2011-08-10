@@ -37,7 +37,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DObject *object;
 	G3DMaterial *material;
 	guint32 x, y, index;
-	gfloat pcnt, prev_pcnt = 0.0;
+	G3DFloat pcnt, prev_pcnt = 0.0;
 
 	if(!g3d_plugins_load_image_from_stream(context, stream, image)) {
 		g_free(image);
@@ -71,7 +71,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 			switch(image->depth) {
 				case 8:
 					object->vertex_data[index * 3 + 2] = 0.0 +
-						(gfloat)image->pixeldata[index] / 32.0;
+						(G3DFloat)image->pixeldata[index] / 32.0;
 					break;
 				case 15:
 				case 16:
@@ -87,8 +87,8 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 					break;
 			}
 
-			pcnt = (gfloat)(y * image->width + x) /
-				(gfloat)(image->width * image->height);
+			pcnt = (G3DFloat)(y * image->width + x) /
+				(G3DFloat)(image->width * image->height);
 			if((pcnt - prev_pcnt) > 0.01) {
 				prev_pcnt = pcnt;
 				g3d_context_update_progress_bar(context, pcnt, TRUE);

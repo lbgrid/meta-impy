@@ -253,7 +253,7 @@ static VrmlObject *vrml_lookup_object(VrmlReader *reader, const gchar *id)
 	return object;
 }
 
-static gboolean vrml_read_float_n(VrmlReader *reader, gfloat *a, guint32 n)
+static gboolean vrml_read_float_n(VrmlReader *reader, G3DFloat *a, guint32 n)
 {
 	gint i;
 	gchar *s;
@@ -338,7 +338,7 @@ gboolean vrml_read_list_float_cb(VrmlReader *reader, gpointer data)
 
 	property->n_items ++;
 	property->v_float = g_realloc(property->v_float,
-		property->n_items * sizeof(gfloat));
+		property->n_items * sizeof(G3DFloat));
 	return vrml_read_float_n(reader,
 		property->v_float + (property->n_items - 1), 1);
 }
@@ -349,7 +349,7 @@ gboolean vrml_read_list_float2_cb(VrmlReader *reader, gpointer data)
 
 	property->n_items += 2;
 	property->v_float = g_realloc(property->v_float,
-		property->n_items * sizeof(gfloat));
+		property->n_items * sizeof(G3DFloat));
 	return vrml_read_float_n(reader,
 		property->v_float + (property->n_items - 2), 2);
 }
@@ -360,7 +360,7 @@ gboolean vrml_read_list_float3_cb(VrmlReader *reader, gpointer data)
 
 	property->n_items += 3;
 	property->v_float = g_realloc(property->v_float,
-		property->n_items * sizeof(gfloat));
+		property->n_items * sizeof(G3DFloat));
 	return vrml_read_float_n(reader,
 		property->v_float + (property->n_items - 3), 3);
 }
@@ -371,7 +371,7 @@ gboolean vrml_read_list_float4_cb(VrmlReader *reader, gpointer data)
 
 	property->n_items += 4;
 	property->v_float = g_realloc(property->v_float,
-		property->n_items * sizeof(gfloat));
+		property->n_items * sizeof(G3DFloat));
 	return vrml_read_float_n(reader,
 		property->v_float + (property->n_items - 4), 4);
 }
@@ -385,7 +385,7 @@ gboolean vrml_read_list_floatx_cb(VrmlReader *reader, gpointer data)
 	while(s) {
 		property->n_items ++;
 		property->v_float = g_realloc(property->v_float,
-			property->n_items * sizeof(gfloat));
+			property->n_items * sizeof(G3DFloat));
 		property->v_float[property->n_items - 1] = atof(s);
 		g_free(s);
 		s = vrml_read_numeric(reader);
@@ -468,22 +468,22 @@ VrmlProperty *vrml_read_property(VrmlReader *reader, guint32 level)
 			break;
 		case T_FLOAT:
 			property->n_items = 1;
-			property->v_float = g_new0(gfloat, 1);
+			property->v_float = g_new0(G3DFloat, 1);
 			vrml_read_float_n(reader, property->v_float, 1);
 			break;
 		case T_FLOAT2:
 			property->n_items = 2;
-			property->v_float = g_new0(gfloat, 2);
+			property->v_float = g_new0(G3DFloat, 2);
 			vrml_read_float_n(reader, property->v_float, 2);
 			break;
 		case T_FLOAT3:
 			property->n_items = 3;
-			property->v_float = g_new0(gfloat, 3);
+			property->v_float = g_new0(G3DFloat, 3);
 			vrml_read_float_n(reader, property->v_float, 3);
 			break;
 		case T_FLOAT4:
 			property->n_items = 4;
-			property->v_float = g_new0(gfloat, 4);
+			property->v_float = g_new0(G3DFloat, 4);
 			vrml_read_float_n(reader, property->v_float, 4);
 			break;
 		case T_FLOAT_X:
@@ -491,7 +491,7 @@ VrmlProperty *vrml_read_property(VrmlReader *reader, guint32 level)
 			while(s) {
 				property->n_items ++;
 				property->v_float = g_realloc(property->v_float,
-					property->n_items * sizeof(gfloat));
+					property->n_items * sizeof(G3DFloat));
 				property->v_float[property->n_items - 1] = atof(s);
 #if DEBUG > 2
 				g_debug("T_FLOAT_X: %i: %.2f", property->n_items,

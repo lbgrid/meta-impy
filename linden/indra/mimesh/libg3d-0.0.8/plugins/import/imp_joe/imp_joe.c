@@ -37,7 +37,7 @@ G3DObject *joe_load_object(G3DContext *context, const gchar *filename,
 	G3DModel *model);
 GHashTable *joe_load_car(const gchar *filename);
 void joe_destroy_car(GHashTable *hashtable);
-gboolean joe_parse_vertex(const gchar *text, gfloat *x, gfloat *y, gfloat *z);
+gboolean joe_parse_vertex(const gchar *text, G3DFloat *x, G3DFloat *y, G3DFloat *z);
 void joe_object_flip_x(G3DObject *object);
 
 /*****************************************************************************/
@@ -51,7 +51,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	G3DObject *object;
 	GHashTable *cardata;
 	gchar *value;
-	gfloat x, y, z;
+	G3DFloat x, y, z;
 	G3DMatrix matrix[16];
 	gboolean rval = FALSE;
 
@@ -153,7 +153,7 @@ G3DObject *joe_load_object(G3DContext *context, const gchar *filename,
 	guint32 num_faces, num_frames, num_verts, num_texcoords, num_normals;
 	gint32 frame, i, j, index;
 	guint16 *tex_indices, *normal_indices;
-	gfloat *normals = NULL, *texcoords = NULL;
+	G3DFloat *normals = NULL, *texcoords = NULL;
 
 	stream = g3d_stream_open_file(filename, "rb");
 	if(stream == NULL) {
@@ -234,19 +234,19 @@ G3DObject *joe_load_object(G3DContext *context, const gchar *filename,
 		/* num_texcoords */
 		num_texcoords = g3d_stream_read_int32_le(stream);
 		if(num_texcoords != 0)
-			texcoords = g_new0(gfloat, num_texcoords * 2);
+			texcoords = g_new0(G3DFloat, num_texcoords * 2);
 
 		/* num_normals */
 		num_normals = g3d_stream_read_int32_le(stream);
 		if(num_normals != 0)
-			normals = g_new0(gfloat, num_normals * 3);
+			normals = g_new0(G3DFloat, num_normals * 3);
 
 		g_debug("JOE: verts: %d, texcoords: %d, normals: %d\n",
 			num_verts, num_texcoords, num_normals);
 
 		/* verts blob */
 		object->vertex_count = num_verts;
-		object->vertex_data = g_new0(gfloat, num_verts * 3);
+		object->vertex_data = g_new0(G3DFloat, num_verts * 3);
 		for(i = 0; i < num_verts; i ++) {
 			object->vertex_data[i * 3 + 0] = g3d_stream_read_float_le(stream);
 			object->vertex_data[i * 3 + 1] = g3d_stream_read_float_le(stream);
@@ -274,10 +274,10 @@ G3DObject *joe_load_object(G3DContext *context, const gchar *filename,
 			face->flags |= G3D_FLAG_FAC_NORMALS;
 			if(image != NULL) face->flags |= G3D_FLAG_FAC_TEXMAP;
 
-			face->normals = g_new0(gfloat, 3 * 3);
+			face->normals = g_new0(G3DFloat, 3 * 3);
 			face->tex_image = image;
 			face->tex_vertex_count = 3;
-			face->tex_vertex_data = g_new0(gfloat, 3 * 2);
+			face->tex_vertex_data = g_new0(G3DFloat, 3 * 2);
 			for(j = 0; j < 3; j ++)
 			{
 				index = normal_indices[i * 3 + j];
@@ -372,7 +372,7 @@ void joe_destroy_car(GHashTable *hashtable)
 	g_hash_table_destroy(hashtable);
 }
 
-gboolean joe_parse_vertex(const gchar *text, gfloat *x, gfloat *y, gfloat *z)
+gboolean joe_parse_vertex(const gchar *text, G3DFloat *x, G3DFloat *y, G3DFloat *z)
 {
 	return (sscanf(text, "%f, %f, %f", x, y, z) == 3);
 }

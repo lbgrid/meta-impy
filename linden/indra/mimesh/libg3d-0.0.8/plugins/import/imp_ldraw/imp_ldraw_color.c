@@ -26,10 +26,10 @@
 typedef struct {
 	gint32 id;
 	const gchar *name;
-	gfloat r;
-	gfloat g;
-	gfloat b;
-	gfloat a;
+	G3DFloat r;
+	G3DFloat g;
+	G3DFloat b;
+	G3DFloat a;
 } LDrawColorDef;
 
 static LDrawColorDef ldraw_colors[] = {

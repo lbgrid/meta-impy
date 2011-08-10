@@ -1021,7 +1021,7 @@ YY_DECL
 	guint32 faceidx = 0, faceidxbuf[128];
 	guint32 matidx = 0;
 	gint32 tmps32, i;
-	gfloat matrix[16];
+	G3DFloat matrix[16];
 
 #line 1027 "imp_vrml_v1.c"
 
@@ -1330,7 +1330,7 @@ YY_RULE_SETUP
 		off = object->vertex_count;
 		object->vertex_count ++;
 		object->vertex_data = g_realloc(object->vertex_data,
-			object->vertex_count * 3 * sizeof(gfloat));
+			object->vertex_count * 3 * sizeof(G3DFloat));
 
 	#if DEBUG > 3
 		g_debug("VRML: object vertex count: %d", object->vertex_count);

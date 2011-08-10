@@ -37,7 +37,7 @@ typedef struct {
 	guint32 num;
 	gchar *xchr;
 	gint32 *xint;
-	gfloat *xflt;
+	G3DFloat *xflt;
 } AcfValue;
 
 typedef struct {

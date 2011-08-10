@@ -29,7 +29,7 @@ typedef struct {
 	gchar *description;
 	/* 2D vertexes */
 	guint32 vertex_count;
-	gfloat *vertex_data;
+	G3DFloat *vertex_data;
 } AcfAirfoil;
 
 typedef struct {

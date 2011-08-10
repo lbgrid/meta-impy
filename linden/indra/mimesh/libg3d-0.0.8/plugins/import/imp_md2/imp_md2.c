@@ -43,7 +43,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	guint32 idid, idver, skinwidth, skinheight, framesize;
 	guint32 numskins, numverts, numtexs, numfaces, numglcmds, numframes;
 	guint32 offskins, offtexs, offfaces, offframes, offglcmds, offend;
-	gfloat *texco = NULL, *normals;
+	G3DFloat *texco = NULL, *normals;
 	gchar **skinnames = NULL;
 	gint i, j;
 	G3DObject *object;
@@ -82,8 +82,8 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	numframes  = g3d_stream_read_int32_le(stream);
 
 	object->vertex_count = numverts;
-	object->vertex_data = g_new0(gfloat, numverts * 3);
-	normals = g_new0(gfloat, numverts * 3);
+	object->vertex_data = g_new0(G3DFloat, numverts * 3);
+	normals = g_new0(G3DFloat, numverts * 3);
 
 	offskins   = g3d_stream_read_int32_le(stream);
 	offtexs    = g3d_stream_read_int32_le(stream);
@@ -174,7 +174,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	g_debug("numframes: %d", numframes);
 #endif
 	for(i = 0; i < numframes; i ++) {
-		gfloat s0,s1,s2, t0,t1,t2;
+		G3DFloat s0,s1,s2, t0,t1,t2;
 		gchar fname[16];
 		guint32 j;
 
@@ -187,15 +187,15 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		g3d_stream_read(stream, fname, 16); /* frame name*/
 
 		for(j = 0; j < numverts; j ++) {
-			gfloat x,y,z;
+			G3DFloat x,y,z;
 			guint32 v,n;
 
 			v = g3d_stream_read_int8(stream);
-			x = (gfloat)v * s0 + t0;
+			x = (G3DFloat)v * s0 + t0;
 			v = g3d_stream_read_int8(stream);
-			y = (gfloat)v * s1 + t1;
+			y = (G3DFloat)v * s1 + t1;
 			v = g3d_stream_read_int8(stream);
-			z = (gfloat)v * s2 + t2;
+			z = (G3DFloat)v * s2 + t2;
 			n = g3d_stream_read_int8(stream);
 			if(i == 0) {
 				object->vertex_data[j * 3 + 0] = x;
@@ -212,12 +212,12 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	g3d_stream_seek(stream, offtexs, G_SEEK_SET);
 	/* texture coordinates */
 	if(numtexs > 0) {
-		texco = g_new0(gfloat, numtexs * 2);
+		texco = g_new0(G3DFloat, numtexs * 2);
 		for(i = 0; i < numtexs; i ++) {
 			texco[i * 2 + 0] = g3d_stream_read_int16_le(stream) /
-				(gfloat)skinwidth;
+				(G3DFloat)skinwidth;
 			texco[i * 2 + 1] = g3d_stream_read_int16_le(stream) /
-				(gfloat)skinheight;
+				(G3DFloat)skinheight;
 		}
 	}
 
@@ -232,8 +232,8 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		face->material = material;
 		face->vertex_count = 3;
 		face->vertex_indices = g_new0(guint32, 3);
-		face->tex_vertex_data = g_new0(gfloat, 3 * 2);
-		face->normals = g_new0(gfloat, 3 * 3);
+		face->tex_vertex_data = g_new0(G3DFloat, 3 * 2);
+		face->normals = g_new0(G3DFloat, 3 * 3);
 		face->flags |= G3D_FLAG_FAC_NORMALS;
 
 		if(image)

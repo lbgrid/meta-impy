@@ -206,7 +206,7 @@ static gboolean q3o_read_mesh(G3DStream *stream, G3DModel *model,
 {
 	guint32 i, j, nfaces, mat, nnormals, ntexco, index, nfaceverts = 0;
 	guint16 *faceshapes;
-	gfloat *normals;
+	G3DFloat *normals;
 	GSList *fitem;
 	G3DObject *object;
 	G3DFace *face;
@@ -225,7 +225,7 @@ static gboolean q3o_read_mesh(G3DStream *stream, G3DModel *model,
 #if DEBUG > 3
 	g_debug("Q3O: number of vertices: %d", object->vertex_count);
 #endif
-	object->vertex_data = g_new0(gfloat,object->vertex_count * 3);
+	object->vertex_data = g_new0(G3DFloat,object->vertex_count * 3);
 	for(i = 0; i < object->vertex_count; i ++)
 	{
 		object->vertex_data[i*3+0] = g3d_stream_read_float_le(stream);
@@ -293,7 +293,7 @@ static gboolean q3o_read_mesh(G3DStream *stream, G3DModel *model,
 
 	/* normals */
 	nnormals = g3d_stream_read_int32_le(stream);
-	normals = g_new0(gfloat, nnormals * 3);
+	normals = g_new0(G3DFloat, nnormals * 3);
 #if DEBUG > 3
 	g_debug("Q3O: number of normals: %d", nnormals);
 #endif
@@ -310,7 +310,7 @@ static gboolean q3o_read_mesh(G3DStream *stream, G3DModel *model,
 		fitem = object->faces;
 		for(i = 0; i < nfaces; i ++) {
 			face = (G3DFace *)fitem->data;
-			face->normals = g_new0(gfloat, faceshapes[i] * 3);
+			face->normals = g_new0(G3DFloat, faceshapes[i] * 3);
 			face->flags |= G3D_FLAG_FAC_NORMALS;
 			for(j = 0; j < faceshapes[i]; j ++)
 			{
@@ -336,7 +336,7 @@ static gboolean q3o_read_mesh(G3DStream *stream, G3DModel *model,
 	if(n_textures > 0)
 	{
 		object->tex_vertex_count = ntexco;
-		object->tex_vertex_data = g_new0(gfloat, 2 * ntexco);
+		object->tex_vertex_data = g_new0(G3DFloat, 2 * ntexco);
 
 		for(i = 0; i < ntexco; i ++)
 		{
@@ -349,7 +349,7 @@ static gboolean q3o_read_mesh(G3DStream *stream, G3DModel *model,
 		{
 			face = (G3DFace *)fitem->data;
 			face->tex_vertex_count = faceshapes[i];
-			face->tex_vertex_data = g_new0(gfloat, faceshapes[i] * 2);
+			face->tex_vertex_data = g_new0(G3DFloat, faceshapes[i] * 2);
 			for(j = 0; j < faceshapes[i]; j ++)
 			{
 				index = g3d_stream_read_int32_le(stream);

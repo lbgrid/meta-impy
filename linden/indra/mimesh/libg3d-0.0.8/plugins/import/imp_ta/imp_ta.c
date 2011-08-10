@@ -39,9 +39,9 @@ gpointer plugin_init(G3DContext *context)
 	materials = g_new0(G3DMaterial, 256);
 	for(i = 0; i < 256; i ++)
 	{
-		materials[i].r = ((gfloat)ta_3do_palette[i * 3 + 0]) / 255.0;
-		materials[i].g = ((gfloat)ta_3do_palette[i * 3 + 1]) / 255.0;
-		materials[i].b = ((gfloat)ta_3do_palette[i * 3 + 2]) / 255.0;
+		materials[i].r = ((G3DFloat)ta_3do_palette[i * 3 + 0]) / 255.0;
+		materials[i].g = ((G3DFloat)ta_3do_palette[i * 3 + 1]) / 255.0;
+		materials[i].b = ((G3DFloat)ta_3do_palette[i * 3 + 2]) / 255.0;
 		materials[i].a = 1.0;
 	}
 

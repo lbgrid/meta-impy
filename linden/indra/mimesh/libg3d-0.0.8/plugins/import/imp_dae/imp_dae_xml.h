@@ -38,6 +38,6 @@ xmlNodePtr dae_xml_next_child(DaeLibrary *lib, xmlNodePtr parent,
 gboolean dae_xml_parse(DaeGlobalData *global, xmlNodePtr parent,
 	DaeChunkDesc *chunks, guint32 level, gpointer user_data);
 gboolean dae_xml_next_int(xmlNodePtr node, gchar **nextp, gint *i);
-gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, gfloat *f);
+gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, G3DFloat *f);
 
 #endif /* _IMP_DAE_XML_H */

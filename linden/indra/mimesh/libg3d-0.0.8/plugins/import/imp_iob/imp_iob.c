@@ -90,9 +90,9 @@ char **plugin_extensions(void)
 /* IOB specific                                                              */
 /*****************************************************************************/
 
-gfloat iob_read_fract(G3DStream *stream)
+G3DFloat iob_read_fract(G3DStream *stream)
 {
 	gint32 i = g3d_stream_read_int32_be(stream);
-	return (gfloat)(i / 0xFFFF);
+	return (G3DFloat)(i / 0xFFFF);
 }
 

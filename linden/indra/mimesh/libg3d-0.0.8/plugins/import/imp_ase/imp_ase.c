@@ -101,7 +101,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 				if(object)
 				{
 					object->vertex_count = i;
-					object->vertex_data = g_new0(gfloat, i * 3);
+					object->vertex_data = g_new0(G3DFloat, i * 3);
 				}
 			}
 		}
@@ -152,7 +152,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 				if(face)
 				{
 					face->flags |= G3D_FLAG_FAC_NORMALS;
-					face->normals = g_new0(gfloat, 3 * 3);
+					face->normals = g_new0(G3DFloat, 3 * 3);
 					for(j = 0; j < 3; j ++)
 					{
 						face->normals[j * 3 + 0] = x;
@@ -188,7 +188,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 			}
 
 			if(sscanf(line, "*MESH_NUMTVERTEX %u", &tvertcnt) == 1)
-				tverts = g_new0(gfloat, tvertcnt * 2);
+				tverts = g_new0(G3DFloat, tvertcnt * 2);
 		}
 		else if(strncmp(line, "*MESH_TVERT ", 12) == 0)
 		{
@@ -213,7 +213,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 					face->flags |= G3D_FLAG_FAC_TEXMAP;
 					face->tex_image = face->material->tex_image;
 					face->tex_vertex_count = 3;
-					face->tex_vertex_data = g_new0(gfloat, 2 * 3);
+					face->tex_vertex_data = g_new0(G3DFloat, 2 * 3);
 					face->tex_vertex_data[0 * 2 + 0] = tverts[a * 2 + 0];
 					face->tex_vertex_data[0 * 2 + 1] = 1.0 - tverts[a * 2 + 1];
 					face->tex_vertex_data[1 * 2 + 0] = tverts[b * 2 + 0];
@@ -225,8 +225,8 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 		}
 		if((lnum % 10) == 0)
 			g3d_context_update_progress_bar(context,
-				(gfloat)g3d_stream_tell(stream) /
-				(gfloat)g3d_stream_size(stream), TRUE);
+				(G3DFloat)g3d_stream_tell(stream) /
+				(G3DFloat)g3d_stream_size(stream), TRUE);
 	} /* read line */
 
 	/* clean up */

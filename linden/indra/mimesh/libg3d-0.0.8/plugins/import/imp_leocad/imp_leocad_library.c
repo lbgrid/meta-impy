@@ -55,8 +55,8 @@ static gboolean leocad_create_materials(LeoCadLibrary *library);
 
 struct LeoCadConnection {
 	guint8 type;
-	gfloat center[3];
-	gfloat normal[3];
+	G3DFloat center[3];
+	G3DFloat normal[3];
 };
 
 LeoCadLibrary *leocad_library_load(const gchar *libdir)
@@ -144,13 +144,13 @@ void leocad_library_free(LeoCadLibrary *library)
 	g_free(library);
 }
 
-static gfloat leocad_read_scaled16(G3DStream *stream, gfloat scale)
+static G3DFloat leocad_read_scaled16(G3DStream *stream, G3DFloat scale)
 {
 	gint16 x;
 
 	x = g3d_stream_read_int16_le(stream);
 
-	return (gfloat)(x / scale);
+	return (G3DFloat)(x / scale);
 }
 
 static gboolean leocad_create_materials(LeoCadLibrary *library)
@@ -194,10 +194,10 @@ static gboolean leocad_create_materials(LeoCadLibrary *library)
 	for(i = 0; i < 31; i ++)
 	{
 		material = g3d_material_new();
-		material->r = (gfloat)colors[i * 4 + 0] / 255.0;
-		material->g = (gfloat)colors[i * 4 + 1] / 255.0;
-		material->b = (gfloat)colors[i * 4 + 2] / 255.0;
-		material->a = (gfloat)colors[i * 4 + 3] / 255.0;
+		material->r = (G3DFloat)colors[i * 4 + 0] / 255.0;
+		material->g = (G3DFloat)colors[i * 4 + 1] / 255.0;
+		material->b = (G3DFloat)colors[i * 4 + 2] / 255.0;
+		material->a = (G3DFloat)colors[i * 4 + 3] / 255.0;
 
 		library->materials = g_slist_append(library->materials, material);
 	}
@@ -228,8 +228,8 @@ G3DObject *leocad_library_get_piece(LeoCadLibrary *library, const gchar *name)
 	G3DFace *face;
 	guint32 i, j, k, nconn, ngrp, ntex, ngrpconn, ncol, nx, color = 0;
 	guint16 grp_type;
-	gfloat scale = 100.0;
-	gfloat matrix[16];
+	G3DFloat scale = 100.0;
+	G3DFloat matrix[16];
 	G3DStream *bin;
 	struct LeoCadConnection *connections;
 
@@ -250,7 +250,7 @@ G3DObject *leocad_library_get_piece(LeoCadLibrary *library, const gchar *name)
 
 		g3d_stream_seek(bin, piece->offset_bin, G_SEEK_SET);
 		piece->object->vertex_count = g3d_stream_read_int32_le(bin);
-		piece->object->vertex_data = g_new0(gfloat,
+		piece->object->vertex_data = g_new0(G3DFloat,
 			piece->object->vertex_count * 3);
 
 		if(piece->flags & LEOCAD_FLAG_PIECE_SMALL)

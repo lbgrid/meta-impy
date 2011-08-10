@@ -27,9 +27,9 @@
 
 GHashTable *ar_carini_load(void);
 void ar_carini_free(GHashTable *ht);
-gfloat ar_carini_get_float(GHashTable *ht, gchar *path);
+G3DFloat ar_carini_get_float(GHashTable *ht, gchar *path);
 gboolean ar_carini_get_position(GHashTable *ht, gchar *prefix,
-	gfloat *x, gfloat *y, gfloat *z);
+	G3DFloat *x, G3DFloat *y, G3DFloat *z);
 
 #endif /* _IMP_AR_CARINI_H */
 

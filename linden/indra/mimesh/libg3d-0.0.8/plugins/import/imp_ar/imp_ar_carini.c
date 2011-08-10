@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
+#include <g3d/types.h>
 
 #define CARINI_IN_VAR     1
 #define CARINI_IN_VALUE   2
@@ -193,10 +194,10 @@ void ar_carini_free(GHashTable *ht)
 	g_hash_table_destroy(ht);
 }
 
-gfloat ar_carini_get_float(GHashTable *ht, gchar *path)
+G3DFloat ar_carini_get_float(GHashTable *ht, gchar *path)
 {
 	gchar *value;
-	gfloat valf;
+	G3DFloat valf;
 
 	value = (gchar *)g_hash_table_lookup(ht, path);
 	if(value == NULL)
@@ -207,7 +208,7 @@ gfloat ar_carini_get_float(GHashTable *ht, gchar *path)
 }
 
 gboolean ar_carini_get_position(GHashTable *ht, gchar *prefix,
-	gfloat *x, gfloat *y, gfloat *z)
+	G3DFloat *x, G3DFloat *y, G3DFloat *z)
 {
 	gchar *path, *value;
 

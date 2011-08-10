@@ -51,7 +51,7 @@ gboolean x3ds_cb_0x0002(x3ds_global_data *global, x3ds_parent_data *parent)
 gboolean x3ds_cb_0x0010(x3ds_global_data *global, x3ds_parent_data *parent)
 {
 	G3DMaterial *material;
-	gfloat r, g, b;
+	G3DFloat r, g, b;
 
 	r = g3d_stream_read_float_le(global->stream);
 	g = g3d_stream_read_float_le(global->stream);
@@ -117,15 +117,15 @@ gboolean x3ds_cb_0x0011(x3ds_global_data *global, x3ds_parent_data *parent)
 			break;
 
 		case 0xA020: /* diffuse color */
-			material->r = (gfloat)r / 255.0;
-			material->g = (gfloat)g / 255.0;
-			material->b = (gfloat)b / 255.0;
+			material->r = (G3DFloat)r / 255.0;
+			material->g = (G3DFloat)g / 255.0;
+			material->b = (G3DFloat)b / 255.0;
 			break;
 
 		case 0xA030: /* specular color */
-			material->specular[0] = (gfloat)r / 255.0;
-			material->specular[1] = (gfloat)g / 255.0;
-			material->specular[2] = (gfloat)b / 255.0;
+			material->specular[0] = (G3DFloat)r / 255.0;
+			material->specular[1] = (G3DFloat)g / 255.0;
+			material->specular[2] = (G3DFloat)b / 255.0;
 			material->specular[3] = 0.25;
 			break;
 
@@ -154,7 +154,7 @@ gboolean x3ds_cb_0x0030(x3ds_global_data *global, x3ds_parent_data *parent)
 	switch(parent->id)
 	{
 		case 0xA040: /* shininess */
-			material->shininess = (gfloat)percent / 100.0;
+			material->shininess = (G3DFloat)percent / 100.0;
 			break;
 
 		case 0xA041: /* shininess (2) */
@@ -162,7 +162,7 @@ gboolean x3ds_cb_0x0030(x3ds_global_data *global, x3ds_parent_data *parent)
 			break;
 
 		case 0xA050: /* transparency */
-			material->a = 1.0 - ((gfloat)percent / 100.0);
+			material->a = 1.0 - ((G3DFloat)percent / 100.0);
 			break;
 
 		case 0xA052: /* fallthrough */
@@ -209,7 +209,7 @@ gboolean x3ds_cb_0x0030(x3ds_global_data *global, x3ds_parent_data *parent)
 gboolean x3ds_cb_0x0031(x3ds_global_data *global, x3ds_parent_data *parent)
 {
 	G3DMaterial *material;
-	gfloat percent;
+	G3DFloat percent;
 
 	material = (G3DMaterial *)parent->object;
 	g_return_val_if_fail(material, FALSE);
@@ -270,7 +270,7 @@ gboolean x3ds_cb_0x4110(x3ds_global_data *global, x3ds_parent_data *parent)
 	object->vertex_count = g3d_stream_read_int16_le(global->stream);
 	parent->nb -= 2;
 
-	object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+	object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 	for(i = 0; i < object->vertex_count; i ++)
 	{
 		object->vertex_data[i * 3 + 0] = g3d_stream_read_float_le(global->stream);
@@ -386,7 +386,7 @@ gboolean x3ds_cb_0x4130(x3ds_global_data *global, x3ds_parent_data *parent)
 				face->flags |= G3D_FLAG_FAC_TEXMAP;
 				face->tex_image = face->material->tex_image;
 				face->tex_vertex_count = 3;
-				face->tex_vertex_data = g_new0(gfloat, 6);
+				face->tex_vertex_data = g_new0(G3DFloat, 6);
 				for(j = 0; j < 3; j ++)
 				{
 					face->tex_vertex_data[j * 2 + 0] = object->tex_vertex_data[
@@ -415,7 +415,7 @@ gboolean x3ds_cb_0x4140(x3ds_global_data *global, x3ds_parent_data *parent)
 	object->tex_vertex_count = g3d_stream_read_int16_le(global->stream);
 	parent->nb -= 2;
 
-	object->tex_vertex_data = g_new0(gfloat, object->tex_vertex_count * 2);
+	object->tex_vertex_data = g_new0(G3DFloat, object->tex_vertex_count * 2);
 
 	for(i = 0; i < object->tex_vertex_count; i ++)
 	{
@@ -437,8 +437,8 @@ gboolean x3ds_cb_0x4150(x3ds_global_data *global, x3ds_parent_data *parent)
 	GSList *oface;
 	gint32 i, j, k, n=0, polynum, group;
 	guint32 *smooth_list;
-	gfloat *pnormal_list, *vertex_normal_buf;
-	gfloat a[3],b[3], *p0,*p1,*p2,*r;
+	G3DFloat *pnormal_list, *vertex_normal_buf;
+	G3DFloat a[3],b[3], *p0,*p1,*p2,*r;
 
 	/* read data */
 	object = (G3DObject *)parent->object;
@@ -529,7 +529,7 @@ gboolean x3ds_cb_0x4150(x3ds_global_data *global, x3ds_parent_data *parent)
 				face = (G3DFace *)oface->data;
 				if(smooth_list[i] == group)
 				{
-					face->normals = g_new(gfloat, 9);
+					face->normals = g_new(G3DFloat, 9);
 					for(j = 0; j < 3; j ++)
 					{
 						k = face->vertex_indices[j];
@@ -544,12 +544,12 @@ gboolean x3ds_cb_0x4150(x3ds_global_data *global, x3ds_parent_data *parent)
 							 * buffer */
 							memcpy(face->normals + j * 3,
 								vertex_normal_buf + k * 3,
-								sizeof(gfloat) * 3);
+								sizeof(G3DFloat) * 3);
 						else
 							/* use the pbuf normal */
 							memcpy(face->normals + j * 3,
 								pnormal_list + i * 3,
-								sizeof(gfloat) * 3);
+								sizeof(G3DFloat) * 3);
 
 					}
 					smooth_list[i] = -1; /* finished this polygon */
@@ -569,9 +569,9 @@ gboolean x3ds_cb_0x4150(x3ds_global_data *global, x3ds_parent_data *parent)
 /* mesh matrix */
 gboolean x3ds_cb_0x4160(x3ds_global_data *global, x3ds_parent_data *parent)
 {
-	gfloat matrix[16];
+	G3DFloat matrix[16];
 	gint32 i;
-	gfloat det;
+	G3DFloat det;
 
 	g3d_matrix_identity(matrix);
 	for(i = 0; i < 12; i ++)
@@ -586,7 +586,7 @@ gboolean x3ds_cb_0x4160(x3ds_global_data *global, x3ds_parent_data *parent)
 
 	if(det < 0.0) {
 #if 0
-		gfloat scale[16];
+		G3DFloat scale[16];
 		g3d_matrix_identity(scale);
 		g3d_matrix_scale(-1.0, 1.0, 1.0, scale);
 		g3d_matrix_multiply(scale, matrix, matrix);
@@ -597,7 +597,7 @@ gboolean x3ds_cb_0x4160(x3ds_global_data *global, x3ds_parent_data *parent)
 		object = parent->object;
 		if(object) {
 			object->transformation = g_new0(G3DTransformation, 1);
-			memcpy(object->transformation->matrix, matrix, 16 * sizeof(gfloat));
+			memcpy(object->transformation->matrix, matrix, 16 * sizeof(G3DFloat));
 		}
 
 #if 0
@@ -698,7 +698,7 @@ gboolean x3ds_cb_0xA354(x3ds_global_data *global, x3ds_parent_data *parent)
 {
 	G3DMaterial *material;
 	G3DImage *image;
-	gfloat scale;
+	G3DFloat scale;
 
 	material = (G3DMaterial *)parent->object;
 	g_return_val_if_fail(material, FALSE);
@@ -722,7 +722,7 @@ gboolean x3ds_cb_0xA356(x3ds_global_data *global, x3ds_parent_data *parent)
 {
 	G3DMaterial *material;
 	G3DImage *image;
-	gfloat scale;
+	G3DFloat scale;
 
 	material = (G3DMaterial *)parent->object;
 	g_return_val_if_fail(material, FALSE);
@@ -824,7 +824,7 @@ gboolean x3ds_cb_0xB013(x3ds_global_data *global, x3ds_parent_data *parent)
 #if 0
 	gint32 i;
 #endif
-	gfloat x, y, z;
+	G3DFloat x, y, z;
 
 	object = parent->level_object;
 	if(object == NULL) return FALSE;
@@ -851,7 +851,7 @@ gboolean x3ds_cb_0xB020(x3ds_global_data *global, x3ds_parent_data *parent)
 #if X3DS_ENABLE_POS_TRACK_TAG
 	gint32 j;
 #endif
-	gfloat x, y, z;
+	G3DFloat x, y, z;
 
 	object = parent->level_object;
 	if(object == NULL) return FALSE;
@@ -927,8 +927,8 @@ gboolean x3ds_cb_0xB021(x3ds_global_data *global, x3ds_parent_data *parent)
 {
 	G3DObject *object;
 	gint32 i, j, flags, nkeys, fnum;
-	gfloat x, y, z, rot;
-	gfloat matrix[16];
+	G3DFloat x, y, z, rot;
+	G3DFloat matrix[16];
 
 	object = parent->level_object;
 	if(object == NULL) return FALSE;

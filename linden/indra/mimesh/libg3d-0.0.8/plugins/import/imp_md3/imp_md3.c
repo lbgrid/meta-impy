@@ -194,7 +194,7 @@ gboolean md3_read_mesh(G3DStream *stream, G3DContext *context, G3DModel *model)
 	GSList *mitem;
 	guint32 magic, i, j;
 	guint8 type = 0, r, s;
-	gfloat rho, sigma, *normals;
+	G3DFloat rho, sigma, *normals;
 	gchar name[64], *strp;
 	guint32 nmeshframe, nskin, nvertex, ntris, mlength, flags;
 	goffset off_tris, off_texvec, off_vertex, off_start, off_skins;
@@ -297,8 +297,8 @@ gboolean md3_read_mesh(G3DStream *stream, G3DContext *context, G3DModel *model)
 	/* read vertex data */
 	g3d_stream_seek(stream, off_start + off_vertex, G_SEEK_SET);
 	object->vertex_count = nvertex;
-	object->vertex_data = g_new0(gfloat, nvertex * 3);
-	normals = g_new0(gfloat, nvertex * 3);
+	object->vertex_data = g_new0(G3DFloat, nvertex * 3);
+	normals = g_new0(G3DFloat, nvertex * 3);
 	for(i = 0; i < nvertex; i ++) {
 		gint16 d;
 
@@ -328,7 +328,7 @@ gboolean md3_read_mesh(G3DStream *stream, G3DContext *context, G3DModel *model)
 
 	/* read texture vertex data */
 	g3d_stream_seek(stream, off_start + off_texvec, G_SEEK_SET);
-	object->tex_vertex_data = g_new0(gfloat, nvertex * 2);
+	object->tex_vertex_data = g_new0(G3DFloat, nvertex * 2);
 	for(i = 0; i < nvertex; i ++) {
 		object->tex_vertex_data[i * 2 + 0] = g3d_stream_read_float_le(stream);
 		object->tex_vertex_data[i * 2 + 1] = g3d_stream_read_float_le(stream);
@@ -344,12 +344,12 @@ gboolean md3_read_mesh(G3DStream *stream, G3DContext *context, G3DModel *model)
 		face->material = material;
 
 		face->flags |= G3D_FLAG_FAC_NORMALS;
-		face->normals = g_new0(gfloat, 3 * 3);
+		face->normals = g_new0(G3DFloat, 3 * 3);
 
 		face->tex_image = image;
 		if(face->tex_image)
 		{
-			face->tex_vertex_data = g_new0(gfloat, 3 * 2);
+			face->tex_vertex_data = g_new0(G3DFloat, 3 * 2);
 			face->flags |= G3D_FLAG_FAC_TEXMAP;
 		}
 

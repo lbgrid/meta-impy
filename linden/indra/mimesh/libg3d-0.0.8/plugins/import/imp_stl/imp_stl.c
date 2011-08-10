@@ -115,7 +115,7 @@ static gboolean stl_load_binary(G3DContext *context, G3DModel *model,
 #if DEBUG > 2
 	g_debug("STL: BINARY: vertex_count: %i", object->vertex_count);
 #endif
-	object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+	object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 	for(n = 0; n < num_faces; n ++) {
 		face = g_new0(G3DFace, 1);
 		face->material = material;
@@ -149,7 +149,7 @@ static gboolean stl_load_text(G3DContext *context, G3DModel *model,
 	G3DFace *face;
 	gchar line[1024];
 	guint32 index = 0;
-	gfloat x, y, z;
+	G3DFloat x, y, z;
 
 #if DEBUG > 0
 	g_debug("STL: format is ASCII");
@@ -173,7 +173,7 @@ static gboolean stl_load_text(G3DContext *context, G3DModel *model,
 		} else if(strncmp(line, "vertex", 6) == 0) {
 			object->vertex_count ++;
 			object->vertex_data = g_realloc(object->vertex_data,
-				object->vertex_count * 3 * sizeof(gfloat));
+				object->vertex_count * 3 * sizeof(G3DFloat));
 			if(sscanf(line + 7, "%f %f %f", &x, &y, &z) == 3) {
 				object->vertex_data[(object->vertex_count - 1) * 3 + 0] = x;
 				object->vertex_data[(object->vertex_count - 1) * 3 + 1] = y;

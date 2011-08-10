@@ -63,7 +63,7 @@ gboolean ldraw_mpd_load(G3DStream *stream, G3DModel *model,
 	gchar buffer[1024], name[256], *streambuf = NULL;
 	gsize size;
 	goffset off;
-	gfloat m[16];
+	G3DFloat m[16];
 
 	while(!g3d_stream_eof(stream)) {
 		memset(buffer, 0, 1024);

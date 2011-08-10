@@ -37,7 +37,7 @@
 #define AC3D_FLAG_ACC    0x01
 
 struct ac3d_transform {
-	gfloat offx, offy, offz;
+	G3DFloat offx, offy, offz;
 };
 
 static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
@@ -52,7 +52,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 	gchar buffer[2049], namebuf[257], *filename;
 	guint32 version, ti1, flags = 0;
 	G3DMaterial *material;
-	gfloat tf1, tf2, tf3, tf4, tf5, tf6, trans;
+	G3DFloat tf1, tf2, tf3, tf4, tf5, tf6, trans;
 	gint32 rowcnt = 0;
 
 	setlocale(LC_NUMERIC, "C");
@@ -173,15 +173,15 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 	gchar buffer[2049], namebuf[257];
 	guint32 nkids, ti1, i, surf_flags, surf_done;
 	guint32 i1, i2, i3;
-	gfloat u1, u2, u3, v1, v2, v3;
-	gfloat locx = 0.0, locy = 0.0, locz = 0.0;
-	gfloat texrepu = 1.0, texrepv = 1.0, texoffu = 0.0, texoffv = 0.0;
-	gfloat texscaleu = 1.0, texscalev = 1.0;
-	gfloat crease = 0.0;
+	G3DFloat u1, u2, u3, v1, v2, v3;
+	G3DFloat locx = 0.0, locy = 0.0, locz = 0.0;
+	G3DFloat texrepu = 1.0, texrepv = 1.0, texoffu = 0.0, texoffv = 0.0;
+	G3DFloat texscaleu = 1.0, texscalev = 1.0;
+	G3DFloat crease = 0.0;
 	guint32 len, facecnt = 0;
 	gchar *filename;
 	gint32 kidsread, objectcount = 0;
-	gfloat pcnt, prev_pcnt = 0.0;
+	G3DFloat pcnt, prev_pcnt = 0.0;
 
 	if(sscanf(line, "OBJECT %s", namebuf) != 1)
 	{
@@ -268,7 +268,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 			else
 			{
 				object->vertex_data =
-					g_new0(gfloat, object->vertex_count * 3);
+					g_new0(G3DFloat, object->vertex_count * 3);
 				for(i = 0; i < object->vertex_count; i ++)
 				{
 					if(g3d_stream_read_line(stream, buffer, 2048))
@@ -328,7 +328,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 
 						face->tex_vertex_count = ti1;
 						face->tex_vertex_data =
-							g_new0(gfloat, 2 * face->tex_vertex_count);
+							g_new0(G3DFloat, 2 * face->tex_vertex_count);
 
 						/* normal face */
 						for(i = 0; i < face->vertex_count; i ++)
@@ -385,7 +385,7 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 
 							face->tex_vertex_count = 3;
 							face->tex_vertex_data =
-								g_new0(gfloat, 2 * face->tex_vertex_count);
+								g_new0(G3DFloat, 2 * face->tex_vertex_count);
 
 							if(i == 0)
 							{
@@ -519,8 +519,8 @@ static gint32 ac3d_read_object(G3DStream *stream, G3DContext *context,
 #endif
 		}
 
-		pcnt = (gfloat)g3d_stream_tell(stream) /
-				(gfloat)g3d_stream_size(stream);
+		pcnt = (G3DFloat)g3d_stream_tell(stream) /
+				(G3DFloat)g3d_stream_size(stream);
 		if((pcnt - prev_pcnt) > 0.005) {
 			prev_pcnt = pcnt;
 			g3d_context_update_progress_bar(context, pcnt, TRUE);

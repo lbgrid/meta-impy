@@ -27,9 +27,9 @@
 #include "imp_acf_airfoil.h"
 
 G3DObject *acf_wing(G3DMaterial *material, const gchar *name,
-	gfloat *msweep, gfloat *mdihed, gfloat *mtrans,
-	gfloat *vrt, gfloat *vtp,
+	G3DFloat *msweep, G3DFloat *mdihed, G3DFloat *mtrans,
+	G3DFloat *vrt, G3DFloat *vtp,
 	AcfAirfoil *aflrt, AcfAirfoil *afltp,
-	gfloat wrt, gfloat wtp, gfloat lf);
+	G3DFloat wrt, G3DFloat wtp, G3DFloat lf);
 
 #endif

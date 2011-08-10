@@ -111,8 +111,8 @@ gchar **plugin_extensions(G3DContext *context)
  * LeoCAD specific stuff
  */
 
-static gboolean leocad_change_key(guint16 ktime, gfloat *param, guint8 ktype,
-	gfloat *matrix, gfloat *mloc, gboolean *valid_matrix)
+static gboolean leocad_change_key(guint16 ktime, G3DFloat *param, guint8 ktype,
+	G3DFloat *matrix, G3DFloat *mloc, gboolean *valid_matrix)
 {
 	/* get first frame */
 	if(ktime == 1)
@@ -127,7 +127,7 @@ static gboolean leocad_change_key(guint16 ktime, gfloat *param, guint8 ktype,
 				break;
 
 			case 0x01: /* rotation */
-				g3d_matrix_rotate((gfloat)param[3] * G_PI / 180.0,
+				g3d_matrix_rotate((G3DFloat)param[3] * G_PI / 180.0,
 					param[0], param[1], param[2], matrix);
 				g3d_matrix_multiply(mloc, matrix, matrix);
 				*valid_matrix = TRUE;
@@ -145,15 +145,15 @@ static gboolean leocad_change_key(guint16 ktime, gfloat *param, guint8 ktype,
 }
 
 static gboolean leocad_load_lcd_piece(G3DStream *stream, G3DModel *model,
-	LeoCadLibrary *library, gfloat lcdversion)
+	LeoCadLibrary *library, G3DFloat lcdversion)
 {
 	guint32 i, j, k, nkeys, nobjs;
 	guint16 ktime;
 	guint8 pver, over, ktype, color = 0, len8;
 	gchar name[9];
-	gfloat param[4], matrix[16], mloc[16];
-	gfloat offx = 0.0, offy = 0.0, offz = 0.0;
-	gfloat rotx = 0.0, roty = 0.0, rotz = 0.0;
+	G3DFloat param[4], matrix[16], mloc[16];
+	G3DFloat offx = 0.0, offy = 0.0, offz = 0.0;
+	G3DFloat rotx = 0.0, roty = 0.0, rotz = 0.0;
 	G3DObject *object;
 	G3DMaterial *mat_change;
 	G3DFace *face;
@@ -370,9 +370,9 @@ static gboolean leocad_load_lcd_piece(G3DStream *stream, G3DModel *model,
 		g3d_matrix_identity(mloc);
 		g3d_matrix_translate(offx, offy, offz, mloc);
 		/* rotation */
-		rotx = (gfloat)(rotx * G_PI) / 180.0;
-		roty = (gfloat)(roty * G_PI) / 180.0;
-		rotz = (gfloat)(rotz * G_PI) / 180.0;
+		rotx = (G3DFloat)(rotx * G_PI) / 180.0;
+		roty = (G3DFloat)(roty * G_PI) / 180.0;
+		rotz = (G3DFloat)(rotz * G_PI) / 180.0;
 		g3d_matrix_identity(matrix);
 		g3d_matrix_rotate_xyz(rotx, roty, rotz, matrix);
 

@@ -102,7 +102,7 @@ static gboolean c4d_handle_opcode(guint8 opcode, G3DStream *stream,
 	guint16 w1, w2, w3;
 	guint32 x1, x3;
 	gsize x2;
-	gfloat f1, f2, f3;
+	G3DFloat f1, f2, f3;
 	gchar *str;
 	gint32 i;
 

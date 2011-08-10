@@ -35,7 +35,7 @@ typedef struct {
 	guint32 *clips;
 	gchar **clipfiles;
 
-	gfloat *tex_vertices;
+	G3DFloat *tex_vertices;
 
 	G3DObject *object;
 } LwoObject;

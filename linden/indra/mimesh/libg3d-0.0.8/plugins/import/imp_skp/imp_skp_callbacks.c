@@ -321,7 +321,7 @@ gboolean skp_cb_face_texture_coords(SkpGlobalData *global, SkpLocalData *local)
 #if DEBUG > 1
 	gint32 i;
 	guint16 w1;
-	gfloat f1, f2, f3, f4;
+	G3DFloat f1, f2, f3, f4;
 
 	w1 = g3d_stream_read_int16_le(global->stream);
 	g_return_val_if_fail(w1 == 0x0000, FALSE);
@@ -401,7 +401,7 @@ gboolean skp_cb_material(SkpGlobalData *global, SkpLocalData *local)
 	gchar *name, *tmp;
 	guint8 u1, u2, u3;
 	guint32 x1, type, size;
-	gfloat r, g, b, a;
+	G3DFloat r, g, b, a;
 	G3DMaterial *material;
 
 	g3d_stream_read_int16_le(global->stream);

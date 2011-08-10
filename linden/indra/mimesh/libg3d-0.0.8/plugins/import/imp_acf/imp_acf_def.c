@@ -60,7 +60,7 @@ AcfFile *acf_def_read(G3DStream *stream, const AcfDef *def,
 #endif
 				break;
 			case XFLT:
-				value->xflt = g_new0(gfloat, value->num);
+				value->xflt = g_new0(G3DFloat, value->num);
 				for(j = 0; j < value->num; j ++)
 					value->xflt[j] = bigendian ?
 						g3d_stream_read_float_be(stream) :

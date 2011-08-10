@@ -175,7 +175,7 @@ void x3ds_update_progress(x3ds_global_data *global, guint32 level)
 	if(level < 4) {
 		fpos = g3d_stream_tell(global->stream);
 		g3d_context_update_progress_bar(global->context,
-			((gfloat)fpos / (gfloat)g3d_stream_size(global->stream)), TRUE);
+			((G3DFloat)fpos / (G3DFloat)g3d_stream_size(global->stream)), TRUE);
 	}
 }
 

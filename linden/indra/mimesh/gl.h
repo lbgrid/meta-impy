@@ -35,7 +35,7 @@ void gl_set_textures(gboolean textures);
 void gl_load_texture(gpointer key, gpointer value, gpointer data);
 void gl_draw_model(G3DModel *model);
 void gl_draw_model_with_flags(gint32 glflags, G3DModel *model);
-void gl_draw(gint32 glflags, gfloat zoom, gfloat aspect, gfloat *bgcolor, gfloat *quat, G3DModel *model);
+void gl_draw(gint32 glflags, G3DFloat zoom, G3DFloat aspect, G3DFloat *bgcolor, G3DFloat *quat, G3DModel *model);
 int texture_load_all_textures(G3DModel *model);
 
 G_END_DECLS

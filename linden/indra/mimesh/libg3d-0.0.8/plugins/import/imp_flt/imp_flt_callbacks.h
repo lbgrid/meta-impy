@@ -34,9 +34,9 @@ typedef struct {
 	goffset *offsets;                /* n * goffset */
 	guint32 *flags;                  /* n * guint32 */
 	G3DMaterial **vertex_materials;  /* n * G3DMaterial* */
-	gfloat *vertex_data;             /* 3 x n * gfloat */
-	gfloat *normal_data;             /* 3 x n * gfloat */
-	gfloat *tex_vertex_data;         /* 2 x n * gfloat */
+	G3DFloat *vertex_data;             /* 3 x n * G3DFloat */
+	G3DFloat *normal_data;             /* 3 x n * G3DFloat */
+	G3DFloat *tex_vertex_data;         /* 2 x n * G3DFloat */
 } FltVertexPalette;
 
 typedef struct {

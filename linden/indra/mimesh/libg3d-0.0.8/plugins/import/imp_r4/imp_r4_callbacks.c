@@ -235,7 +235,7 @@ gboolean r4_cb_GMAx(G3DIffGlobal *global, G3DIffLocal *local)
 /* coordinate system */
 gboolean r4_cb_KSYS(G3DIffGlobal *global, G3DIffLocal *local)
 {
-	gfloat x, y, z, f;
+	G3DFloat x, y, z, f;
 	G3DObject *object;
 	G3DTransformation *transform;
 	gint32 i, j;
@@ -304,7 +304,7 @@ gboolean r4_cb_PKTM(G3DIffGlobal *global, G3DIffLocal *local)
 	{
 		object->vertex_count = g3d_stream_read_int32_be(global->stream);
 		local->nb -= 4;
-		object->vertex_data = g_new0(gfloat, object->vertex_count * 3);
+		object->vertex_data = g_new0(G3DFloat, object->vertex_count * 3);
 		for(i = 0; i < object->vertex_count; i ++) {
 			for(j = 0; j < 3; j ++)
 				object->vertex_data[i * 3 + j] =

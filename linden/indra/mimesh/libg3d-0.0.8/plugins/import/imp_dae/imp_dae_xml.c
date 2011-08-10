@@ -209,7 +209,7 @@ gboolean dae_xml_next_int(xmlNodePtr node, gchar **nextp, gint *i)
 	return TRUE;
 }
 
-gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, gfloat *f)
+gboolean dae_xml_next_float(xmlNodePtr node, gchar **nextp, G3DFloat *f)
 {
 	gchar *s, *err = NULL;
 

@@ -115,7 +115,7 @@ static gboolean dxf_parse_chunks(DxfGlobalData *global, DxfChunkInfo *chunks,
 	DxfEntityInfo *einfo = NULL;
 	DxfEntityProps *eprop = NULL;
 	gchar str[DXF_MAX_LINE + 1];
-	gfloat pcnt, prev_pcnt = 0.0;
+	G3DFloat pcnt, prev_pcnt = 0.0;
 
 #if DEBUG > 0
 	g_debug("\\[%s]", section);
@@ -173,8 +173,8 @@ static gboolean dxf_parse_chunks(DxfGlobalData *global, DxfChunkInfo *chunks,
 			DXF_HANDLE_UNKNOWN(global, key, str, section);
 		}
 
-		pcnt = (gfloat)g3d_stream_tell(global->stream) /
-			(gfloat)g3d_stream_size(global->stream);
+		pcnt = (G3DFloat)g3d_stream_tell(global->stream) /
+			(G3DFloat)g3d_stream_size(global->stream);
 		if((pcnt - prev_pcnt) > 0.01) {
 			prev_pcnt = pcnt;
 			g3d_context_update_progress_bar(global->context, pcnt, TRUE);

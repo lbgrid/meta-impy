@@ -149,7 +149,7 @@ gboolean lwo_cb_PNTS(G3DIffGlobal *global, G3DIffLocal *local)
 	g_return_val_if_fail(object->vertex_count >= 3, FALSE);
 
 	object->vertex_data = g_realloc(object->vertex_data,
-		sizeof(gfloat) * object->vertex_count * 3);
+		sizeof(G3DFloat) * object->vertex_count * 3);
 
 	for(i = off; i < object->vertex_count; i ++) {
 		object->vertex_data[i * 3 + 0] =
@@ -212,7 +212,7 @@ gboolean lwo_cb_POLS(G3DIffGlobal *global, G3DIffLocal *local)
 		if(obj->tex_vertices) {
 			face->flags |= G3D_FLAG_FAC_TEXMAP;
 			face->tex_vertex_count = face->vertex_count;
-			face->tex_vertex_data = g_new0(gfloat, face->tex_vertex_count * 2);
+			face->tex_vertex_data = g_new0(G3DFloat, face->tex_vertex_count * 2);
 		}
 
 		for(i = 0; i < face->vertex_count; i ++) {
@@ -348,7 +348,7 @@ gboolean lwo_cb_PTAG(G3DIffGlobal *global, G3DIffLocal *local)
 gboolean lwo_cb_SPEC(G3DIffGlobal *global, G3DIffLocal *local)
 {
 	G3DMaterial *material;
-	gfloat tmpf;
+	G3DFloat tmpf;
 
 	material = (G3DMaterial *)local->object;
 	g_return_val_if_fail(material != NULL, FALSE);
@@ -360,7 +360,7 @@ gboolean lwo_cb_SPEC(G3DIffGlobal *global, G3DIffLocal *local)
 	}
 	else
 	{
-		tmpf = 1.0 - (gfloat)g3d_stream_read_int16_be(global->stream) / 256.0;
+		tmpf = 1.0 - (G3DFloat)g3d_stream_read_int16_be(global->stream) / 256.0;
 		local->nb -= 2;
 	}
 
@@ -511,7 +511,7 @@ gboolean lwo_cb_TRAN(G3DIffGlobal *global, G3DIffLocal *local)
 		local->nb -= 4;
 	} else {
 		material->a = 1.0 -
-			(gfloat)g3d_stream_read_int16_be(global->stream) / 256.0;
+			(G3DFloat)g3d_stream_read_int16_be(global->stream) / 256.0;
 		local->nb -= 2;
 	}
 	if(material->a < 0.1)
@@ -550,7 +550,7 @@ gboolean lwo_cb_VMAP(G3DIffGlobal *global, G3DIffLocal *local)
 
 			g_return_val_if_fail(obj->tex_vertices == NULL, FALSE);
 
-			obj->tex_vertices = g_new0(gfloat,
+			obj->tex_vertices = g_new0(G3DFloat,
 				obj->object->vertex_count * 2);
 
 			while(local->nb > 0)

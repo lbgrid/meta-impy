@@ -70,7 +70,7 @@ static gboolean ldraw_part_parse_ref(G3DObject *object, gchar *buffer,
 {
 	G3DObject *subobj;
 	G3DMaterial *material;
-	gfloat m[16], x, y, z;
+	G3DFloat m[16], x, y, z;
 	guint32 colid;
 	gchar fname[256], *strp;
 
@@ -119,7 +119,7 @@ static gboolean ldraw_part_parse_tri(G3DObject *object, gchar *buffer,
 	off = object->vertex_count;
 	object->vertex_count += 3;
 	object->vertex_data = g_realloc(object->vertex_data,
-		object->vertex_count * 3 * sizeof(gfloat));
+		object->vertex_count * 3 * sizeof(G3DFloat));
 	if(sscanf(buffer, "%u %f %f %f %f %f %f %f %f %f", &colid,
 		object->vertex_data + (off + 0) * 3 + 0,
 		object->vertex_data + (off + 0) * 3 + 1,
@@ -153,7 +153,7 @@ static gboolean ldraw_part_parse_quad(G3DObject *object, gchar *buffer,
 	off = object->vertex_count;
 	object->vertex_count += 4;
 	object->vertex_data = g_realloc(object->vertex_data,
-		object->vertex_count * 3 * sizeof(gfloat));
+		object->vertex_count * 3 * sizeof(G3DFloat));
 	if(sscanf(buffer, "%u %f %f %f %f %f %f %f %f %f %f %f %f", &colid,
 		object->vertex_data + (off + 0) * 3 + 0,
 		object->vertex_data + (off + 0) * 3 + 1,
@@ -260,8 +260,8 @@ G3DObject *ldraw_part_get_object(LDrawPart *part, LDrawLibrary *lib)
 		}
 		if(part->master) {
 			g3d_context_update_progress_bar(lib->context,
-				(gfloat)g3d_stream_tell(part->stream) /
-				(gfloat)g3d_stream_size(part->stream), TRUE);
+				(G3DFloat)g3d_stream_tell(part->stream) /
+				(G3DFloat)g3d_stream_size(part->stream), TRUE);
 			g3d_context_update_interface(lib->context);
 		}
 	}
