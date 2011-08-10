@@ -197,7 +197,7 @@ G3DModel
 */
 
 
-static int countFaces(GSList *objects)
+static int countTriangles(GSList *objects)
 {
     int result = 0;
 
@@ -208,12 +208,13 @@ static int countFaces(GSList *objects)
 	objects = objects->next;
 	if (object->hide) continue;
 	result += object->_num_faces;
-	result += countFaces(object->objects);
+	result += countTriangles(object->objects);
     }
     return result;
 }
 
-static void getFaces(GSList *objects, std::vector<LLVolume::Point> mesh, int *i)
+
+static void getVerticesAndStuff(GSList *objects, std::vector<LLVolume::Point> mesh, LLVolumeFace& vf, int *i, LLVector3& face_min, LLVector3& face_max)
 {
     while(objects != NULL)
     {
@@ -228,26 +229,61 @@ static void getFaces(GSList *objects, std::vector<LLVolume::Point> mesh, int *i)
 	{
 	    for (j = 0; j < 3; j++)
 	    {
-		mesh[*i].mPos.mV[0] = object->vertex_data[object->_indices[k * 3 + j] * 3 + 0];
-		mesh[*i].mPos.mV[1] = object->vertex_data[object->_indices[k * 3 + j] * 3 + 1];
-		mesh[*i].mPos.mV[2] = object->vertex_data[object->_indices[k * 3 + j] * 3 + 2];
+//		mesh[*i].mPos.mV[0] = object->vertex_data[	object->_indices	[k * 3 + j] * 3 + 0];
+//		mesh[*i].mPos.mV[1] = object->vertex_data[	object->_indices	[k * 3 + j] * 3 + 1];
+//		mesh[*i].mPos.mV[2] = object->vertex_data[	object->_indices	[k * 3 + j] * 3 + 2];
+		mesh[*i].mPos = LLVector3(			object->vertex_data	[(k * 3 + j) * 3 + 0],	// F64() = G3DFloat() 
+								object->vertex_data	[(k * 3 + j) * 3 + 1],
+								object->vertex_data	[(k * 3 + j) * 3 + 2]);
+
+		vf.mVertices[*i].mPosition = mesh[*i].mPos;
+//		vf.mVertices[*i].mTexCoord = LLVector2(		object->_tex_coords	[(k * 3 + j) * 2 + 0],	// F32() = G3DFloat()
+//								object->_tex_coords	[(k * 3 + j) * 2 + 1]);
+
+		vf.mVertices[*i].mNormal = LLVector3(		object->_normals	[(k * 3 + j) * 3 + 0],	// F64() = G3DFloat()
+								object->_normals	[(k * 3 + j) * 3 + 1],
+								object->_normals	[(k * 3 + j) * 3 + 2]);
+
+		vf.mVertices[*i].mBinormal = LLVector3(0,0,0);  // Um, do we have binormals?  Viewer does not seem to have them either.  shrugs
+
+		if (0 == *i)
+		{
+			face_min = face_max = mesh[*i].mPos;
+		}
+		else
+		{
+			update_min_max(face_min, face_max, mesh[*i].mPos);
+		}
+
+		// Damn, at this point viewer wants quads, but the library uses triangles.
+		// Those few times when the library deals with quads, the forth is just the next index.
+		// No idea what the edges are for.  -1 seems to mean no edge, so go with that for now.
+		vf.mIndices	[(*i) * 6 + j] = object->_indices[k * 3 + j];
+		vf.mEdge	[(*i) * 6 + j] = -1;
 	    }
+	    vf.mIndices		[(*i) * 6 + 3] = object->_indices[k * 3 + 0];	// U16 = guint32 
+	    vf.mIndices		[(*i) * 6 + 4] = object->_indices[k * 3 + 3];
+	    vf.mIndices		[(*i) * 6 + 5] = object->_indices[k * 3 + 1];
+	    vf.mEdge		[(*i) * 6 + 3] = -1;				// S32 = Fucked if I know.
+	    vf.mEdge		[(*i) * 6 + 4] = -1;
+	    vf.mEdge		[(*i) * 6 + 5] = -1;
 	    (*i)++;
 	}
 
-	getFaces(object->objects, mesh, i);
+	getVerticesAndStuff(object->objects, mesh, vf, i, face_min, face_max);
     }
 }
+
 
 void mimesh::getData(LLVolume* volume)
 {
     G3DModel *model = volume->mimeshModel;
     if ((model) && (model->objects))
     {
-	int faces = countFaces(model->objects);
-	int i = 0;
+	int vertices = countTriangles(model->objects) * 3;
+	int index = 0;
 
-	LL_WARNS("getData") << "Transferring model data for " << std::string(model->filename) << " with " << faces << " faces." << LL_ENDL;
+	LL_WARNS("getData") << "Transferring model data for " << std::string(model->filename) << " with " << vertices << " vertices." << LL_ENDL;
 
 	/*
 	sculpt_calc_mesh_resolution(sculpt_width, sculpt_height, sculpt_type, sculpt_detail, requested_sizeS, requested_sizeT);
@@ -259,8 +295,8 @@ void mimesh::getData(LLVolume* volume)
 		t = llmax(t, 4);              // no degenerate sizes, please
 		s = vertices / t;                                             = T / s	= faces / 16 / s
 	*/
-	S32 requested_sizeT = llmax(faces / 4, 4);
-	S32 requested_sizeS = 4;
+	S32 requested_sizeS = llmax (((int) sqrt(vertices)), 4);
+	S32 requested_sizeT = llmax(vertices / requested_sizeS, 4);
 	// create meshes with high LOD always
 	F32 sculpt_detail = 4.0;
 
@@ -271,15 +307,66 @@ LL_WARNS("getData") << "mimesh 0" << LL_ENDL;
 	S32 sizeS = volume->mPathp->mPath.size();         // we requested a specific size, now see what we really got
 	S32 sizeT = volume->mProfilep->mProfile.size();   // we requested a specific size, now see what we really got
 
-LL_WARNS("getData") << "mimesh 1 S " << requested_sizeS << "->" << sizeS << " T " << requested_sizeT << "->" << sizeT << " = " << (sizeS * sizeT) << LL_ENDL;
+LL_WARNS("getData") << "mimesh 1   S " << requested_sizeS << "->" << sizeS << " T " << requested_sizeT << "->" << sizeT << " = " << (sizeS * sizeT) << LL_ENDL;
 	volume->sNumMeshPoints -= volume->mMesh.size();
 	volume->mMesh.resize(sizeS * sizeT);
 	volume->sNumMeshPoints += volume->mMesh.size();
 LL_WARNS("getData") << "mimesh 2" << LL_ENDL;
-	getFaces(model->objects, volume->mMesh, &i);
+	volume->mFaceMask = LLVolumeFace::SIDE_MASK | LLVolumeFace::OUTER_MASK;  // Seems to be the default.
+	volume->mSculptLevel = -2;
 	volume->mimeshNeedData = FALSE;
-    }
+
 LL_WARNS("getData") << "mimesh 3" << LL_ENDL;
+	// Delete any existing faces so that they get regenerated
+	volume->mVolumeFaces.clear();
+LL_WARNS("getData") << "mimesh 4" << LL_ENDL;
+//	volume->createVolumeFaces();
+	S32 num_faces = volume->mProfilep->mFaces.size();
+	volume->mVolumeFaces.resize(num_faces);
+
+LL_WARNS("getData") << "mimesh 5    " << num_faces << LL_ENDL;
+	// It's pretending to be a sculpty, so only one "face / side".
+	// Initialize volume faces with parameter data
+	for (S32 i = 0; i < num_faces; i++)
+	{
+LL_WARNS("getData") << "mimesh 5.0 " << LL_ENDL;
+	    LLVolumeFace& vf = volume->mVolumeFaces[i];
+	    LLProfile::Face& face = volume->mProfilep->mFaces[i];
+	    LLVector3& face_min = vf.mExtents[0];
+	    LLVector3& face_max = vf.mExtents[1];
+
+	    vf.mTypeMask	= volume->mFaceMask;
+            vf.mBeginS		= face.mIndex;
+	    vf.mNumS		= face.mCount;
+	    vf.mBeginT		= 0;
+	    vf.mNumT		= volume->getPath().mPath.size();
+	    vf.mID		= i;
+
+	    // Just to confuse matters, S and T are reversed from what it is above.  Blame LL.
+LL_WARNS("getData") << "mimesh 5.1   S " << vf.mBeginS << "->" << vf.mNumS << " T " << vf.mBeginT << "->" << vf.mNumT << LL_ENDL;
+//	    vf.create(volume, FALSE);
+	    S32 num_vertices = vf.mNumS * vf.mNumT;
+	    S32 num_indices = (vf.mNumS - 1) * (vf.mNumT - 1) * 6;
+
+LL_WARNS("getData") << "mimesh 5.2 " << LL_ENDL;
+	    vf.mVertices.resize(vertices);
+	    vf.mIndices.resize(num_indices);
+	    vf.mEdge.resize(num_indices);
+
+LL_WARNS("getData") << "mimesh 5.3 " << LL_ENDL;
+	    vf.mCenter.clearVec();
+
+LL_WARNS("getData") << "mimesh 5.4 " << LL_ENDL;
+	    getVerticesAndStuff(model->objects, volume->mMesh, vf, &index, face_min, face_max);
+
+LL_WARNS("getData") << "mimesh 5.5 " << LL_ENDL;
+	    vf.mCenter = (face_min + face_max) * 0.5f;
+
+LL_WARNS("getData") << "mimesh 5.6 " << LL_ENDL;
+	}
+LL_WARNS("getData") << "mimesh 6" << LL_ENDL;
+    }
+LL_WARNS("getData") << "mimesh 7" << LL_ENDL;
 }
 
 

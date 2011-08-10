@@ -74,7 +74,7 @@ static void objects_post_load(GSList *objects, gdouble max_rad, guint32 flags)
 		object = (G3DObject *)oitem->data;
 
 		if(flags & G3D_MODEL_SCALE)
-			g3d_object_scale(object, (1.0 / max_rad));
+			g3d_object_scale(object, (0.5 / max_rad));  // For non real meshes, 1.0 works about right.  Trying 0.5 for real meshes.
 
 		if(flags & G3D_MODEL_OPTIMIZE)
 			g3d_object_optimize(object);
