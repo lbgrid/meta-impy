@@ -30,7 +30,8 @@ Hunspell* lggHunSpell_Wrapper::myHunspell = 0;
 // do not insert empty lines after this line until the size calculation
 #define COUNTRY_CODES_RAW_START_LINE (__LINE__ + 2)
 static char * countryCodesraw[] = {
-  (char*)"SL",(char*)"SecondLife",
+  // (char*)"SL",(char*)"SecondLife",  // Um, no, SL does not get it's own country, Especiall one that usurps some other countries code.
+  (char*)"AA",(char*)"Anarchadia",  // I get one though.  :-P
   (char*)"AD",(char*)"Andorra",
   (char*)"AE",(char*)"United Arab Emirates",
   (char*)"AF",(char*)"Afghanistan",
