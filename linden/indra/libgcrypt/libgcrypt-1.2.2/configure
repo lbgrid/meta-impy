@@ -25245,7 +25245,7 @@ LIBGCRYPT_PUBKEY_CIPHERS=$enabled_pubkey_ciphers
 LIBGCRYPT_DIGESTS=$enabled_digests
 
 
-                                                                                ac_config_files="$ac_config_files Makefile mpi/Makefile cipher/Makefile doc/Makefile src/Makefile src/libgcrypt-config tests/Makefile w32-dll/Makefile"
+                                                                                ac_config_files="$ac_config_files Makefile mpi/Makefile cipher/Makefile doc/Makefile src/Makefile src/libgcrypt-config w32-dll/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -25840,7 +25840,6 @@ do
   "doc/Makefile" ) CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
   "src/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
   "src/libgcrypt-config" ) CONFIG_FILES="$CONFIG_FILES src/libgcrypt-config" ;;
-  "tests/Makefile" ) CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;
   "w32-dll/Makefile" ) CONFIG_FILES="$CONFIG_FILES w32-dll/Makefile" ;;
   ""$mpi_ln_list"" ) CONFIG_LINKS="$CONFIG_LINKS "$mpi_ln_list"" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;

@@ -799,7 +799,6 @@ cipher/Makefile
 doc/Makefile
 src/Makefile
 src/libgcrypt-config
-tests/Makefile
 w32-dll/Makefile
 ])
 AC_OUTPUT
