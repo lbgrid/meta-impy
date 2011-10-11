@@ -54,7 +54,7 @@ source config-SL-source
 function compile() {
     cd $PATH_TO_SOURCES/indra
     echo "Compiling the client into $TEMP_DIR..."
-    nice -n 19 ionice -c 3 time ./develop.py --type=Release build
+    nice -n 19 ionice -c 3 ./develop.py --type=Release build
 #    if (($? == 0)) ; then
 #        mv -f $PATH_TO_SOURCES/indra/viewer-linux-i686*/newview/SecondLife*.tar.bz2 $HOME/
 #    fi
@@ -97,4 +97,5 @@ else
     FATAL_WARNINGS=""
 fi
 
-compile
+time compile
+
