@@ -1225,6 +1225,12 @@ void LLSpatialBridge::setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* 
 				return;
 			}
 		}
+// From singularity commit 69e733ea86ebd7cd5a4acb40ef87735e5c428c53 by Shyotl.
+// TODO: Is THIS what is causing HUD monsters?
+		else
+		{
+			return;
+		}
 	}
 	
 
@@ -1278,12 +1284,33 @@ void LLSpatialBridge::updateDistance(LLCamera& camera_in, bool force_update)
 		return;
 	}
 
-	LLCamera camera = transformCamera(camera_in);
-	
-	mDrawable->updateDistance(camera, force_update);
-	
 	if (mDrawable->getVObj())
 	{
+
+// Some more taken from singularity, but not sure of the origin.
+		if (mDrawable->getVObj()->isAttachment())
+		{
+			LLDrawable* parent = mDrawable->getParent();
+			if (parent)
+			{
+				LLViewerObject *obj = parent->getVObj();
+				if (obj && obj->isAvatar() && ((LLVOAvatar*)obj)->isImpostor())
+				{
+					return;
+				}
+			}
+// From singularity commit 69e733ea86ebd7cd5a4acb40ef87735e5c428c53 by Shyotl.
+// TODO: Is THIS what is causing HUD monsters?
+			else
+			{
+				return;
+			}
+		}
+
+		LLCamera camera = transformCamera(camera_in);
+	
+		mDrawable->updateDistance(camera, force_update);
+
 		LLViewerObject::const_child_list_t& child_list = mDrawable->getVObj()->getChildren();
 		for (LLViewerObject::child_list_t::const_iterator iter = child_list.begin();
 			 iter != child_list.end(); iter++)

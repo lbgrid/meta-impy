@@ -394,6 +394,13 @@ BOOL LLToolPie::pickAndShowMenu(BOOL always_show)
 				object = (LLViewerObject*)object->getParent();
 			}
 
+// From singularity commit 080407d92f2846397472be1ab533a9da7f8b66cb by Shyotl.
+// TODO: Is THIS what is causing HUD monsters to cause crashes?
+			if (!object)
+			{
+				return TRUE; // unexpected, but escape
+			}
+
 			// Object is an avatar, so check for mute by id.
 			LLVOAvatar* avatar = (LLVOAvatar*)object;
 			std::string name = avatar->getFullname();

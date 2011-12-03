@@ -464,7 +464,8 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 			
 			if (objectp->getRegion() != regionp)
 			{    // Object changed region, so update it
-				objectp->setRegion(regionp);
+// From singularity commit 88df12ddb6cecf7d46d64531123e4adc23862db1 by Shyotl.
+// TODO: Is THIS what is causing HUD monsters?				objectp->setRegion(regionp);
 				objectp->updateRegion(regionp); // for LLVOAvatar
 			}
 		}
