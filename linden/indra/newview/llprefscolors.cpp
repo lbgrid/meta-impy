@@ -82,6 +82,9 @@ BOOL LLPrefsColors::postBuild()
 
 	getChild<LLColorSwatchCtrl>("effect_color_swatch")->set(gSavedSettings.getColor4("EffectColor"));
 
+	static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
+	childSetValue("client_name_color_check", (*sShowClientColor));
+
 	return TRUE;
 }
 
@@ -128,6 +131,18 @@ void LLPrefsColors::onCommitCheckFriends(LLUICtrl* ctrl, void* userdata)
 void LLPrefsColors::updateFriendsCheck()
 {
 	getChild<LLColorSwatchCtrl>("FriendsChatColor")->setEnabled(childGetValue("HighlightFriendsChat"));
+}
+
+// static
+void LLPrefsColors::onCommitCheckClient(LLUICtrl* ctrl, void* userdata)
+{
+	LLPrefsColors* self = (LLPrefsColors*)userdata;
+	self->updateClientCheck();
+}
+
+void LLPrefsColors::updateClientCheck()
+{
+	getChild<LLColorSwatchCtrl>("client_tag_color")->setEnabled(childGetValue("client_name_color_checkt"));
 }
 
 void LLPrefsColors::cancel()
@@ -179,6 +194,8 @@ void LLPrefsColors::apply()
 	gSavedSettings.setString("HighlightNickname03", nick03);
 
 	gSavedSettings.setColor4("EffectColor", childGetValue("effect_color_swatch"));
+
+	gSavedSettings.setBOOL("ShowClientColor", childGetValue("client_name_color_check"));
 
 	refreshColors(); // member values become the official values and cancel becomes a no-op.
 }

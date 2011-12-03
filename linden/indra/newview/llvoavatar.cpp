@@ -3268,6 +3268,8 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 {
 	LLUUID idx = avatar->getTE(0)->getID();
 
+	// If you're going to add a new color, a new UUID needs to be added -- MC
+
 	// meta-impy gets special treatment -
 	// A) coz this is our damn viewer.
 	// 2) makes it quicker coz everyone else around you is using it.
@@ -3278,7 +3280,6 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 		client = "meta-impy";
 	}
 	// Imprudence is special to, coz dark blue on black is just unreadable.  Pffft.
-	// If you're going to add a new color, a new UUID needs to be added -- MC
 	else if(idx == LLUUID("cc7a030f-282f-c165-44d2-b5ee572e72bf"))
 	{
 		avatar_name_color = LLColor4(0.79f,0.44f,0.88f);// Imprudence
@@ -3474,6 +3475,7 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 		}
 	}
 
+
 	if(client.empty())
 	{
 		LLPointer<LLViewerImage> image_point = gImageList.getImage(idx, MIPMAP_YES, IMMEDIATE_NO);
@@ -3498,7 +3500,6 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 		avatar_name_color += colour;
 		avatar_name_color *= 1.0/(cllsd["multiple"].asReal()+1.0f);
 	}
-	
 }
 
 void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
