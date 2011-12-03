@@ -1815,17 +1815,6 @@
 
   <!-- Begin: Client Name Tag -->
 
-  <key>ShowClientColor</key>
-  <map>
-    <key>Comment</key>
-    <string>Show *others* clients specific color in the name tag</string>
-    <key>Persist</key>
-    <integer>1</integer>
-    <key>Type</key>
-    <string>Boolean</string>
-    <key>Value</key>
-    <integer>1</integer>
-  </map>
   <key>ShowClientNameHoverTip</key>
   <map>
     <key>Comment</key>

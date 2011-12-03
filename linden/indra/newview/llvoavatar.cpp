@@ -3627,9 +3627,9 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 					client_color = LLColor4(0.5f,0.5f,1.0f);
 				}
 
-				static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
+//				static BOOL* sShowClientColor = rebind_llcontrol<BOOL>("ShowClientColor", &gSavedSettings, true);
 				static BOOL* sShowClientNameTag = rebind_llcontrol<BOOL>("ShowClientNameTag", &gSavedSettings, true);
-				if (*sShowClientColor)
+//				if (*sShowClientColor)
 				{
 					avatar_name_color = client_color;
 				}
