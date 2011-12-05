@@ -35,7 +35,7 @@
 # Instead, run develop.py with "configure -DPACKAGE:BOOL=ON" e.g.:
 #   develop.py -G vc80 configure -DPACKAGE:BOOL=ON
 # to generate the "package" project in Visual Studio 2005
-# Note: as of Imprudence 1.3, this defaults to on for Windows
+# Note: use the batch file on Windows in the indra directory
 
 import sys
 import os.path
@@ -167,6 +167,10 @@ class ViewerManifest(LLManifest):
         return self.args['standalone'] == "ON"
     def debug(self):
         return self.args['buildtype'] == "DEBUG"
+    def buildtype(self):
+        return self.args['buildtype']
+    def configuration(self):
+        return self.args['configuration']
     def grid(self):
         return self.args['grid']
     def channel(self):
@@ -177,6 +181,11 @@ class ViewerManifest(LLManifest):
         return "".join(self.channel_unique().split())
     def channel_lowerword(self):
         return self.channel_oneword().lower()
+    def viewer_branding_id(self):
+        return self.args['branding_id']
+    def installer_prefix(self):
+        mapping={"meta-impy":'meta-impy-'}
+        return mapping[self.viewer_branding_id()]
 
     def flags_list(self):
         """ Convenience function that returns the command-line flags
@@ -211,22 +220,48 @@ class ViewerManifest(LLManifest):
 
 
 class WindowsManifest(ViewerManifest):
+    # we always want these to be named meta-impy.exe to avoid settings conflicts
     def final_exe(self):
-        if self.default_channel():
-            if self.default_grid():
+        #if self.default_channel():
+        #    if self.default_grid():
                 return "meta-impy.exe"
-            else:
-                return "meta-impypreview.exe"
-        else:
-            return ''.join(self.channel().split()) + '.exe'
+        #    else:
+        #        return "meta-impypreview.exe"
+        #else:
+        #    return ''.join(self.channel().split()) + '.exe'
 
 
     def construct(self):
         super(WindowsManifest, self).construct()
         # the final exe is complicated because we're not sure where it's coming from,
         # nor do we have a fixed name for the executable
-        self.path(self.find_existing_file('debug/meta-impy-bin.exe', 'release/meta-impy-bin.exe', 'relwithdebinfo/meta-impy-bin.exe'), dst=self.final_exe())
+        # Actually, we know on both counts -- MC
+        if self.configuration().lower() == "release":
+            self.path(self.find_existing_file('release/meta-impy-bin.exe'), dst=self.final_exe())
+        elif self.configuration().lower() == "releasesse2":
+            self.path(self.find_existing_file('releasesse2/meta-impy-bin.exe'), dst=self.final_exe())
+        elif self.configuration().lower() == "relwithdebinfo":
+            self.path(self.find_existing_file('relwithdebinfo/meta-impy-bin.exe'), dst=self.final_exe())
+        elif self.configuration().lower() == "debug":
+            self.path(self.find_existing_file('debug/meta-impy-bin.exe'), dst=self.final_exe())
+        else:
+            self.path(self.find_existing_file('release/meta-impy-bin.exe', 'releasesse2/meta-impy-bin.exe', 'relwithdebinfo/meta-impy-bin.exe', 'debug/meta-impy-bin.exe'), dst=self.final_exe())
 
+        # copy over the the pdb file for the regular or SSE2 versions if we don't already have one copied
+        symbol_ver = '.'.join(self.args['version'])
+        symbol_file = 'meta-impy-%s.%s.pdb' % (symbol_ver, self.args['configuration'])
+        symbol_path = '../../../../../pdb_files/%s' % (symbol_file)
+        if os.path.isfile(os.getcwd() + symbol_path):
+            print "%s already exists, skipping" % (symbol_path)
+        else:
+            #print "%s doesn't exist yet" % (os.getcwd() + symbol_path)
+            try:
+                self.path(self.find_existing_file('release/meta-impy-bin.pdb'), dst="../%s" % (symbol_path))
+                pass
+            except:
+                print "Can't save symbol file %s, skipping" % (symbol_path)
+                pass
+        
         self.gather_documents()
 
         if self.prefix("../..", dst="doc"):
@@ -254,6 +289,9 @@ class WindowsManifest(ViewerManifest):
         if self.prefix(src=self.args['configuration'], dst=""):
             self.path("libhunspell.dll")
             self.end_prefix()
+
+	# Copy the llkdu DSO .config
+        self.path("llkdu.dll.2.config")
 
         # Get llcommon and deps.
         if self.prefix(src=self.args['configuration'], dst=""):
@@ -311,31 +349,22 @@ class WindowsManifest(ViewerManifest):
             self.path("qtiff4.dll")
             self.end_prefix()
 
+        # We no longer use private assemblies in the viewer -- MC
         # These need to be installed as a SxS assembly, currently a 'private' assembly.
         # See http://msdn.microsoft.com/en-us/library/ms235291(VS.80).aspx
-        if self.prefix(src=self.args['configuration'], dst=""):
-            if self.args['configuration'] == 'Debug':
-                self.path("msvcr80d.dll")
-                self.path("msvcp80d.dll")
-                self.path("Microsoft.VC80.DebugCRT.manifest")
-            else:
-                self.path("msvcr80.dll")
-                self.path("msvcp80.dll")
-                self.path("Microsoft.VC80.CRT.manifest")
-            self.end_prefix()
+        #if self.prefix(src=self.args['configuration'], dst=""):
+        #    if self.args['configuration'] == 'Debug':
+        #        self.path("msvcr80d.dll")
+        #        self.path("msvcp80d.dll")
+        #        self.path("Microsoft.VC80.DebugCRT.manifest")
+        #    else:
+        #        self.path("msvcr80.dll")
+        #        self.path("msvcp80.dll")
+        #        self.path("Microsoft.VC80.CRT.manifest")
+        #    self.end_prefix()
 
         # The config file name needs to match the exe's name.
-        self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
-
-        # We need this one too, so that llkdu loads at runtime - DEV-41194
-        #self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst="llkdu.dll.2.config")
-        self.path("llkdu.dll.2.config")
-
-        # We need this one too, so that win_crash_logger.exe loads at runtime - DEV-19004
-        #self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst="win_crash_logger.exe.config")
-
-        # same thing for auto-updater.
-        #self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst="updater.exe.config")
+        #self.path(src="%s/meta-impy-bin.exe.config" % self.args['configuration'], dst=self.final_exe() + ".config")
 
         # Vivox runtimes
         if self.prefix(src="vivox-runtime/i686-win32", dst=""):
@@ -420,17 +449,19 @@ class WindowsManifest(ViewerManifest):
             self.path("z.dll")
             self.end_prefix()
 
-#        # pull in the crash logger and updater from other projects
-#        self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
-#                "../win_crash_logger/debug/windows-crash-logger.exe",
-#                "../win_crash_logger/release/windows-crash-logger.exe",
-#                "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
-#                  dst="win_crash_logger.exe")
-        self.path(src=self.find_existing_file(
-                "../win_updater/debug/windows-updater.exe",
-                "../win_updater/release/windows-updater.exe",
-                "../win_updater/relwithdebinfo/windows-updater.exe"),
-                  dst="updater.exe")
+        # pull in the crash logger and updater from other projects
+        #self.path(src=self.find_existing_file( # tag:"crash-logger" here as a cue to the exporter
+        #        "../win_crash_logger/debug/windows-crash-logger.exe",
+        #        "../win_crash_logger/release/windows-crash-logger.exe",
+        #        "../win_crash_logger/releasesse2/windows-crash-logger.exe"),
+        #        "../win_crash_logger/relwithdebinfo/windows-crash-logger.exe"),
+        #          dst="win_crash_logger.exe")
+        #self.path(src=self.find_existing_file(
+        #        "../win_updater/debug/windows-updater.exe",
+        #        "../win_updater/release/windows-updater.exe",
+        #        "../win_updater/releasesse2/windows-updater.exe",
+        #        "../win_updater/relwithdebinfo/windows-updater.exe"),
+        #          dst="updater.exe")
 
         # For google-perftools tcmalloc allocator.
         #if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
@@ -438,145 +469,31 @@ class WindowsManifest(ViewerManifest):
         #        self.end_prefix()
 
 
-    def nsi_file_commands(self, install=True):
-        def wpath(path):
-            if path.endswith('/') or path.endswith(os.path.sep):
-                path = path[:-1]
-            path = path.replace('/', '\\')
-            return path
-
-        result = ""
-        dest_files = [pair[1] for pair in self.file_list if pair[0] and os.path.isfile(pair[1])]
-        # sort deepest hierarchy first
-        dest_files.sort(lambda a,b: cmp(a.count(os.path.sep),b.count(os.path.sep)) or cmp(a,b))
-        dest_files.reverse()
-        out_path = None
-        for pkg_file in dest_files:
-            rel_file = os.path.normpath(pkg_file.replace(self.get_dst_prefix()+os.path.sep,''))
-            installed_dir = wpath(os.path.join('$INSTDIR', os.path.dirname(rel_file)))
-            pkg_file = wpath(os.path.normpath(pkg_file))
-            if installed_dir != out_path:
-                if install:
-                    out_path = installed_dir
-                    result += 'SetOutPath ' + out_path + '\n'
-            if install:
-                result += 'File ' + pkg_file + '\n'
-            else:
-                result += 'Delete ' + wpath(os.path.join('$INSTDIR', rel_file)) + '\n'
-        # at the end of a delete, just rmdir all the directories
-        if not install:
-            deleted_file_dirs = [os.path.dirname(pair[1].replace(self.get_dst_prefix()+os.path.sep,'')) for pair in self.file_list]
-            # find all ancestors so that we don't skip any dirs that happened to have no non-dir children
-            deleted_dirs = []
-            for d in deleted_file_dirs:
-                deleted_dirs.extend(path_ancestors(d))
-            # sort deepest hierarchy first
-            deleted_dirs.sort(lambda a,b: cmp(a.count(os.path.sep),b.count(os.path.sep)) or cmp(a,b))
-            deleted_dirs.reverse()
-            prev = None
-            for d in deleted_dirs:
-                if d != prev:   # skip duplicates
-                    result += 'RMDir ' + wpath(os.path.join('$INSTDIR', os.path.normpath(d))) + '\n'
-                prev = d
-
-        return result
-
     def package_finish(self):
-        # a standard map of strings for replacing in the templates
-        substitution_strings = {
-            'version' : '.'.join(self.args['version']).replace(' ', '_'),
-            'version_short' : '.'.join(self.args['version'][:-1]).replace(' ', '_'),
-            'version_dashes' : '-'.join(self.args['version']).replace(' ', '_'),
-            'final_exe' : self.final_exe(),
-            'grid':self.args['grid'],
-            'grid_caps':self.args['grid'].upper(),
-            # escape quotes becase NSIS doesn't handle them well
-            'flags':self.flags_list().replace('"', '$\\"'),
-            'channel':self.channel(),
-            'channel_oneword':self.channel_oneword(),
-            'channel_unique':self.channel_unique(),
-            }
+        # meta-impy uses Inno Setup to compile its installers. This process creates a new installer from a template
+        # See http://www.jrsoftware.org/isinfo.php
+        sse_string = ''
+        if self.configuration().lower() == "releasesse2":
+            sse_string = "-(SSE2-optimized)"
 
-        version_vars = """
-        !define INSTEXE  "%(final_exe)s"
-        !define VERSION "%(version_short)s"
-        !define VERSION_LONG "%(version)s"
-        !define VERSION_DASHES "%(version_dashes)s"
-        """ % substitution_strings
-        if self.default_channel():
-            if self.default_grid():
-                # release viewer
-                installer_file = "meta-impy_%(version_dashes)s_Setup.exe"
-                grid_vars_template = """
-                OutFile "%(installer_file)s"
-                !define INSTFLAGS "%(flags)s"
-                !define INSTNAME   "meta-impy"
-                !define SHORTCUT   "meta-impy"
-                !define URLNAME   "meta-impy"
-                Caption "meta-impy ${VERSION}"
-                """
-            else:
-                # beta grid viewer
-                installer_file = "meta-impy_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
-                grid_vars_template = """
-                OutFile "%(installer_file)s"
-                !define INSTFLAGS "%(flags)s"
-                !define INSTNAME   "meta-impy%(grid_caps)s"
-                !define SHORTCUT   "meta-impy (%(grid_caps)s)"
-                !define URLNAME   "meta-impy%(grid)s"
-                !define UNINSTALL_SETTINGS 1
-                Caption "meta-impy %(grid)s ${VERSION}"
-                """
-        else:
-            # some other channel on some grid
-            installer_file = "meta-impy_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
-            grid_vars_template = """
-            OutFile "%(installer_file)s"
-            !define INSTFLAGS "%(flags)s"
-            !define INSTNAME   "meta-impy%(channel_oneword)s"
-            !define SHORTCUT   "%(channel)s"
-            !define URLNAME   "meta-impy"
-            !define UNINSTALL_SETTINGS 1
-            Caption "%(channel)s ${VERSION}"
-            """
-        if 'installer_name' in self.args:
-            installer_file = self.args['installer_name']
-        else:
-            installer_file = installer_file % substitution_strings
-        substitution_strings['installer_file'] = installer_file
+        version = '.'.join(self.args['version'])
+        base_filename = self.installer_prefix() + version + sse_string
+        app_name = self.channel()
+        app_ver_name="%s %s" % (app_name, version)
 
-        tempfile = "meta-impy_setup_tmp.nsi"
-        # the following replaces strings in the nsi template
-        # it also does python-style % substitution
-        self.replace_in("installers/windows/installer_template.nsi", tempfile, {
-                "%%VERSION%%":version_vars,
-                "%%SOURCE%%":self.get_src_prefix(),
-                "%%GRID_VARS%%":grid_vars_template % substitution_strings,
-                "%%INSTALL_FILES%%":self.nsi_file_commands(True),
-                "%%DELETE_FILES%%":self.nsi_file_commands(False)})
+        new_script = base_filename + ".iss"
+        self.replace_in("installers/windows/meta-impy_installer_template.iss", new_script, {
+                "%%VERSION%%":version,
+                "%%INSTALLERFILENAME%%":base_filename,
+                "%%PACKAGEFILES%%":self.args['dest'],
+                "%%APPNAME%%":app_name,
+                "%%APPVERNAME%%":app_ver_name,
+                })
 
-        # We use the Unicode version of NSIS, available from
-        # http://www.scratchpaper.com/
-        try:
-          import _winreg as reg
-          NSIS_path = reg.QueryValue(reg.HKEY_LOCAL_MACHINE, r"SOFTWARE\NSIS\Unicode") + '\\makensis.exe'
-          self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
-        except:
-          try:
-            NSIS_path = os.environ['ProgramFiles'] + '\\NSIS\\Unicode\\makensis.exe'
-            self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
-          except:
-            NSIS_path = os.environ['ProgramFiles(X86)'] + '\\NSIS\\Unicode\\makensis.exe'
-        self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
-        # self.remove(self.dst_path_of(tempfile))
-        # If we're on a build machine, sign the code using our Authenticode certificate. JC
-        sign_py = 'C:\\buildscripts\\code-signing\\sign.py'
-        if os.path.exists(sign_py):
-            self.run_command(sign_py + ' ' + self.dst_path_of(installer_file))
-        else:
-            print "Skipping code signing,", sign_py, "does not exist"
-        self.created_path(self.dst_path_of(installer_file))
-        self.package_file = installer_file
+        self.created_path(self.dst_path_of(new_script))
+        self.package_file = base_filename + ".exe"
+
+        print "New ISS script created at " +  self.args['dest'] + "\\" + new_script       
 
 
 class DarwinManifest(ViewerManifest):
@@ -840,20 +757,17 @@ class DarwinManifest(ViewerManifest):
         if not self.default_channel():
             channel_standin = self.channel()
 
-        imagename="meta-impy_" + '_'.join(self.args['version'])
-
-        # MBW -- If the mounted volume name changes, it breaks the .DS_Store's background image and icon positioning.
-        #  If we really need differently named volumes, we'll need to create multiple DS_Store file images, or use some other trick.
+        imagename=self.installer_prefix() + '-'.join(self.args['version'])
 
         volname="meta-impy Installer"  # DO NOT CHANGE without understanding comment above
 
         if self.default_channel():
             if not self.default_grid():
                 # beta case
-                imagename = imagename + '_' + self.args['grid'].upper()
+                imagename = imagename + '-' + self.args['grid'].upper()
         else:
             # first look, etc
-            imagename = imagename + '_' + self.channel_oneword().upper()
+            imagename = imagename + '-' + self.channel_oneword().upper()
 
         sparsename = imagename + ".sparseimage"
         finalname = imagename + ".dmg"
@@ -1035,13 +949,16 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
-            self.path("libxml2.so.2")
             self.path("libz.so")
             self.path("libz.so.1")
 
             # OpenAL
-            self.path("libopenal.so.1.12.854", "libopenal.so.1")
-            self.path("libalut.so.0.1.0", "libalut.so.0")
+            self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
+            self.path("libopenal.so")
+            self.path("libopenal.so.1")
+            self.path("libopenal.so.1.13.0")
 
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
@@ -1134,7 +1051,6 @@ class Linux_i686Manifest(LinuxManifest):
                 self.end_prefix("bin")
 
             if self.prefix(src="vivox-runtime/i686-linux", dst="lib"):
-                self.path("libalut.so")
                 self.path("libortp.so")
                 self.path("libvivoxsdk.so")
                 self.end_prefix("lib")
@@ -1163,22 +1079,37 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libapr-1.so.0")
             self.path("libaprutil-1.so.0")
             self.path("libdb-4.2.so")
-            self.path("libcrypto.so.0.9.8")
+            self.path("libcrypto.so")
+            self.path("libcrypto.so.1.0.0")
             self.path("libexpat.so.1")
             self.path("libhunspell-1.2.so.0.0.0", "libhunspell-1.2.so.0")
-            self.path("libssl.so.0.9.8")
+            self.path("libssl.so")
+            self.path("libssl.so.1.0.0")
             self.path("libuuid.so", "libuuid.so.1")
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libjpeg.so.7")
             self.path("libpng12.so.0")
             self.path("libopenjpeg.so.2")
-            self.path("libxml2.so.2")
-            #self.path("libz.so.1") #not needed
 
+            self.path("libcares.so")
+            self.path("libcares.so.2")
+            self.path("libcares.so.2.0.0")
+            self.path("libcurl.so")
+            self.path("libcurl.so.4")
+            self.path("libcurl.so.4.2.0")
+            self.path("libz.so.1.2.5")
+            self.path("libz.so.1")
+            self.path("libz.so")
             # OpenAL
-            self.path("libopenal.so.1.12.854", "libopenal.so.1")
-            self.path("libalut.so.0.1.0", "libalut.so.0")
+
+            self.path("libopenal.so")
+            self.path("libopenal.so.1")
+            self.path("libopenal.so.1.13.0")
+            self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
+
             # GTK+ and dependencies
             ## Lets just use the system libraries for all of these:
             ##self.path("libatk-1.0.so.0")
@@ -1193,69 +1124,6 @@ class Linux_x86_64Manifest(LinuxManifest):
 #            self.path("libpangox-1.0.so.0")		# and crash if not compatible or present. 
 #            self.path("libpangoxft-1.0.so.0")		# So we depend system gdk pixbufs and pango anyway.
             ##self.path("libpixman-1.so.0")
-
-#KILL IT WITH FIRE
-            ## Gstreamer libs
-            #self.path("libgstbase-0.10.so.0")
-            #self.path("libgstreamer-0.10.so.0")
-            #self.path("libgstaudio-0.10.so.0")
-            #self.path("libgstbase-0.10.so.0")
-            #self.path("libgstcontroller-0.10.so.0")
-            #self.path("libgstdataprotocol-0.10.so.0")
-            #self.path("libgstinterfaces-0.10.so.0")
-            #self.path("libgstnetbuffer-0.10.so.0")
-            #self.path("libgstpbutils-0.10.so.0")
-            #self.path("libgstriff-0.10.so.0")
-            #self.path("libgstrtp-0.10.so.0")
-            #self.path("libgstrtsp-0.10.so.0")
-            #self.path("libgstsdp-0.10.so.0")
-            #self.path("libgsttag-0.10.so.0")
-            #self.path("libgstvideo-0.10.so.0")
-
-            ## Gstreamer plugin dependencies
-            #self.path("libfaad.so.0")
-            #self.path("libogg.so.0")
-            #self.path("libtheora.so.0")
-            #self.path("libvorbis.so.0")
-            #self.path("libvorbisenc.so.2")
-            #self.path("liboil-0.3.so.0")
-
-            ## Gstreamer plugins
-            #if self.prefix("gstreamer-plugins"):
-                #self.path("libgstalsa.so")
-                #self.path("libgstasf.so")
-                #self.path("libgstaudioconvert.so")
-                #self.path("libgstaudioresample.so")
-                #self.path("libgstautodetect.so")
-                #self.path("libgstavi.so")
-                #self.path("libgstcoreelements.so")
-                #self.path("libgstcoreindexers.so")
-                #self.path("libgstdecodebin2.so")
-                #self.path("libgstdecodebin.so")
-                #self.path("libgstesd.so")
-                #self.path("libgstfaad.so")
-                #self.path("libgstffmpeg.so")
-                #self.path("libgstffmpegcolorspace.so")
-                #self.path("libgstgnomevfs.so")
-                #self.path("libgsticydemux.so")
-                #self.path("libgstid3demux.so")
-                #self.path("libgstmpegdemux.so")
-                #self.path("libgstmultifile.so")
-                #self.path("libgstmultipart.so")
-                #self.path("libgstogg.so")
-                #self.path("libgstossaudio.so")
-                #self.path("libgstplaybin.so")
-                #self.path("libgstpulse.so")
-                #self.path("libgstqtdemux.so")
-                #self.path("libgstqueue2.so")
-                #self.path("libgsttcp.so")
-                #self.path("libgsttheora.so")
-                #self.path("libgsttypefindfunctions.so")
-                #self.path("libgstudp.so")
-                #self.path("libgstvideoscale.so")
-                #self.path("libgstvolume.so")
-                #self.path("libgstvorbis.so")
-                #self.path("libgstwavparse.so")
                 
                 #self.end_prefix("gstreamer-plugins")
 # [$PLOTR$] these two are not needed when STATIC_LIBOTR_ETC is on in .../linden/indra/CMakeLists.txt
@@ -1263,7 +1131,7 @@ class Linux_x86_64Manifest(LinuxManifest):
 #            self.path("libotr.so.2")
 # [/$PLOTR$]
             self.end_prefix("lib64")
-        
+
 
             # Vivox runtimes and libs
             if self.prefix(src="vivox-runtime/i686-linux", dst="bin"):
@@ -1279,9 +1147,12 @@ class Linux_x86_64Manifest(LinuxManifest):
         # 32bit libs needed for voice
         if self.prefix("../../libraries/x86_64-linux/lib_release_client/32bit-compat", dst="lib32"):
             self.path("libalut.so")
+            self.path("libalut.so.0")
+            self.path("libalut.so.0.0.0")
             self.path("libidn.so.11")
+            self.path("libopenal.so")
             self.path("libopenal.so.1")
-            # self.path("libortp.so")
+            self.path("libopenal.so.1.13.0")
             self.path("libuuid.so.1")
             self.end_prefix("lib32")
 

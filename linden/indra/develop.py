@@ -70,7 +70,7 @@ def quote(opts):
 class PlatformSetup(object):
     generator = None
     build_types = {}
-    for t in ('Debug', 'Release', 'RelWithDebInfo'):
+    for t in ('Debug', 'Release', 'ReleaseSSE2', 'RelWithDebInfo'):
         build_types[t.lower()] = t
 
     build_type = build_types['relwithdebinfo']
@@ -80,6 +80,7 @@ class PlatformSetup(object):
     project_name = 'meta-impy'
     distcc = True
     cmake_opts = []
+    using_express = False
 
     def __init__(self):
         self.script_dir = os.path.realpath(
@@ -222,14 +223,26 @@ class UnixSetup(PlatformSetup):
 
     def arch(self):
         cpu = os.uname()[-1]
+        word_size = os.environ.get('WORD_SIZE')
         if cpu.endswith('386'):
             cpu = 'i386'
+            if word_size == '64':
+              cpu = 'x86_64'
         elif cpu.endswith('86'):
-            cpu = 'i686'
+            if word_size == '64':
+              cpu = 'x86_64'
+            else:
+              cpu = 'i686'
         elif cpu in ('x86_64'):
-            cpu = 'x86_64'	    
-        elif cpu in ('athlon',):
-            cpu = 'i686'
+            if word_size == '32':
+              cpu = 'i686'
+            else:
+              cpu = 'x86_64'
+	elif cpu in ('athlon',):
+            if word_size == '64':
+              cpu = 'x86_64'
+            else:
+              cpu = 'i686'
         elif cpu == 'Power Macintosh':
             cpu = 'ppc'
         return cpu
@@ -502,6 +515,7 @@ class WindowsSetup(PlatformSetup):
                 for version in 'vc80 vc90 vc100 vc71'.split():
                     if self.find_visual_studio_express(version):
                         self._generator = version
+                        self.using_express = True
                         print 'Building with ', self.gens[version]['gen'] , "Express edition"
                         break
                 else:
@@ -578,6 +592,7 @@ class WindowsSetup(PlatformSetup):
             key = _winreg.OpenKey(reg, key_str)
             value = _winreg.QueryValueEx(key, value_str)[0]+"IDE"
             print 'Found: %s' % value
+            self.using_express = True
             return value
         except WindowsError, err:
             print >> sys.stderr, "Didn't find ", self.gens[gen]['gen']
@@ -586,7 +601,7 @@ class WindowsSetup(PlatformSetup):
     def get_build_cmd(self):
         if self.incredibuild:
             config = self.build_type
-            if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0' ]:
+            if self.gens[self.generator]['ver'] in [ r'8.0', r'9.0', r'10.0', r'7.1' ]:
                 config = '\"%s|Win32\"' % config
 
             return "buildconsole %s.sln /build %s" % (self.project_name, config)
@@ -626,7 +641,8 @@ class WindowsSetup(PlatformSetup):
         '''Override to add the vstool.exe call after running cmake.'''
         PlatformSetup.run_cmake(self, args)
         if self.unattended == 'OFF':
-            self.run_vstool()
+            if self.using_express == False:
+                self.run_vstool()
 
     def run_vstool(self):
         for build_dir in self.build_dirs():
@@ -706,11 +722,12 @@ Options:
        --unattended     build unattended, do not invoke any tools requiring
                         a human response
        --universal      build a universal binary on Mac OS X (unsupported)
-  -t | --type=NAME      build type ("Debug", "Release", or "RelWithDebInfo")
+  -t | --type=NAME      build type ("Debug", "Release", "ReleaseSSE2", or "RelWithDebInfo")
+  -m32 | -m64           build architecture (32-bit or 64-bit)
   -N | --no-distcc      disable use of distcc
   -G | --generator=NAME generator name
-                        Windows: VC71 or VS2003 (default), VC80 (VS2005) or 
-                          VC90 (VS2008)
+                        Windows: VC80 (VS2005--default), VC71 (VS2003), 
+                          VC90 (VS2008), or VC100 (VS2010)
                         Mac OS X: Xcode (default), Unix Makefiles
                         Linux: Unix Makefiles (default), KDevelop3
   -p | --project=NAME   set the root project name. (Doesn't effect makefiles)

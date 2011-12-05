@@ -156,11 +156,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "meta-impy Viewer Project"
             VALUE "FileDescription", "meta-impy"
-            VALUE "FileVersion", "1.4.0 beta 1"
+            VALUE "FileVersion", "1.4.0 beta 2"
             VALUE "InternalName", "meta-impy"
             VALUE "OriginalFilename", "meta-impy.exe"
             VALUE "ProductName", "meta-impy"
-            VALUE "ProductVersion", "1.4.0 beta 1"
+            VALUE "ProductVersion", "1.4.0 beta 2"
         END
     END
     BLOCK "VarFileInfo"

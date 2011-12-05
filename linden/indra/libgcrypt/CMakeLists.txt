@@ -5,9 +5,10 @@ include(libgpg-error)
 include(libgcrypt)
 include(Linking)
 
+if (WINDOWS)
+
 project(gcrypt)
 
-if (WINDOWS)
     include_directories(
 	../gpg.vs/inc.vs
 	../gpg.vs/libgcrypt-1.2.2.vs/custom

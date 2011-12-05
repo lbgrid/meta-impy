@@ -130,6 +130,7 @@ void LLPrefsColors::updateFriendsCheck()
 	getChild<LLColorSwatchCtrl>("FriendsChatColor")->setEnabled(childGetValue("HighlightFriendsChat"));
 }
 
+
 void LLPrefsColors::cancel()
 {
 	gSavedSettings.setColor4("SystemChatColor", mSystemChatColor);
