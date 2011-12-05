@@ -113,7 +113,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(void)
 {
-	return g_strdup("Racer files.");
+	return g_strdup("Racer models.");
 }
 
 EAPI

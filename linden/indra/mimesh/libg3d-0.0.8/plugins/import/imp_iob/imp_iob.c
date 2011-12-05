@@ -76,7 +76,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 char *plugin_description(void)
 {
-	return g_strdup("Impulse Turbo Silver / Imagine objects.");
+	return g_strdup("Impulse Turbo Silver / Imagine models.");
 }
 
 EAPI

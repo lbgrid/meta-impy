@@ -141,7 +141,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("Neutral File Format.");
+	return g_strdup("Neutral File Format models.");
 }
 
 EAPI

@@ -67,7 +67,7 @@ EAPI
 gchar *plugin_description(void)
 {
 	return g_strdup(
-		"Reflections R4.");
+		"Reflections R4 models.");
 }
 
 EAPI

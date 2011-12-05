@@ -119,7 +119,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("LightWave Objects.\n"
+	return g_strdup("LightWave models.\n"
 		"Author: Markus Dahms.");
 }
 

@@ -73,7 +73,7 @@ gboolean plugin_load_model_from_stream(G3DContext *context, G3DStream *stream,
 EAPI
 gchar *plugin_description(G3DContext *context)
 {
-	return g_strdup("STLA and STLB stereolithography files.\n"
+	return g_strdup("STLA and STLB stereolithography models.\n"
 		"Author: Oliver Dippel");
 }
 
