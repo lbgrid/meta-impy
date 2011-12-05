@@ -1,5 +1,7 @@
 # -*- cmake -*-
 
+use_prebuilt_binary(libxml)
+
 set(G3D_INCLUDE_DIRS
     ${LIBS_OPEN_DIR}/mimesh/libg3d-0.0.8/include
     )

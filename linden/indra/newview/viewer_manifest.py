@@ -949,6 +949,7 @@ class Linux_i686Manifest(LinuxManifest):
             self.path("libSDL-1.2.so.0")
             self.path("libELFIO.so")
             self.path("libopenjpeg.so.2")
+            self.path("libxml2.so.2")
             self.path("libz.so")
             self.path("libz.so.1")
 
@@ -1012,6 +1013,7 @@ class Linux_x86_64Manifest(LinuxManifest):
             self.path("libjpeg.so.7")
             self.path("libpng12.so.0")
             self.path("libopenjpeg.so.2")
+            self.path("libxml2.so.2")
 
             self.path("libcares.so")
             self.path("libcares.so.2")
