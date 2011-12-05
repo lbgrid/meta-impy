@@ -275,7 +275,7 @@ class Installer(object):
                 pass
 
     def _write(self, filename, state):
-        print "Writing state to",filename
+        print "Writing state."
         if not self._dryrun:
             file(filename, 'wb').write(llsd.format_pretty_xml(state))
 
@@ -556,7 +556,7 @@ windows/i686/vs/2003 -- specify a windows visual studio 2003 package"""
     def _install(self, to_install, install_dir):
         for ifile in to_install:
             tar = tarfile.open(ifile.filename, 'r')
-            print "Extracting",ifile.filename,"to",install_dir
+            print "Extracting"
             if not self._dryrun:
                 # *NOTE: try to call extractall, which first appears
                 # in python 2.5. Phoenix 2008-01-28
