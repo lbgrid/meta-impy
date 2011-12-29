@@ -39,9 +39,18 @@
 #include "meta7windlight.h"
 
 
-const std::string WindlightMessage::sWaterPresetName = "(Region settings)";
-const std::string WindlightMessage::sSkyPresetName   = "(Region settings)";
+const std::string WindlightMessage::sWaterPresetName  = "(Region settings)";
+const std::string WindlightMessage::sSkyPresetName    = "(Region settings)";
+const std::string WindlightMessage::sBackupWaterPresetName = "(Backup settings)";
+const std::string WindlightMessage::sBackupSkyPresetName = "(Backup settings)";
 
+// Backups.
+LLWaterParamSet waterBackup;
+LLWLParamSet skyBackup;
+//LLUUID* waterNormalBackup = NULL;
+bool animatorIsRunning = true;
+bool animatorUseEstateTime = true;
+bool backup = false;
 
 WindlightMessage* WindlightMessage::sMostRecent = NULL;
 LLTimer* WindlightMessage::sIgnoreTimer = new LLTimer();
@@ -204,6 +213,25 @@ bool WindlightMessage::applyCallback(const LLSD& notification,
 void WindlightMessage::resetRegion()
 {
 	sIgnoreRegion = false;
+
+// According to Melanie Thielker -
+// The new WindlightReset message from OpenSim is for resetting Windlight presets when leaving a sim that uses Lightshare.
+// Hopefully if you are moving to a sim that has new LightShare data, that gets sent after this reset, or the reset is never sent.
+	if (backup)
+	{
+	    LLWaterParamManager* water_mgr = LLWaterParamManager::instance();
+	    LLWLParamManager* sky_mgr = LLWLParamManager::instance();
+
+	    llinfos << "Restoring WindLight presets " << waterBackup.mName << " and " << skyBackup.mName <<  "." << llendl;
+	    water_mgr->loadPreset(waterBackup.mName, true);
+	    // Don't think we need to do this.
+	    //if (waterNormalBackup)
+		//water_mgr->setNormalMapID(*waterNormalBackup);
+	    sky_mgr->mAnimator.mIsRunning = animatorIsRunning;
+	    sky_mgr->mAnimator.mUseLindenTime = animatorUseEstateTime;
+	    sky_mgr->loadPreset(skyBackup.mName, true);
+	    backup = false;
+	}
 }
 
 
@@ -227,10 +255,22 @@ bool WindlightMessage::apply()
 	LLWaterParamManager* water_mgr = LLWaterParamManager::instance();
 	LLWLParamManager* sky_mgr = LLWLParamManager::instance();
 
+	if (!backup)
+	{
+	    llinfos << "Backing up WindLight presets '" << water_mgr->mCurParams.mName << " and " << sky_mgr->mCurParams.mName << "'." << llendl;
+	    waterBackup = water_mgr->mCurParams;
+	    //waterNormalBackup = waterBackup->getNormalMapID();
+	    skyBackup = sky_mgr->mCurParams;
+	    animatorIsRunning = sky_mgr->mAnimator.mIsRunning;
+	    animatorUseEstateTime = sky_mgr->mAnimator.mUseLindenTime;
+	    backup = true;
+	}
+
 	mWater->mName = sWaterPresetName;
 	water_mgr->removeParamSet( sWaterPresetName, false );
 	water_mgr->addParamSet( sWaterPresetName, *mWater );
-	water_mgr->savePreset( sWaterPresetName );
+	// Don't think we need to save it, the load gets the one we added above.
+	//water_mgr->savePreset( sWaterPresetName );
 	water_mgr->loadPreset( sWaterPresetName, true );
 	water_mgr->setNormalMapID( *mWaterNormal );
 
@@ -239,13 +279,15 @@ bool WindlightMessage::apply()
 	sky_mgr->mAnimator.mUseLindenTime = false;
 	sky_mgr->removeParamSet( sSkyPresetName, false );
 	sky_mgr->addParamSet( sSkyPresetName, *mSky );
-	sky_mgr->savePreset( sSkyPresetName );
+	// Don't think we need to save it, the load gets the one we added above.
+	//sky_mgr->savePreset( sSkyPresetName );
 	sky_mgr->loadPreset( sSkyPresetName, true );
 
 	return true;
 }
 
 
+// static
 bool WindlightMessage::isValid()
 {
 	return mIsValid;

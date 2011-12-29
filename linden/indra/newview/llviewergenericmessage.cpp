@@ -91,6 +91,11 @@ void process_generic_message(LLMessageSystem* msg, void**)
 		WindlightMessage::processWindlight(msg, NULL);
 		return;
 	}
+	else if(method == "WindlightReset")
+	{	
+		WindlightMessage::resetRegion();
+		return;
+	}
 
 	if( agent_id != gAgent.getID() )
 	{

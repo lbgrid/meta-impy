@@ -68,6 +68,10 @@ class WindlightMessage
 	// The name of the sky preset where the region settings are stored.
 	static const std::string sSkyPresetName;
 
+	// The name of the preset where the backup settings are stored.
+	static const std::string sBackupWaterPresetName;
+	static const std::string sBackupSkyPresetName;
+
 	// Message handler for GenericMessage with the "Windlight" method.
 	// Creates and applies a new WindlightMessage (or prompts user).
 	static void processWindlight(LLMessageSystem* msg, void**);
@@ -78,6 +82,7 @@ class WindlightMessage
 
 	// Called after the user has entered a new region, to reset the
 	// "ignore while in this region" state.
+	// Also resets/deactivates the Windlight settings in response to the "WindlightReset" method.
 	static void resetRegion();
 
 	// Applies/activates the Windlight settings from the message.
