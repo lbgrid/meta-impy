@@ -2920,9 +2920,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 
 		// Always update console
 		LLRect console_rect = getChatConsoleRect();
-		// Add a magic number so the pre login console does not cover the login panel.
-		// TODO: Would be nice to only do this for the pre login window.
-		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad() + 20;
+		// Add a magic number so the pre login console does not cover the login panel. 	
+		S32 magic_num = (LLStartUp::isLoggedIn()) ? 20 : 0;
+		console_rect.mBottom = gHUDView->getRect().mBottom + getChatConsoleBottomPad() + magic_num;
 		gConsole->reshape(console_rect.getWidth(), console_rect.getHeight());
 		gConsole->setRect(console_rect);
 	}

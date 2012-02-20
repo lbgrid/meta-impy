@@ -1054,6 +1054,11 @@ void LLVoiceClientCapResponder::result(const LLSD& content)
 
 		gVoiceClient->setSpatialChannel(uri, credentials, mResponseID);
 	}
+	else
+	{
+		llwarns << "ParcelVoiceInfoRequest response malformed, disabling voice." << llendl;
+		gVoiceClient->close();
+	}
 }
 
 
@@ -1774,11 +1779,13 @@ void LLVoiceClient::close()
 {
 	LL_DEBUGS("VoiceSession") << "Cancel Session: LLVoiceClient::close() called."
 				<< llendl;
+	mAccountActive = false;
 	setState(stateDisableCleanup);
 }
 
 void LLVoiceClient::start()
 {
+	mAccountActive = true;
 	setState(stateStart);
 }
 
@@ -7218,6 +7225,11 @@ class LLViewerParcelVoiceInfo : public LLHTTPNode
 				response_id.generate();
 				gVoiceClient->setPIRCapResponseID(response_id);
 				gVoiceClient->setSpatialChannel(uri, credentials, response_id);
+			}
+			else
+			{
+				llwarns << "ParcelVoiceInfoRequest response malformed, disabling voice." << llendl;
+				gVoiceClient->close();
 			}
 		}
 	}
