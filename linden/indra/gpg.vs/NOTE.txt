@@ -1,0 +1,20 @@
+The licensing of gpg.vs has come to my attention.  It's GPL v2, so is
+compatible with this viewer.  However, for the purposes of adding OTR to
+V3 based viewers, where LGPL is needed, this might be a problem.
+
+The actual gpg.vs code does not state any sort of license, but it
+includes parts of other projects that state LGPL 2.1.  Only on
+sourceforge does it state GPL 2.0.  There's been no activity since 2009
+there, and the authors web site no longer exists.  The relevant parts of
+gpg.vs are only Windows build tool wrappers, and thus it's not important
+to consider their license for the purposes of linking, only for the
+purposes of source distribution.  Certainly the actual Windows build
+tools are not LGPL compatible.  Still, it might be worth it to try to
+contact Francesco Picasso if GPL is a worry.  My guess is that Francesco
+Picasso was simply not worried about the license.
+
+Personally I'd be inclined to just rewrite the build tool wrappers as
+cmake stuff just to make it more consistent with the rest.  Plus, V3
+based viewers have their own LL invented method of dealing with the
+problem of building external libraries.  V3 viewers might want to ditch
+gpg.vs and just use that new autobuild tool.
