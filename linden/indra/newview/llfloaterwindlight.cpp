@@ -873,7 +873,7 @@ void LLFloaterWindLight::onSavePreset(LLUICtrl* ctrl, void* userData)
 		{
 			// Make sure we have a ".wl" extension.
 			std::string name = comboBox->getSelectedItemLabel();
-			if(name.length() > 2 && name.compare(name.length() - 3, 3, ".wl") != 0)
+			if(!LLWLParamManager::isSkySettingsNotecard(name))
 			{
 				name += ".wl";
 			}
@@ -973,14 +973,12 @@ bool LLFloaterWindLight::deleteAlertCallback(const LLSD& notification, const LLS
 			"WLPresetsCombo");
 		LLFloaterDayCycle* day_cycle = NULL;
 		LLComboBox* key_combo = NULL;
-		LLMultiSliderCtrl* mult_sldr = NULL;
 
 		if(LLFloaterDayCycle::isOpen()) 
 		{
 			day_cycle = LLFloaterDayCycle::instance();
 			key_combo = day_cycle->getChild<LLComboBox>( 
 				"WLKeyPresets");
-			mult_sldr = day_cycle->getChild<LLMultiSliderCtrl>("WLDayCycleKeys");
 		}
 
 		std::string name(combo_box->getSelectedValue().asString());

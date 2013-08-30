@@ -232,21 +232,15 @@ class WindowsManifest(ViewerManifest):
 
     def construct(self):
         super(WindowsManifest, self).construct()
-        # the final exe is complicated because we're not sure where it's coming from,
-        # nor do we have a fixed name for the executable
-        # Actually, we know on both counts -- MC
-        if self.configuration().lower() == "release":
-            self.path(self.find_existing_file('release/meta-impy-bin.exe'), dst=self.final_exe())
-        elif self.configuration().lower() == "releasesse2":
-            self.path(self.find_existing_file('releasesse2/meta-impy-bin.exe'), dst=self.final_exe())
-        elif self.configuration().lower() == "relwithdebinfo":
-            self.path(self.find_existing_file('relwithdebinfo/meta-impy-bin.exe'), dst=self.final_exe())
-        elif self.configuration().lower() == "debug":
-            self.path(self.find_existing_file('debug/meta-impy-bin.exe'), dst=self.final_exe())
-        else:
-            self.path(self.find_existing_file('release/meta-impy-bin.exe', 'releasesse2/meta-impy-bin.exe', 'relwithdebinfo/meta-impy-bin.exe', 'debug/meta-impy-bin.exe'), dst=self.final_exe())
+        # Come out, come out, where ever you are.
+        executable = self.find_existing_file('release/meta-impy-bin.exe', 'releasesse2/meta-impy-bin.exe', 'relwithdebinfo/meta-impy-bin.exe', 'debug/meta-impy-bin.exe', './meta-impy-bin.exe')
+        nmake = False
+        self.path(executable, dst=self.final_exe())
 
         # copy over the the pdb file for the regular or SSE2 versions if we don't already have one copied
+        # Don't think this ever worked, the destination seems bogus.
+        # It's trying to copy a built file outside of the source tree, a file we have anyway.
+        # TODO - do we even need this?
         symbol_ver = '.'.join(self.args['version'])
         symbol_file = 'meta-impy-%s.%s.pdb' % (symbol_ver, self.args['configuration'])
         symbol_path = '../../../../../pdb_files/%s' % (symbol_file)
@@ -255,26 +249,28 @@ class WindowsManifest(ViewerManifest):
         else:
             #print "%s doesn't exist yet" % (os.getcwd() + symbol_path)
             try:
-                self.path(self.find_existing_file('release/meta-impy-bin.pdb'), dst="../%s" % (symbol_path))
+                self.path(self.find_existing_file(executable.split('/', 1)[0] % '/meta-impy-bin.pdb'), dst="../%s" % (symbol_path))
                 pass
             except:
                 print "Can't save symbol file %s, skipping" % (symbol_path)
                 pass
-        
+
         self.gather_documents()
 
         if self.prefix("../..", dst="doc"):
             self.path("LICENSE-libraries.txt")
             self.end_prefix("../..")
 
-
         self.path("meta-impy.url")
 
         # Plugin host application
-        self.path(os.path.join(os.pardir,
-                               'llplugin', 'slplugin', self.args['configuration'], "SLPlugin.exe"),
-                  "SLPlugin.exe")
-
+        try:
+            self.path(os.path.join(os.pardir, 'llplugin', 'slplugin', self.args['configuration'], "SLPlugin.exe"), "SLPlugin.exe")
+        except:
+            # Probably an nmake build, which is not putting exe's into the configuration folders.
+            self.path(os.path.join(os.pardir, 'llplugin', 'slplugin', "SLPlugin.exe"), "SLPlugin.exe")
+            # Propogate our wild guess.
+            nmake = True
 
         self.path("featuretable.txt")
 
@@ -283,17 +279,17 @@ class WindowsManifest(ViewerManifest):
 
         # For using FMOD for sound... DJS
         #self.path("fmod.dll")
-        
+
         # For spellchecking
-        if self.prefix(src=self.args['configuration'], dst=""):
+        if self.prefix(self.args['configuration'], dst=""):
             self.path("libhunspell.dll")
             self.end_prefix()
 
-	# Copy the llkdu DSO .config
+        # Copy the llkdu DSO .config
         self.path("llkdu.dll.2.config")
 
         # Get llcommon and deps.
-        if self.prefix(src=self.args['configuration'], dst=""):
+        if self.prefix(self.args['configuration'], dst=""):
             self.path('libapr-1.dll')
             self.path('libaprutil-1.dll')
             self.path('libapriconv-1.dll')
@@ -309,23 +305,28 @@ class WindowsManifest(ViewerManifest):
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst=""):
             self.path("openal32.dll")
             self.path("alut.dll")
-            self.end_prefix()           
+            self.end_prefix()
 
+        # TODO - Yes, I know, would be better if nmake builds put stuff in the right place, track that down and fix it later.
+        if nmake:
+            config = ''
+        else:
+            config = self.args['configuration']
         # Media plugins - QuickTime
-        if self.prefix(src='../media_plugins/quicktime/%s' % self.args['configuration'], dst="llplugin"):
+        if self.prefix(src='../media_plugins/quicktime/%s' % config, dst="llplugin"):
             self.path("media_plugin_quicktime.dll")
             self.end_prefix()
 
         # Media plugins - WebKit/Qt
-        if self.prefix(src='../media_plugins/webkit/%s' % self.args['configuration'], dst="llplugin"):
+        if self.prefix(src='../media_plugins/webkit/%s' % config, dst="llplugin"):
             self.path("media_plugin_webkit.dll")
             self.end_prefix()
 
         # Media plugins - GStreamer
-        if self.prefix(src='../media_plugins/gstreamer010/%s' % self.args['configuration'], dst="llplugin"):
+        if self.prefix(src='../media_plugins/gstreamer010/%s' % config, dst="llplugin"):
             self.path("media_plugin_gstreamer010.dll")
-            self.end_prefix()            
- 
+            self.end_prefix()
+
         # For WebKit/Qt plugin runtimes
         if self.prefix(src="../../libraries/i686-win32/lib/release", dst="llplugin"):
             self.path("libeay32.dll")
@@ -476,13 +477,15 @@ class WindowsManifest(ViewerManifest):
             sse_string = "-(SSE2-optimized)"
 
         version = '.'.join(self.args['version'])
-        base_filename = self.installer_prefix() + version + sse_string
+        version_number = version.split('-', 1)[0]
+        base_filename = self.installer_prefix() + version + "-Windows-x86" + sse_string
         app_name = self.channel()
         app_ver_name="%s %s" % (app_name, version)
 
         new_script = base_filename + ".iss"
         self.replace_in("installers/windows/meta-impy_installer_template.iss", new_script, {
                 "%%VERSION%%":version,
+                "%%VERSIONNUMBER%%":version_number,
                 "%%INSTALLERFILENAME%%":base_filename,
                 "%%PACKAGEFILES%%":self.args['dest'],
                 "%%APPNAME%%":app_name,
@@ -1035,13 +1038,32 @@ class Linux_i686Manifest(LinuxManifest):
                 #self.path("libgstvolume.so")
                 #self.path("libgstvorbis.so")
                 #self.path("libgstwavparse.so")
-                
+
                 #self.end_prefix("gstreamer-plugins")
             
 # [$PLOTR$] these two are not needed when STATIC_LIBOTR_ETC is on in .../linden/indra/CMakeLists.txt
 #            self.path("libotr.so.2.2.0")
 #            self.path("libotr.so.2")
 # [/$PLOTR$]
+
+            # Wish I could kill it with fire.  lol
+            self.path("libboost_date_time-mt.so")
+            self.path("libboost_date_time-mt.so.1.52.0")
+            self.path("libboost_filesystem-mt.so")
+            self.path("libboost_filesystem-mt.so.1.52.0")
+            self.path("libboost_iostreams-mt.so")
+            self.path("libboost_iostreams-mt.so.1.52.0")
+            self.path("libboost_program_options-mt.so")
+            self.path("libboost_program_options-mt.so.1.52.0")
+            self.path("libboost_regex-mt.so")
+            self.path("libboost_regex-mt.so.1.52.0")
+            self.path("libboost_signals-mt.so")
+            self.path("libboost_signals-mt.so.1.52.0")
+            self.path("libboost_system-mt.so")
+            self.path("libboost_system-mt.so.1.52.0")
+            self.path("libboost_thread-mt.so")
+            self.path("libboost_thread-mt.so.1.52.0")
+
             self.end_prefix("lib")
 
             # Vivox runtimes and libs
@@ -1124,11 +1146,48 @@ class Linux_x86_64Manifest(LinuxManifest):
 #            self.path("libpangoxft-1.0.so.0")		# So we depend system gdk pixbufs and pango anyway.
             ##self.path("libpixman-1.so.0")
                 
-                #self.end_prefix("gstreamer-plugins")
 # [$PLOTR$] these two are not needed when STATIC_LIBOTR_ETC is on in .../linden/indra/CMakeLists.txt
 #            self.path("libotr.so.2.2.0")
 #            self.path("libotr.so.2")
 # [/$PLOTR$]
+
+#KILL IT WITH FIRE
+            ## Gstreamer libs
+            #self.end_prefix("gstreamer-plugins")
+            #self.path("libgstbase-0.10.so.0")
+            #self.path("libgstreamer-0.10.so.0")
+            #self.path("libgstaudio-0.10.so.0")
+            #self.path("libgstbase-0.10.so.0")
+            #self.path("libgstcontroller-0.10.so.0")
+            #self.path("libgstdataprotocol-0.10.so.0")
+            #self.path("libgstinterfaces-0.10.so.0")
+            #self.path("libgstnetbuffer-0.10.so.0")
+            #self.path("libgstpbutils-0.10.so.0")
+            #self.path("libgstriff-0.10.so.0")
+            #self.path("libgstrtp-0.10.so.0")
+            #self.path("libgstrtsp-0.10.so.0")
+            #self.path("libgstsdp-0.10.so.0")
+            #self.path("libgsttag-0.10.so.0")
+            #self.path("libgstvideo-0.10.so.0")
+
+            # Wish I could kill it with fire.  lol
+            self.path("libboost_date_time-mt.so")
+            self.path("libboost_date_time-mt.so.1.52.0")
+            self.path("libboost_filesystem-mt.so")
+            self.path("libboost_filesystem-mt.so.1.52.0")
+            self.path("libboost_iostreams-mt.so")
+            self.path("libboost_iostreams-mt.so.1.52.0")
+            self.path("libboost_program_options-mt.so")
+            self.path("libboost_program_options-mt.so.1.52.0")
+            self.path("libboost_regex-mt.so")
+            self.path("libboost_regex-mt.so.1.52.0")
+            self.path("libboost_signals-mt.so")
+            self.path("libboost_signals-mt.so.1.52.0")
+            self.path("libboost_system-mt.so")
+            self.path("libboost_system-mt.so.1.52.0")
+            self.path("libboost_thread-mt.so")
+            self.path("libboost_thread-mt.so.1.52.0")
+
             self.end_prefix("lib64")
 
 

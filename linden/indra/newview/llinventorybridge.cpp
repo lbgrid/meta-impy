@@ -1439,7 +1439,6 @@ BOOL move_inv_category_world_to_agent(const LLUUID& object_id,
 	if(drop && accept)
 	{
 		it = inventory_objects.begin();
-		InventoryObjectList::iterator first_it = inventory_objects.begin();
 		LLMoveInv* move_inv = new LLMoveInv;
 		move_inv->mObjectID = object_id;
 		move_inv->mCategoryID = category_id;
@@ -1922,24 +1921,11 @@ void LLFolderBridge::pasteFromClipboard()
 			item = model->getItem(objects.get(i));
 			if (item)
 			{
-				copy_inventory_item(
-					gAgent.getID(),
-					item->getPermissions().getOwner(),
-					item->getUUID(),
-					parent_id,
-					std::string(),
-					LLPointer<LLInventoryCallback>(NULL));
-				LLInventoryCategory* cat = model->getCategory(item->getUUID());
-				if(cat)
-				{
-					model->purgeDescendentsOf(mUUID);
-				}
-				LLInventoryObject* obj = model->getObject(item->getUUID());
-				if(!obj) return;
-				obj->removeFromServer();
-				LLPreview::hide(item->getUUID());
-				model->deleteObject(item->getUUID());
-				model->notifyObservers();
+				LLInvFVBridge::changeItemParent(
+					model,
+					(LLViewerInventoryItem*)item,
+					mUUID,
+					FALSE);
 			}
 		}
 	}
@@ -3123,11 +3109,11 @@ void LLNotecardBridge::openItem()
 	LLViewerInventoryItem* item = getItem();
 	if (item)
 	{
-		if(isSkySetting())
+		if(LLWLParamManager::isSkySettingsNotecard(getName()))
  		{
 			LLWLParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
 		}
-		else if(isWaterSetting())
+		else if(LLWLParamManager::isWaterSettingsNotecard(getName()))
 		{
 			LLWaterParamManager::instance()->loadPresetNotecard(item->getName(), item->getAssetUUID(), mUUID);
 		}
@@ -3158,13 +3144,13 @@ void LLNotecardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	else
 	{
 
-		if(isWindLight())
+		if(LLWLParamManager::isSettingsNotecard(getName()))
 		{
-			if(isSkySetting())
+			if(LLWLParamManager::isSkySettingsNotecard(getName()))
 			{
 				items.push_back(std::string("Use WindLight Settings"));
 			}
-			else if(isWaterSetting())
+			else if(LLWLParamManager::isWaterSettingsNotecard(getName()))
 			{
 				items.push_back(std::string("Use WaterLight Settings"));
 			}
@@ -3221,11 +3207,11 @@ void LLNotecardBridge::performAction(LLFolderView* folder, LLInventoryModel* mod
 
 LLUIImagePtr LLNotecardBridge::getIcon() const
 {
-	if(isSkySetting())
+	if(LLWLParamManager::isSkySettingsNotecard(getName()))
 	{
 		return LLUI::getUIImage("Inv_WindLight");
 	}
-	else if(isWaterSetting())
+	else if(LLWLParamManager::isWaterSettingsNotecard(getName()))
  	{
 		return LLUI::getUIImage("Inv_WaterLight");
 	}
@@ -3235,20 +3221,6 @@ LLUIImagePtr LLNotecardBridge::getIcon() const
 	}
 }
 
-bool LLNotecardBridge::isSkySetting() const
-{
-	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".wl") == 0);
-}
-
-bool LLNotecardBridge::isWaterSetting() const
-{
-	return (getName().length() > 2 && getName().compare(getName().length() - 3, 3, ".ww") == 0);
-}
-
-bool LLNotecardBridge::isWindLight() const
-{
-	return (isSkySetting() || isWaterSetting());
-}
 
 // +=================================================+
 // |        LLGestureBridge                          |

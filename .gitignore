@@ -1,12 +1,21 @@
 #
 # This file contains names (and wildcards) of files that
 # Git should ignore.
-#
-
+# 
+# Since we only care about the actual source code files,
+# all the libraries are ignored, as are the files that 
+# are created when you compile.
+# 
 
 # LIBRARIES
 
-linden/LICENSES/
+# These two lines are a bit tricky.
+# The ! syntax negates a pattern,
+# but it needs a pattern, not just a directory.
+# So turn the first line into a pattern for ! to negate.
+linden/LICENSES/*
+!linden/LICENSES/LICENSE-logos.txt
+
 linden/LICENSE-libraries-*.txt
 linden/libraries/
 linden/indra/newview/app_settings/mozilla*/

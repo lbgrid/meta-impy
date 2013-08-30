@@ -2500,7 +2500,6 @@ void LLVOAvatar::computeBodySize()
 
 	// some of the joints have not been cached
 	LLVector3 skull = mSkullp->getPosition();
-	LLVector3 skull_scale = mSkullp->getScale();
 
 	LLVector3 neck = mNeckp->getPosition();
 	LLVector3 neck_scale = mNeckp->getScale();
@@ -2580,7 +2579,6 @@ U32 LLVOAvatar::processUpdateMessage(LLMessageSystem *mesgsys,
 {
 	LLMemType mt(LLMemType::MTYPE_AVATAR);
 
-	LLVector3 old_vel = getVelocity();
 	// Do base class updates...
 	U32 retval = LLViewerObject::processUpdateMessage(mesgsys, user_data, block_num, update_type, dp);
 
@@ -3312,6 +3310,16 @@ void LLVOAvatar::resolveClient(LLColor4& avatar_name_color, std::string& client,
 			avatar_name_color = avatar_name_color * (F32)0.333333333333;
 			client = "Meerkat";
 		}
+		else if(idx == LLUUID("7eab0700-f000-0000-0000-546561706f74"))
+		{
+			avatar_name_color = LLColor4(0.69f,0.42f,0.84f,1.0f); // Armins V3 viewer.
+			client = "Teapot";
+		}
+		else if(idx == LLUUID("b32f01bc-f9b3-4535-b1f3-99dc38f022db"))
+		{
+			avatar_name_color = LLColor4(0.8f,1.0f,0.0f,1.0f);//Meta7
+			client = "Meta7";
+		}
 		else if(idx == LLUUID("ccda2b3b-e72c-a112-e126-fee238b67218"))
 		{
 			avatar_name_color += LLColor4::green;//emerald
@@ -3819,8 +3827,6 @@ void LLVOAvatar::idleUpdateNameTag(const LLVector3& root_pos_last)
 					mNameText->setLabel(mNameString);
 				}
 
-				char line[MAX_STRING];		/* Flawfinder: ignore */
-				line[0] = '\0';
 				std::deque<LLChat>::iterator chat_iter = mChats.begin();
 				mNameText->clearString();
 
@@ -4283,8 +4289,6 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 	xyVel.mV[VZ] = 0.0f;
 	speed = xyVel.length();
 
-	BOOL throttle = TRUE;
-
 	if (!(mIsSitting && getParent()))
 	{
 		//--------------------------------------------------------------------
@@ -4295,7 +4299,6 @@ BOOL LLVOAvatar::updateCharacter(LLAgent &agent)
 		if (mTimeLast == 0.0f)
 		{
 			mTimeLast = animation_time;
-			throttle = FALSE;
 
 			// put the pelvis at slaved position/mRotation
 			mRoot.setWorldPosition( getPositionAgent() ); // first frame

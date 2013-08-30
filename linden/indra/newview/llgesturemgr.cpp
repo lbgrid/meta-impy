@@ -565,7 +565,7 @@ BOOL LLGestureManager::triggerAndReviseString(const std::string &utf8str, std::s
 				}
 			}
 		}
-		
+
 		if(!gesture)
 		{
 			// This token doesn't match a gesture.  Pass it through to the output.
