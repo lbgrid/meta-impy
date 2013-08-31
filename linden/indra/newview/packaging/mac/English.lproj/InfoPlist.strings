@@ -1,5 +1,5 @@
 /* Localized versions of Info.plist keys */
 
-CFBundleName = "Imprudence";
-CFBundleShortVersionString = "Imprudence 1.4.0.3 exp 1";
-CFBundleGetInfoString = "Imprudence 1.4.0.3 exp 1";
+CFBundleName = "meta-impy";
+CFBundleShortVersionString = "meta-impy 1.4.0.3 exp 1";
+CFBundleGetInfoString = "meta-impy 1.4.0.3 exp 1";

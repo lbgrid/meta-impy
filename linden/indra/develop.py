@@ -632,9 +632,9 @@ class WindowsSetup(PlatformSetup):
         if self.generator == 'nmake':
            # Hack around a bug in cmake that I'm surprised did not hit GUI controlled builds.
            self.run(r'sed -i "s|\(^RC_FLAGS .* \) /GS .*$|\1|" build-nmake/win_crash_logger/CMakeFiles/windows-crash-logger.dir/flags.make')
-           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /GS .*$|\1|" build-nmake/newview/CMakeFiles/imprudence-bin.dir/flags.make')
+           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /GS .*$|\1|" build-nmake/newview/CMakeFiles/meta-impy-bin.dir/flags.make')
            self.run(r'sed -i "s|\(^RC_FLAGS .* \) /EHsc .*/Zm1000 \($\)|\1\2|" build-nmake/win_crash_logger/CMakeFiles/windows-crash-logger.dir/flags.make')
-           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /EHsc .*/Zm1000 \($\)|\1\2|" build-nmake/newview/CMakeFiles/imprudence-bin.dir/flags.make')
+           self.run(r'sed -i "s|\(^RC_FLAGS .* \) /EHsc .*/Zm1000 \($\)|\1\2|" build-nmake/newview/CMakeFiles/meta-impy-bin.dir/flags.make')
            # Evil hack.
            self.run(r'touch newview/touched.bat')
            return 'nmake'

@@ -93,7 +93,7 @@ void process_generic_message(LLMessageSystem* msg, void**)
 	}
 	else if(method == "WindlightReset")
 	{	
-		WindlightMessage::resetRegion();
+		LightShare::resetRegion();
 		return;
 	}
 

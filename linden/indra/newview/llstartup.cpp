@@ -268,7 +268,6 @@ bool LLStartUp::sLoginFailed = false;
 
 void login_show();
 void login_callback(S32 option, void* userdata);
-bool is_hex_string(U8* str, S32 len);
 void show_first_run_dialog();
 bool first_run_dialog_callback(const LLSD& notification, const LLSD& response);
 void set_startup_status(const F32 frac, const std::string& string, const std::string& msg);
@@ -3270,39 +3269,6 @@ void LLStartUp::deletePasswordFromDisk()
 	LLFile::remove(filepath);
 }
 
-bool is_hex_string(U8* str, S32 len)
-{
-	bool rv = true;
-	U8* c = str;
-	while(rv && len--)
-	{
-		switch(*c)
-		{
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-		case 'a':
-		case 'b':
-		case 'c':
-		case 'd':
-		case 'e':
-		case 'f':
-			++c;
-			break;
-		default:
-			rv = false;
-			break;
-		}
-	}
-	return rv;
-}
 
 void show_first_run_dialog()
 {
