@@ -93,8 +93,10 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-#define strcasecmp stricmp
-#define strncasecmp strnicmp
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
 #define snprintf _snprintf
+//#define snprintf _snprintf_s
+//#define strerror strerror_s
 
 #endif

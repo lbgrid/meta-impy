@@ -73,7 +73,6 @@ if (WINDOWS)
       /DUNICODE
       /D_UNICODE 
       /GS
-      /TP
       /W3
       /c
       /Zc:forScope
@@ -100,9 +99,10 @@ if (WINDOWS)
   endif (MSVC80 OR MSVC90)
   
   # Are we using the crummy Visual Studio KDU build workaround?
-  if (NOT VS_DISABLE_FATAL_WARNINGS)
-    add_definitions(/WX)
-  endif (NOT VS_DISABLE_FATAL_WARNINGS)
+  # FIXME: Let's just disable this for now, see if it's needed, coz I have no idea what that work around is about.
+#  if (NOT VS_DISABLE_FATAL_WARNINGS)
+#    add_definitions(/WX)
+#  endif (NOT VS_DISABLE_FATAL_WARNINGS)
 endif (WINDOWS)
 
 
