@@ -54,7 +54,7 @@ BOOL FloaterOTR::postBuild()
 	childSetAction("btn_cancel", onClickCancel, this);
 
 	childSetValue("EmeraldUseOTR", LLSD((S32)gSavedSettings.getU32("EmeraldUseOTR")));
-	childSetValue("EmeraldUseOTRInTypingStop", gSavedSettings.getBOOL("EmeraldUseOTRInTypingStop"));
+	childSetValue("EmeraldOTRInTypingStop", gSavedSettings.getBOOL("EmeraldOTRInTypingStop"));
 	getChild<LLButton>("otr_help_btn")->setClickedCallback(onClickOtrHelp, this);
 
 	return TRUE;
@@ -89,7 +89,7 @@ void FloaterOTR::apply()
     U32 otrpref = childGetValue("EmeraldUseOTR").asReal();
 
     gSavedSettings.setU32("EmeraldUseOTR", otrpref);
-    gSavedSettings.setBOOL("EmeraldUseOTRInTypingStop", childGetValue("EmeraldUseOTRInTypingStop").asBoolean());
+    gSavedSettings.setBOOL("EmeraldOTRInTypingStop", childGetValue("EmeraldOTRInTypingStop").asBoolean());
     // otrpref: 0 == Require OTR, 1 == Request OTR, 2 == Accept OTR, 3 == Decline OTR
     if (3 == otrpref)
 	OTR_Wrapper::stopAll();
