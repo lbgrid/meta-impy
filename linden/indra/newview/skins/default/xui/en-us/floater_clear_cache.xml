@@ -7,7 +7,7 @@
      font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
      mouse_opaque="true" name="cache_label" v_pad="0" width="185">
 Cache Will Be Cleared After
-You Restart Imprudence
+You Restart meta-impy
   </text>
   <check_box bottom_delta="-37" follows="left|top" font="SansSerifSmall" height="20"
      initial_value="false" label="Clear texture cache" left="10"

@@ -179,7 +179,6 @@
 
 #include "hippogridmanager.h"
 #include "hippolimits.h"
-#include "hippoupdate.h"
 
 // [RLVa:KB]
 #include "rlvhandler.h"
@@ -616,6 +615,11 @@ bool LLAppViewer::init()
 	// Always add the version to the top of the log--makes debugging easier -- MC
 	llinfos << ViewerInfo::prettyInfo() << llendl;
 
+	// Always fetch the Ethernet MAC address, needed both for login
+	// and password load.  Need to do this before initConfiguration(),
+	// as the password loading part needs the MAC.
+	LLUUID::getNodeID(gMACAddress);
+
     if (!initConfiguration())
 		return false;
 
@@ -747,10 +751,6 @@ bool LLAppViewer::init()
 		// Early out from user choice.
 		return false;
 	}
-
-	// Always fetch the Ethernet MAC address, needed both for login
-	// and password load.
-	LLUUID::getNodeID(gMACAddress);
 
 	// Prepare for out-of-memory situations, during which we will crash on
 	// purpose and save a dump.

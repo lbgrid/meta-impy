@@ -4,3 +4,4 @@
 # make the libgcrypt, libgpg-error, and libotr compile.
 
 set(gpg.vs_INCLUDE_DIRS )
+add_definitions( /DHAVE_CONFIG_H=1 )

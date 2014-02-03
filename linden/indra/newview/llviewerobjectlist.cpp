@@ -288,7 +288,6 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 {
 	LLFastTimer t(LLFastTimer::FTM_PROCESS_OBJECTS);	
 	
-	LLVector3d camera_global = gAgent.getCameraPositionGlobal();
 	LLViewerObject *objectp;
 	S32			num_objects;
 	U32			local_id;
@@ -305,28 +304,28 @@ void LLViewerObjectList::processObjectUpdate(LLMessageSystem *mesgsys,
 	if (!cached && !compressed && update_type != OUT_FULL)
 	{
 		gTerseObjectUpdates += num_objects;
-		S32 size;
-		if (mesgsys->getReceiveCompressedSize())
-		{
-			size = mesgsys->getReceiveCompressedSize();
-		}
-		else
-		{
-			size = mesgsys->getReceiveSize();
-		}
+//		S32 size;
+//		if (mesgsys->getReceiveCompressedSize())
+//		{
+//			size = mesgsys->getReceiveCompressedSize();
+//		}
+//		else
+//		{
+//			size = mesgsys->getReceiveSize();
+//		}
 //		llinfos << "Received terse " << num_objects << " in " << size << " byte (" << size/num_objects << ")" << llendl;
 	}
 	else
 	{
-		S32 size;
-		if (mesgsys->getReceiveCompressedSize())
-		{
-			size = mesgsys->getReceiveCompressedSize();
-		}
-		else
-		{
-			size = mesgsys->getReceiveSize();
-		}
+//		S32 size;
+//		if (mesgsys->getReceiveCompressedSize())
+//		{
+//			size = mesgsys->getReceiveCompressedSize();
+//		}
+//		else
+//		{
+//			size = mesgsys->getReceiveSize();
+//		}
 
 //		llinfos << "Received " << num_objects << " in " << size << " byte (" << size/num_objects << ")" << llendl;
 		gFullObjectUpdates += num_objects;
@@ -639,7 +638,7 @@ void LLViewerObjectList::updateApparentAngles(LLAgent &agent)
 		mCurLazyUpdateIndex = 0;
 	}
 
-	mCurBin = (++mCurBin) % NUM_BINS;
+	mCurBin = (mCurBin + 1) % NUM_BINS;
 
 	LLVOAvatar::cullAvatarsByPixelArea();
 }
