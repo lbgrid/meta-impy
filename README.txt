@@ -1,6 +1,6 @@
  ABOUT META-IMPY
 
-    The meta-impy viewer is based on the Imprudence 1.4 viewer -
+    The Littlebird Imprudence viewer is based on the Imprudence 1.4 viewer -
     
     http://blog.kokuaviewer.org/
 
@@ -35,13 +35,13 @@
     that is not important to me, and not recommended by me. Use at your
     own risk on the SL grids.
 
-    The latest information for the meta-impy viewer is always
+    The latest information for the Littlebird Imprudence Viewer is always
     available at:
 
-    Forums		http://onefang.net/drupal/forum/5
-    Downloads		http://onefang.net/drupal/downloads
-    Project details	http://onefang.net/redmine/projects/me7v-0
-    Source code		https://github.com/onefang/meta-impy
+    Forums		Coming soon...
+    Downloads		http://lbgrid.tiddlyspot.com/#LittlebirdViewerDownloads
+    Project details	http://lbgrid.tiddlyspot.com/index.html#lbViewer-Imprudence-projectsheet
+    Source code		https://github.com/lbgrid/meta-impy
 
 
  LICENSE
@@ -61,4 +61,6 @@
     meta7 and/or Magne Metaverse Reasearch are in no way affiliated with Linden Research, Inc.
 
     onefang has no relationship with any of them, though used to work for meta 7.
+    
+    Littlebird Grid is not affiliated in any way with any of the above but is mutually friendly toward the later
 
