@@ -62,5 +62,5 @@
 
     onefang has no relationship with any of them, though used to work for meta 7.
     
-    Littlebird Grid is not affiliated in any way with any of the above but is mutually friendly toward the later
+    Littlebird Grid is not affiliated in any way with any of the above but is mutually friendly toward the latter
 
